@@ -1,11 +1,22 @@
 #!/usr/bin/env python3
 """
-Extract musical passages from encoding files for manual inspection.
+Extract musical passages from encoding files.
 
-This helper script extracts specific measures from music files while preserving
-all metadata (key, time signature, clef) to create renderable excerpts.
+This module provides both:
+1. Library functions for extracting passages programmatically (for benchmark runner)
+2. CLI tool for manual inspection and testing
 
-Usage:
+Library usage:
+    from src.extract_passage import extract
+    
+    content = extract(
+        format="mei",
+        file_path="data/mei/16-1.mei", 
+        start_measure=1,
+        end_measure=4
+    )
+
+CLI usage:
     python extract_passage.py --sonata 16 --movement 1 --measures 1-4
     python extract_passage.py --sonata 16 --movement 1 --measures 5 --format mei
     python extract_passage.py --sonata 16 --movement 1 --measures 1-4 --output excerpt.abc
@@ -14,19 +25,20 @@ Usage:
 import argparse
 import re
 from pathlib import Path
+from typing import Optional
 
 # Base paths
 DATA_DIR = Path(__file__).parent.parent / "data"
 
 
-def extract_abc(file_path, start_measure, end_measure, output_path=None):
-    """Extract measures from ABC file with full headers."""
-    print(f"\n[ABC] Extracting measures {start_measure}-{end_measure} from {file_path.name}")
-    print("-" * 60)
+def extract_abc(file_path: Path, start_measure: int, end_measure: int) -> str:
+    """
+    Extract measures from ABC file with full headers.
     
+    Returns the extracted content as a string.
+    """
     if not file_path.exists():
-        print(f"Error: File not found: {file_path}")
-        return None
+        raise FileNotFoundError(f"File not found: {file_path}")
     
     with open(file_path, 'r') as f:
         lines = f.readlines()
@@ -47,35 +59,41 @@ def extract_abc(file_path, start_measure, end_measure, output_path=None):
             body_lines.append(line)
     
     # Extract measures from body
-    # ABC uses | as bar separator, count bars
-    body_text = ''.join(body_lines)
+    # ABC typically has 2 voices (RH and LH), so each measure = 2 lines
+    # Count voice 1 lines with bar markers to determine measures
+    extracted_lines = []
+    current_measure = 0
     
-    # Count measures by counting | symbols
-    # This is simplified - real ABC parsing is complex
-    # For now, extract a reasonable chunk around the measures
+    for line in body_lines:
+        # Check if this is a voice 1 line (contains notes/rests and bar marker)
+        if line.startswith('[V:1]'):
+            # This is a voice 1 line - increment measure on bar marker
+            if '|' in line:
+                current_measure += 1
+            
+            if start_measure <= current_measure <= end_measure:
+                extracted_lines.append(line)
+        elif line.startswith('[V:2]'):
+            # This is voice 2 - include if we're in the measure range
+            if start_measure <= current_measure <= end_measure:
+                extracted_lines.append(line)
+        else:
+            # Non-voice lines (e.g., clef changes) - include if in range
+            if start_measure <= current_measure <= end_measure:
+                extracted_lines.append(line)
     
-    extracted = ''.join(header_lines) + ''.join(body_lines[:20])  # First 20 lines of body
-    
-    result = extracted + f"\n% Extracted measures {start_measure}-{end_measure}\n% Note: ABC extraction is approximate - verify rendering\n"
-    
-    if output_path:
-        with open(output_path, 'w') as f:
-            f.write(result)
-        print(f"Saved to: {output_path}")
-    else:
-        print(result)
-    
+    result = ''.join(header_lines) + ''.join(extracted_lines)
     return result
 
 
-def extract_mei(file_path, start_measure, end_measure, output_path=None):
-    """Extract measures from MEI file with scoreDef."""
-    print(f"\n[MEI] Extracting measures {start_measure}-{end_measure} from {file_path.name}")
-    print("-" * 60)
+def extract_mei(file_path: Path, start_measure: int, end_measure: int) -> str:
+    """
+    Extract measures from MEI file with scoreDef.
     
+    Returns the extracted content as a string.
+    """
     if not file_path.exists():
-        print(f"Error: File not found: {file_path}")
-        return None
+        raise FileNotFoundError(f"File not found: {file_path}")
     
     with open(file_path, 'r') as f:
         content = f.read()
@@ -117,27 +135,17 @@ def extract_mei(file_path, start_measure, end_measure, output_path=None):
   </music>
 </mei>
 """
-    
-    if output_path:
-        with open(output_path, 'w') as f:
-            f.write(result)
-        print(f"Saved to: {output_path}")
-        print(f"Extracted {len(extracted_measures)} measures")
-    else:
-        print(result[:2000] + "\n..." if len(result) > 2000 else result)
-        print(f"\nExtracted {len(extracted_measures)} measures")
-    
     return result
 
 
-def extract_musicxml(file_path, start_measure, end_measure, output_path=None):
-    """Extract measures from MusicXML file with attributes."""
-    print(f"\n[MusicXML] Extracting measures {start_measure}-{end_measure} from {file_path.name}")
-    print("-" * 60)
+def extract_musicxml(file_path: Path, start_measure: int, end_measure: int) -> str:
+    """
+    Extract measures from MusicXML file with attributes.
     
+    Returns the extracted content as a string.
+    """
     if not file_path.exists():
-        print(f"Error: File not found: {file_path}")
-        return None
+        raise FileNotFoundError(f"File not found: {file_path}")
     
     with open(file_path, 'r') as f:
         content = f.read()
@@ -185,27 +193,17 @@ def extract_musicxml(file_path, start_measure, end_measure, output_path=None):
   </part>
 </score-partwise>
 """
-    
-    if output_path:
-        with open(output_path, 'w') as f:
-            f.write(result)
-        print(f"Saved to: {output_path}")
-        print(f"Extracted {len(extracted_measures)} measures")
-    else:
-        print(result[:2000] + "\n..." if len(result) > 2000 else result)
-        print(f"\nExtracted {len(extracted_measures)} measures")
-    
     return result
 
 
-def extract_humdrum(file_path, start_measure, end_measure, output_path=None):
-    """Extract measures from Humdrum file with all headers and interpretations."""
-    print(f"\n[Humdrum] Extracting measures {start_measure}-{end_measure} from {file_path.name}")
-    print("-" * 60)
+def extract_humdrum(file_path: Path, start_measure: int, end_measure: int) -> str:
+    """
+    Extract measures from Humdrum file with all headers and interpretations.
     
+    Returns the extracted content as a string.
+    """
     if not file_path.exists():
-        print(f"Error: File not found: {file_path}")
-        return None
+        raise FileNotFoundError(f"File not found: {file_path}")
     
     with open(file_path, 'r') as f:
         lines = f.readlines()
@@ -267,17 +265,79 @@ def extract_humdrum(file_path, start_measure, end_measure, output_path=None):
     # Build complete Humdrum file
     result_lines = header_lines + [''] + spine_def_lines + [''] + measure_lines + ['*-\t*-\t*-']
     result = '\n'.join(result_lines) + '\n'
-    
-    if output_path:
-        with open(output_path, 'w') as f:
-            f.write(result)
-        print(f"Saved to: {output_path}")
-        print(f"Extracted measures {start_measure}-{end_measure}")
-    else:
-        print(result)
-        print(f"\nExtracted measures {start_measure}-{end_measure}")
-    
     return result
+
+
+def extract(format: str, file_path: str, start_measure: int, end_measure: int) -> str:
+    """
+    Main extraction function - routes to format-specific extractors.
+    
+    Args:
+        format: One of 'abc', 'mei', 'musicxml', 'humdrum'
+        file_path: Path to the source file
+        start_measure: First measure to extract (1-indexed)
+        end_measure: Last measure to extract (inclusive)
+    
+    Returns:
+        String containing the extracted passage with all metadata
+    
+    Raises:
+        ValueError: If format is not supported
+        FileNotFoundError: If file doesn't exist
+    """
+    path = Path(file_path)
+    
+    extractors = {
+        'abc': extract_abc,
+        'mei': extract_mei,
+        'musicxml': extract_musicxml,
+        'humdrum': extract_humdrum,
+    }
+    
+    if format not in extractors:
+        raise ValueError(f"Unsupported format: {format}. Must be one of {list(extractors.keys())}")
+    
+    return extractors[format](path, start_measure, end_measure)
+
+
+# ============================================================================
+# CLI Interface (for manual testing and inspection)
+# ============================================================================
+
+def cli_extract_and_display(format: str, file_path: Path, start_measure: int, 
+                           end_measure: int, output_path: Optional[Path] = None):
+    """CLI wrapper that extracts and displays/saves results."""
+    print(f"\n[{format.upper()}] Extracting measures {start_measure}-{end_measure} from {file_path.name}")
+    print("-" * 60)
+    
+    try:
+        result = extract(format, str(file_path), start_measure, end_measure)
+        
+        if output_path:
+            with open(output_path, 'w') as f:
+                f.write(result)
+            print(f"Saved to: {output_path}")
+            # Count measures for verification
+            if format == 'humdrum':
+                measure_count = result.count('\n=')
+            elif format == 'musicxml':
+                measure_count = result.count('<measure')
+            elif format == 'mei':
+                measure_count = result.count('<measure')
+            elif format == 'abc':
+                # Count V:1 lines with bar markers
+                measure_count = sum(1 for line in result.split('\n') if line.startswith('[V:1]') and '|' in line)
+            print(f"Extracted {measure_count} measures")
+        else:
+            # Display to console
+            if len(result) > 2000:
+                print(result[:2000] + "\n..." + f"\n[Output truncated - {len(result)} total characters]")
+            else:
+                print(result)
+            
+    except Exception as e:
+        print(f"Error: {e}")
+        return
 
 
 def main():
@@ -303,10 +363,10 @@ def main():
     
     # File paths
     formats_to_extract = {
-        "abc": (DATA_DIR / "abc" / f"{args.sonata:02d}-{args.movement}.abc", extract_abc),
-        "mei": (DATA_DIR / "mei" / f"{args.sonata:02d}-{args.movement}.mei", extract_mei),
-        "musicxml": (DATA_DIR / "musicxml" / f"{args.sonata:02d}-{args.movement}.xml", extract_musicxml),
-        "humdrum": (DATA_DIR / "humdrum" / f"{args.sonata:02d}-{args.movement}.krn", extract_humdrum),
+        "abc": (DATA_DIR / "abc" / f"{args.sonata:02d}-{args.movement}.abc", "abc"),
+        "mei": (DATA_DIR / "mei" / f"{args.sonata:02d}-{args.movement}.mei", "mei"),
+        "musicxml": (DATA_DIR / "musicxml" / f"{args.sonata:02d}-{args.movement}.xml", "musicxml"),
+        "humdrum": (DATA_DIR / "humdrum" / f"{args.sonata:02d}-{args.movement}.krn", "humdrum"),
     }
     
     if args.output and args.format == "all":
@@ -314,11 +374,12 @@ def main():
         return
     
     if args.format == "all":
-        for fmt, (file_path, extract_func) in formats_to_extract.items():
-            extract_func(file_path, start, end, None)
+        for fmt, (file_path, format_name) in formats_to_extract.items():
+            cli_extract_and_display(format_name, file_path, start, end, None)
     else:
-        file_path, extract_func = formats_to_extract[args.format]
-        extract_func(file_path, start, end, args.output)
+        file_path, format_name = formats_to_extract[args.format]
+        output_path = Path(args.output) if args.output else None
+        cli_extract_and_display(format_name, file_path, start, end, output_path)
     
     print("\n" + "="*60)
     print("NEXT STEPS:")
