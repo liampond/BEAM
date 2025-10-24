@@ -88,7 +88,7 @@ def extract_abc(file_path: Path, start_measure: int, end_measure: int) -> str:
 
 def extract_mei(file_path: Path, start_measure: int, end_measure: int) -> str:
     """
-    Extract measures from MEI file with scoreDef.
+    Extract measures from MEI file with complete header and scoreDef.
     
     Returns the extracted content as a string.
     """
@@ -98,12 +98,12 @@ def extract_mei(file_path: Path, start_measure: int, end_measure: int) -> str:
     with open(file_path, 'r') as f:
         content = f.read()
     
-    # Extract XML header and mei opening
-    xml_header = '<?xml version="1.0" encoding="UTF-8"?>\n'
+    # Extract everything before <music>
+    music_start = content.find('<music>')
+    if music_start == -1:
+        raise ValueError("Could not find <music> tag in MEI file")
     
-    # Find the <mei> opening tag with namespaces
-    mei_match = re.search(r'<mei[^>]*>', content)
-    mei_tag = mei_match.group(0) if mei_match else '<mei>'
+    header_section = content[:music_start].strip()
     
     # Find scoreDef (contains staffDef with clef, key, meter)
     scoredef_match = re.search(r'<scoreDef.*?</scoreDef>', content, re.DOTALL)
@@ -118,16 +118,18 @@ def extract_mei(file_path: Path, start_measure: int, end_measure: int) -> str:
         if measure_match:
             extracted_measures.append(measure_match.group(0))
     
-    # Build minimal MEI document
-    result = f"""{xml_header}
-{mei_tag}
+    # Build complete MEI document with header
+    # Add proper indentation and newlines between measures
+    measures_formatted = '\n            '.join(extracted_measures)
+    
+    result = f"""{header_section}
   <music>
     <body>
       <mdiv>
         <score>
           {scoredef}
           <section>
-            {''.join(extracted_measures)}
+            {measures_formatted}
           </section>
         </score>
       </mdiv>
