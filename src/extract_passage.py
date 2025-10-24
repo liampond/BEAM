@@ -58,6 +58,23 @@ def extract_abc(file_path: Path, start_measure: int, end_measure: int) -> str:
         else:
             body_lines.append(line)
     
+    # Add a note indicating the extracted measure range
+    measure_range_note = f'N: Extracted measures {start_measure}-{end_measure} from original score\n'
+    
+    # Insert the note after the last N: line or before K: if no N: exists
+    header_with_note = []
+    note_inserted = False
+    for i, line in enumerate(header_lines):
+        header_with_note.append(line)
+        # Insert our note after the last N: line, or just before K: line
+        if line.startswith('K:') and not note_inserted:
+            # Insert before K: line
+            header_with_note.insert(-1, measure_range_note)
+            note_inserted = True
+    
+    if not note_inserted:
+        header_with_note.append(measure_range_note)
+    
     # Extract measures from body
     # ABC typically has 2 voices (RH and LH), so each measure = 2 lines
     # Count voice 1 lines with bar markers to determine measures
@@ -82,7 +99,7 @@ def extract_abc(file_path: Path, start_measure: int, end_measure: int) -> str:
             if start_measure <= current_measure <= end_measure:
                 extracted_lines.append(line)
     
-    result = ''.join(header_lines) + ''.join(extracted_lines)
+    result = ''.join(header_with_note) + ''.join(extracted_lines)
     return result
 
 
