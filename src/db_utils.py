@@ -30,15 +30,30 @@ def get_piece_id(sonata_number: int, movement: int) -> Optional[int]:
     return result[0] if result else None
 
 
-def add_passage(sonata_number: int, movement: int, start_measure: int, 
-                end_measure: int, description: str, granularity: str = "bar") -> int:
-    """Add a passage to the database."""
+def get_or_create_passage(sonata_number: int, movement: int, start_measure: int, 
+                         end_measure: int, description: str, granularity: str = "bar") -> int:
+    """Get existing passage or create new one if it doesn't exist."""
     piece_id = get_piece_id(sonata_number, movement)
     if not piece_id:
         raise ValueError(f"No piece found for Sonata {sonata_number}, Movement {movement}")
     
     conn = get_connection()
     cursor = conn.cursor()
+    
+    # Check if passage already exists
+    cursor.execute("""
+        SELECT passage_id FROM passages 
+        WHERE piece_id = ? AND start_measure = ? AND end_measure = ?
+    """, (piece_id, start_measure, end_measure))
+    result = cursor.fetchone()
+    
+    if result:
+        passage_id = result[0]
+        conn.close()
+        print(f"✓ Using existing passage_id {passage_id}: Sonata {sonata_number}, Mvmt {movement}, mm. {start_measure}-{end_measure}")
+        return passage_id
+    
+    # Create new passage
     cursor.execute("""
         INSERT INTO passages (piece_id, granularity, start_measure, end_measure, description)
         VALUES (?, ?, ?, ?, ?)
@@ -49,6 +64,12 @@ def add_passage(sonata_number: int, movement: int, start_measure: int,
     
     print(f"✓ Added passage_id {passage_id}: Sonata {sonata_number}, Mvmt {movement}, mm. {start_measure}-{end_measure}")
     return passage_id
+
+
+def add_passage(sonata_number: int, movement: int, start_measure: int, 
+                end_measure: int, description: str, granularity: str = "bar") -> int:
+    """Add a passage to the database (deprecated - use get_or_create_passage)."""
+    return get_or_create_passage(sonata_number, movement, start_measure, end_measure, description, granularity)
 
 
 def add_question(passage_id: int, question_text: str, correct_answer: str,

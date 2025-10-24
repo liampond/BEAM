@@ -23,31 +23,27 @@ This benchmark tests which music encoding formats (ABC, MEI, MusicXML, Humdrum) 
 ## Repository Structure
 
 ```
-├── data/                   # Encoded music files
+├── data/                   # Encoded music files (4 formats)
 │   ├── abc/               # ABC Notation (66 files)
-│   ├── mei/               # MEI format (53 files)
-│   ├── musicxml/          # MusicXML format (53 files) - includes harmony annotations
 │   ├── humdrum/           # Humdrum format (66 files)
-│   └── lilypond/          # LilyPond format (14 files)
-├── src/                    # Scripts for data processing and benchmarking
-│   ├── download_mei.py     # Download MEI files from DME
-│   ├── download_musicxml.py # Download MusicXML from DCMLab
-│   ├── split_abc.py        # Download and split ABC file
+│   ├── mei/               # MEI format (53 files)
+│   ├── musicxml/          # MusicXML format (53 files)
+│   └── lilypond/          # LilyPond format (14 files, partial)
+│
+├── src/                    # Core benchmark scripts
 │   ├── init_database.py    # Initialize benchmark database
-│   ├── extract_passage.py  # Extract renderable music excerpts
 │   ├── db_utils.py         # Database helper functions
-│   ├── example_add_questions.py # Example question creation
+│   ├── extract_passage.py  # Extract renderable music excerpts
+│   ├── add_question.py     # Add questions to benchmark
+│   ├── helpers/            # Utility scripts (setup, cleanup, examples)
+│   │   ├── data_import/    # Scripts used to populate data/ directory
+│   │   ├── generate_questions.py # Batch question generator
+│   │   ├── example_add_questions.py # Example usage
+│   │   └── cleanup_duplicate_questions.py # Database cleanup
 │   └── README.md           # Script documentation
-├── docs/                   # Documentation
-│   ├── DATABASE.md         # Database schema and benchmark design
-│   ├── QUICKSTART.md       # Quick reference guide
-│   └── TEST_EXTRACTION.md  # Passage extraction testing guide
-├── tests/                  # Test outputs and examples
-│   ├── test_abc.abc        # Example ABC excerpt
-│   ├── test_humdrum.krn    # Example Humdrum excerpt
-│   ├── test_mei.mei        # Example MEI excerpt
-│   └── test_musicxml.xml   # Example MusicXML excerpt
-├── benchmark.db            # SQLite database for LLM benchmarking
+│
+├── benchmark.db            # SQLite database (passages, questions, test cases)
+├── hard_question_ideas.md  # Ideas for complex questions
 └── README.md              # This file
 ```
 
