@@ -6,6 +6,7 @@ Provides convenience functions for adding questions, passages, and querying the 
 """
 
 import sqlite3
+import random
 from pathlib import Path
 from typing import List, Tuple, Optional
 
@@ -74,7 +75,7 @@ def add_passage(sonata_number: int, movement: int, start_measure: int,
 
 def add_question(passage_id: int, question_text: str, correct_answer: str,
                 difficulty: str = "medium", question_type: str = "general") -> int:
-    """Add a question to the database."""
+    """Add a question to the database (for backward compatibility)."""
     conn = get_connection()
     cursor = conn.cursor()
     cursor.execute("""
@@ -87,6 +88,91 @@ def add_question(passage_id: int, question_text: str, correct_answer: str,
     
     print(f"✓ Added question_id {question_id}: {question_text[:60]}...")
     return question_id
+
+
+def add_multiple_choice_question(passage_id: int, question_text: str, 
+                                 choices: List[Tuple[str, bool]],
+                                 difficulty: str = "medium", 
+                                 question_type: str = "general") -> int:
+    """
+    Add a multiple choice question to the database with A/B/C/D format.
+    
+    Args:
+        passage_id: ID of the passage this question is about
+        question_text: The question text
+        choices: List of (choice_text, is_correct) tuples (must have exactly 4 choices with 1 correct)
+        difficulty: Question difficulty (easy, medium, hard)
+        question_type: Type of question (general, harmonic, melodic, rhythmic, formal)
+    
+    Returns:
+        question_id of the newly created question
+    """
+    # Validate that there are exactly 4 choices
+    if len(choices) != 4:
+        raise ValueError(f"Multiple choice question must have exactly 4 choices, got {len(choices)}")
+    
+    # Validate that there's exactly one correct answer
+    correct_count = sum(1 for _, is_correct in choices if is_correct)
+    if correct_count != 1:
+        raise ValueError(f"Multiple choice question must have exactly 1 correct answer, got {correct_count}")
+    
+    # Get the correct answer text
+    correct_answer = next(text for text, is_correct in choices if is_correct)
+    
+    # Extract just the text from choices
+    all_options = [text for text, is_correct in choices]
+    
+    # Randomly shuffle the options
+    shuffled_options = all_options.copy()
+    random.shuffle(shuffled_options)
+    
+    # Find which position has the correct answer
+    correct_index = shuffled_options.index(correct_answer)
+    correct_letter = ['A', 'B', 'C', 'D'][correct_index]
+    
+    conn = get_connection()
+    cursor = conn.cursor()
+    
+    # Insert question with A/B/C/D options
+    cursor.execute("""
+        INSERT INTO questions (passage_id, question_text, correct_answer, 
+                              option_a, option_b, option_c, option_d, correct_option,
+                              difficulty, question_type)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    """, (passage_id, question_text, correct_answer,
+          shuffled_options[0], shuffled_options[1], shuffled_options[2], shuffled_options[3],
+          correct_letter, difficulty, question_type))
+    question_id = cursor.lastrowid
+    
+    conn.commit()
+    conn.close()
+    
+    print(f"✓ Added multiple choice question_id {question_id} (Correct answer: {correct_letter})")
+    return question_id
+
+
+def get_question_choices(question_id: int) -> List[Tuple[str, bool]]:
+    """Get all answer choices for a question in A/B/C/D format."""
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT option_a, option_b, option_c, option_d, correct_option
+        FROM questions 
+        WHERE question_id = ?
+    """, (question_id,))
+    result = cursor.fetchone()
+    conn.close()
+    
+    if not result or not result[0]:
+        return []
+    
+    opt_a, opt_b, opt_c, opt_d, correct = result
+    return [
+        (opt_a, correct == 'A'),
+        (opt_b, correct == 'B'),
+        (opt_c, correct == 'C'),
+        (opt_d, correct == 'D'),
+    ]
 
 
 def create_test_cases(question_id: int, formats: List[str] = None) -> int:
@@ -165,16 +251,17 @@ def list_passages(sonata_number: int = None, movement: int = None):
         return
     
     print("\nPASSAGES:")
-    print(f"{'ID':<5} {'Sonata':<8} {'K.':<6} {'Mvmt':<5} {'Measures':<12} {'Gran.':<8} {'Description':<40}")
+    print(f"{'ID':<8} {'Sonata':<8} {'K.':<6} {'Mvmt':<5} {'Measures':<12} {'Gran.':<8} {'Description':<40}")
     print("-" * 100)
     for row in results:
         pid, sonata, kv, mvmt, start, end, gran, desc = row
+        pid_str = f"P-{pid:03d}"
         measures = f"{start}-{end}" if start != end else str(start)
         desc = (desc[:37] + "...") if len(desc) > 40 else desc
-        print(f"{pid:<5} {sonata:<8} {kv:<6} {mvmt:<5} {measures:<12} {gran:<8} {desc:<40}")
+        print(f"{pid_str:<8} {sonata:<8} {kv:<6} {mvmt:<5} {measures:<12} {gran:<8} {desc:<40}")
 
 
-def list_questions(passage_id: int = None):
+def list_questions(passage_id: int = None, verbose: bool = False):
     """List all questions, optionally filtered by passage_id."""
     conn = get_connection()
     cursor = conn.cursor()
@@ -184,7 +271,11 @@ def list_questions(passage_id: int = None):
             q.question_id,
             q.passage_id,
             q.question_text,
-            q.correct_answer,
+            q.option_a,
+            q.option_b,
+            q.option_c,
+            q.option_d,
+            q.correct_option,
             q.difficulty,
             q.question_type,
             (SELECT COUNT(*) FROM test_cases WHERE question_id = q.question_id) as test_count
@@ -201,20 +292,53 @@ def list_questions(passage_id: int = None):
     
     cursor.execute(query, params)
     results = cursor.fetchall()
-    conn.close()
     
     if not results:
         print("No questions found.")
+        conn.close()
         return
     
-    print("\nQUESTIONS:")
-    print(f"{'ID':<5} {'Pass':<5} {'Question':<50} {'Answer':<20} {'Diff':<8} {'Type':<15} {'Tests':<6}")
-    print("-" * 120)
-    for row in results:
-        qid, pid, text, answer, diff, qtype, tcount = row
-        text = (text[:47] + "...") if len(text) > 50 else text
-        answer = (answer[:17] + "...") if len(answer) > 20 else answer
-        print(f"{qid:<5} {pid:<5} {text:<50} {answer:<20} {diff:<8} {qtype:<15} {tcount:<6}")
+    if not verbose:
+        # Compact view
+        print("\nQUESTIONS:")
+        print(f"{'ID':<8} {'Passage':<9} {'Question':<45} {'A':<15} {'B':<15} {'C':<15} {'D':<15} {'Answer':<8} {'Difficulty':<12} {'Type':<12}")
+        print("-" * 168)
+        for row in results:
+            qid, pid, text, opt_a, opt_b, opt_c, opt_d, correct, diff, qtype, tcount = row
+            qid_str = f"Q-{qid:03d}"
+            pid_str = f"P-{pid:03d}"
+            text = (text[:42] + "...") if len(text) > 45 else text
+            opt_a = (opt_a[:12] + "...") if opt_a and len(opt_a) > 15 else (opt_a or "")
+            opt_b = (opt_b[:12] + "...") if opt_b and len(opt_b) > 15 else (opt_b or "")
+            opt_c = (opt_c[:12] + "...") if opt_c and len(opt_c) > 15 else (opt_c or "")
+            opt_d = (opt_d[:12] + "...") if opt_d and len(opt_d) > 15 else (opt_d or "")
+            correct_str = correct or "-"
+            print(f"{qid_str:<8} {pid_str:<9} {text:<45} {opt_a:<15} {opt_b:<15} {opt_c:<15} {opt_d:<15} {correct_str:<8} {diff:<12} {qtype:<12}")
+    else:
+        # Verbose view
+        print("\nQUESTIONS (Verbose):")
+        print("="*80)
+        for row in results:
+            qid, pid, text, opt_a, opt_b, opt_c, opt_d, correct, diff, qtype, tcount = row
+            qid_str = f"Q-{qid:03d}"
+            pid_str = f"P-{pid:03d}"
+            
+            print(f"\n{qid_str} | Passage: {pid_str} | {diff} | {qtype}")
+            print(f"Question: {text}")
+            if opt_a or opt_b or opt_c or opt_d:
+                marker_a = "✓" if correct == "A" else " "
+                marker_b = "✓" if correct == "B" else " "
+                marker_c = "✓" if correct == "C" else " "
+                marker_d = "✓" if correct == "D" else " "
+                print(f"  {marker_a} A. {opt_a or ''}")
+                print(f"  {marker_b} B. {opt_b or ''}")
+                print(f"  {marker_c} C. {opt_c or ''}")
+                print(f"  {marker_d} D. {opt_d or ''}")
+                print(f"  Correct: {correct}")
+            print(f"  Test cases: {tcount}")
+            print("-"*80)
+    
+    conn.close()
 
 
 def show_stats():
@@ -257,7 +381,7 @@ if __name__ == "__main__":
         print("Usage:")
         print("  python db_utils.py stats")
         print("  python db_utils.py passages [sonata_number] [movement]")
-        print("  python db_utils.py questions [passage_id]")
+        print("  python db_utils.py questions [passage_id] [-v|--verbose]")
         sys.exit(1)
     
     command = sys.argv[1]
@@ -269,8 +393,16 @@ if __name__ == "__main__":
         movement = int(sys.argv[3]) if len(sys.argv) > 3 else None
         list_passages(sonata, movement)
     elif command == "questions":
-        passage_id = int(sys.argv[2]) if len(sys.argv) > 2 else None
-        list_questions(passage_id)
+        passage_id = None
+        verbose = False
+        
+        for arg in sys.argv[2:]:
+            if arg in ['-v', '--verbose']:
+                verbose = True
+            else:
+                passage_id = int(arg)
+        
+        list_questions(passage_id, verbose)
     else:
         print(f"Unknown command: {command}")
         sys.exit(1)
