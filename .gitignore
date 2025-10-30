@@ -35,6 +35,7 @@ Thumbs.db
 # Project specific
 *.db-journal
 .ipynb_checkpoints/
+data/temp_verify/
 
 # Jupyter Notebook
 *.ipynb_checkpoints

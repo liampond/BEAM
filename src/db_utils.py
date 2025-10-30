@@ -6,7 +6,6 @@ Provides convenience functions for adding questions, passages, and querying the 
 """
 
 import sqlite3
-import random
 from pathlib import Path
 from typing import List, Tuple, Optional
 
@@ -55,15 +54,16 @@ def get_or_create_passage(sonata_number: int, movement: int, start_measure: int,
         return passage_id
     
     # Create new passage
+    num_measures = end_measure - start_measure + 1
     cursor.execute("""
-        INSERT INTO passages (piece_id, granularity, start_measure, end_measure, description)
-        VALUES (?, ?, ?, ?, ?)
-    """, (piece_id, granularity, start_measure, end_measure, description))
+        INSERT INTO passages (piece_id, granularity, start_measure, end_measure, num_measures, description)
+        VALUES (?, ?, ?, ?, ?, ?)
+    """, (piece_id, granularity, start_measure, end_measure, num_measures, description))
     passage_id = cursor.lastrowid
     conn.commit()
     conn.close()
     
-    print(f"✓ Added passage_id {passage_id}: Sonata {sonata_number}, Mvmt {movement}, mm. {start_measure}-{end_measure}")
+    print(f"✓ Added passage_id {passage_id}: Sonata {sonata_number}, Mvmt {movement}, mm. {start_measure}-{end_measure} ({num_measures} bar(s))")
     return passage_id
 
 
@@ -75,7 +75,7 @@ def add_passage(sonata_number: int, movement: int, start_measure: int,
 
 def add_question(passage_id: int, question_text: str, correct_answer: str,
                 difficulty: str = "medium", question_type: str = "general") -> int:
-    """Add a question to the database (for backward compatibility)."""
+    """Add a question to the database."""
     conn = get_connection()
     cursor = conn.cursor()
     cursor.execute("""
@@ -88,91 +88,6 @@ def add_question(passage_id: int, question_text: str, correct_answer: str,
     
     print(f"✓ Added question_id {question_id}: {question_text[:60]}...")
     return question_id
-
-
-def add_multiple_choice_question(passage_id: int, question_text: str, 
-                                 choices: List[Tuple[str, bool]],
-                                 difficulty: str = "medium", 
-                                 question_type: str = "general") -> int:
-    """
-    Add a multiple choice question to the database with A/B/C/D format.
-    
-    Args:
-        passage_id: ID of the passage this question is about
-        question_text: The question text
-        choices: List of (choice_text, is_correct) tuples (must have exactly 4 choices with 1 correct)
-        difficulty: Question difficulty (easy, medium, hard)
-        question_type: Type of question (general, harmonic, melodic, rhythmic, formal)
-    
-    Returns:
-        question_id of the newly created question
-    """
-    # Validate that there are exactly 4 choices
-    if len(choices) != 4:
-        raise ValueError(f"Multiple choice question must have exactly 4 choices, got {len(choices)}")
-    
-    # Validate that there's exactly one correct answer
-    correct_count = sum(1 for _, is_correct in choices if is_correct)
-    if correct_count != 1:
-        raise ValueError(f"Multiple choice question must have exactly 1 correct answer, got {correct_count}")
-    
-    # Get the correct answer text
-    correct_answer = next(text for text, is_correct in choices if is_correct)
-    
-    # Extract just the text from choices
-    all_options = [text for text, is_correct in choices]
-    
-    # Randomly shuffle the options
-    shuffled_options = all_options.copy()
-    random.shuffle(shuffled_options)
-    
-    # Find which position has the correct answer
-    correct_index = shuffled_options.index(correct_answer)
-    correct_letter = ['A', 'B', 'C', 'D'][correct_index]
-    
-    conn = get_connection()
-    cursor = conn.cursor()
-    
-    # Insert question with A/B/C/D options
-    cursor.execute("""
-        INSERT INTO questions (passage_id, question_text, correct_answer, 
-                              option_a, option_b, option_c, option_d, correct_option,
-                              difficulty, question_type)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    """, (passage_id, question_text, correct_answer,
-          shuffled_options[0], shuffled_options[1], shuffled_options[2], shuffled_options[3],
-          correct_letter, difficulty, question_type))
-    question_id = cursor.lastrowid
-    
-    conn.commit()
-    conn.close()
-    
-    print(f"✓ Added multiple choice question_id {question_id} (Correct answer: {correct_letter})")
-    return question_id
-
-
-def get_question_choices(question_id: int) -> List[Tuple[str, bool]]:
-    """Get all answer choices for a question in A/B/C/D format."""
-    conn = get_connection()
-    cursor = conn.cursor()
-    cursor.execute("""
-        SELECT option_a, option_b, option_c, option_d, correct_option
-        FROM questions 
-        WHERE question_id = ?
-    """, (question_id,))
-    result = cursor.fetchone()
-    conn.close()
-    
-    if not result or not result[0]:
-        return []
-    
-    opt_a, opt_b, opt_c, opt_d, correct = result
-    return [
-        (opt_a, correct == 'A'),
-        (opt_b, correct == 'B'),
-        (opt_c, correct == 'C'),
-        (opt_d, correct == 'D'),
-    ]
 
 
 def create_test_cases(question_id: int, formats: List[str] = None) -> int:
@@ -226,6 +141,7 @@ def list_passages(sonata_number: int = None, movement: int = None):
             pc.movement,
             p.start_measure,
             p.end_measure,
+            p.num_measures,
             p.granularity,
             p.description
         FROM passages p
@@ -251,14 +167,15 @@ def list_passages(sonata_number: int = None, movement: int = None):
         return
     
     print("\nPASSAGES:")
-    print(f"{'ID':<8} {'Sonata':<8} {'K.':<6} {'Mvmt':<5} {'Measures':<12} {'Gran.':<8} {'Description':<40}")
-    print("-" * 100)
+    print(f"{'ID':<8} {'Sonata':<8} {'K.':<6} {'Mvmt':<5} {'Measures':<12} {'Bars':<6} {'Gran.':<8} {'Description':<40}")
+    print("-" * 105)
     for row in results:
-        pid, sonata, kv, mvmt, start, end, gran, desc = row
+        pid, sonata, kv, mvmt, start, end, num_measures, gran, desc = row
         pid_str = f"P-{pid:03d}"
         measures = f"{start}-{end}" if start != end else str(start)
+        bars = str(num_measures) if num_measures else "-"
         desc = (desc[:37] + "...") if len(desc) > 40 else desc
-        print(f"{pid_str:<8} {sonata:<8} {kv:<6} {mvmt:<5} {measures:<12} {gran:<8} {desc:<40}")
+        print(f"{pid_str:<8} {sonata:<8} {kv:<6} {mvmt:<5} {measures:<12} {bars:<6} {gran:<8} {desc:<40}")
 
 
 def list_questions(passage_id: int = None, verbose: bool = False):
@@ -270,16 +187,14 @@ def list_questions(passage_id: int = None, verbose: bool = False):
         SELECT 
             q.question_id,
             q.passage_id,
+            p.num_measures,
             q.question_text,
-            q.option_a,
-            q.option_b,
-            q.option_c,
-            q.option_d,
-            q.correct_option,
+            q.correct_answer,
             q.difficulty,
             q.question_type,
             (SELECT COUNT(*) FROM test_cases WHERE question_id = q.question_id) as test_count
         FROM questions q
+        JOIN passages p ON q.passage_id = p.passage_id
     """
     
     if passage_id:
@@ -301,41 +216,30 @@ def list_questions(passage_id: int = None, verbose: bool = False):
     if not verbose:
         # Compact view
         print("\nQUESTIONS:")
-        print(f"{'ID':<8} {'Passage':<9} {'Question':<45} {'A':<15} {'B':<15} {'C':<15} {'D':<15} {'Answer':<8} {'Difficulty':<12} {'Type':<12}")
-        print("-" * 168)
+        print(f"{'ID':<8} {'Passage':<9} {'Bars':<6} {'Question':<60} {'Answer':<25} {'Difficulty':<12} {'Tests':<6}")
+        print("-" * 128)
         for row in results:
-            qid, pid, text, opt_a, opt_b, opt_c, opt_d, correct, diff, qtype, tcount = row
+            qid, pid, num_measures, text, answer, diff, qtype, tcount = row
             qid_str = f"Q-{qid:03d}"
             pid_str = f"P-{pid:03d}"
-            text = (text[:42] + "...") if len(text) > 45 else text
-            opt_a = (opt_a[:12] + "...") if opt_a and len(opt_a) > 15 else (opt_a or "")
-            opt_b = (opt_b[:12] + "...") if opt_b and len(opt_b) > 15 else (opt_b or "")
-            opt_c = (opt_c[:12] + "...") if opt_c and len(opt_c) > 15 else (opt_c or "")
-            opt_d = (opt_d[:12] + "...") if opt_d and len(opt_d) > 15 else (opt_d or "")
-            correct_str = correct or "-"
-            print(f"{qid_str:<8} {pid_str:<9} {text:<45} {opt_a:<15} {opt_b:<15} {opt_c:<15} {opt_d:<15} {correct_str:<8} {diff:<12} {qtype:<12}")
+            bars = str(num_measures) if num_measures else "-"
+            text = (text[:57] + "...") if len(text) > 60 else text
+            answer = (answer[:22] + "...") if len(answer) > 25 else answer
+            print(f"{qid_str:<8} {pid_str:<9} {bars:<6} {text:<60} {answer:<25} {diff:<12} {tcount:<6}")
     else:
         # Verbose view
         print("\nQUESTIONS (Verbose):")
         print("="*80)
         for row in results:
-            qid, pid, text, opt_a, opt_b, opt_c, opt_d, correct, diff, qtype, tcount = row
+            qid, pid, num_measures, text, answer, diff, qtype, tcount = row
             qid_str = f"Q-{qid:03d}"
             pid_str = f"P-{pid:03d}"
+            bars = f"{num_measures} bar(s)" if num_measures else "-"
             
-            print(f"\n{qid_str} | Passage: {pid_str} | {diff} | {qtype}")
+            print(f"\n{qid_str} | Passage: {pid_str} ({bars}) | {diff}")
             print(f"Question: {text}")
-            if opt_a or opt_b or opt_c or opt_d:
-                marker_a = "✓" if correct == "A" else " "
-                marker_b = "✓" if correct == "B" else " "
-                marker_c = "✓" if correct == "C" else " "
-                marker_d = "✓" if correct == "D" else " "
-                print(f"  {marker_a} A. {opt_a or ''}")
-                print(f"  {marker_b} B. {opt_b or ''}")
-                print(f"  {marker_c} C. {opt_c or ''}")
-                print(f"  {marker_d} D. {opt_d or ''}")
-                print(f"  Correct: {correct}")
-            print(f"  Test cases: {tcount}")
+            print(f"Answer: {answer}")
+            print(f"Test cases: {tcount}")
             print("-"*80)
     
     conn.close()
