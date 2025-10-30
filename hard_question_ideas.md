@@ -31,3 +31,5 @@
 ### Calculation-Based
 "What is the average pitch (as MIDI note number) of all notes in the right hand in measure 1?"
 "What is the ratio of quarter notes to eighth notes in the left hand in measure 1?"
+
+Problem: In MEI (I think also ABC and Humdrum), trills have their own character but in MusicXML, the people that encoded it chose to write out the trills as many notes.
