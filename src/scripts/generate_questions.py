@@ -9,7 +9,13 @@ This script creates verified questions that:
 4. Are not easily guessable without looking at the score
 """
 
-from add_question import create_question
+import sys
+from pathlib import Path
+
+# Add parent directory to path for imports
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
+from cli.add_question import create_question
 
 # List of proposed questions for review
 # Each entry: (sonata, mvmt, measure, question, answer, difficulty, type, notes)

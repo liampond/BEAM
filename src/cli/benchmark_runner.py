@@ -19,12 +19,15 @@ import re
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Optional, List, Dict, Any
 from pathlib import Path
+import sys
 
+# Add parent directory to path for imports
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
-import extract_passage
-import llm_runner
-import evaluator
-from llm_integration.base import get_llm_provider
+from core import extract_passage
+from llm import runner as llm_runner
+from llm import evaluator
+from llm.integration.base import get_llm_provider
 
 def _extract_answer_from_json(response_text: str, question_key: str) -> str:
     """

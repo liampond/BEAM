@@ -8,7 +8,12 @@ into a single workflow.
 
 import sys
 from typing import List, Tuple
-from db_utils import (
+from pathlib import Path
+
+# Add parent directory to path for imports
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
+from core.db_utils import (
     get_piece_id, add_passage, add_question,
     create_test_cases, list_passages, list_questions, show_stats
 )

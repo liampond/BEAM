@@ -12,7 +12,7 @@ import sqlite3
 from typing import Dict, Any, List, Optional
 from pathlib import Path
 
-DB_PATH = Path(__file__).parent.parent / "benchmark.db"
+DB_PATH = Path(__file__).parent.parent.parent / "benchmark.db"
 
 
 def build_prompt(question_text: str, passage_text: str) -> str:

@@ -10,7 +10,7 @@ import sqlite3
 from pathlib import Path
 
 # Database path
-DB_PATH = Path(__file__).parent.parent / "benchmark.db"
+DB_PATH = Path(__file__).parent.parent.parent / "benchmark.db"
 
 # Mozart Piano Sonatas metadata (common subset only)
 # Format: sonata_num -> (kv_number, movements, excluded_movements)

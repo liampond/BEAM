@@ -9,7 +9,7 @@ keeps the earliest one, and deletes duplicates along with their test cases.
 import sqlite3
 from pathlib import Path
 
-DB_PATH = Path(__file__).parent.parent / "benchmark.db"
+DB_PATH = Path(__file__).parent.parent.parent / "benchmark.db"
 
 
 def cleanup_duplicate_questions():
