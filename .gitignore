@@ -37,6 +37,7 @@ Thumbs.db
 .ipynb_checkpoints/
 data/temp_verify/
 .env
+src/**/*.db  # Prevent accidental database files in subdirectories
 
 # Jupyter Notebook
 *.ipynb_checkpoints

@@ -9,7 +9,8 @@ import sqlite3
 from pathlib import Path
 from typing import List, Tuple, Optional
 
-DB_PATH = Path(__file__).parent.parent / "benchmark.db"
+# Path from src/core/db_utils.py up to project root
+DB_PATH = Path(__file__).parent.parent.parent / "benchmark.db"
 
 
 def get_connection():
