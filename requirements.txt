@@ -13,4 +13,12 @@ google-generativeai>=0.3.0
 # HTTP requests
 requests>=2.31.0
 
+# Local model inference (Phi-4)
+torch>=2.0.0
+transformers>=4.36.0
+accelerate>=0.25.0
+
+# Llama models (Llama 4 Scout and Maverick)
+llama-stack
+
 # Data analysis (optional, for evaluation)
