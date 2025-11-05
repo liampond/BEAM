@@ -188,11 +188,8 @@ class OpenAIProvider(BaseLLM):
     def _call_api(self, prompt: str, temperature: float = None, max_tokens: int = None, seed: int = None, **kwargs) -> Tuple[str, Dict[str, Any]]:
         call_max_tokens = max_tokens or self.max_tokens
         temperature = temperature if temperature is not None else self.temperature
-        call_seed = seed
-        if call_seed is None:
-            call_seed = self.seed
-            
         
+        # Build call parameters for responses API (reasoning models)
         response_params = {
             'model': self.model_name,
             'input': prompt,
@@ -200,8 +197,9 @@ class OpenAIProvider(BaseLLM):
             'reasoning': {}
         }
 
-        if call_seed is not None:
-            response_params['seed'] = call_seed
+        # Note: GPT-5 reasoning models don't support seed parameter
+        # if seed is not None:
+        #     response_params['seed'] = seed
 
         response = self.client.responses.create(**response_params)
 
@@ -209,12 +207,13 @@ class OpenAIProvider(BaseLLM):
 
     
     def _extract_openai_text(self, response) -> Tuple[str, Dict[str, Any]]:
-        """Extract text and metadata from OpenAI response."""
+        """Extract text and metadata from OpenAI reasoning model response."""
         content = None
         finish_reason = None
         metadata = {}
 
         try:
+            # Reasoning model format (responses API)
             for block in response.output:
                 if block.type == 'message':
                     finish_reason = getattr(block, 'finish_reason', getattr(block, 'stop_reason', None))
@@ -355,6 +354,68 @@ class LocalProvider(BaseLLM):
 
 
 # ============================================================================
+# Alibaba Cloud / Qwen
+# ============================================================================
+
+class AlibabaCloudProvider(BaseLLM):
+    """Alibaba Cloud / Qwen API provider (Singapore/International region)."""
+    
+    def __init__(self, model_name: str, **kwargs):
+        super().__init__(model_name, **kwargs)
+        import os
+        # Use DASHSCOPE_API_KEY for international region
+        self.api_key = os.getenv('DASHSCOPE_API_KEY') or os.getenv('QWEN_API_KEY')
+        if not self.api_key:
+            raise ValueError("DASHSCOPE_API_KEY environment variable not set")
+        # Use Singapore/International endpoint
+        self.api_url = "https://dashscope-intl.aliyuncs.com/compatible-mode/v1/chat/completions"
+    
+    def _call_api(self, prompt: str, temperature: float = None, max_tokens: int = None, seed: int = None, timeout: int = None, **kwargs) -> Tuple[str, Dict[str, Any]]:
+        import requests
+        
+        headers = {
+            'Authorization': f'Bearer {self.api_key}',
+            'Content-Type': 'application/json'
+        }
+        
+        payload = {
+            'model': self.model_name,
+            'messages': [
+                {'role': 'user', 'content': prompt}
+            ],
+            'temperature': temperature if temperature is not None else self.temperature,
+            'max_tokens': max_tokens if max_tokens is not None else self.max_tokens,
+        }
+        
+        # Add seed if provided
+        if seed is not None or self.seed is not None:
+            payload['seed'] = seed if seed is not None else self.seed
+        
+        response = requests.post(
+            self.api_url,
+            headers=headers,
+            json=payload,
+            timeout=timeout or self.timeout
+        )
+        response.raise_for_status()
+        
+        data = response.json()
+        
+        # Extract response text
+        response_text = data['choices'][0]['message']['content']
+        
+        # Extract metadata
+        metadata = {
+            'model': data.get('model'),
+            'usage': data.get('usage'),
+            'finish_reason': data['choices'][0].get('finish_reason'),
+            'raw': data
+        }
+        
+        return response_text, metadata
+
+
+# ============================================================================
 # Provider Registry and Factory
 # ============================================================================
 
@@ -362,6 +423,7 @@ PROVIDER_REGISTRY = {
     'anthropic': AnthropicProvider,
     'openai': OpenAIProvider,
     'google': GoogleProvider,
+    'alibaba-cloud': AlibabaCloudProvider,
     'local': LocalProvider,
 }
 
