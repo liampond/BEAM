@@ -7,8 +7,7 @@ Instructions:
 - Use the field name "answer" for your response
 - Do not include explanations, reasoning, or any text outside the JSON object
 - For pitch questions, always include the octave (e.g., "C4", "F#5")
-- For duration questions, you may use common note names (e.g., "quarter note") or numeric beat values
-- For interval questions, you may use interval names (e.g., "Perfect fifth") or semitone counts
+- For questions with a short answer response, do not use hyphens (e.g., Perfect fifth, Quarter note)
 
 Example response format:
 {"answer": "99"}
