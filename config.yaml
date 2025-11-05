@@ -1,0 +1,83 @@
+# Music Encoding Benchmark Configuration
+
+# Models to test
+# API keys are automatically loaded from .env file
+models:
+  # OpenAI models
+  - provider: "openai"
+    name: "gpt-5-pro-2025-10-06"
+    enabled: true
+  
+  # Anthropic models  
+  - provider: "anthropic"
+    name: "claude-sonnet-4-5"
+    enabled: true
+  
+  # Google models
+  - provider: "google"
+    name: "gemini-2.5-pro"
+    enabled: true
+
+  # Alibaba models
+  - provider: "alibaba-cloud"
+    name: "qwen3-max"
+    enabled: true  
+
+# API call parameters
+api_settings:
+  temperature: 0.0          # For reproducibility (0.0 = deterministic)
+  seed: 42                  # Random seed for deterministic sampling
+  max_tokens: 16384         # Maximum response length (set high to avoid truncation)
+  timeout: 300              # Timeout in seconds (5 minutes)
+  rate_limit_delay: 1.0     # Seconds to wait between requests
+
+# Batch API settings (for providers that support it)
+batch_api:
+  enabled: false            # Enable batch API calls
+  batch_size: 50            # Number of requests per batch
+  check_interval: 60        # Seconds between batch status checks
+  max_wait_time: 3600       # Maximum seconds to wait for batch completion
+
+# Output configuration
+output:
+  base_dir: "outputs"                    # Base directory for all outputs
+  structure: "model_then_question"       # outputs/{model}/{question}/
+  save_prompts: true                     # Save full prompts sent to LLM
+  save_responses: true                   # Save full LLM responses
+  save_metadata: true                    # Save API metadata (tokens, timing, etc.)
+  save_to_database: false                # Store results in llm_responses table (temporarily disabled)
+  formats:
+    - "json"                             # Individual JSON files per response
+    - "csv"                              # Summary CSV per model
+
+# Test execution settings
+execution:
+  mode: "specific"          # "specific" or "all"
+  questions: [22]           # Question IDs to test (used when mode=specific)
+  formats: ["abc", "mei", "musicxml", "humdrum"]  # Which encoding formats to test
+  concurrency: 4            # Number of parallel requests (0 = sequential)
+  retry_on_failure: true    # Retry failed API calls
+  max_retries: 3            # Maximum retry attempts
+  retry_delay: 5            # Seconds to wait between retries
+
+# Prompt configuration
+prompt:
+  system_prompt_file: "prompts/system_prompt.txt"  # Path to system prompt file
+  response_format: "json"   # Expected response format
+  include_format_hint: true # Tell LLM which encoding format it's reading
+
+# Evaluation settings
+evaluation:
+  normalize_answers: true           # Normalize before comparison
+  fuzzy_match_threshold: 0.85       # Threshold for fuzzy string matching
+  numeric_tolerance: 0.0            # Tolerance for numeric comparisons
+  strategies: 
+    - "exact"                       # Exact string match
+    - "fuzzy"                       # Fuzzy string matching
+    - "numeric"                     # Numeric comparison with tolerance
+
+# Logging
+logging:
+  level: "INFO"             # DEBUG, INFO, WARNING, ERROR
+  log_file: "outputs/benchmark.log"
+  console_output: true
