@@ -23,6 +23,25 @@ models:
     name: "qwen3-max"
     enabled: true  
 
+  # Local models (HuggingFace Transformers)
+  - provider: "transformers"
+    name: "microsoft/phi-4"
+    enabled: false  # Disabled: Very slow on CPU (~13 min per test case)
+    # Note: First run will download ~28GB model. Requires GPU or significant RAM.
+
+  # Llama 4 models (requires llama-stack and downloaded models)
+  - provider: "llama-stack"
+    name: "Llama4-Scout"
+    enabled: false  # Disabled by default - requires cloud GPU and llama stack server
+    # Download: llama model download --source meta --model-id Llama4-Scout
+    # Run: llama stack run Llama4-Scout
+    
+  - provider: "llama-stack"
+    name: "Llama4-Maverick"
+    enabled: false  # Disabled by default - requires cloud GPU and llama stack server
+    # Download: llama model download --source meta --model-id Llama4-Maverick
+    # Run: llama stack run Llama4-Maverick  
+
 # API call parameters
 api_settings:
   temperature: 0.0          # For reproducibility (0.0 = deterministic)
