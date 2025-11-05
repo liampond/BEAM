@@ -416,6 +416,118 @@ class AlibabaCloudProvider(BaseLLM):
 
 
 # ============================================================================
+# Local Transformers (Phi-4, etc.)
+# ============================================================================
+
+class TransformersProvider(BaseLLM):
+    """Local model provider using HuggingFace Transformers."""
+    
+    def __init__(self, model_name: str, **kwargs):
+        super().__init__(model_name, **kwargs)
+        try:
+            import transformers
+            import torch
+        except ImportError:
+            raise ImportError("transformers and torch required for local models. Install with: pip install transformers torch accelerate")
+        
+        print(f"Loading local model: {model_name} (this may take a while on first run)...")
+        
+        self.pipeline = transformers.pipeline(
+            "text-generation",
+            model=model_name,
+            model_kwargs={"torch_dtype": "auto"},
+            device_map="auto",
+        )
+        
+        print(f"✓ Model loaded successfully")
+    
+    def _call_api(self, prompt: str, temperature: float = None, max_tokens: int = None, seed: int = None, **kwargs) -> Tuple[str, Dict[str, Any]]:
+        call_max_tokens = max_tokens or self.max_tokens
+        temperature = temperature if temperature is not None else self.temperature
+        
+        # Phi-4 uses chat format
+        messages = [
+            {"role": "user", "content": prompt}
+        ]
+        
+        generation_kwargs = {
+            "max_new_tokens": call_max_tokens,
+            "temperature": temperature if temperature > 0 else 0.1,  # Avoid 0.0 which can cause issues
+            "do_sample": temperature > 0,
+        }
+        
+        if seed is not None:
+            import torch
+            torch.manual_seed(seed)
+        
+        outputs = self.pipeline(messages, **generation_kwargs)
+        
+        # Extract the assistant's response
+        response_text = outputs[0]["generated_text"][-1]["content"]
+        
+        metadata = {
+            'model': self.model_name,
+            'backend': 'transformers',
+            'temperature': temperature,
+            'max_tokens': call_max_tokens,
+            'finish_reason': 'stop',  # Transformers doesn't provide this directly
+        }
+        
+        return response_text, metadata
+
+
+# ============================================================================
+# Llama Stack (Llama 4 Scout and Maverick)
+# ============================================================================
+
+class LlamaStackProvider(BaseLLM):
+    """Llama Stack provider for local Llama 4 models (Scout and Maverick)."""
+    
+    def __init__(self, model_name: str, **kwargs):
+        super().__init__(model_name, **kwargs)
+        try:
+            from llama_stack_client import LlamaStackClient
+        except ImportError:
+            raise ImportError("llama-stack required. Install with: pip install llama-stack")
+        
+        # Note: Assumes llama stack server is running locally
+        # Start with: llama stack run <model-id>
+        self.client = LlamaStackClient(base_url="http://localhost:5000")
+        self.model_id = model_name
+    
+    def _call_api(self, prompt: str, temperature: float = None, max_tokens: int = None, seed: int = None, **kwargs) -> Tuple[str, Dict[str, Any]]:
+        call_max_tokens = max_tokens or self.max_tokens
+        temperature = temperature if temperature is not None else self.temperature
+        
+        messages = [
+            {"role": "user", "content": prompt}
+        ]
+        
+        try:
+            response = self.client.inference.chat_completion(
+                model_id=self.model_id,
+                messages=messages,
+                temperature=temperature,
+                max_tokens=call_max_tokens,
+            )
+            
+            response_text = response.completion_message.content
+            
+            metadata = {
+                'model': self.model_id,
+                'backend': 'llama-stack',
+                'temperature': temperature,
+                'max_tokens': call_max_tokens,
+                'finish_reason': getattr(response.completion_message, 'stop_reason', 'stop'),
+            }
+            
+            return response_text, metadata
+            
+        except Exception as e:
+            raise RuntimeError(f"Llama Stack API error: {e}. Is llama stack server running?")
+
+
+# ============================================================================
 # Provider Registry and Factory
 # ============================================================================
 
@@ -425,6 +537,8 @@ PROVIDER_REGISTRY = {
     'google': GoogleProvider,
     'alibaba-cloud': AlibabaCloudProvider,
     'local': LocalProvider,
+    'transformers': TransformersProvider,  # For local HuggingFace models
+    'llama-stack': LlamaStackProvider,     # For Llama 4 Scout and Maverick
 }
 
 
