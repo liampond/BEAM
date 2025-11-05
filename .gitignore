@@ -36,6 +36,7 @@ Thumbs.db
 *.db-journal
 .ipynb_checkpoints/
 data/temp_verify/
+.env
 
 # Jupyter Notebook
 *.ipynb_checkpoints
