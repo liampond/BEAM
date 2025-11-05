@@ -45,8 +45,6 @@ Configuration is managed through `config.yaml`. See the file for all available o
 
 This benchmark tests which music encoding formats (ABC, MEI, MusicXML, Humdrum) are best understood by LLMs through objective questions about musical content at different granularities (bar, phrase, section, movement).
 
-**See `docs/DATABASE.md` for full benchmark design and `docs/QUICKSTART.md` for usage.**
-
 ## Collection Overview
 
 | Format | Files | Coverage | Variations |
