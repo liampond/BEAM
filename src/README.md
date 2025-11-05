@@ -7,9 +7,19 @@ This directory contains the Music Encoding Benchmark implementation, organized b
 ```
 src/
 ├── cli/              # Command-line interface tools
+│   ├── run_benchmark.py  # Main benchmark runner (uses config.yaml)
+│   └── add_question.py   # Add questions to database
 ├── core/             # Core utilities and database access
+│   ├── db_utils.py       # Database helper functions
+│   └── extract_passage.py # Music excerpt extraction
 ├── llm/              # LLM integration and evaluation
+│   ├── runner.py         # LLM interaction utilities
+│   ├── evaluator.py      # Response evaluation
+│   └── integration/      # Provider implementations
+│       └── base.py       # Base classes & API wrappers
 ├── scripts/          # Setup and maintenance scripts
+│   ├── init_database.py  # Database initialization
+│   └── data_import/      # Data import scripts
 └── README.md
 ```
 
@@ -17,7 +27,38 @@ src/
 
 User-facing command-line tools for working with the benchmark.
 
+### run_benchmark.py (Main Entry Point)
+
+The primary benchmark runner that uses `config.yaml` for configuration.
+
+**Usage**:
+```bash
+# Run with default settings (all enabled models from config.yaml)
+python src/cli/run_benchmark.py
+
+# Run specific questions
+python src/cli/run_benchmark.py --questions 22 23 24
+
+# Run all questions
+python src/cli/run_benchmark.py --all
+
+# Test specific models only (overrides config)
+python src/cli/run_benchmark.py --questions 22 --models qwen3-max claude-sonnet-4-5
+
+# Use custom config file
+python src/cli/run_benchmark.py --config my_config.yaml
+```
+
+**Configuration**: Edit `config.yaml` in the project root to:
+- Enable/disable models
+- Set API parameters (temperature, max_tokens, timeout)
+- Configure output settings
+- Choose evaluation strategies
+
+**API Keys**: Stored in `.env` file (see `.env.example` for template)
+
 ### add_question.py
+
 Simplified interface for adding questions to the benchmark database.
 
 **Interactive Mode**:
@@ -42,14 +83,6 @@ create_question(
     difficulty="easy",      # easy, medium, hard
     question_type="rhythmic" # general, harmonic, melodic, rhythmic, formal
 )
-```
-
-### benchmark_runner.py
-Orchestrates LLM benchmark testing: fetches test cases, extracts passages, sends to LLM providers, and evaluates responses.
-
-**Usage**:
-```bash
-python src/cli/benchmark_runner.py --provider openai --question-id 1
 ```
 
 ## Core Utilities (`core/`)
@@ -130,24 +163,6 @@ Creates tables for:
 - Questions (benchmark questions with ground truth)
 - Test cases (links questions to specific encodings)
 - LLM responses (test results)
-
-### generate_questions.py
-Batch question generator with pre-verified questions.
-
-```bash
-# Interactive mode (review each question before adding)
-python src/scripts/generate_questions.py
-
-# Auto mode (add all questions without prompting)
-python src/scripts/generate_questions.py auto
-```
-
-### cleanup_duplicate_questions.py
-Database maintenance script to remove duplicate questions.
-
-```bash
-python src/scripts/cleanup_duplicate_questions.py
-```
 
 ### data_import/
 Scripts used to initially populate the `data/` directory:

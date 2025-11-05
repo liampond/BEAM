@@ -2,6 +2,45 @@
 
 This repository contains Mozart's piano sonatas encoded in multiple formats for benchmarking Large Language Model understanding of music notation systems.
 
+## Quick Start
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/liampond/MusicEncodingBenchmark.git
+cd MusicEncodingBenchmark
+
+# Create virtual environment
+python3 -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Copy environment template and add your API keys
+cp .env.example .env
+# Edit .env and add your API keys
+```
+
+### Running the Benchmark
+
+```bash
+# Run with default settings (uses config.yaml)
+python src/cli/run_benchmark.py
+
+# Run specific questions
+python src/cli/run_benchmark.py --questions 22 23 24
+
+# Run all questions
+python src/cli/run_benchmark.py --all
+
+# Use custom config
+python src/cli/run_benchmark.py --config my_config.yaml
+```
+
+Configuration is managed through `config.yaml`. See the file for all available options.
+
 ## Project Purpose
 
 This benchmark tests which music encoding formats (ABC, MEI, MusicXML, Humdrum) are best understood by LLMs through objective questions about musical content at different granularities (bar, phrase, section, movement).
@@ -23,28 +62,47 @@ This benchmark tests which music encoding formats (ABC, MEI, MusicXML, Humdrum) 
 ## Repository Structure
 
 ```
-├── data/                   # Encoded music files (4 formats)
-│   ├── abc/               # ABC Notation (66 files)
-│   ├── humdrum/           # Humdrum format (66 files)
-│   ├── mei/               # MEI format (53 files)
-│   ├── musicxml/          # MusicXML format (53 files)
-│   └── lilypond/          # LilyPond format (14 files, partial)
+MusicEncodingBenchmark/
+├── .env.example            # Environment variables template
+├── .gitignore              # Git ignore rules
+├── README.md               # This file
+├── config.yaml             # Benchmark configuration
+├── requirements.txt        # Python dependencies
+├── setup.py                # Package installation
+├── benchmark.db            # SQLite database
 │
-├── src/                    # Core benchmark scripts
-│   ├── init_database.py    # Initialize benchmark database
-│   ├── db_utils.py         # Database helper functions
-│   ├── extract_passage.py  # Extract renderable music excerpts
-│   ├── add_question.py     # Add questions to benchmark
-│   ├── helpers/            # Utility scripts (setup, cleanup, examples)
-│   │   ├── data_import/    # Scripts used to populate data/ directory
-│   │   ├── generate_questions.py # Batch question generator
-│   │   ├── example_add_questions.py # Example usage
-│   │   └── cleanup_duplicate_questions.py # Database cleanup
-│   └── README.md           # Script documentation
+├── data/                   # Encoded music files
+│   ├── abc/                # ABC Notation (66 files)
+│   ├── humdrum/            # Humdrum format (66 files)
+│   ├── mei/                # MEI format (53 files)
+│   ├── musicxml/           # MusicXML format (53 files)
+│   └── lilypond/           # LilyPond format (14 files)
 │
-├── benchmark.db            # SQLite database (passages, questions, test cases)
-├── hard_question_ideas.md  # Ideas for complex questions
-└── README.md              # This file
+├── src/                    # Main source code
+│   ├── cli/                # Command-line interfaces
+│   │   ├── run_benchmark.py  # Main benchmark runner
+│   │   └── add_question.py   # Add questions to database
+│   ├── core/               # Core business logic
+│   │   ├── db_utils.py       # Database utilities
+│   │   └── extract_passage.py # Passage extraction
+│   ├── llm/                # LLM integration
+│   │   ├── evaluator.py      # Response evaluation
+│   │   ├── runner.py         # LLM interaction
+│   │   └── integration/      # Provider implementations
+│   │       └── base.py       # Base classes & providers
+│   └── scripts/            # Utility scripts
+│       ├── init_database.py  # Database initialization
+│       ├── cleanup/          # Cleanup utilities
+│       └── data_import/      # Data import scripts
+│
+├── prompts/                # Prompt templates
+│   └── system_prompt.txt   # System prompt for LLMs
+│
+├── outputs/                # Benchmark outputs (gitignored)
+│   ├── {model}/            # Per-model results
+│   │   └── Q-{question}/   # Per-question responses
+│   └── summary_*.json      # Run summaries
+│
 ```
 
 ## Naming Convention
