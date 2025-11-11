@@ -27,6 +27,84 @@ import re
 from pathlib import Path
 from typing import Optional
 
+
+def _get_mei_measure_offset(file_path: Path) -> int:
+    """Return the lowest numeric measure label found in the MEI file."""
+    import xml.etree.ElementTree as ET
+
+    try:
+        root = ET.parse(file_path).getroot()
+    except ET.ParseError:
+        return 1
+
+    ns = {'mei': 'http://www.music-encoding.org/ns/mei'}
+    min_value = None
+    for measure in root.findall('.//mei:measure', ns):
+        n = measure.get('n')
+        if not n:
+            continue
+        try:
+            value = int(n)
+        except ValueError:
+            continue
+        if min_value is None or value < min_value:
+            min_value = value
+            if min_value == 0:
+                break
+    return 1 if min_value is None else min_value
+
+
+def _human_to_mei(measure_number: int, offset: int) -> int:
+    """Convert a human-facing measure number to an MEI-labelled one."""
+    if measure_number is None:
+        return None
+    return measure_number + offset - 1
+
+
+def _get_musicxml_measure_offset(file_path: Path) -> int:
+    """Return lowest numeric measure label in MusicXML file."""
+    import xml.etree.ElementTree as ET
+
+    try:
+        root = ET.parse(file_path).getroot()
+    except ET.ParseError:
+        return 1
+
+    # MusicXML 3.1 default namespace
+    measures = root.findall('.//{http://www.musicxml.org/ns1.1}measure') or root.findall('.//measure')
+    min_value = None
+    for measure in measures:
+        number = measure.get('number')
+        if not number:
+            continue
+        try:
+            value = int(number)
+        except ValueError:
+            continue
+        if min_value is None or value < min_value:
+            min_value = value
+            if min_value == 0:
+                break
+    return 1 if min_value is None else min_value
+
+
+def _get_humdrum_measure_offset(file_path: Path) -> int:
+    """Return lowest numeric measure label in Humdrum file."""
+    try:
+        with open(file_path, 'r') as handle:
+            for line in handle:
+                if not line.startswith('='):
+                    continue
+                token = line.split('\t', 1)[0][1:].rstrip('-').split()[0]
+                if not token:
+                    continue
+                if token.isdigit():
+                    value = int(token)
+                    return value if value != 0 else 0
+    except FileNotFoundError:
+        return 1
+    return 1
+
 # Base paths
 DATA_DIR = Path(__file__).parent.parent / "data"
 
@@ -115,6 +193,10 @@ def extract_mei(file_path: Path, start_measure: int, end_measure: int) -> str:
     with open(file_path, 'r') as f:
         content = f.read()
     
+    offset = _get_mei_measure_offset(file_path)
+    target_start = _human_to_mei(start_measure, offset)
+    target_end = _human_to_mei(end_measure, offset)
+
     # Extract everything before <music>
     music_start = content.find('<music>')
     if music_start == -1:
@@ -128,7 +210,7 @@ def extract_mei(file_path: Path, start_measure: int, end_measure: int) -> str:
     
     # Find requested measures
     extracted_measures = []
-    for measure_num in range(start_measure, end_measure + 1):
+    for measure_num in range(target_start, target_end + 1):
         # Find measure with n="X" attribute
         pattern = rf'<measure[^>]*\bn=["\' ]{measure_num}["\' ][^>]*>.*?</measure>'
         measure_match = re.search(pattern, content, re.DOTALL)
@@ -227,6 +309,10 @@ def extract_humdrum(file_path: Path, start_measure: int, end_measure: int) -> st
     with open(file_path, 'r') as f:
         lines = f.readlines()
     
+    offset = _get_humdrum_measure_offset(file_path)
+    target_start = start_measure + offset - 1
+    target_end = end_measure + offset - 1
+
     # Collect all reference records (!!!) and global comments
     header_lines = []
     spine_def_lines = []
@@ -271,14 +357,14 @@ def extract_humdrum(file_path: Path, start_measure: int, end_measure: int) -> st
             in_measures = True
             
             # Check if this measure is in our range
-            if start_measure <= current_measure <= end_measure:
+            if target_start <= current_measure <= target_end:
                 measure_lines.append(line)
             elif current_measure > end_measure:
                 break
             continue
         
         # Data lines within measure range
-        if in_measures and start_measure <= current_measure <= end_measure:
+        if in_measures and target_start <= current_measure <= target_end:
             measure_lines.append(line)
     
     # Build complete Humdrum file
@@ -337,6 +423,7 @@ def cli_extract_and_display(format: str, file_path: Path, start_measure: int,
                 f.write(result)
             print(f"Saved to: {output_path}")
             # Count measures for verification
+            measure_count = None
             if format == 'humdrum':
                 measure_count = result.count('\n=')
             elif format == 'musicxml':
@@ -346,7 +433,8 @@ def cli_extract_and_display(format: str, file_path: Path, start_measure: int,
             elif format == 'abc':
                 # Count V:1 lines with bar markers
                 measure_count = sum(1 for line in result.split('\n') if line.startswith('[V:1]') and '|' in line)
-            print(f"Extracted {measure_count} measures")
+            if measure_count is not None:
+                print(f"Extracted {measure_count} measures")
         else:
             # Display to console
             if len(result) > 2000:

@@ -8,6 +8,7 @@ Instructions:
 - Do not include explanations, reasoning, or any text outside the JSON object
 - For pitch questions, always include the octave (e.g., "C4", "F#5")
 - For questions with a short answer response, do not use hyphens (e.g., Perfect fifth, Quarter note)
+- Only respond based on elements that will be visually rendered in the score. For example, if the encoded file contains invisible notes or rests, do not consider these elements in your response.
 
 Example response format:
 {"answer": "99"}

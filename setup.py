@@ -1,6 +1,6 @@
 """Setup configuration for Music Encoding Benchmark."""
 
-from setuptools import setup, find_packages
+from setuptools import setup, find_packages  # type: ignore
 from pathlib import Path
 
 # Read the README file
@@ -33,6 +33,7 @@ setup(
         "console_scripts": [
             "run-benchmark=cli.run_benchmark:main",
             "add-question=cli.add_question:main",
+            "review-passage=cli.review_passage:main",
             "init-database=scripts.init_database:main",
         ],
     },
