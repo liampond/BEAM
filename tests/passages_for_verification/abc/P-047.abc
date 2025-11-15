@@ -1,0 +1,35 @@
+%%linebreak <none>
+%%measurenb 2
+X: 61
+T: Piano Sonata No. 15 in C major, K 545, mvmt. 1
+C: Wolfgang Amadeus Mozart
+%%abc-version 2.0
+%%abcx-abcm2ps-target-version 5.9.1 (29 Sep 2008)
+%%abc-creator hum2abc beta
+%%abcx-conversion-date 2021/01/14 17:01:33
+%%abc-copyright 2018 Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abcx-initial-encoding-date 2004/10/26
+%%gracespace 0 6 6
+%%humdrum-veritas 2735561832
+%%humdrum-veritas-data 173195002
+%%linebreak <none>
+%%barnumbers 0
+L: 1/16
+M: 4/4
+N: Derived from sonata15-1.krn
+Q: "Allegro" 1/4=120
+%%staves {1 2}
+V: 1 clef=treble
+V: 2 clef=treble
+N: Extracted measures 1-4 from original score
+K: C
+[V:1] c8e4g4 | 
+[V:2] C2G2E2G2 C2G2E2G2 | 
+[V:1] B6cdc4z4 | 
+[V:2] D2G2F2G2 C2G2E2G2 | 
+[V:1] a8g4c'4 | 
+[V:2] C2A2F2A2 C2G2E2G2 | 
+[V:1] g4!trill!f2efe4z4 | 
+[V:2] B,2G2D2G2 C2G2E2G2 | 

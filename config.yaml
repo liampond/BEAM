@@ -21,7 +21,7 @@ models:
   # Alibaba models
   - provider: "alibaba-cloud"
     name: "qwen3-max"
-    enabled: true  
+    enabled: false  
 
   # Local models (HuggingFace Transformers)
   - provider: "transformers"
@@ -72,8 +72,8 @@ output:
 # Test execution settings
 execution:
   mode: "specific"          # "specific" or "all"
-  questions: [22]           # Question IDs to test (used when mode=specific)
-  formats: ["abc", "mei", "musicxml", "humdrum"]  # Which encoding formats to test
+  questions: [420]          # Question IDs to test (used when mode=specific)
+  formats: ["humdrum"]     # Which encoding formats to test
   concurrency: 4            # Number of parallel requests (0 = sequential)
   retry_on_failure: true    # Retry failed API calls
   max_retries: 3            # Maximum retry attempts

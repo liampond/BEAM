@@ -39,6 +39,7 @@ import sqlite3
 from datetime import datetime
 from typing import Dict, Any, List, Optional
 import os
+import re
 from dotenv import load_dotenv
 
 from core import extract_passage
@@ -91,7 +92,13 @@ def fetch_test_cases(question_ids: Optional[List[int]] = None,
             tc.test_case_id,
             tc.question_id,
             q.question_text,
-            q.correct_answer,
+            CASE e.format
+                WHEN 'musicxml' THEN q.answer_musicxml
+                WHEN 'abc' THEN q.answer_abc
+                WHEN 'mei' THEN q.answer_mei
+                WHEN 'humdrum' THEN q.answer_humdrum
+                ELSE q.answer_humdrum
+            END AS correct_answer,
             q.question_type,
             tc.encoding_id,
             e.format,
@@ -99,7 +106,14 @@ def fetch_test_cases(question_ids: Optional[List[int]] = None,
             p.passage_id,
             p.start_measure,
             p.end_measure,
-            p.piece_id
+            p.piece_id,
+            CASE e.format
+                WHEN 'musicxml' THEN q.verified_musicxml
+                WHEN 'abc' THEN q.verified_abc
+                WHEN 'mei' THEN q.verified_mei
+                WHEN 'humdrum' THEN q.verified_humdrum
+                ELSE 0
+            END AS verified_answer
         FROM test_cases tc
         JOIN questions q ON tc.question_id = q.question_id
         JOIN encodings e ON tc.encoding_id = e.encoding_id
@@ -131,12 +145,11 @@ def fetch_test_cases(question_ids: Optional[List[int]] = None,
     return test_cases
 
 
-def extract_answer_from_response(response_text: str, question_type: str = None) -> str:
+def extract_answer_from_response(response_text: str, question_type: Optional[str] = None) -> str:
     """Extract answer from LLM response (handles JSON or plain text)."""
     # Try to parse as JSON first
     try:
         # Look for JSON object in response
-        import re
         json_match = re.search(r'\{[^{}]*\}', response_text)
         if json_match:
             data = json.loads(json_match.group(0))
