@@ -1,0 +1,29 @@
+%%linebreak <none>
+%%measurenb 2
+X: 16
+T: Piano Sonata No. 6 in D major, K 284 (205b), mvmt. 1
+C: Wolfgang Amadeus Mozart
+%%abc-version 2.0
+%%abcx-abcm2ps-target-version 5.9.1 (29 Sep 2008)
+%%abc-creator hum2abc beta
+%%abcx-conversion-date 2021/01/14 17:01:33
+%%abc-copyright 2018 Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abcx-initial-encoding-date 2009/09/23
+%%gracespace 0 6 6
+%%humdrum-veritas 228511423
+%%humdrum-veritas-data 2117851953
+%%linebreak <none>
+%%barnumbers 0
+L: 1/16
+M: C
+N: Derived from sonata06-1.krn
+Q: "Allegro" 1/4=138
+%%staves {1 2}
+V: 1 clef=treble
+V: 2 clef=bass
+N: Extracted measures 122-122 from original score
+K: D
+[V:1] z2 [B2b2][^A2^a2][B2b2] [A2a2][B2b2][c2c'2][d2d'2] | 
+[V:2] [G,,4G,4]z4z8 | 

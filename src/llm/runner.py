@@ -53,7 +53,13 @@ def fetch_test_cases(conn: Optional[sqlite3.Connection] = None, question_id: Opt
             tc.question_id,
             q.question_type,
             q.question_text,
-            q.correct_answer,
+            CASE e.format
+                WHEN 'musicxml' THEN q.answer_musicxml
+                WHEN 'abc' THEN q.answer_abc
+                WHEN 'mei' THEN q.answer_mei
+                WHEN 'humdrum' THEN q.answer_humdrum
+                ELSE q.answer_humdrum
+            END AS correct_answer,
             e.encoding_id,
             e.format,
             e.file_path,
@@ -61,7 +67,14 @@ def fetch_test_cases(conn: Optional[sqlite3.Connection] = None, question_id: Opt
             p.passage_id,
             p.start_measure,
             p.end_measure,
-            p.granularity
+            p.granularity,
+            CASE e.format
+                WHEN 'musicxml' THEN q.verified_musicxml
+                WHEN 'abc' THEN q.verified_abc
+                WHEN 'mei' THEN q.verified_mei
+                WHEN 'humdrum' THEN q.verified_humdrum
+                ELSE 0
+            END AS verified_answer
         FROM test_cases tc
         JOIN questions q ON tc.question_id = q.question_id
         JOIN encodings e ON tc.encoding_id = e.encoding_id
@@ -102,6 +115,7 @@ def fetch_test_cases(conn: Optional[sqlite3.Connection] = None, question_id: Opt
         "start_measure",
         "end_measure",
         "granularity",
+        "verified_answer",
     ]
 
     results: List[Dict[str, Any]] = [dict(zip(keys, row)) for row in rows]
@@ -118,7 +132,7 @@ def insert_llm_response(conn: sqlite3.Connection, test_case_id: int, llm_model: 
     `llm_response` text field to keep a single column schema.
     """
     cur = conn.cursor()
-    payload = {"response": llm_response}
+    payload: Dict[str, Any] = {"response": llm_response}
     if metadata:
         payload["metadata"] = metadata
 
@@ -129,4 +143,5 @@ def insert_llm_response(conn: sqlite3.Connection, test_case_id: int, llm_model: 
         (test_case_id, llm_model, payload_json, is_correct),
     )
     conn.commit()
-    return cur.lastrowid
+    last_id = cur.lastrowid
+    return int(last_id) if last_id is not None else 0
