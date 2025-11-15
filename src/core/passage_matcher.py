@@ -189,6 +189,12 @@ class PassageMatcher:
         token = token.strip()
         if not token or token.startswith('*') or token.startswith('!') or token.startswith('='):
             return False
+        # Check for grace notes (marked with 'q' or 'qq' after the pitch in Humdrum)
+        # Grace notes have markers like: 32bqLLL, 32ddqJJJ, 32g#Pqq/, 32bPqq/
+        # The 'q' appears after the pitch letter (and accidentals) and before or with other markers
+        # Pattern: pitch letter + optional accidentals + optional 'P' + 'q' or 'qq'
+        if re.search(r'[a-gA-G][#-]*P?qq?', token):
+            return False
         # Check for rest
         if 'r' in token.lower() and not any(c in token for c in 'abcdefgABCDEFG'):
             return False
@@ -331,38 +337,50 @@ class PassageMatcher:
         chord_count = 0
         
         for measure in measures:
-            content = measure['v1'] + ' ' + measure['v2']
+            # Process V:1 (RH) and V:2 (LH) separately to match Humdrum order
+            v1_content = measure['v1']
+            v2_content = measure['v2']
             
-            # Find all notes (excluding rests 'z')
-            # Chords are in brackets [ABC]
-            # Individual notes are letters with optional accidentals
+            # Remove grace notes (in braces {}) before processing
+            v1_content = re.sub(r'\{[^}]*\}', '', v1_content)
+            v2_content = re.sub(r'\{[^}]*\}', '', v2_content)
             
-            # Find chords
-            chord_matches = re.findall(r'\[([^\]]+)\]', content)
-            for chord_content in chord_matches:
-                # Parse notes in chord
-                notes = re.findall(r'([_=\^]?)([A-Ga-g][,\']*)(\d*)', chord_content)
-                note_count_in_chord = 0
-                for accidental, pitch, duration in notes:
+            # Remove voice markers [V:1], [V:2], etc.
+            v1_content = re.sub(r'\[V:\d+\]', '', v1_content)
+            v2_content = re.sub(r'\[V:\d+\]', '', v2_content)
+            
+            # Process V:1 (RH) first, then V:2 (LH) to match Humdrum order
+            for content in [v1_content, v2_content]:
+                # Find chords and individual notes in order
+                # We need to extract them in the order they appear, not chords-then-notes
+                
+                # Find all note-like patterns (both in chords and individual)
+                # Process chords
+                chord_matches = re.findall(r'\[([^\]]+)\]', content)
+                for chord_content in chord_matches:
+                    # Parse notes in chord
+                    notes = re.findall(r'([_=\^]?)([A-Ga-g][,\']*)(\d*)', chord_content)
+                    note_count_in_chord = 0
+                    for accidental, pitch, duration in notes:
+                        if pitch and pitch not in 'zZxX':
+                            midi = self._abc_to_midi(accidental + pitch)
+                            if midi is not None:
+                                pitches.append(midi)
+                                note_count_in_chord += 1
+                    # Only count as chord if 2+ notes
+                    if note_count_in_chord >= 2:
+                        chord_count += 1
+                
+                # Find individual notes (not in chords, not rests)
+                # Remove chords first
+                no_chords = re.sub(r'\[[^\]]+\]', '', content)
+                # Find notes
+                note_matches = re.findall(r'([_=\^]?)([A-Ga-g][,\']*)(\d*)', no_chords)
+                for accidental, pitch, duration in note_matches:
                     if pitch and pitch not in 'zZxX':
                         midi = self._abc_to_midi(accidental + pitch)
                         if midi is not None:
                             pitches.append(midi)
-                            note_count_in_chord += 1
-                # Only count as chord if 2+ notes
-                if note_count_in_chord >= 2:
-                    chord_count += 1
-            
-            # Find individual notes (not in chords, not rests)
-            # Remove chords first
-            no_chords = re.sub(r'\[[^\]]+\]', '', content)
-            # Find notes
-            note_matches = re.findall(r'([_=\^]?)([A-Ga-g][,\']*)(\d*)', no_chords)
-            for accidental, pitch, duration in note_matches:
-                if pitch and pitch not in 'zZxX':
-                    midi = self._abc_to_midi(accidental + pitch)
-                    if midi is not None:
-                        pitches.append(midi)
         
         return {
             'pitches': pitches,
@@ -394,12 +412,17 @@ class PassageMatcher:
         rest = note[1:]
         
         # Determine octave
-        # Uppercase = octave 3-4, lowercase = octave 4-5
+        # In ABC notation:
+        # C, D, E ... = octave 2
+        # C D E ... (uppercase) = octave 3
+        # c d e ... (lowercase) = octave 4 (middle C octave)
+        # c' d' e' ... = octave 5
+        # c'' d'' e'' ... = octave 6
         # Each ' raises octave, each , lowers it
         if pitch_letter.isupper():
             octave = 3
         else:
-            octave = 5
+            octave = 4
         
         octave += rest.count("'")
         octave -= rest.count(',')
