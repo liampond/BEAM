@@ -21,4 +21,7 @@ accelerate>=0.25.0
 # Llama models (Llama 4 Scout and Maverick)
 llama-stack
 
+# Testing
+pytest>=8.0.0
+
 # Data analysis (optional, for evaluation)

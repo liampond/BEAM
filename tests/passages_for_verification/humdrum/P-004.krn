@@ -1,0 +1,36 @@
+!!!!SEGMENT: sonata04-3.krn
+!!!COM: Mozart, Wolfgang Amadeus
+!!!CDT: 1756/01/27/-1791/12/05/
+!!!CNT: German
+!!!OTL: Piano Sonata No. 4 in E-flat major
+!!!SCT1: K<sup>1</sup> 282
+!!!SCT2: K<sup>6</sup> 189g
+!!!OMV: 3
+!!!OMD: Allegro
+!!!ODT: 1774
+
+**kern	**kern	**dynam
+*part1	*part1	*
+*staff2	*staff1	*staff1/2
+*ICklav	*ICklav	*
+*Ipiano	*Ipiano	*
+*LH	*RH	*
+*I"	*I"	*
+*>[A,A,B,B]	*>[A,A,B,B]	*>[A,A,B,B]
+*>norep[A,B]	*>norep[A,B]	*>norep[A,B]
+*>A	*>A	*>A
+*clefG2	*clefG2	*
+*k[b-e-a-]	*k[b-e-a-]	*
+*E-:	*E-:	*
+*M2/4	*M2/4	*
+
+=56	=56	=56
+(16e-LL	(8ccL	.
+16g	.	.
+16dn	8ddn	.
+16gJJ	.	.
+16cLL	8ee-	.
+16g	.	.
+16Bn	8ffJ)	.
+16gJJ	.	.
+*-	*-	*-

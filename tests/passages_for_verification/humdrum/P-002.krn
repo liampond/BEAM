@@ -1,0 +1,33 @@
+!!!!SEGMENT: sonata02-1.krn
+!!!COM: Mozart, Wolfgang Amadeus
+!!!CDT: 1756/01/27/-1791/12/05/
+!!!CNT: German
+!!!OTL: Piano Sonata No. 2 in F major
+!!!SCT1: K<sup>1</sup> 280
+!!!SCT2: K<sup>6</sup> 189e
+!!!OMV: 1
+!!!OMD: Allegro assai.
+!!!ODT: 1774
+
+**kern	**kern	**dynam
+*part1	*part1	*
+*staff2	*staff1	*staff1/2
+*ICklav	*ICklav	*
+*Ipiano	*Ipiano	*
+*LH	*RH	*
+*I"	*I"	*
+*>[A,A,B,B]	*>[A,A,B,B]	*>[A,A,B,B]
+*>norep[A,B]	*>norep[A,B]	*>norep[A,B]
+*>A	*>A	*>A
+*clefF4	*clefG2	*
+*k[b-]	*k[b-]	*
+*F:	*F:	*
+*M3/4	*M3/4	*
+*MM152	*MM152	*
+
+=27	=27	=27
+4CC 4C	2.r	f
+4EE 4E	.	.
+4GG 4G	.	.
+!!LO:LB:g=original
+*-	*-	*-

@@ -1,0 +1,48 @@
+!!!!SEGMENT: sonata01-1.krn
+!!!COM: Mozart, Wolfgang Amadeus
+!!!CDT: 1756/01/27/-1791/12/05/
+!!!CNT: German
+!!!OTL: Piano Sonata No. 1 in C major
+!!!SCT1: K<sup>1</sup> 279
+!!!SCT2: K<sup>6</sup> 189d
+!!!OMV: 1
+!!!OMD: Allegro.
+!!!ODT: 1774
+
+**kern	**kern	**dynam
+*part1	*part1	*
+*staff2	*staff1	*staff1/2
+*ICklav	*ICklav	*
+*Ipiano	*Ipiano	*
+*LH	*RH	*
+*I"	*I"	*
+*>[A,A,B]	*>[A,A,B]	*>[A,A,B]
+*>norep[A,B]	*>norep[A,B]	*>norep[A,B]
+*>A	*>A	*>A
+*clefF4	*clefG2	*
+*k[]	*k[]	*
+*C:	*C:	*
+*M4/4	*M4/4	*
+*met(c)	*met(c)	*
+*MM120	*MM120	*
+
+=87	=87	=87
+16aLL>	4.ff	.
+16cc	.	.
+16b	.	.
+16ccJJ	.	.
+16gLL>	.	.
+16cc	.	.
+16b	8ee)	.
+16ccJJ	.	.
+16fLL	8dd'L	.
+16cc	.	.
+.	(32cc#Pqq/	.
+16b	8dd'p)	.
+16ccJJ	.	.
+16gLL>	8ee'	.
+16cc	.	.
+.	(32dd#Pqq/	.
+16b	8ee'pJ)	.
+16ccJJ	.	.
+*-	*-	*-
