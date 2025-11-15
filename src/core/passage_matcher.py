@@ -450,12 +450,11 @@ class PassageMatcher:
         """
         # Check note count (configurable tolerance)
         note_diff = abs(sig1['total_notes'] - sig2['total_notes'])
-        if note_diff > self.config.note_count_tolerance:
-            return False
         
-        # If note counts are very close, accept it
-        if note_diff <= 1 and sig1['total_notes'] >= self.config.min_notes_for_interval_match:
-            # Check if pitch contours match (intervals, not absolute pitches)
+        # Try interval-based matching first (more robust to encoding differences)
+        # This works even when note counts differ significantly
+        if sig1['total_notes'] >= self.config.min_notes_for_interval_match and \
+           sig2['total_notes'] >= self.config.min_notes_for_interval_match:
             if len(sig1['first_pitches']) >= 3 and len(sig2['first_pitches']) >= 3:
                 # Compare intervals between consecutive notes
                 intervals1 = [sig1['first_pitches'][i+1] - sig1['first_pitches'][i] 
@@ -469,8 +468,15 @@ class PassageMatcher:
                         1 for i1, i2 in zip(intervals1[:3], intervals2[:3]) 
                         if abs(i1 - i2) <= self.config.interval_tolerance
                     )
+                    # If intervals match well, accept even if note counts differ
                     if matching_intervals >= self.config.min_matching_intervals:
-                        return True
+                        # But note counts should be somewhat close
+                        if note_diff <= self.config.note_count_tolerance * 3:
+                            return True
+        
+        # If note count differs too much, reject
+        if note_diff > self.config.note_count_tolerance:
+            return False
         
         # Original strict matching for cases where intervals don't work
         # Check first pitches (must match exactly for first 5)
