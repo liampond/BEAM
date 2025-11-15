@@ -49,6 +49,8 @@ outputs/*.json
 outputs/full_database.md
 backups/
 CLEANUP_PLAN.md
+tests/passages_for_verification/
+tests/verification_templates/
 
 # Jupyter Notebook
 *.ipynb_checkpoints

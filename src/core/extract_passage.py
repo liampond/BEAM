@@ -321,6 +321,7 @@ def extract_humdrum(file_path: Path, start_measure: int, end_measure: int) -> st
     current_measure = 0
     in_measures = False
     found_spine_def = False
+    num_spines = 0
     
     for line in lines:
         line = line.rstrip('\n')
@@ -334,6 +335,8 @@ def extract_humdrum(file_path: Path, start_measure: int, end_measure: int) -> st
         if line.startswith('**'):
             spine_def_lines.append(line)
             found_spine_def = True
+            # Count number of spines
+            num_spines = len(line.split('\t'))
             continue
         
         # Tandem interpretations (clef, key, time) before first measure
@@ -367,8 +370,9 @@ def extract_humdrum(file_path: Path, start_measure: int, end_measure: int) -> st
         if in_measures and target_start <= current_measure <= target_end:
             measure_lines.append(line)
     
-    # Build complete Humdrum file
-    result_lines = header_lines + [''] + spine_def_lines + [''] + measure_lines + ['*-\t*-\t*-']
+    # Build complete Humdrum file with proper spine terminators
+    spine_terminators = '\t'.join(['*-'] * num_spines)
+    result_lines = header_lines + [''] + spine_def_lines + [''] + measure_lines + [spine_terminators]
     result = '\n'.join(result_lines) + '\n'
     return result
 
