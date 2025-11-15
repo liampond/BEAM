@@ -543,6 +543,11 @@ class PassageMatcher:
             
             in_chord = False
             for note in notes:
+                # Check if it's a grace note - skip if it is
+                grace_elem = note.find('.//{http://www.musicxml.org/ns1.1}grace') or note.find('.//grace')
+                if grace_elem is not None:
+                    continue
+                
                 # Check if it's a chord
                 chord_elem = note.find('.//{http://www.musicxml.org/ns1.1}chord') or note.find('.//chord')
                 if chord_elem is not None:
@@ -636,6 +641,11 @@ class PassageMatcher:
             chord_count += len(chords)
             
             for note in notes:
+                # Check if it's a grace note - skip if it is
+                grace_attr = note.get('grace')
+                if grace_attr is not None:  # Grace notes have grace='unknown' or grace='acc' etc.
+                    continue
+                
                 # Check if it's a rest (has no @pname)
                 pname = note.get('pname')
                 if not pname:

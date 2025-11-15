@@ -23,7 +23,7 @@ Q: "Allegro" 1/4=138
 %%staves {1 2}
 V: 1 clef=treble
 V: 2 clef=bass
-N: Extracted measures 121-121 from original score
+N: Extracted measures 122-122 from original score
 K: D
-[V:1] C2 z A/e/ g2.g2 z2 z A/d/ f2.f2 | 
-[V:2] [C,,4C,4]z2 z [C,C][D,4D4]z2 z [D,D] | 
+[V:1] z2 [B2b2][^A2^a2][B2b2] [A2a2][B2b2][c2c'2][d2d'2] | 
+[V:2] [G,,4G,4]z4z8 | 
