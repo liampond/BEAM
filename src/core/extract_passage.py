@@ -341,13 +341,13 @@ def extract_musicxml(file_path: Path, start_measure: int, end_measure: int) -> s
             measure_xml = match.group(0)
             # Add complete attributes to first extracted measure if it doesn't have divisions
             if measure_num == start_measure and '<divisions>' not in measure_xml and attributes_xml:
-                # If measure has partial attributes, replace them; otherwise insert after <measure> tag
-                if '<attributes>' in measure_xml:
-                    # Replace existing partial attributes with complete ones
-                    measure_xml = re.sub(r'<attributes>.*?</attributes>', attributes_xml, measure_xml, flags=re.DOTALL)
-                else:
-                    # Insert attributes after <measure> tag
-                    measure_xml = re.sub(r'(<measure[^>]*>)', rf'\1\n      {attributes_xml}', measure_xml)
+                # Insert attributes right after the opening <measure> tag
+                measure_xml = re.sub(
+                    r'(<measure[^>]*>)',
+                    rf'\1\n      {attributes_xml}',
+                    measure_xml,
+                    count=1
+                )
             extracted_measures.append(measure_xml)
     
     # Build minimal MusicXML document
