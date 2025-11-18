@@ -42,11 +42,7 @@ data/question_passages_musicxml/
 data/question_passages_humdrum/
 .env
 src/**/*.db
-outputs/claude-sonnet-4-5/
-outputs/gemini-2.5-pro/
-outputs/archive/
-outputs/*.json
-outputs/full_database.md
+outputs/
 backups/
 CLEANUP_PLAN.md
 tests/passages_for_verification/
