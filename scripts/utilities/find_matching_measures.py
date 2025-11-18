@@ -11,9 +11,10 @@ import argparse
 import sys
 from pathlib import Path
 
-sys.path.insert(0, 'src')
+# Add src to path for imports
+sys.path.insert(0, str(Path(__file__).parent.parent.parent / 'src'))
 
-from core.extract_passage import extract
+from src.core.extract_passage import extract
 
 def show_measure(format_name, file_path, measure_num):
     """Extract and display a single measure."""

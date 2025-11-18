@@ -8,10 +8,11 @@ import json
 import sys
 from pathlib import Path
 
-sys.path.insert(0, 'src')
+# Add src to path for imports
+sys.path.insert(0, str(Path(__file__).parent.parent.parent / 'src'))
 
-from core.extract_passage import extract
-from core.passage_matcher import find_passage_in_all_formats
+from src.core.extract_passage import extract
+from src.core.passage_matcher import find_passage_in_all_formats
 
 def main():
     # Load verified Humdrum test cases to get unique passages
