@@ -18,7 +18,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../../..'))
 
 from src.answer_extraction.musicxml import _helpers
 from src.answer_extraction.musicxml import first_note_pitch
-from src.db_utils import get_connection
+from src.core.db_utils import get_connection
 from typing import List
 import xml.etree.ElementTree as ET
 
@@ -38,20 +38,16 @@ def get_last_notes(notes: List[ET.Element]) -> List[ET.Element]:
     if not notes:
         return []
     
-    # Last valid note sets the measure and position
+    # Calculate time positions for all notes (if not already done)
+    _helpers.add_time_positions(notes)
+    
+    # Last valid note sets the measure and time position
     last_note = notes[-1]
     last_measure = last_note.get('_measure_number')
+    last_time = int(last_note.get('_time_position', 0))
     
-    # Collect all notes in the last measure (working backwards)
-    simultaneous_notes = [last_note]
-    
-    for note in reversed(notes[:-1]):
-        if note.get('_measure_number') == last_measure:
-            # Still in last measure - could be simultaneous
-            simultaneous_notes.insert(0, note)
-        else:
-            # Moved to previous measure - stop
-            break
+    # Get all notes at the same time position in the same measure
+    simultaneous_notes = _helpers.get_notes_at_time_position(notes, last_time, last_measure)
     
     return simultaneous_notes
 
@@ -146,10 +142,10 @@ def extract_answer(file_path: str, passage_id: str, staff: str = "upper") -> str
     if first_pitch is None or last_pitch is None:
         raise ValueError(f"Could not determine first or last pitch")
     
-    # Calculate interval in semitones
+    # Calculate interval in semitones (absolute value)
     first_midi = _helpers.pitch_to_midi(first_pitch)
     last_midi = _helpers.pitch_to_midi(last_pitch)
-    interval = last_midi - first_midi
+    interval = abs(last_midi - first_midi)
     
     return str(interval)
 

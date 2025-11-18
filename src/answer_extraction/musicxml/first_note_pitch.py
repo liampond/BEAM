@@ -19,7 +19,7 @@ import os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../../..'))
 
 from src.answer_extraction.musicxml import _helpers
-from src.db_utils import get_connection
+from src.core.db_utils import get_connection
 from typing import List, Optional
 import xml.etree.ElementTree as ET
 
@@ -39,21 +39,16 @@ def get_first_notes(notes: List[ET.Element]) -> List[ET.Element]:
     if not notes:
         return []
     
-    # First valid note sets the measure and position
+    # Calculate time positions for all notes
+    _helpers.add_time_positions(notes)
+    
+    # First valid note sets the measure and time position
     first_note = notes[0]
     first_measure = first_note.get('_measure_number')
+    first_time = int(first_note.get('_time_position', 0))
     
-    # For simplicity, all notes in the same measure at the start are considered simultaneous
-    # In a more robust implementation, we'd track exact time positions within measures
-    simultaneous_notes = [first_note]
-    
-    for note in notes[1:]:
-        if note.get('_measure_number') == first_measure:
-            # Still in first measure - could be simultaneous
-            simultaneous_notes.append(note)
-        else:
-            # Moved to next measure - stop
-            break
+    # Get all notes at the same time position in the same measure
+    simultaneous_notes = _helpers.get_notes_at_time_position(notes, first_time, first_measure)
     
     return simultaneous_notes
 

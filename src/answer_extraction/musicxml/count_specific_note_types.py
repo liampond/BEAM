@@ -16,7 +16,7 @@ import os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../../..'))
 
 from src.answer_extraction.musicxml import _helpers
-from src.db_utils import get_connection
+from src.core.db_utils import get_connection
 
 
 # Map note type names to MusicXML <type> values

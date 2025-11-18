@@ -23,7 +23,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../../..'))
 
 from src.answer_extraction.musicxml import _helpers
 from src.answer_extraction.musicxml import first_note_pitch
-from src.db_utils import get_connection
+from src.core.db_utils import get_connection
 
 
 def extract_answer(file_path: str, passage_id: str, staff: str = "upper") -> str:

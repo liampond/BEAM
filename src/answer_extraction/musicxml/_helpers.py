@@ -92,13 +92,20 @@ def get_notes_in_range(
     
     # Iterate through all parts and measures
     for part in root.findall('.//part'):
+        # Track the current divisions value as we iterate through measures
+        current_divisions = 1  # Default
+        
         for measure in part.findall('.//measure'):
             measure_num = int(measure.get('number', 0))
             
+            # Update divisions if this measure defines it
+            divisions_elem = measure.find('.//divisions')
+            if divisions_elem is not None:
+                current_divisions = int(divisions_elem.text)
+            
             # Check if measure is in range
             if start_measure <= measure_num <= end_measure:
-                # Get divisions for this measure (needed for context)
-                divisions = get_divisions(measure)
+                # Use the current divisions value (from this or previous measure)
                 
                 for note in measure.findall('.//note'):
                     # Filter by staff if specified
@@ -109,7 +116,7 @@ def get_notes_in_range(
                     
                     # Attach measure context to note for later use
                     note.set('_measure_number', str(measure_num))
-                    note.set('_divisions', str(divisions))
+                    note.set('_divisions', str(current_divisions))
                     notes.append(note)
     
     return notes
@@ -281,6 +288,72 @@ def get_pitch_class(pitch: str) -> str:
     """
     # Remove octave digit(s) from end
     return re.sub(r'\d+$', '', pitch)
+
+
+# ==================== TIME POSITION OPERATIONS ====================
+
+def add_time_positions(notes: List[ET.Element]) -> None:
+    """
+    Calculate and attach time positions to notes within their measures.
+    
+    MusicXML doesn't explicitly store time positions, so we calculate them
+    by tracking cumulative duration within each measure. This handles:
+    - Sequential notes (time advances)
+    - Chords (backup resets time to allow simultaneous notes)
+    - Multiple voices (each voice tracks time independently)
+    
+    Modifies notes in-place by setting '_time_position' attribute.
+    
+    Args:
+        notes: List of note elements (assumed to be in document order)
+    """
+    # Track time position per (measure, voice) combination
+    # Key: (measure_number, voice), Value: current time position
+    time_positions = {}
+    
+    for note in notes:
+        measure_num = note.get('_measure_number')
+        divisions = int(note.get('_divisions', 1))
+        
+        # Get voice (default to '1' if not specified)
+        voice_elem = note.find('voice')
+        voice = voice_elem.text if voice_elem is not None else '1'
+        
+        key = (measure_num, voice)
+        
+        # Initialize time position for this measure/voice if needed
+        if key not in time_positions:
+            time_positions[key] = 0
+        
+        # Set current time position on note
+        note.set('_time_position', str(time_positions[key]))
+        
+        # Advance time by this note's duration (grace notes have no duration)
+        if not is_grace_note(note):
+            duration_elem = note.find('duration')
+            if duration_elem is not None:
+                time_positions[key] += int(duration_elem.text)
+
+
+def get_notes_at_time_position(notes: List[ET.Element], time_position: int, 
+                                 measure_number: str) -> List[ET.Element]:
+    """
+    Get all notes at a specific time position within a measure.
+    
+    Args:
+        notes: List of note elements with '_time_position' attributes
+        time_position: Time position to match
+        measure_number: Measure number to filter by
+    
+    Returns:
+        List of notes at the specified time position
+    """
+    matching_notes = []
+    for note in notes:
+        if (note.get('_measure_number') == measure_number and 
+            note.get('_time_position') == str(time_position)):
+            matching_notes.append(note)
+    return matching_notes
 
 
 # ==================== DURATION OPERATIONS ====================
