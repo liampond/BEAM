@@ -14,8 +14,8 @@ Tests all four matching strategies:
 import sys
 from pathlib import Path
 
-# Add src to path
-sys.path.insert(0, str(Path(__file__).parent / "src"))
+# Add project root to path
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
 from src.core.signature import Event, MusicalSignature
 from src.core.comparison import signatures_match, ComparisonConfig

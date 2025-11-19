@@ -29,7 +29,7 @@ def test_p001():
     results = find_passage_in_all_formats(
         humdrum_file=base / "humdrum" / "01-1.krn",
         abc_file=base / "abc" / "01-1.abc",
-        musicxml_file=base / "musicxml" / "01-1.musicxml",
+        musicxml_file=base / "musicxml" / "01-1.xml",
         mei_file=base / "mei" / "01-1.mei",
         humdrum_start=87,
         humdrum_end=87
@@ -70,7 +70,7 @@ def test_p051():
     results = find_passage_in_all_formats(
         humdrum_file=base / "humdrum" / "16-1.krn",
         abc_file=base / "abc" / "16-1.abc",
-        musicxml_file=base / "musicxml" / "16-1.musicxml",
+        musicxml_file=base / "musicxml" / "16-1.xml",
         mei_file=base / "mei" / "16-1.mei",
         humdrum_start=27,
         humdrum_end=27

@@ -51,6 +51,8 @@ backups/
 CLEANUP_PLAN.md
 tests/passages_for_verification/
 tests/verification_templates/
+verified_passages/
+manual_comparison/
 
 # Jupyter Notebook
 *.ipynb_checkpoints

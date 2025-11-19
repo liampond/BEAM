@@ -16,8 +16,8 @@ Tests signatures from:
 import sys
 from pathlib import Path
 
-# Add src to path
-sys.path.insert(0, str(Path(__file__).parent / "src"))
+# Add project root to path
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
 from src.core.format_parsers.humdrum_parser import HumdrumParser
 from src.core.format_parsers.abc_parser import ABCParser

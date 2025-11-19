@@ -12,24 +12,24 @@ This is the main integration test verifying the entire passage matching system.
 import sys
 from pathlib import Path
 
-# Add src to path
-sys.path.insert(0, str(Path(__file__).parent / "src"))
+# Add project root to path
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
 from src.core.passage_matcher import find_passage_in_all_formats
 
 
-# Test passages from the original test suite
+# Test passages from verified_answers_humdrum.json
 PASSAGES = [
-    ("P-001", "01-1", 87, 87),      # Single measure
-    ("P-002", "02-1", 27, 27),      # Single measure
-    ("P-003", "02-1", 56, 58),      # Multi-measure
-    ("P-004", "03-1", 56, 58),      # Multi-measure
-    ("P-005", "04-1", 87, 89),      # Multi-measure
-    ("P-006", "05-1", 87, 87),      # Single measure
-    ("P-007", "06-1", 87, 87),      # Single measure
-    ("P-008", "12-1", 87, 87),      # Single measure
-    ("P-009", "14-1", 27, 27),      # Single measure
-    ("P-051", "16-1", 27, 27),      # THE BUG FIX!
+    ("P-001", "01-1", 87, 87),       # Sonata 1, Movement 1, M87
+    ("P-002", "02-1", 27, 27),       # Sonata 2, Movement 1, M27
+    ("P-003", "03-1", 85, 85),       # Sonata 3, Movement 1, M85
+    ("P-004", "04-3", 56, 56),       # Sonata 4, Movement 3, M56
+    ("P-005", "05-3", 95, 95),       # Sonata 5, Movement 3, M95
+    ("P-006", "06-1", 122, 122),     # Sonata 6, Movement 1, M122
+    ("P-007", "07-1", 79, 79),       # Sonata 7, Movement 1, M79
+    ("P-008", "08-1", 37, 37),       # Sonata 8, Movement 1, M37
+    ("P-047", "16-1", 1, 4),         # Sonata 16, Movement 1, M1-4 (Multi-measure)
+    ("P-051", "16-1", 1, 73),        # Sonata 16, Movement 1, M1-73 (LONG passage - voice ordering fix!)
 ]
 
 
@@ -45,7 +45,7 @@ def test_passage(passage_id, filename, start, end):
         results = find_passage_in_all_formats(
             humdrum_file=base / "humdrum" / f"{filename}.krn",
             abc_file=base / "abc" / f"{filename}.abc",
-            musicxml_file=base / "musicxml" / f"{filename}.musicxml",
+            musicxml_file=base / "musicxml" / f"{filename}.xml",
             mei_file=base / "mei" / f"{filename}.mei",
             humdrum_start=start,
             humdrum_end=end
@@ -63,14 +63,14 @@ def test_passage(passage_id, filename, start, end):
             else:
                 missing.append(fmt)
                 # Check if file exists
-                file_path = base / fmt / f"{filename}.{fmt if fmt != 'musicxml' else 'musicxml'}"
+                file_path = base / fmt / f"{filename}.{fmt if fmt != 'musicxml' else 'xml'}"
                 if file_path.exists():
                     print(f"  ❌ {fmt:10s}: NOT MATCHED (file exists)")
                 else:
                     print(f"  ⚠️  {fmt:10s}: file not found")
         
         match_count = len(matched)
-        total_existing = sum(1 for fmt in formats if (base / fmt / f"{filename}.{fmt if fmt != 'musicxml' else 'musicxml'}").exists())
+        total_existing = sum(1 for fmt in formats if (base / fmt / f"{filename}.{fmt if fmt != 'musicxml' else 'xml'}").exists())
         
         print(f"\n  Match Rate: {match_count}/{total_existing} existing formats")
         
