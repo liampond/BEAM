@@ -262,26 +262,92 @@ def extract_musicxml(file_path: Path, start_measure: int, end_measure: int) -> s
     partlist_match = re.search(r'<part-list>.*?</part-list>', content, re.DOTALL)
     partlist = partlist_match.group(0) if partlist_match else '<part-list></part-list>'
     
-    # Get the first measure to extract attributes (key, time, clef)
-    first_measure_match = re.search(r'<measure[^>]*>.*?<attributes>.*?</attributes>.*?</measure>', content, re.DOTALL)
-    attributes_xml = ''
-    if first_measure_match:
-        attr_match = re.search(r'<attributes>.*?</attributes>', first_measure_match.group(0), re.DOTALL)
+    # Find the most recent values for each attribute component
+    # Track divisions, key, time, staves, and clefs separately since they can change independently
+    measure_pattern = r'<measure[^>]*number=["\'](\d+)["\'][^>]*>(.*?)</measure>'
+    
+    most_recent = {
+        'divisions': None,
+        'key': None,
+        'time': None,
+        'staves': None,
+        'clefs': []
+    }
+    
+    for match in re.finditer(measure_pattern, content, re.DOTALL):
+        measure_num = int(match.group(1))
+        measure_content = match.group(2)
+        
+        # Stop once we've passed the start measure
+        if measure_num > start_measure:
+            break
+            
+        # Look for attributes in this measure and update most recent values
+        attr_match = re.search(r'<attributes>.*?</attributes>', measure_content, re.DOTALL)
         if attr_match:
-            attributes_xml = attr_match.group(0)
+            attr_content = attr_match.group(0)
+            
+            # Update each component if present
+            if '<divisions>' in attr_content:
+                div_match = re.search(r'<divisions>.*?</divisions>', attr_content, re.DOTALL)
+                if div_match:
+                    most_recent['divisions'] = div_match.group(0)
+            
+            if '<key>' in attr_content:
+                key_match = re.search(r'<key>.*?</key>', attr_content, re.DOTALL)
+                if key_match:
+                    most_recent['key'] = key_match.group(0)
+            
+            if '<time' in attr_content:  # Changed from '<time>' to '<time' to catch attributes like symbol="common"
+                time_match = re.search(r'<time[^>]*>.*?</time>', attr_content, re.DOTALL)
+                if time_match:
+                    most_recent['time'] = time_match.group(0)
+            
+            if '<staves>' in attr_content:
+                staves_match = re.search(r'<staves>.*?</staves>', attr_content, re.DOTALL)
+                if staves_match:
+                    most_recent['staves'] = staves_match.group(0)
+            
+            # Collect all clefs (can have multiple for different staves)
+            clef_matches = re.findall(r'<clef[^>]*>.*?</clef>', attr_content, re.DOTALL)
+            if clef_matches:
+                most_recent['clefs'] = clef_matches
+    
+    # Build complete attributes from most recent values
+    attributes_xml = ''
+    if any(most_recent.values()):
+        attr_parts = []
+        if most_recent['divisions']:
+            attr_parts.append(most_recent['divisions'])
+        if most_recent['key']:
+            attr_parts.append(most_recent['key'])
+        if most_recent['time']:
+            attr_parts.append(most_recent['time'])
+        if most_recent['staves']:
+            attr_parts.append(most_recent['staves'])
+        if most_recent['clefs']:
+            attr_parts.extend(most_recent['clefs'])
+        
+        if attr_parts:
+            attributes_content = '\n        '.join(attr_parts)
+            attributes_xml = f'<attributes>\n        {attributes_content}\n        </attributes>'
     
     # Extract requested measures
     extracted_measures = []
-    measure_pattern = r'<measure[^>]*number=["\'](\d+)["\'][^>]*>.*?</measure>'
     
     for match in re.finditer(measure_pattern, content, re.DOTALL):
         measure_num = int(match.group(1))
         if start_measure <= measure_num <= end_measure:
             measure_xml = match.group(0)
-            # Add attributes to first extracted measure if it doesn't have them
-            if measure_num == start_measure and '<attributes>' not in measure_xml and attributes_xml:
-                # Insert attributes after <measure> tag
-                measure_xml = re.sub(r'(<measure[^>]*>)', rf'\1\n      {attributes_xml}', measure_xml)
+            # Add complete attributes to first extracted measure if it doesn't have divisions
+            if measure_num == start_measure and '<divisions>' not in measure_xml and attributes_xml:
+                # Insert attributes right after the opening <measure> tag
+                measure_xml = re.sub(
+                    r'(<measure[^>]*>)',
+                    rf'\1\n      {attributes_xml}',
+                    measure_xml,
+                    count=1
+                )
             extracted_measures.append(measure_xml)
     
     # Build minimal MusicXML document
@@ -322,6 +388,7 @@ def extract_humdrum(file_path: Path, start_measure: int, end_measure: int) -> st
     in_measures = False
     found_spine_def = False
     num_spines = 0
+    found_target = False  # Track if we've found the target measure
     
     for line in lines:
         line = line.rstrip('\n')
@@ -361,14 +428,25 @@ def extract_humdrum(file_path: Path, start_measure: int, end_measure: int) -> st
             
             # Check if this measure is in our range
             if target_start <= current_measure <= target_end:
+                # Clear previous content if we find the target measure again
+                # (handles pieces with repeats where same measure appears multiple times)
+                if found_target:
+                    measure_lines = []
                 measure_lines.append(line)
-            elif current_measure > end_measure:
-                break
+                found_target = True
             continue
         
-        # Data lines within measure range
+        # Data lines and interpretations within measure range
         if in_measures and target_start <= current_measure <= target_end:
             measure_lines.append(line)
+    
+    # Count final spine count from the last line in measure_lines
+    if measure_lines:
+        # Work backwards to find last non-empty line
+        for line in reversed(measure_lines):
+            if line.strip():
+                num_spines = len(line.split('\t'))
+                break
     
     # Build complete Humdrum file with proper spine terminators
     spine_terminators = '\t'.join(['*-'] * num_spines)
