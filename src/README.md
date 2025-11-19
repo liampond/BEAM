@@ -17,10 +17,10 @@ src/
 │   ├── evaluator.py      # Response evaluation
 │   └── integration/      # Provider implementations
 │       └── base.py       # Base classes & API wrappers
-├── scripts/          # Setup and maintenance scripts
-│   ├── init_database.py  # Database initialization
-│   └── data_import/      # Data import scripts
-└── README.md
+└── scripts/          # Setup and maintenance scripts
+    └── database/         # Database management
+        ├── init_database.py     # Database initialization
+        └── export_database.py   # CSV export with stats
 ```
 
 ## CLI Tools (`cli/`)
@@ -96,7 +96,7 @@ Database helper functions for working with the benchmark database.
 ```python
 import sys
 sys.path.insert(0, 'src')
-from core.db_utils import get_piece_id, get_or_create_passage, add_question, create_test_cases
+from core.db_utils import get_piece_id, get_or_create_passage, add_question
 from core.db_utils import list_passages, list_questions, show_stats
 
 # Get statistics
@@ -147,34 +147,36 @@ LLM provider framework with abstraction layer for different backends (OpenAI, An
 
 Database initialization and maintenance utilities.
 
-### init_database.py
-Initializes the SQLite benchmark database with schema and metadata for all Mozart piano sonatas.
+### database/init_database.py
+Initializes the SQLite benchmark database with the 4-table schema.
 
-**Output**: `../benchmark.db` (SQLite database)
+**Output**: `../../../benchmark.db` (SQLite database)
 
 ```bash
-python src/scripts/init_database.py
+python src/scripts/database/init_database.py
 ```
 
 Creates tables for:
-- Pieces (46 active movements from sonatas 1-14, 16, 18)
-- Encodings (4 formats per piece: ABC, MEI, MusicXML, Humdrum)
-- Passages (musical excerpts for testing)
-- Questions (benchmark questions with ground truth)
-- Test cases (links questions to specific encodings)
-- LLM responses (test results)
+- **question_types**: 9 question templates
+- **passages**: 45 passages with verified measure ranges
+- **questions**: 405 question instances (9 types × 45 passages)
+- **llm_responses**: LLM evaluation results
 
-### data_import/
-Scripts used to initially populate the `data/` directory:
-- `import_abc.py` - Download and split ABC file from IFDO
-- `import_mei.py` - Download MEI files from DME
-- `import_musicxml.py` - Download MusicXML from DCMLab
+### database/export_database.py
+Exports all database tables to CSV files with statistics.
 
-## File Naming Convention
+**Output**: `../../../database_exports/` directory
 
-Music files in `../data/` use the format:
-- `<sonata_number>-<movement>[variation_letter].<extension>`
-- Examples: `01-1.mei`, `11-1a.abc`, `06-3m.krn`
+```bash
+python src/scripts/database/export_database.py
+```
+
+Exports:
+- `question_types.csv`
+- `passages.csv`
+- `questions.csv`
+- `llm_responses.csv`
+- `database_summary.txt` (statistics)
 
 ## File Naming Convention
 
@@ -184,8 +186,7 @@ Music files in `../data/` use the format:
 
 ## Current Status
 
-- **46 pieces** indexed (Sonatas 1-14, 16, 18 with all movements)
-- **184 encodings** (46 pieces × 4 formats)
-- **4 passages** defined
-- **19 questions** created (all "easy" difficulty, 1-bar granularity)
-- **76 test cases** (19 questions × 4 formats)
+- **9 question types**: Covering pitch, rhythm, counting, intervals, etc.
+- **45 passages**: From Sonatas 1-14, 16, 18
+- **405 questions**: 9 types × 45 passages
+- **88 verified answers per format**: Manually verified for ABC, Humdrum, MEI, MusicXML
