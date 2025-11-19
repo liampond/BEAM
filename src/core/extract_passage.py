@@ -388,6 +388,7 @@ def extract_humdrum(file_path: Path, start_measure: int, end_measure: int) -> st
     in_measures = False
     found_spine_def = False
     num_spines = 0
+    found_target = False  # Track if we've found the target measure
     
     for line in lines:
         line = line.rstrip('\n')
@@ -427,14 +428,25 @@ def extract_humdrum(file_path: Path, start_measure: int, end_measure: int) -> st
             
             # Check if this measure is in our range
             if target_start <= current_measure <= target_end:
+                # Clear previous content if we find the target measure again
+                # (handles pieces with repeats where same measure appears multiple times)
+                if found_target:
+                    measure_lines = []
                 measure_lines.append(line)
-            elif current_measure > end_measure:
-                break
+                found_target = True
             continue
         
-        # Data lines within measure range
+        # Data lines and interpretations within measure range
         if in_measures and target_start <= current_measure <= target_end:
             measure_lines.append(line)
+    
+    # Count final spine count from the last line in measure_lines
+    if measure_lines:
+        # Work backwards to find last non-empty line
+        for line in reversed(measure_lines):
+            if line.strip():
+                num_spines = len(line.split('\t'))
+                break
     
     # Build complete Humdrum file with proper spine terminators
     spine_terminators = '\t'.join(['*-'] * num_spines)
