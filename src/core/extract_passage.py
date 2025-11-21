@@ -106,7 +106,7 @@ def _get_humdrum_measure_offset(file_path: Path) -> int:
     return 1
 
 # Base paths
-DATA_DIR = Path(__file__).parent.parent / "data"
+DATA_DIR = Path(__file__).parent.parent.parent / "data"
 
 
 def extract_abc(file_path: Path, start_measure: int, end_measure: int) -> str:
@@ -339,8 +339,8 @@ def extract_musicxml(file_path: Path, start_measure: int, end_measure: int) -> s
         measure_num = int(match.group(1))
         if start_measure <= measure_num <= end_measure:
             measure_xml = match.group(0)
-            # Add complete attributes to first extracted measure if it doesn't have divisions
-            if measure_num == start_measure and '<divisions>' not in measure_xml and attributes_xml:
+            # Add complete attributes to first extracted measure to ensure context is preserved
+            if measure_num == start_measure and attributes_xml:
                 # Insert attributes right after the opening <measure> tag
                 measure_xml = re.sub(
                     r'(<measure[^>]*>)',
