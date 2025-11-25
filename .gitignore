@@ -65,3 +65,4 @@ sdist/
 var/
 wheels/
 database_exports/
+data/passages/

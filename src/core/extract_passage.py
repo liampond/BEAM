@@ -95,11 +95,11 @@ def _get_humdrum_measure_offset(file_path: Path) -> int:
             for line in handle:
                 if not line.startswith('='):
                     continue
-                token = line.split('\t', 1)[0][1:].rstrip('-').split()[0]
-                if not token:
-                    continue
-                if token.isdigit():
-                    value = int(token)
+                # Use regex to find the first number in the measure token
+                token = line.split('\t', 1)[0]
+                match = re.match(r'^=(\d+)', token)
+                if match:
+                    value = int(match.group(1))
                     return value if value != 0 else 0
     except FileNotFoundError:
         return 1
@@ -162,8 +162,14 @@ def extract_abc(file_path: Path, start_measure: int, end_measure: int) -> str:
     for line in body_lines:
         # Check if this is a voice 1 line (contains notes/rests and bar marker)
         if line.startswith('[V:1]'):
-            # This is a voice 1 line - increment measure on bar marker
-            if '|' in line:
+            # Check for setbarnb directive
+            setbarnb_match = re.search(r'\[I:setbarnb\s+(\d+)\]', line)
+            if setbarnb_match:
+                # Interpret setbarnb on a pickup line as setting the NEXT bar's number
+                # So this bar is N-1
+                current_measure = int(setbarnb_match.group(1)) - 1
+            # This is a voice 1 line - increment measure on bar marker if no setbarnb
+            elif '|' in line:
                 current_measure += 1
             
             if start_measure <= current_measure <= end_measure:
@@ -193,10 +199,6 @@ def extract_mei(file_path: Path, start_measure: int, end_measure: int) -> str:
     with open(file_path, 'r') as f:
         content = f.read()
     
-    offset = _get_mei_measure_offset(file_path)
-    target_start = _human_to_mei(start_measure, offset)
-    target_end = _human_to_mei(end_measure, offset)
-
     # Extract everything before <music>
     music_start = content.find('<music>')
     if music_start == -1:
@@ -204,19 +206,80 @@ def extract_mei(file_path: Path, start_measure: int, end_measure: int) -> str:
     
     header_section = content[:music_start].strip()
     
-    # Find scoreDef (contains staffDef with clef, key, meter)
-    scoredef_match = re.search(r'<scoreDef.*?</scoreDef>', content, re.DOTALL)
-    scoredef = scoredef_match.group(0) if scoredef_match else ''
+    # Find all scoreDefs to select the appropriate one
+    scoredef_pattern = r'<scoreDef.*?</scoreDef>'
+    scoredef_matches = list(re.finditer(scoredef_pattern, content, re.DOTALL))
     
-    # Find requested measures
+    # Find all measures in the file (document order)
+    # This handles cases where measure numbers reset (e.g. multi-movement files)
+    measure_pattern = r'<measure[^>]*>.*?</measure>'
+    all_measures = list(re.finditer(measure_pattern, content, re.DOTALL))
+    
     extracted_measures = []
-    for measure_num in range(target_start, target_end + 1):
-        # Find measure with n="X" attribute
-        pattern = rf'<measure[^>]*\bn=["\' ]{measure_num}["\' ][^>]*>.*?</measure>'
-        measure_match = re.search(pattern, content, re.DOTALL)
-        if measure_match:
-            extracted_measures.append(measure_match.group(0))
+    first_measure_pos = -1
     
+    # Extract requested measures by index (1-based)
+    # We use indices instead of n attributes because n attributes may not be unique or sequential
+    # For MEI, we need to be careful about measures that are split or have suffixes (like 39a, 39b)
+    # The user requests a range like 35-42. In the file, we might have 35, 36, 37, 38, 39a, 39b, 40, 41, 42.
+    # We should include all measures that "sound" within that logical range.
+    
+    # First, map the requested logical range to the actual measure elements
+    # We'll iterate through all measures and check their 'n' attribute
+    
+    measures_to_extract = []
+    
+    for m in all_measures:
+        n_attr = re.search(r'\bn=["\']([^"\']+)["\']', m.group(0))
+        if n_attr:
+            n_val = n_attr.group(1)
+            # Handle suffixes like '39a' -> 39
+            n_num_match = re.match(r'^(\d+)', n_val)
+            if n_num_match:
+                n_num = int(n_num_match.group(1))
+                if start_measure <= n_num <= end_measure:
+                    measures_to_extract.append(m)
+                    # If this measure is the end measure and has a repeat end, 
+                    # stop looking to avoid including the second ending (which often shares the number)
+                    if n_num == end_measure and 'right="rptend"' in m.group(0):
+                        break
+    if measures_to_extract:
+        # Find the scoreDef before the first extracted measure
+        first_measure_pos = measures_to_extract[0].start()
+        
+        selected_scoredef = ''
+        if scoredef_matches:
+            for sd in scoredef_matches:
+                if sd.start() < first_measure_pos:
+                    selected_scoredef = sd.group(0)
+                else:
+                    break
+            # Fallback
+            if not selected_scoredef and scoredef_matches:
+                selected_scoredef = scoredef_matches[0].group(0)
+        
+        extracted_measures = [m.group(0) for m in measures_to_extract]
+    else:
+        # Fallback to index-based extraction if 'n' attributes are missing or weird
+        # (This preserves previous behavior for files without proper 'n' numbering)
+        for i in range(start_measure - 1, end_measure):
+            if 0 <= i < len(all_measures):
+                extracted_measures.append(all_measures[i].group(0))
+                if first_measure_pos == -1:
+                    first_measure_pos = all_measures[i].start()
+        
+        # Select scoreDef (same logic as before)
+        selected_scoredef = ''
+        if scoredef_matches:
+            if first_measure_pos != -1:
+                for sd in scoredef_matches:
+                    if sd.start() < first_measure_pos:
+                        selected_scoredef = sd.group(0)
+                    else:
+                        break
+            if not selected_scoredef and scoredef_matches:
+                selected_scoredef = scoredef_matches[0].group(0)
+
     # Build complete MEI document with header
     # Add proper indentation and newlines between measures
     measures_formatted = '\n            '.join(extracted_measures)
@@ -226,7 +289,7 @@ def extract_mei(file_path: Path, start_measure: int, end_measure: int) -> str:
     <body>
       <mdiv>
         <score>
-          {scoredef}
+          {selected_scoredef}
           <section>
             {measures_formatted}
           </section>
@@ -390,6 +453,28 @@ def extract_humdrum(file_path: Path, start_measure: int, end_measure: int) -> st
     num_spines = 0
     found_target = False  # Track if we've found the target measure
     
+    # Track spine state
+    current_spines = []
+    # Track interpretations per spine: list of dicts
+    spine_states = []
+    
+    final_spine_count = 0
+    
+    def get_interp_type(token):
+        if token.startswith('*staff'): return 'staff'
+        if token.startswith('*clef'): return 'clef'
+        if token.startswith('*k['): return 'keysig'
+        if token.startswith('*') and token.endswith(':'): return 'key'
+        if token.startswith('*M') and not token.startswith('*MM'): return 'meter'
+        if token.startswith('*met'): return 'metcodes'
+        if token.startswith('*MM'): return 'tempo'
+        if token.startswith('*IC'): return 'instr_class'
+        if token.startswith('*part'): return 'part'
+        if token.startswith('*I"'): return 'instr_name'
+        if token.startswith('*I'): return 'instr_code'
+        if token in ('*LH', '*RH'): return 'hand'
+        return None
+    
     for line in lines:
         line = line.rstrip('\n')
         
@@ -402,13 +487,81 @@ def extract_humdrum(file_path: Path, start_measure: int, end_measure: int) -> st
         if line.startswith('**'):
             spine_def_lines.append(line)
             found_spine_def = True
-            # Count number of spines
-            num_spines = len(line.split('\t'))
+            # Initialize spine tracking
+            current_spines = line.split('\t')
+            num_spines = len(current_spines)
+            spine_states = [{} for _ in range(num_spines)]
             continue
         
-        # Tandem interpretations (clef, key, time) before first measure
-        if found_spine_def and not in_measures and line.startswith('*'):
-            spine_def_lines.append(line)
+        # Track spine changes and interpretations
+        if found_spine_def and line.startswith('*'):
+            tokens = line.split('\t')
+            # Check if it's a spine manipulator line
+            if any(t in ('*^', '*v', '*+', '*-') for t in tokens):
+                new_spines = []
+                new_states = []
+                current_idx = 0
+                merging = False
+                
+                for token in tokens:
+                    if token == '*^':
+                        if current_idx < len(current_spines):
+                            spine_type = current_spines[current_idx]
+                            state = spine_states[current_idx]
+                            new_spines.append(spine_type)
+                            new_spines.append(spine_type)
+                            new_states.append(state.copy())
+                            new_states.append(state.copy())
+                            current_idx += 1
+                        merging = False
+                    elif token == '*+':
+                        if current_idx < len(current_spines):
+                            spine_type = current_spines[current_idx]
+                            state = spine_states[current_idx]
+                            new_spines.append(spine_type)
+                            new_spines.append(spine_type) # Assuming new spine is same type
+                            new_states.append(state.copy())
+                            new_states.append({}) 
+                            current_idx += 1
+                        merging = False
+                    elif token == '*v':
+                        if current_idx < len(current_spines):
+                            spine_type = current_spines[current_idx]
+                            state = spine_states[current_idx]
+                            if not merging:
+                                new_spines.append(spine_type)
+                                new_states.append(state.copy()) # Keep first spine's state
+                                merging = True
+                            current_idx += 1
+                    elif token == '*-':
+                        current_idx += 1
+                        merging = False
+                    else:
+                        if current_idx < len(current_spines):
+                            new_spines.append(current_spines[current_idx])
+                            new_states.append(spine_states[current_idx])
+                            current_idx += 1
+                        merging = False
+                
+                current_spines = new_spines
+                spine_states = new_states
+                num_spines = len(current_spines)
+            
+            else:
+                # Regular interpretation line - update states
+                for i, token in enumerate(tokens):
+                    if i < len(spine_states) and token != '*':
+                        itype = get_interp_type(token)
+                        if itype:
+                            spine_states[i][itype] = token
+
+            # If we are inside the target passage, preserve this line
+            if in_measures and target_start <= current_measure <= target_end:
+                measure_lines.append(line)
+                final_spine_count = num_spines
+
+            # Don't append pre-measure interpretations to spine_def_lines
+            # We will reconstruct them at the start of the passage
             continue
         
         # Measure markers
@@ -416,40 +569,53 @@ def extract_humdrum(file_path: Path, start_measure: int, end_measure: int) -> st
             # Extract measure number
             measure_marker = line.split('\t')[0]  # First column
             if measure_marker.startswith('='):
-                try:
-                    # Handle =1-, =2, etc.
-                    num_str = measure_marker[1:].rstrip('-').split()[0]
-                    if num_str and num_str.isdigit():
-                        current_measure = int(num_str)
-                except (ValueError, IndexError):
-                    pass
+                # Use regex to extract measure number, handling suffixes like -, :|!, etc.
+                match = re.match(r'^=(\d+)', measure_marker)
+                if match:
+                    current_measure = int(match.group(1))
             
             in_measures = True
             
             # Check if this measure is in our range
             if target_start <= current_measure <= target_end:
                 # Clear previous content if we find the target measure again
-                # (handles pieces with repeats where same measure appears multiple times)
-                if found_target:
+                if found_target and current_measure == target_start:
                     measure_lines = []
+                
+                # If this is the first line of the target passage, update the header
+                if not found_target:
+                    # Reconstruct spine definition line based on current state
+                    spine_def_lines = ['\t'.join(current_spines)]
+                    
+                    # Reconstruct interpretations
+                    # Order matters: general to specific, matching standard Humdrum conventions
+                    interp_types = [
+                        'part', 'staff', 'instr_class', 'instr_code', 'hand', 'instr_name', 
+                        'clef', 'keysig', 'key', 'meter', 'metcodes', 'tempo'
+                    ]
+                    for itype in interp_types:
+                        # Check if any spine has this interpretation
+                        has_interp = any(itype in state for state in spine_states)
+                        if has_interp:
+                            tokens = [state.get(itype, '*') for state in spine_states]
+                            # Only add if not all are '*'
+                            if any(t != '*' for t in tokens):
+                                spine_def_lines.append('\t'.join(tokens))
+                
                 measure_lines.append(line)
+                final_spine_count = num_spines
                 found_target = True
             continue
         
         # Data lines and interpretations within measure range
         if in_measures and target_start <= current_measure <= target_end:
             measure_lines.append(line)
-    
-    # Count final spine count from the last line in measure_lines
-    if measure_lines:
-        # Work backwards to find last non-empty line
-        for line in reversed(measure_lines):
-            if line.strip():
-                num_spines = len(line.split('\t'))
-                break
+            final_spine_count = num_spines
     
     # Build complete Humdrum file with proper spine terminators
-    spine_terminators = '\t'.join(['*-'] * num_spines)
+    # Use final_spine_count if available, otherwise fallback to num_spines
+    count_to_use = final_spine_count if final_spine_count > 0 else num_spines
+    spine_terminators = '\t'.join(['*-'] * count_to_use)
     result_lines = header_lines + [''] + spine_def_lines + [''] + measure_lines + [spine_terminators]
     result = '\n'.join(result_lines) + '\n'
     return result
