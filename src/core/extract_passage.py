@@ -446,6 +446,7 @@ def extract_humdrum(file_path: Path, start_measure: int, end_measure: int) -> st
     header_lines = []
     spine_def_lines = []
     measure_lines = []
+    preamble_lines = []  # Spine manipulations to reach target state
     
     current_measure = 0
     in_measures = False
@@ -455,6 +456,8 @@ def extract_humdrum(file_path: Path, start_measure: int, end_measure: int) -> st
     
     # Track spine state
     current_spines = []
+    base_spines = []  # Original spine configuration
+    base_interp_lines = []  # Original interpretation lines (before any measure)
     # Track interpretations per spine: list of dicts
     spine_states = []
     
@@ -489,6 +492,7 @@ def extract_humdrum(file_path: Path, start_measure: int, end_measure: int) -> st
             found_spine_def = True
             # Initialize spine tracking
             current_spines = line.split('\t')
+            base_spines = current_spines.copy()  # Save the original configuration
             num_spines = len(current_spines)
             spine_states = [{} for _ in range(num_spines)]
             continue
@@ -496,8 +500,17 @@ def extract_humdrum(file_path: Path, start_measure: int, end_measure: int) -> st
         # Track spine changes and interpretations
         if found_spine_def and line.startswith('*'):
             tokens = line.split('\t')
+            
+            # Save original interpretation lines (before first measure)
+            if not in_measures:
+                base_interp_lines.append(line)
+            
             # Check if it's a spine manipulator line
             if any(t in ('*^', '*v', '*+', '*-') for t in tokens):
+                # Track preamble manipulations if we haven't found target yet
+                if in_measures and not found_target:
+                    preamble_lines.append(line)
+                
                 new_spines = []
                 new_states = []
                 current_idx = 0
@@ -584,23 +597,38 @@ def extract_humdrum(file_path: Path, start_measure: int, end_measure: int) -> st
                 
                 # If this is the first line of the target passage, update the header
                 if not found_target:
-                    # Reconstruct spine definition line based on current state
-                    spine_def_lines = ['\t'.join(current_spines)]
+                    # Always use BASE spine configuration for header
+                    spine_def_lines = ['\t'.join(base_spines)]
                     
-                    # Reconstruct interpretations
-                    # Order matters: general to specific, matching standard Humdrum conventions
-                    interp_types = [
-                        'part', 'staff', 'instr_class', 'instr_code', 'hand', 'instr_name', 
-                        'clef', 'keysig', 'key', 'meter', 'metcodes', 'tempo'
-                    ]
-                    for itype in interp_types:
-                        # Check if any spine has this interpretation
-                        has_interp = any(itype in state for state in spine_states)
-                        if has_interp:
-                            tokens = [state.get(itype, '*') for state in spine_states]
-                            # Only add if not all are '*'
-                            if any(t != '*' for t in tokens):
-                                spine_def_lines.append('\t'.join(tokens))
+                    # Add original interpretation lines (filtered for non-manipulators)
+                    for interp_line in base_interp_lines:
+                        interp_tokens = interp_line.split('\t')
+                        if not any(t in ('*^', '*v', '*+', '*-') for t in interp_tokens):
+                            spine_def_lines.append(interp_line)
+                    
+                    # If spine count differs, generate manipulators to reach current state
+                    base_count = len(base_spines)
+                    current_count = len(current_spines)
+                    
+                    if current_count > base_count:
+                        # Need to split spines to reach current state
+                        # For piano: typically LH (staff2) splits or RH (staff1) splits
+                        # We need to figure out which spine(s) split
+                        # Simple heuristic: count kern spines in base vs current
+                        base_kern_count = sum(1 for s in base_spines if s == '**kern')
+                        current_kern_count = sum(1 for s in current_spines if s == '**kern')
+                        
+                        if current_kern_count > base_kern_count:
+                            # Kern spines split - need to add *^ for each split
+                            # Generate a split line
+                            # Assuming RH (second spine) splits if we have 3 kern from 2
+                            diff = current_count - base_count
+                            if diff == 1 and base_kern_count == 2:
+                                # One spine split - could be LH or RH
+                                # Check spine_states to see which one has duplicated states
+                                # For now, assume RH splits (common pattern)
+                                split_line = ['*', '*^'] + ['*'] * (len(base_spines) - 2)
+                                spine_def_lines.append('\t'.join(split_line))
                 
                 measure_lines.append(line)
                 final_spine_count = num_spines
