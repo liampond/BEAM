@@ -40,6 +40,7 @@ data/question_passages_abc/
 data/question_passages_mei/
 data/question_passages_musicxml/
 data/question_passages_humdrum/
+data/passages/
 .env
 src/**/*.db
 outputs/
