@@ -125,37 +125,64 @@ def extract_abc(file_path: Path, start_measure: int, end_measure: int) -> str:
     header_lines = []
     body_lines = []
     in_body = False
+    original_key = None
     
     for line in lines:
         # Body starts after K: (key signature) line
         if line.startswith('K:'):
             header_lines.append(line)
+            original_key = line.strip()
             in_body = True
         elif not in_body:
             header_lines.append(line)
         else:
             body_lines.append(line)
     
+    # First pass: scan body for key signature changes and track measure numbers
+    # to find the active key at the start of our extraction
+    current_measure = 0
+    active_key = original_key  # The key active at start_measure
+    
+    for line in body_lines:
+        # Check for inline key signature change [K:...]
+        key_match = re.search(r'\[K:([A-Ga-g][b#]?)\]', line)
+        if key_match:
+            # Found a key change - update active key if before start_measure
+            if current_measure < start_measure:
+                active_key = f'K: {key_match.group(1)}'
+        
+        # Track measure numbers
+        if line.startswith('[V:1]'):
+            setbarnb_match = re.search(r'\[I:setbarnb\s+(\d+)\]', line)
+            if setbarnb_match:
+                current_measure = int(setbarnb_match.group(1)) - 1
+            elif '|' in line:
+                current_measure += 1
+    
+    # Update header with the active key at start_measure
+    header_with_key = []
+    for line in header_lines:
+        if line.startswith('K:') and active_key != original_key:
+            header_with_key.append(active_key + '\n')
+        else:
+            header_with_key.append(line)
+    
     # Add a note indicating the extracted measure range
     measure_range_note = f'N: Extracted measures {start_measure}-{end_measure} from original score\n'
     
-    # Insert the note after the last N: line or before K: if no N: exists
+    # Insert the note before K: line
     header_with_note = []
     note_inserted = False
-    for i, line in enumerate(header_lines):
+    for i, line in enumerate(header_with_key):
         header_with_note.append(line)
-        # Insert our note after the last N: line, or just before K: line
         if line.startswith('K:') and not note_inserted:
-            # Insert before K: line
             header_with_note.insert(-1, measure_range_note)
             note_inserted = True
     
     if not note_inserted:
         header_with_note.append(measure_range_note)
     
-    # Extract measures from body
-    # ABC typically has 2 voices (RH and LH), so each measure = 2 lines
-    # Count voice 1 lines with bar markers to determine measures
+    # Second pass: Extract measures from body
     extracted_lines = []
     current_measure = 0
     
@@ -191,6 +218,10 @@ def extract_mei(file_path: Path, start_measure: int, end_measure: int) -> str:
     """
     Extract measures from MEI file with complete header and scoreDef.
     
+    Uses document-order indexing (1-based position in file) rather than 
+    the 'n' attribute, since MEI files may have non-unique measure numbers
+    (e.g., Menuetto and Trio sections both starting at measure 1).
+    
     Returns the extracted content as a string.
     """
     if not file_path.exists():
@@ -211,74 +242,32 @@ def extract_mei(file_path: Path, start_measure: int, end_measure: int) -> str:
     scoredef_matches = list(re.finditer(scoredef_pattern, content, re.DOTALL))
     
     # Find all measures in the file (document order)
-    # This handles cases where measure numbers reset (e.g. multi-movement files)
     measure_pattern = r'<measure[^>]*>.*?</measure>'
     all_measures = list(re.finditer(measure_pattern, content, re.DOTALL))
     
     extracted_measures = []
     first_measure_pos = -1
     
-    # Extract requested measures by index (1-based)
-    # We use indices instead of n attributes because n attributes may not be unique or sequential
-    # For MEI, we need to be careful about measures that are split or have suffixes (like 39a, 39b)
-    # The user requests a range like 35-42. In the file, we might have 35, 36, 37, 38, 39a, 39b, 40, 41, 42.
-    # We should include all measures that "sound" within that logical range.
+    # Extract measures by document order (1-indexed position in file)
+    # This avoids issues with non-unique 'n' attributes in files with
+    # section restarts (e.g., Menuetto/Trio movements)
+    for i in range(start_measure - 1, end_measure):
+        if 0 <= i < len(all_measures):
+            extracted_measures.append(all_measures[i].group(0))
+            if first_measure_pos == -1:
+                first_measure_pos = all_measures[i].start()
     
-    # First, map the requested logical range to the actual measure elements
-    # We'll iterate through all measures and check their 'n' attribute
-    
-    measures_to_extract = []
-    
-    for m in all_measures:
-        n_attr = re.search(r'\bn=["\']([^"\']+)["\']', m.group(0))
-        if n_attr:
-            n_val = n_attr.group(1)
-            # Handle suffixes like '39a' -> 39
-            n_num_match = re.match(r'^(\d+)', n_val)
-            if n_num_match:
-                n_num = int(n_num_match.group(1))
-                if start_measure <= n_num <= end_measure:
-                    measures_to_extract.append(m)
-                    # If this measure is the end measure and has a repeat end, 
-                    # stop looking to avoid including the second ending (which often shares the number)
-                    if n_num == end_measure and 'right="rptend"' in m.group(0):
-                        break
-    if measures_to_extract:
-        # Find the scoreDef before the first extracted measure
-        first_measure_pos = measures_to_extract[0].start()
-        
-        selected_scoredef = ''
-        if scoredef_matches:
+    # Select the scoreDef that appears before the first extracted measure
+    selected_scoredef = ''
+    if scoredef_matches:
+        if first_measure_pos != -1:
             for sd in scoredef_matches:
                 if sd.start() < first_measure_pos:
                     selected_scoredef = sd.group(0)
                 else:
                     break
-            # Fallback
-            if not selected_scoredef and scoredef_matches:
-                selected_scoredef = scoredef_matches[0].group(0)
-        
-        extracted_measures = [m.group(0) for m in measures_to_extract]
-    else:
-        # Fallback to index-based extraction if 'n' attributes are missing or weird
-        # (This preserves previous behavior for files without proper 'n' numbering)
-        for i in range(start_measure - 1, end_measure):
-            if 0 <= i < len(all_measures):
-                extracted_measures.append(all_measures[i].group(0))
-                if first_measure_pos == -1:
-                    first_measure_pos = all_measures[i].start()
-        
-        # Select scoreDef (same logic as before)
-        selected_scoredef = ''
-        if scoredef_matches:
-            if first_measure_pos != -1:
-                for sd in scoredef_matches:
-                    if sd.start() < first_measure_pos:
-                        selected_scoredef = sd.group(0)
-                    else:
-                        break
-            if not selected_scoredef and scoredef_matches:
-                selected_scoredef = scoredef_matches[0].group(0)
+        if not selected_scoredef and scoredef_matches:
+            selected_scoredef = scoredef_matches[0].group(0)
 
     # Build complete MEI document with header
     # Add proper indentation and newlines between measures
