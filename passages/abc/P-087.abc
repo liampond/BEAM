@@ -1,0 +1,43 @@
+%%linebreak <none>
+%%measurenb 2
+X: 63
+T: Sonata No. 15 in C major, K 545, mvmt. 3
+C: Wolfgang Amadeus Mozart
+%%abc-version 2.0
+%%abcx-abcm2ps-target-version 5.9.1 (29 Sep 2008)
+%%abc-creator hum2abc beta
+%%abcx-conversion-date 2021/01/14 17:01:33
+%%abc-copyright 2018 Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abcx-initial-encoding-date 2009/09/24
+%%gracespace 0 6 6
+%%humdrum-veritas 45428365
+%%humdrum-veritas-data 3308408096
+%%linebreak <none>
+%%barnumbers 0
+L: 1/16
+M: 2/4
+N: Derived from sonata15-3.krn
+Q: "Rondo: Allegretto" 1/4=112
+%%staves {1 2}
+V: 1 clef=treble
+V: 2 clef=bass
+N: Extracted measures 9-16 from original score
+K: C
+[V:1] ag^fe .d.d.d.d | 
+[V:2] B,GDG[K:clef=bass] ^F,DA,D | 
+[V:1] edcB e'd'c'b | 
+[V:2] G,DB,D B,,G,D,G, | 
+[V:1] ^gabc' e^f=ga | 
+[V:2] C,A,E,A, ^C,A,E,A, | 
+[V:1] g^fed .[b2d'2].[b2d'2] | 
+[V:2] D,2 z2z4[K:clef=treble] | 
+[V:1] .[g2b2] z2 .[a2c'2].[a2c'2] | 
+[V:2] .[E2G2].[E2G2] .[C2E2] z2 | 
+[V:1] .[^f2a2] z2 gabg | 
+[V:2] .[D2^F2].[D2F2] .[B,2D2] z2[K:clef=bass] | 
+[V:1] ^dege =dBcA | 
+[V:2] G,6^F,2 & C,4D,4 | 
+[V:1] G2 z2 GABc | 
+[V:2] .G,2.G,,2z4 | 

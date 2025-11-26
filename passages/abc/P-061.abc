@@ -1,0 +1,43 @@
+%%linebreak <none>
+%%measurenb 2
+X: 16
+T: Piano Sonata No. 6 in D major, K 284 (205b), mvmt. 1
+C: Wolfgang Amadeus Mozart
+%%abc-version 2.0
+%%abcx-abcm2ps-target-version 5.9.1 (29 Sep 2008)
+%%abc-creator hum2abc beta
+%%abcx-conversion-date 2021/01/14 17:01:33
+%%abc-copyright 2018 Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abcx-initial-encoding-date 2009/09/23
+%%gracespace 0 6 6
+%%humdrum-veritas 228511423
+%%humdrum-veritas-data 2117851953
+%%linebreak <none>
+%%barnumbers 0
+L: 1/16
+M: C
+N: Derived from sonata06-1.krn
+Q: "Allegro" 1/4=138
+%%staves {1 2}
+V: 1 clef=treble
+V: 2 clef=bass
+N: Extracted measures 106-113 from original score
+K: D
+[V:1] x4z2 A2 ^A2B2 z2 B2 & c4x4F4=G4- | 
+[V:2] [A,2A2]A,2[K:clef=bass] [A,2C2][A,2C2] [A,2^D2][A,2D2][A,2E2][A,2E2] | 
+[V:1] ^G2=A2 z2 A2 d2=G2 z2 G2 & G4F8E4 | 
+[V:2] [A,2C2][A,2C2][A,2=D2][A,2D2] [A,2B,2][A,2B,2][A,2C2][A,2C2] | 
+[V:1] ^E2F2 z2 a2 bc'd'c' =e'd'c'b | 
+[V:2] x8G8 & [A,2D2][A,2D2][A,2F2][A,2F2]A,8- | 
+[V:1] ac'd'c' d'abf gaba c'bag | 
+[V:2] F4D4E4C4 & A,16 | 
+[V:1] fad'c' d'afd d'afd d'afd | 
+[V:2] z4z2 [D,,2D,2] [F,,2F,2][A,,2A,2][D,4D4] | 
+[V:1] bc'd'c' d'bgd d'bgd d'bgd | 
+[V:2] z4z2 [G,,2G,2] [B,,2B,2][D,2D2][G,4G4] | 
+[V:1] [f3a3][g/b/][e/g/][d4f4]>[f4a4][e2g2][c2e2] | 
+[V:2] [A,,2A,2][A,,2A,2][A,,2A,2][A,,2A,2] [A,,2A,2][A,,2A,2][A,,2A,2][A,,2A,2] | 
+[V:1] fad'c' d'afd d'afd d'afd | 
+[V:2] z4z2 [D,,2D,2] [F,,2F,2][A,,2A,2][D,4D4] | 

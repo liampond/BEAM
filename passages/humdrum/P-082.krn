@@ -1,0 +1,121 @@
+!!!!SEGMENT: sonata13-3.krn
+!!!COM: Mozart, Wolfgang Amadeus
+!!!CDT: 1756/01/27/-1791/12/05/
+!!!CNT: German
+!!!OTL: Piano Sonata No. 13 in B-flat major
+!!!OTP: Linz Sonata
+!!!SCT1: K<sup>1</sup> 333
+!!!SCT2: K<sup>6</sup> 315c
+!!!OMV: 3
+!!!OMD: Allegro grazioso
+!!!ODT: 1783
+!!!RDF**kern: N = linked
+!!!RDF**kern: > = above
+!!!RDF**kern: < = below
+!!!YOR: Alte Mozart-Ausgabe, Band 20, Breitkopf &amp; H&auml;rtel 1877-1883.
+!!!YOY: 1878
+!!!YEC: 2018 Craig Stuart Sapp
+!!!YEM: Licence: (CC BY-NC-SA 4.0) https://creativecommons.org/licenses/by-nc-sa/4.0
+!!!YER: 2018
+!!!URL-github: https://github.com/craigsapp/mozart-piano-sonatas/blob/main/kern/sonata13-3.krn
+!!!URL-vhv: https://verovio.humdrum.org/?file=mozart/sonatas/sonata13-3.krn
+!!!URL-pdf: https://github.com/craigsapp/mozart-piano-sonatas/blob/master/reference-edition/sonata13-3.pdf
+!!!URL-youtube: https://www.youtube.com/watch?v=18ylXSmZs0w András Schiff
+!!!URL-wikipedia: https://en.wikipedia.org/wiki/Piano_Sonata_No._13_(Mozart)
+!!!ENC: Craig Stuart Sapp
+!!!END: 2009/10/09
+!!!EED: Craig Stuart Sapp
+!!!EEV: 2024/06/06
+!!!EFL: 57/69
+!!!AGN: piano sonata
+!!!AFR: sonata-rondo
+!!!title: @{OTL} (<i>@{OTP}</i>), K 333 (315c), mvmt. @{OMV}
+!!!filter-hands: hands -c
+
+**kern	**kern	**dynam
+*part1	*part1	*
+*staff2	*staff1	*staff1/2
+*ICklav	*ICklav	*
+*Ipiano	*Ipiano	*
+*LH	*RH	*
+*I"	*I"	*
+*clefF4	*clefG2	*
+*k[b-e-]	*k[b-e-]	*
+*B-:	*B-:	*
+*M4/4	*M4/4	*
+*met(c)	*met(c)	*
+*MM144	*MM144	*
+
+=3	=3	=3
+4d	(8ccL	.
+.	8b-)	.
+4A	(8dd	.
+.	8ccJ)	.
+4B-	(8ee-L	.
+.	8dd)	.
+4E- 4c	(8ff	.
+.	8ee-J)	.
+=4	=4	=4
+[2F (2B-	(4.dd	.
+.	16ee-LL	.
+.	16ddJJ	.
+4F] 4A)	8ccL	.
+.	8dd	.
+4r	8ee-	.
+.	8eenJ)	.
+=5	=5	=5
+4r	(4.ff	.
+4B-	.	.
+.	24ee-XLL	.
+.	24dd	.
+.	24ccJJ	.
+4d	4b-)	.
+4g	4b-	.
+=6	=6	=6
+(4c	(4ee-	.
+4e-)	4gg)	.
+4f	4a	.
+4e-	8r	.
+.	8a	.
+=7	=7	=7
+*^	*	*
+4ryy	4d	(8b-L>	.
+.	.	8dd)	.
+4e-	4E-	(8g	.
+.	.	8ccJ)	.
+(4d	2F	(4b-/	.
+4c)	.	4a)	.
+*v	*v	*	*
+!!LO:LB:g=original
+=8	=8	=8
+4B-	8b-L	f
+.	8f	.
+4r	8g	.
+.	8aJ	.
+2r	8b-L	.
+.	8cc	.
+.	8dd	.
+.	8ee-J	.
+=9	=9	=9
+(8B-L	(4.ff	.
+8f	.	.
+8d	.	.
+8fJ	8dd	.
+8GL	4b-)	.
+8d	.	.
+8B-	4b-	.
+8dJ	.	.
+=10	=10	=10
+8E-L	(4ee-	.
+8c	.	.
+.	32ffqLLL	.
+.	32ee-q	.
+.	32ddq	.
+.	32ee-qJJJ	.
+8G	4gg)	.
+8cJ	.	.
+8FL	4a	.
+8e-	.	.
+8c	8r	.
+8e-J	8a	.
+*-	*-	*-

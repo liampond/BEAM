@@ -1,0 +1,60 @@
+!!!!SEGMENT: sonata17-2.krn
+!!!COM: Mozart, Wolfgang Amadeus
+!!!CDT: 1756/01/27/-1791/12/05/
+!!!CNT: German
+!!!OTL: Piano Sonata No. 17 in D major
+!!!ONB: Piano Sonata No. 18 in Neue Mozart-Ausgabe [1986]
+!!!SCT: K 576
+!!!OMV: 2
+!!!OMD: Adagio
+!!!ODT: 1789
+!!!ONB: Next four RH notes were incorrectly 32nd notes
+!!!ONB: Next four RH notes were incorrectly 32nd ntoes
+!!!ONB: Next four RH notes were incorrectly 32nd ntoes
+!!!RDF**kern: > = above
+!!!RDF**kern: < = below
+!!!YOR: Alte Mozart-Ausgabe, Band 20, Breitkopf &amp; H&auml;rtel 1877-1883.
+!!!YOY: 1878
+!!!YEC: 2018 Craig Stuart Sapp
+!!!YEM: Licence: (CC BY-NC-SA 4.0) https://creativecommons.org/licenses/by-nc-sa/4.0
+!!!YER: 2018
+!!!URL-github: https://github.com/craigsapp/mozart-piano-sonatas/blob/main/kern/sonata17-2.krn
+!!!URL-vhv: https://verovio.humdrum.org/?file=mozart/sonatas/sonata17-2.krn
+!!!URL-pdf: https://github.com/craigsapp/mozart-piano-sonatas/blob/master/reference-edition/sonata17-2.pdf
+!!!URL-youtube: https://www.youtube.com/watch?v=WkSi8hj0V2k András Schiff
+!!!URL-wikipedia: https://en.wikipedia.org/wiki/Piano_Sonata_No._18_(Mozart)#II._Adagio
+!!!ENC: Craig Stuart Sapp
+!!!END: 2009/10/07
+!!!EED: Craig Stuart Sapp
+!!!EEV: 2020/12/12
+!!!EFL: 68/69
+!!!AGN: piano sonata
+!!!AFR:
+!!!title: @{OTL}, K 576, mvmt. @{OMV}
+!!!filter-hands: hands -c
+
+**kern	**kern	**dynam
+*part1	*part1	*
+*staff2	*staff1	*staff1/2
+*ICklav	*ICklav	*
+*Ipiano	*Ipiano	*
+*LH	*RH	*
+*I"	*I"	*
+*clefF4	*clefG2	*
+*k[f#c#g#]	*k[f#c#g#]	*
+*A:	*A:	*
+*M3/4	*M3/4	*
+*MM60	*MM60	*
+*	*^	*
+
+=44	=44	=44	=44
+[2.e	4A	(8.cc#L	.
+.	.	64ddLL	.
+.	.	64cc#	.
+.	.	64bn	.
+.	.	64cc#JJJ	.
+.	4B	8eeL	.
+.	.	8dd	.
+.	4d	8b	.
+.	.	8g#J	.
+*-	*-	*-	*-

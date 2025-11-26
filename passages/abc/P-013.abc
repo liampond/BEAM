@@ -1,0 +1,29 @@
+%%linebreak <none>
+%%measurenb 2
+X: 13
+T: Piano Sonata No. 5 in G major, K 283 (189h), mvmt. 1
+C: Wolfgang Amadeus Mozart
+%%abc-version 2.0
+%%abcx-abcm2ps-target-version 5.9.1 (29 Sep 2008)
+%%abc-creator hum2abc beta
+%%abcx-conversion-date 2021/01/14 17:01:33
+%%abc-copyright 2018 Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abcx-initial-encoding-date 2009/10/05
+%%gracespace 0 6 6
+%%humdrum-veritas 1213682099
+%%humdrum-veritas-data 2226311587
+%%linebreak <none>
+%%barnumbers 0
+L: 1/16
+M: 3/4
+N: Derived from sonata05-1.krn
+Q: "Allegro" 1/4=120
+%%staves {1 2}
+V: 1 clef=treble
+V: 2 clef=bass
+N: Extracted measures 42-42 from original score
+K: G
+[V:1] Begb bagf fed^c | 
+[V:2] [G,4B,4E4][K:clef=treble][D4F4][E4G4] & x4A,8 | 

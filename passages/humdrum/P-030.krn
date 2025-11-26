@@ -1,0 +1,59 @@
+!!!!SEGMENT: sonata11-2.krn
+!!!COM: Mozart, Wolfgang Amadeus
+!!!CDT: 1756/01/27/-1791/12/05/
+!!!CNT: German
+!!!OTL: Piano Sonata No. 11 in A major
+!!!SCT1: K<sup>1</sup> 331
+!!!SCT2: K<sup>6</sup> 300i
+!!!OMV: 2
+!!!OMD: Menuetto and Trio
+!!!ODT: 1783
+!!!OMD: Trio.
+!!!RDF**kern: > = above
+!!!RDF**kern: < = below
+!!!YOR: Alte Mozart-Ausgabe, Band 20, Breitkopf &amp; H&auml;rtel 1877-1883.
+!!!YOY: 1878
+!!!YEC: 2018 Craig Stuart Sapp
+!!!YEM: Licence: (CC BY-NC-SA 4.0) https://creativecommons.org/licenses/by-nc-sa/4.0
+!!!YER: 2018
+!!!URL-github: https://github.com/craigsapp/mozart-piano-sonatas/blob/main/kern/sonata11-2.krn
+!!!URL-vhv: https://verovio.humdrum.org/?file=mozart/sonatas/sonata11-2.krn
+!!!URL-pdf: https://github.com/craigsapp/mozart-piano-sonatas/blob/master/reference-edition/sonata11-2.pdf
+!!!URL-youtube: https://www.youtube.com/watch?v=sHGvdZJhD9s András Schiff
+!!!URL-wikipedia: https://en.wikipedia.org/wiki/Piano_Sonata_No._11_(Mozart)#II._Menuetto
+!!!ENC: Craig Stuart Sapp
+!!!END: 2009/09/30
+!!!EED: Craig Stuart Sapp
+!!!EEV: 2024/06/06
+!!!EFL: 50/69
+!!!AGN: piano sonata
+!!!AFR:
+!!!title: @{OTL}, K 331 (300i), mvmt. @{OMV}
+!!!filter-hands: hands -c
+
+**kern	**kern	**dynam
+*part1	*part1	*
+*staff2	*staff1	*staff1/2
+*ICklav	*ICklav	*
+*Ipiano	*Ipiano	*
+*LH	*RH	*
+*I"	*I"	*
+*>[A,A,B,B,C,C,D,D1,D,D2,A,B]	*>[A,A,B,B,C,C,D,D1,D,D2,A,B]	*>[A,A,B,B,C,C,D,D1,D,D2,A,B]
+*>norep[A,B,C,D,D2,A,B]	*>norep[A,B,C,D,D2,A,B]	*>norep[A,B,C,D,D2,A,B]
+*>A	*>A	*>A
+*clefF4	*clefG2	*
+*kcancel	*kcancel	*kcancel
+*k[f#c#g#]	*k[f#c#g#]	*
+*A:	*A:	*
+*M3/4	*M3/4	*
+*MM120	*MM120	*
+
+=22	=22	=22
+8F#L	(4ddn	.
+8A#	.	.
+8e	4cc#)	.
+8c#	.	.
+8B	8r	.
+8A#J	16r	.
+.	16cc#'	.
+*-	*-	*-

@@ -1,0 +1,43 @@
+%%linebreak <none>
+%%measurenb 2
+X: 59
+T: Piano Sonata No. 14 in C minor, K 457, mvmt. 2
+C: Wolfgang Amadeus Mozart
+%%abc-version 2.0
+%%abcx-abcm2ps-target-version 5.9.1 (29 Sep 2008)
+%%abc-creator hum2abc beta
+%%abcx-conversion-date 2021/01/14 17:01:31
+%%abc-copyright 2018 Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abcx-initial-encoding-date 2009/10/01
+%%gracespace 0 6 6
+%%humdrum-veritas 1705578901
+%%humdrum-veritas-data 1159869035
+%%linebreak <none>
+%%barnumbers 0
+L: 1/16
+M: C
+N: Derived from sonata14-2.krn
+Q: "Adagio" 1/4=60
+%%staves {1 2}
+V: 1 clef=treble
+V: 2 clef=bass
+N: Extracted measures 40-47 from original score
+K: Eb
+[V:1] _b/=b/c'/_b/ _a/g/f/e/ d/c/B/=A/ _A/G/F/E/ D/C/B,/C/ D/E/F/G/ A/G/F/=E/ F/G/A/A/ | 
+[V:2] D,4z4[_B,,8F,8_A,8] | 
+[V:1] B2-B/c/d/e/ eG.G.G !turn!G2>>A2 F2 (3:2:6z/ B/=A/ _A/G/F/ & x8E4D2 z2 | 
+[V:2] E,G,B,G, E,G,B,G, B,,E,G,E, B,,D,F,D, | 
+[V:1] E4F4!turn!G>A B/c/d/e/ B z e/g/d/f/ & G,B,G,B, DB,DB, E2 x2x4 | 
+[V:2] E,4B,,4E,,4z4 | 
+[V:1] c/e/B/d/ A/c/G/B/ F/A/E/G/ C/c/F/A/G4F/.E/.D/.E/ .F/.G/.A/.=A/ & x8E4D< x x2 | 
+[V:2] z2 D,,/D,/E,,/E,/ F,,/F,/G,,/G,/ A,,/A,/F,,/F,/ =A,/B,/C/B,/ A,/B,/G,/E,/ B,,2 z2 | 
+[V:1] x8!turn!G2!sfz!B2- B/.=A/._A/.G/ .B/.A/.G/.F/ & B2-B/d//c//e//d//f//e// eG.G.GE4D x3 | 
+[V:2] E,G,B,G, E,G,B,G, B,,E,G,E, B,,D,F,D, | 
+[V:1] E2>>=E2 F2>>^F2 !turn!G>A (3=A/B/=B/ c//_d//=d//e//x4 & z B,G,B, z DB,D _E2 x2 _B z .e/.d/._d/.c/ | 
+[V:2] [E,,4E,4][B,,,4B,,4][E,,4E,4]z4 | 
+[V:1] =B z .e/.=d/._d/.c/ B z .e/.=d/._d/.c/ !turn!B3=d/>c/ c z .F/.G/.A/.=A/ | 
+[V:2] .E/.=D/._D/.C/ [G,=B,] z .E/.=D/._D/.C/ [G,B,] z[G,4E4-][A,E] z z2 | 
+[V:1] x4!turn!E3G/F/x8 & _B2-(3:2:6.B/.=B/.c/._d/.=d/.e/ x2> D2 E2 z2 !turn!c3e/c/ | 
+[V:2] z2 [G,,2E,2] G,2A,2x8 & x4B,,4E,G,B,G, E,A,CA, | 

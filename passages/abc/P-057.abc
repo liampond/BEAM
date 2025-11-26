@@ -1,0 +1,45 @@
+%%linebreak <none>
+%%measurenb 2
+X: 12
+T: Piano Sonata No. 4 in E\b major, K 282 (189g), mvmt. 3
+C: Wolfgang Amadeus Mozart
+%%abc-version 2.0
+%%abcx-abcm2ps-target-version 5.9.1 (29 Sep 2008)
+%%abc-creator hum2abc beta
+%%abcx-conversion-date 2021/01/14 17:01:33
+%%abc-copyright 2018 Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abcx-initial-encoding-date 2009/10/05
+%%gracespace 0 6 6
+%%humdrum-veritas 3781068208
+%%humdrum-veritas-data 1670745234
+%%linebreak <none>
+%%barnumbers 0
+L: 1/16
+M: 2/4
+N: Derived from sonata04-3.krn
+Q: "Allegro"
+%%staves {1 2}
+V: 1 clef=treble
+V: 2 clef=treble
+N: Extracted measures 35-42 from original score
+K: Eb
+[V:1] Bcde fg=ab | 
+[V:2] [B,4D4]z4 | 
+[V:1] ^fgec dec=A | 
+[V:2] z2 .E2.C2.F2 | 
+[V:1] Bcde =fg=ab | 
+[V:2] .D4z4 | 
+[V:1] ^fgec dec=A | 
+[V:2] z2 .E2.C2.F2 | 
+[V:1] B4z2 :|]|:  
+[V:2] B,2F,2B,,2 :|]|:  
+[V:1] .B2 [I:setbarnb 40]| 
+[V:2] z2 | 
+[V:1] B6.b2 | 
+[V:2] z2 [F,2_D2][F,4D4] | 
+[V:1] b6c2 | 
+[V:2] z2 [=E,2C2][E,4C4][K:clef=treble] | 
+[V:1] _dc=dc ec=ec | 
+[V:2] z2 F2G2B2 | 

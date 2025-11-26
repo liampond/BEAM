@@ -1,0 +1,29 @@
+%%linebreak <none>
+%%measurenb 2
+X: 59
+T: Piano Sonata No. 14 in C minor, K 457, mvmt. 2
+C: Wolfgang Amadeus Mozart
+%%abc-version 2.0
+%%abcx-abcm2ps-target-version 5.9.1 (29 Sep 2008)
+%%abc-creator hum2abc beta
+%%abcx-conversion-date 2021/01/14 17:01:31
+%%abc-copyright 2018 Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abcx-initial-encoding-date 2009/10/01
+%%gracespace 0 6 6
+%%humdrum-veritas 1705578901
+%%humdrum-veritas-data 1159869035
+%%linebreak <none>
+%%barnumbers 0
+L: 1/16
+M: C
+N: Derived from sonata14-2.krn
+Q: "Adagio" 1/4=60
+%%staves {1 2}
+V: 1 clef=treble
+V: 2 clef=bass
+N: Extracted measures 40-40 from original score
+K: Eb
+[V:1] _b/=b/c'/_b/ _a/g/f/e/ d/c/B/=A/ _A/G/F/E/ D/C/B,/C/ D/E/F/G/ A/G/F/=E/ F/G/A/A/ | 
+[V:2] D,4z4[_B,,8F,8_A,8] | 

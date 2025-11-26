@@ -1,0 +1,43 @@
+%%linebreak <none>
+%%measurenb 2
+X: 34
+T: Piano Sonata No. 8 in A minor, K 310 (300d), mvmt. 1
+C: Wolfgang Amadeus Mozart
+%%abc-version 2.0
+%%abcx-abcm2ps-target-version 5.9.1 (29 Sep 2008)
+%%abc-creator hum2abc beta
+%%abcx-conversion-date 2021/01/14 17:01:32
+%%abc-copyright 2018 Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abcx-initial-encoding-date 2009/09/28
+%%gracespace 0 6 6
+%%humdrum-veritas 567916811
+%%humdrum-veritas-data 158309177
+%%linebreak <none>
+%%barnumbers 0
+L: 1/16
+M: C
+N: Derived from sonata08-1.krn
+Q: "Allegro maestoso" 1/4=120
+%%staves {1 2}
+V: 1 clef=treble
+V: 2 clef=bass
+N: Extracted measures 73-80 from original score
+K: C
+[V:1] cAce E=GBe EAce ^DAc^d | 
+[V:2] A,4[=G,,4=G,4][^F,,4^F,4][=F,,4=F,4] | 
+[V:1] eE^GB eGBe ^gBeg bge=d | 
+[V:2] [E,,4E,4]z2 z E,E4!trill!^G,3^F,/G,/ | 
+[V:1] cAce acea c'aec a^fcA | 
+[V:2] A,4z2 z A,,A,4!trill!^D,3^C,/D,/ | 
+[V:1] ^GEGB eGBe ^gBeg bge=d | 
+[V:2] E,4z2 z E,E4!trill!^G,3^F,/G,/ | 
+[V:1] cAce acea c'aec a^fcA | 
+[V:2] A,4z2 z A,,A,4!trill!^D,3^C,/D,/ | 
+[V:1] ^GBeG AB^dA GBeG ABdA | 
+[V:2] E,4[=F,,4=F,4][E,,4E,4][F,,4F,4] | 
+[V:1] [^G2B2e2] E^D EF^F=G ^GA_B=B c^c=d^d | 
+[V:2] [E,,4E,4]z4z8 | 
+[V:1] {/^d/}e4e2>e2e4c3A | 
+[V:2] [A,2C2E2][A,2C2E2][A,2C2E2][A,2C2E2] [A,2C2E2][A,2C2E2][A,2C2E2][A,2C2E2] | 

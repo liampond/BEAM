@@ -1,0 +1,94 @@
+!!!!SEGMENT: sonata05-3.krn
+!!!COM: Mozart, Wolfgang Amadeus
+!!!CDT: 1756/01/27/-1791/12/05/
+!!!CNT: German
+!!!OTL: Piano Sonata No. 5 in G major
+!!!SCT1: K<sup>1</sup> 283
+!!!SCT2: K<sup>6</sup> 189h
+!!!OMV: 3
+!!!OMD: Presto
+!!!ODT: 1774
+!!!RDF**kern: > = above
+!!!RDF**kern: < = below
+!!!YOR: Alte Mozart-Ausgabe, Band 20, Breitkopf &amp; H&auml;rtel 1877-1883.
+!!!YOY: 1878
+!!!YEC: 2018 Craig Stuart Sapp
+!!!YEM: Licence: (CC BY-NC-SA 4.0) https://creativecommons.org/licenses/by-nc-sa/4.0
+!!!YER: 2018
+!!!URL-github: https://github.com/craigsapp/mozart-piano-sonatas/blob/main/kern/sonata05-3.krn
+!!!URL-vhv: https://verovio.humdrum.org/?file=mozart/sonatas/sonata05-3.krn
+!!!URL-pdf: https://github.com/craigsapp/mozart-piano-sonatas/blob/master/reference-edition/sonata05-3.pdf
+!!!URL-youtube: https://www.youtube.com/watch?v=2_BJvukLQAg András Schiff
+!!!URL-wikipedia: https://en.wikipedia.org/wiki/Piano_Sonata_No._5_(Mozart)
+!!!ENC: Craig Stuart Sapp
+!!!END: 2009/10/06
+!!!EED: Craig Stuart Sapp
+!!!EEV: 2024/06/02
+!!!EFL: 15/69
+!!!AGN: piano sonata
+!!!AFR:
+!!!title: @{OTL}, K 283 (189h), mvmt. @{OMV}
+!!!filter-hands: hands -c
+
+**kern	**kern	**dynam
+*part1	*part1	*
+*staff2	*staff1	*staff1/2
+*ICklav	*ICklav	*
+*Ipiano	*Ipiano	*
+*LH	*RH	*
+*I"	*I"	*
+*>[A,A,B,B,C]	*>[A,A,B,B,C]	*>[A,A,B,B,C]
+*>norep[A,B,C]	*>norep[A,B,C]	*>norep[A,B,C]
+*>A	*>A	*>A
+*clefF4	*clefG2	*
+*k[f#]	*k[f#]	*
+*G:	*G:	*
+*M3/8	*M3/8	*
+*MM144	*MM144	*
+
+=69	=69	=69
+(16DLL	8r	p
+16F#	.	.
+16A	8r	.
+16dJJ	.	.
+8f#')	8dd 8ff# 8aa	f
+=70	=70	=70
+(16GGLL	8r	p
+16BB	.	.
+16D	8r	.
+16GJJ	.	.
+8B')	8dd 8gg 8ddd	f
+*clefG2	*	*
+=71	=71	=71
+(16ALL	4.a	.
+16f#	.	.
+16d	.	.
+16f#	.	.
+16A	.	.
+16f#JJ	.	.
+=72	=72	=72
+16ALL	4.eeTT	.
+16g	.	.
+16c#	.	.
+16g	.	.
+16A	.	.
+16gJJ	.	.
+.	16ddq/LL	.
+.	16eeq/JJ	.
+=73	=73	=73
+8d) 8f#	8dd	.
+8r	8r	.
+8r	8aa'	p
+=74	=74	=74
+8r	(8ggL	.
+8r	8ff#)	.
+8A#' 8e'	8ff#'J	.
+=75	=75	=75
+8B' 8d'	8ff#'	.
+8r	8r	.
+8r	8ff#'	.
+=76	=76	=76
+8r	(8cccnL	.
+8r	8bb)	.
+8d#' 8an'	8bb'J	.
+*-	*-	*-

@@ -1,0 +1,43 @@
+%%linebreak <none>
+%%measurenb 2
+X: 32
+T: Piano Sonata No. 7 in C major, K 309 (284b), mvmt. 2
+C: Wolfgang Amadeus Mozart
+%%abc-version 2.0
+%%abcx-abcm2ps-target-version 5.9.1 (29 Sep 2008)
+%%abc-creator hum2abc beta
+%%abcx-conversion-date 2021/01/14 17:01:33
+%%abc-copyright 2018 Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abcx-initial-encoding-date 2009/09/24
+%%gracespace 0 6 6
+%%humdrum-veritas 2711219678
+%%humdrum-veritas-data 3319122180
+%%linebreak <none>
+%%barnumbers 0
+L: 1/16
+M: 3/4
+N: Derived from sonata07-2.krn
+Q: "Andante un poco adagio" 1/4=60
+%%staves {1 2}
+V: 1 clef=treble
+V: 2 clef=bass
+N: Extracted measures 55-62 from original score
+K: F
+[V:1] =b>fd'>b f'/e'/d'/e'/ d'/c'/b/c'/ b/c'/d'/c'/ b/a/g/f/ | 
+[V:2] z2 [G,2=B,2][G,2B,2][G,2B,2][G,2B,2][G,2B,2] | 
+[V:1] ^defe .e2 z2 c/=d/e/f/g/a/=b/c'/ | 
+[V:2] z2 [C,2C2][C,2C2][C,2C2] E,,2E,2 | 
+[V:1] c'dd2- d>c'_e>c' c/d/=e/f/g/a/=b/c'/ & c8c4 | 
+[V:2] F,,2!trill!F,>E, F,2^F,2 G,2G,,2 | 
+[V:1] c'ff2- f>c'^f>c' c/d/e/=f/g/a/=b/c'/ & c8c4 | 
+[V:2] A,,2!trill!A,>^G, A,2A,,2 E,,2E,2 | 
+[V:1] x8{/e//} d3c & ^g/a/=b/a/=g/f/e/d/c4=B4 | 
+[V:2] C2^CDx8 & F,2F,2 [G,2E2][G,2E2][G,2F2][G,2F2] | 
+[V:1] c12- & c8c2^c2 | 
+[V:2] [=C2E2] C,2 (3CDC (3_B,CB, (3A,B,A, (3G,A,G, | 
+[V:1] d4d3e/^f/ gabd & c4_B8- | 
+[V:2] (3^F,G,F, (3D,E,D, (3B,CB, (3A,B,A, (3G,A,G, (3=F,G,F, | 
+[V:1] c4-c3d/e/ =fgac & B4A8 | 
+[V:2] (3E,F,E, (3C,D,C, (3A,B,A, (3G,A,G, (3F,G,F, (3E,F,E, | 

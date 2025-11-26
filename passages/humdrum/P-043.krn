@@ -1,0 +1,62 @@
+!!!!SEGMENT: sonata17-1.krn
+!!!COM: Mozart, Wolfgang Amadeus
+!!!CDT: 1756/01/27/-1791/12/05/
+!!!CNT: German
+!!!OTL: Piano Sonata No. 17 in D major
+!!!ONB: Piano Sonata No. 18 in Neue Mozart-Ausgabe [1986]
+!!!SCT: K 576
+!!!OMV: 1
+!!!OMD: Allegro
+!!!ODT: 1789
+!!!RDF**kern: > = above
+!!!RDF**kern: < = below
+!!!YOR: Alte Mozart-Ausgabe, Band 20, Breitkopf &amp; H&auml;rtel 1877-1883.
+!!!YOY: 1878
+!!!YEC: 2018 Craig Stuart Sapp
+!!!YEM: Licence: (CC BY-NC-SA 4.0) https://creativecommons.org/licenses/by-nc-sa/4.0
+!!!YER: 2018
+!!!URL-github: https://github.com/craigsapp/mozart-piano-sonatas/blob/main/kern/sonata17-1.krn
+!!!URL-vhv: https://verovio.humdrum.org/?file=mozart/sonatas/sonata17-1.krn
+!!!URL-pdf: https://github.com/craigsapp/mozart-piano-sonatas/blob/master/reference-edition/sonata17-1.pdf
+!!!URL-youtube: https://www.youtube.com/watch?v=Tm_7Rjwnz90 András Schiff
+!!!URL-wikipedia: https://en.wikipedia.org/wiki/Piano_Sonata_No._18_(Mozart)#I. Allegro
+!!!ENC: Craig Stuart Sapp
+!!!END: 2009/10/07
+!!!EED: Craig Stuart Sapp
+!!!EEV: 2023/04/22
+!!!EFL: 67/69
+!!!AGN: piano sonata
+!!!AFR: sonata-allegro
+!!!title: @{OTL}, K 576, mvmt. @{OMV}
+!!!filter-hands: hands -c
+
+**kern	**kern	**dynam
+*part1	*part1	*
+*staff2	*staff1	*staff1/2
+*ICklav	*ICklav	*
+*Ipiano	*Ipiano	*
+*LH	*RH	*
+*I"	*I"	*
+*>[A,A,B]	*>[A,A,B]	*>[A,A,B]
+*>norep[A,B]	*>norep[A,B]	*>norep[A,B]
+*>A	*>A	*>A
+*clefF4	*clefG2	*
+*k[f#c#]	*k[f#c#]	*
+*D:	*D:	*
+*M6/8	*M6/8	*
+*MM124	*MM124	*
+
+=35	=35	=35
+4G#	16BLL	.
+.	16e	.
+.	16d#	.
+.	16e	.
+8A	16c#	.
+.	16eJJ	.
+8BL	16dnLL	.
+.	16e	.
+8A	16c#	.
+.	16e	.
+8G#J	16B	.
+.	16eJJ	.
+*-	*-	*-

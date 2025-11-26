@@ -1,0 +1,43 @@
+%%linebreak <none>
+%%measurenb 2
+X: 68
+T: Piano Sonata No. 17 in D major, K 576, mvmt. 2
+C: Wolfgang Amadeus Mozart
+%%abc-version 2.0
+%%abcx-abcm2ps-target-version 5.9.1 (29 Sep 2008)
+%%abc-creator hum2abc beta
+%%abcx-conversion-date 2021/01/14 17:01:32
+%%abc-copyright 2018 Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abcx-initial-encoding-date 2009/10/07
+%%gracespace 0 6 6
+%%humdrum-veritas 673863293
+%%humdrum-veritas-data 2713788994
+%%linebreak <none>
+%%barnumbers 0
+L: 1/16
+M: 3/4
+N: Derived from sonata17-2.krn
+Q: "Adagio" 1/4=60
+%%staves {1 2}
+V: 1 clef=treble
+V: 2 clef=bass
+N: Extracted measures 3-10 from original score
+K: A
+[V:1] eag=g ^ef=ed cBdf | 
+[V:2] [A4c4][D4d4]z4[K:clef=bass] | 
+[V:1] A3B/A/ GEFG A^AB^B | 
+[V:2] C4B,4z4[K:clef=treble] & E,8z4 | 
+[V:1] c3d//c//=B//c// e2d2B2G2 | 
+[V:2] [A,4A4][B,4G4][D4E4] | 
+[V:1] A3c/A/^e4-efga | 
+[V:2] [C4E4]z2 [D2B2][^D2=c2][D2c2] | 
+[V:1] a2-a/b/c'/a/ =eacf e^d=dB | 
+[V:2] [E4^c4]z4z2[K:clef=bass] =D2 & x8z2 E,2 | 
+[V:1] B4A4z4 | 
+[V:2] D4C2 E,2C,2A,,2 & A,6x6 | 
+[V:1] d2-d/f/e/f/ d/e/c/d/ B/c/A/B/ G2 z2 | 
+[V:2] z2 [G,2B,2][G,2B,2][A,2C2][B,2D2][B,2D2] & E,8E,2 z2 | 
+[V:1] e2-e/^d/f/e/ a/g/b/a/ c'/b/=d'/c'/ e'2 z2 | 
+[V:2] z2 [C2E2][C2E2][B,2D2]C2B,2 & A,8A,2G,2 | 

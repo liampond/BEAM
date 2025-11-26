@@ -1,0 +1,201 @@
+!!!!SEGMENT: sonata09-3.krn
+!!!COM: Mozart, Wolfgang Amadeus
+!!!CDT: 1756/01/27/-1791/12/05/
+!!!CNT: German
+!!!OTL: Piano Sonata No. 9 in D major
+!!!SCT1: K<sup>1</sup> 311
+!!!SCT2: K<sup>6</sup> 284c
+!!!OMV: 3
+!!!OMD: Rondo: Allegro
+!!!ODT: 1777
+!!!OMD: Andante
+!!!OMD: Presto
+!!!OMD: Adagio
+!!!RDF**kern: > = above
+!!!RDF**kern: < = below
+!!!YOR: Alte Mozart-Ausgabe, Band 20, Breitkopf &amp; H&auml;rtel 1877-1883.
+!!!YOY: 1878
+!!!YEC: 2018 Craig Stuart Sapp
+!!!YEM: Licence: (CC BY-NC-SA 4.0) https://creativecommons.org/licenses/by-nc-sa/4.0
+!!!YER: 2018
+!!!URL-github: https://github.com/craigsapp/mozart-piano-sonatas/blob/main/kern/sonata09-3.krn
+!!!URL-vhv: https://verovio.humdrum.org/?file=mozart/sonatas/sonata09-3.krn
+!!!URL-pdf: https://github.com/craigsapp/mozart-piano-sonatas/blob/master/reference-edition/sonata09-3.pdf
+!!!URL-youtube: https://www.youtube.com/watch?v=T5tZe0Qud-o András Schiff
+!!!URL-wikipedia: https://en.wikipedia.org/wiki/Piano_Sonata_No._9_(Mozart)
+!!!ENC: Craig Stuart Sapp
+!!!END: 2009/10/15
+!!!EED: Craig Stuart Sapp
+!!!EEV: 2024/06/05
+!!!EFL: 39/69
+!!!AGN: piano sonata
+!!!AFR: rondo
+!!!title: @{OTL}, K 311 (284c), mvmt. @{OMV}
+!!!filter-hands: hands -c
+
+**kern	**kern	**dynam
+*part1	*part1	*
+*staff2	*staff1	*staff1/2
+*ICklav	*ICklav	*
+*Ipiano	*Ipiano	*
+*LH	*RH	*
+*I"	*I"	*
+*clefF4	*clefG2	*
+*k[f#c#]	*k[f#c#]	*
+*D:	*D:	*
+*M6/8	*M6/8	*
+*MM120	*MM120	*
+*clefG2	*	*
+
+=168	=168	=168
+8AA 8AL	16aLL	.
+.	16e	.
+8AA 8A	16c#	.
+.	16e	.
+8AA 8AJ	16a	.
+.	16eJJ	.
+8AA 8AL	16aLL	.
+.	16e	.
+8AA 8A	16c#	.
+.	16e	.
+8AA 8AJ	16a	.
+.	16eJJ	.
+=169	=169	=169
+8AA 8G#L>	16bLL	.
+.	16e	.
+8AA 8G#	16d	.
+.	16e	.
+8AA 8G#J	16b	.
+.	16eJJ	<
+8AA 8G#L>	16bLL	.
+.	16e	.
+8AA 8G#	16d	.
+.	16e	.
+8AA 8G#J	16b	.
+.	16eJJ	.
+=170	=170	=170
+8AA 8GnL>	16cc#LL	.
+.	16gn	.
+8AA 8G	16e	.
+.	16g	.
+8AA 8GJ	16cc#	.
+.	16gJJ	.
+8AA 8F#L	16ddLL	.
+.	16a	.
+8AA 8F#	16f#	.
+.	16a	.
+8AA 8F#J	16dd	.
+.	16aJJ	.
+=171	=171	=171
+8AA 8EL	16eeLL	.
+.	16cc#	.
+8AA 8E	16a	.
+.	16cc#	.
+8AA 8EJ	16ee	.
+.	16cc#JJ	.
+8AA 8DL	16ff#LL	.
+.	16dd	.
+8AA 8D	16a	.
+.	16dd	.
+8AA 8DJ	16ff#	.
+.	16ddJJ	.
+=172	=172	=172
+2.AA; 2.C#; 2.E; 2.A;	2.a; 2.cc#; 2.ee; [2.gg;	.
+!!LO:LB:g=original
+=173||	=173||	=173||
+1ryy	(8.ggL]	.
+.	16eeJk)	.
+.	(8.ccc#L	.
+.	16aaJk)	.
+.	(4.eee	.
+.	8ddd	.
+2.ryy	8ccc#L	.
+.	8bb	.
+.	8aa	.
+.	8gg#J)	.
+.	(24aaLL	.
+.	24aa#	.
+.	24bb	.
+.	24aan	.
+.	24ggn	.
+.	24ff#JJ	.
+2.ryy	24aaLL	.
+.	24gg	.
+.	24bb	.
+.	24aa	.
+.	24gg	.
+.	24ff#JJ	.
+.	24eeLL	.
+.	24ff#	.
+.	24gg	.
+.	24ff#	.
+.	24aa	.
+.	24ggJJ	.
+.	24ff#LL	.
+.	24ee	.
+.	24dd	.
+.	24cc#	.
+.	24b	.
+.	24aJJ)	.
+4ryy	4gT;	f
+=-	=-	=-
+8ryy	(16f#LL	.
+.	16gJJ	.
+*	*cue	*
+4ryy	16g#/LL	.
+.	16a	.
+.	16a#	.
+.	16b	.
+4ryy	16ccn	>
+.	16cc#	)
+.	16dd	)
+.	16dd#	)
+4ryy	16ee	)
+.	16ffn	)
+.	16ff#	)
+.	16gg	)
+8.ryy	16gg#	)
+.	16aa	)
+.	16aa#/JJ	)
+*	*Xcue	*
+8ryy	8bb/)	]
+8ryy	8r;	.
+!!LO:LB:g=original
+=-	=-	=-
+8ryy	(16aanLL	p
+.	16ggn'JJ)	.
+8ryy	8r	.
+8ryy	(16ff#yLL	.
+.	16ee'JJ)	.
+8ryy	8r	.
+8ryy	(8ff#L	.
+.	32ggq/LLL	.
+.	32ff#/q	.
+.	32ee/q	.
+.	32ff#/qJJJ	.
+16.ryy	(16.aaL)	.
+32ryy	32ggJJk)	.
+8ryy	(8ggL	.
+.	32aa/qLLL	.
+.	32gg/q	.
+.	32ff#/qJJJ	.
+4.ryy	16gg	.
+.	16gg#	.
+.	8bb	.
+.	8aaJ)	.
+=174||	=174||	=174||
+!! Tempo primo
+.	(>32aqq/	.
+4r	(4aa)	fp
+8r	8ff#)	.
+*clefG2	*	*
+=175	=175	=175
+.	(32ee/qq	.
+4.d 4.f#	8ddL)	.
+.	8cc#'	.
+.	8dd'J	.
+.	(32ee/qq	.
+4.B 4.g#	8ddL)	.
+.	8cc#'	.
+.	8dd'J	.
+*-	*-	*-

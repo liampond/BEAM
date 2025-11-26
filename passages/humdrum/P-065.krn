@@ -1,0 +1,120 @@
+!!!!SEGMENT: sonata07-3.krn
+!!!COM: Mozart, Wolfgang Amadeus
+!!!CDT: 1756/01/27/-1791/12/05/
+!!!CNT: German
+!!!OTL: Piano Sonata No. 7 in C major
+!!!SCT1: K<sup>1</sup> 309
+!!!SCT2: K<sup>6</sup> 284b
+!!!OMV: 3
+!!!OMD: Rondo: Allegretto grazioso
+!!!ODT: 1777
+!!!RDF**kern: > = above
+!!!RDF**kern: < = below
+!!!YOR: Alte Mozart-Ausgabe, Band 20, Breitkopf &amp; H&auml;rtel 1877-1883.
+!!!YOY: 1878
+!!!YEC: 2018 Craig Stuart Sapp
+!!!YEM: Licence: (CC BY-NC-SA 4.0) https://creativecommons.org/licenses/by-nc-sa/4.0
+!!!YER: 2018
+!!!URL-github: https://github.com/craigsapp/mozart-piano-sonatas/blob/main/kern/sonata07-3.krn
+!!!URL-vhv: https://verovio.humdrum.org/?file=mozart/sonatas/sonata07-3.krn
+!!!URL-pdf: https://github.com/craigsapp/mozart-piano-sonatas/blob/master/reference-edition/sonata07-3.pdf
+!!!URL-youtube: https://www.youtube.com/watch?v=AP1cZxK5VzE András Schiff
+!!!URL-wikipedia: https://en.wikipedia.org/wiki/Piano_Sonata_No._7_(Mozart)
+!!!ENC: Craig Stuart Sapp
+!!!END: 2009/09/24
+!!!EED: Craig Stuart Sapp
+!!!EEV: 2024/06/05
+!!!EFL: 33/69
+!!!AGN: piano sonata
+!!!AFR: rondo
+!!!title: @{OTL}, K 309 (284b), mvmt. @{OMV}
+!!!filter-hands: hands -c
+
+**kern	**kern	**dynam
+*part1	*part1	*
+*staff2	*staff1	*staff1/2
+*ICklav	*ICklav	*
+*Ipiano	*Ipiano	*
+*LH	*RH	*
+*I"	*I"	*
+*clefF4	*clefG2	*
+*k[]	*k[]	*
+*C:	*C:	*
+*M2/4	*M2/4	*
+*MM112	*MM112	*
+*clefG2	*	*
+
+=166	=166	=166
+8C 8E	16g 16gg	.
+.	16ff'LL	.
+8r	16ee'	.
+.	16dd'JJ	.
+4r	16cc'LL	.
+.	16b'	.
+.	16a'	.
+.	16g'JJ	.
+!!LO:LB:g=original
+=167	=167	=167
+.	(32ffqLLL	.
+.	32ggqJJJ	.
+8FF 8AA 8D	16aa'LL)	.
+.	16gg'	.
+8r	16ff'	.
+.	16ee'JJ	.
+4r	16dd'LL	.
+.	16cc'	.
+.	16b'	.
+.	16a'JJ	.
+=168	=168	=168
+8GG 8G	8g	.
+8r	8r	.
+8GG# 8G#	8d 8f 8b	.
+8r	8r	.
+=169	=169	=169
+8AA 8A	8c 8e 8cc	.
+8r	8r	.
+4r	4r	.
+*clefG2	*	*
+=170	=170	=170
+.	(32dddqq	.
+8r	[4ccc)	p
+8f# 8a 8ddL	.	.
+8f# 8a 8dd	(16ccc]LL	.
+.	16bb)	.
+8f# 8a 8ddJ	(16ccc	.
+.	16aaJJ)	.
+=171	=171	=171
+8r	[4gg	.
+8g 8cc 8eeL	.	.
+8g 8cc 8ee	(16ggLL]	.
+.	16ff#)	.
+8g 8ccJ	(16gg	.
+.	16eeJJ)	.
+=172	=172	=172
+.	32ggqq	.
+8r	[4ffn	.
+8g 8b 8ddL	.	.
+8g 8b 8dd	(16ffLL]	.
+.	16ee)	.
+8g 8bJ	(16ff	.
+.	16ddJJ)	.
+=173	=173	=173
+4r	32gLLL	f
+.	32gg	.
+.	32g	.
+.	32ggJJJ	.
+.	32gLLL	.
+.	32gg	.
+.	32g	.
+.	32ggJJJ	.
+*clefF4	*	*
+8c 8e-L	32gLLL	.
+.	32gg	.
+.	32g	.
+.	32ggJJJ	.
+8B 8fJ	32gLLL	.
+.	32gg	.
+.	32g	.
+.	32ggJJJ	.
+!!LO:LB:g=original
+*-	*-	*-

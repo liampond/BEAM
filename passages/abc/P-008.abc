@@ -1,0 +1,29 @@
+%%linebreak <none>
+%%measurenb 2
+X: 8
+T: Piano Sonata No. 3 in B\b major, K 281 (189f), mvmt. 2
+C: Wolfgang Amadeus Mozart
+%%abc-version 2.0
+%%abcx-abcm2ps-target-version 5.9.1 (29 Sep 2008)
+%%abc-creator hum2abc beta
+%%abcx-conversion-date 2021/01/14 17:01:31
+%%abc-copyright 2018 Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abcx-initial-encoding-date 2009/10/02
+%%gracespace 0 6 6
+%%humdrum-veritas 1519383494
+%%humdrum-veritas-data 4194529957
+%%linebreak <none>
+%%barnumbers 0
+L: 1/16
+M: 3/8
+N: Derived from sonata03-2.krn
+Q: "Andante amoroso." 1/8=144
+%%staves {1 2}
+V: 1 clef=treble
+V: 2 clef=bass
+N: Extracted measures 58-58 from original score
+K: Eb
+[V:1] [D2A2] z2 z2 | 
+[V:2] [B,,2F,2] z2 z2 | 

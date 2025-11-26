@@ -1,0 +1,43 @@
+%%linebreak <none>
+%%measurenb 2
+X: 58
+T: Piano Sonata No. 14 in C minor, K 457, mvmt. 1
+C: Wolfgang Amadeus Mozart
+%%abc-version 2.0
+%%abcx-abcm2ps-target-version 5.9.1 (29 Sep 2008)
+%%abc-creator hum2abc beta
+%%abcx-conversion-date 2021/01/14 17:01:33
+%%abc-copyright 2018 Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abcx-initial-encoding-date 2009/09/29
+%%gracespace 0 6 6
+%%humdrum-veritas 4135260128
+%%humdrum-veritas-data 1206616488
+%%linebreak <none>
+%%barnumbers 0
+L: 1/8
+M: C
+N: Derived from sonata14-1.krn
+Q: "Allegro" 1/4=176
+%%staves {1 2}
+V: 1 clef=treble
+V: 2 clef=bass
+N: Extracted measures 169-176 from original score
+K: Eb
+[V:1] c4.e2.g2 | 
+[V:2] .[C,2C2].[E,2E2]z4 | 
+[V:1] .c'2.e'2z4 | 
+[V:2] [A,,,4A,,4].[C,,2C,2].[E,,2E,2] | 
+[V:1] A4.c2.e2 | 
+[V:2] .[A,,2A,2].[C,2C2]z4 | 
+[V:1] .=a2.c'2z2(3c'e'c' | 
+[V:2] [^F,,,4^F,,4].[=A,,,2=A,,2].[C,,2C,2] | 
+[V:1] (3=ac'a (3^faf (3efe (3cec | 
+[V:2] .[^F,,2^F,2].[=A,,2=A,2].[C,2C2].[E,2E2] | 
+[V:1] G2g4=f/e/d/c/ | 
+[V:2] (3G,CE (3G,CE (3G,CE (3G,CE | 
+[V:1] !trill!d8{/cd} | 
+[V:2] (3G,=B,F (3G,B,F (3G,B,F (3G,B,F | 
+[V:1] (3z cc' (3z =B=b (3z cc' (3z Gg | 
+[V:2] C2=B,2C2G,2 | 

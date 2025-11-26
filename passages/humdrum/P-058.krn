@@ -1,0 +1,129 @@
+!!!!SEGMENT: sonata05-1.krn
+!!!COM: Mozart, Wolfgang Amadeus
+!!!CDT: 1756/01/27/-1791/12/05/
+!!!CNT: German
+!!!OTL: Piano Sonata No. 5 in G major
+!!!SCT1: K<sup>1</sup> 283
+!!!SCT2: K<sup>6</sup> 189h
+!!!OMV: 1
+!!!OMD: Allegro
+!!!ODT: 1774
+!!!RDF**kern: > = above
+!!!RDF**kern: < = below
+!!!YOR: Alte Mozart-Ausgabe, Band 20, Breitkopf &amp; H&auml;rtel 1877-1883.
+!!!YOY: 1878
+!!!YEC: 2018 Craig Stuart Sapp
+!!!YEM: Licence: (CC BY-NC-SA 4.0) https://creativecommons.org/licenses/by-nc-sa/4.0
+!!!YER: 2018
+!!!URL-github: https://github.com/craigsapp/mozart-piano-sonatas/blob/main/kern/sonata05-1.krn
+!!!URL-vhv: https://verovio.humdrum.org/?file=mozart/sonatas/sonata05-1.krn
+!!!URL-pdf: https://github.com/craigsapp/mozart-piano-sonatas/blob/master/reference-edition/sonata05-1.pdf
+!!!URL-youtube: https://www.youtube.com/watch?v=mYchsjuc2lM András Schiff
+!!!URL-wikipedia: https://en.wikipedia.org/wiki/Piano_Sonata_No._5_(Mozart)
+!!!ENC: Craig Stuart Sapp
+!!!END: 2009/10/05
+!!!EED: Craig Stuart Sapp
+!!!EEV: 2024/06/02
+!!!EFL: 13/69
+!!!AGN: piano sonata
+!!!AFR:
+!!!title: @{OTL}, K 283 (189h), mvmt. @{OMV}
+!!!filter-hands: hands -c
+
+**kern	**kern	**dynam
+*part1	*part1	*
+*staff2	*staff1	*staff1/2
+*ICklav	*ICklav	*
+*Ipiano	*Ipiano	*
+*LH	*RH	*
+*I"	*I"	*
+*>[A,A,B]	*>[A,A,B]	*>[A,A,B]
+*>norep[A,B]	*>norep[A,B]	*>norep[A,B]
+*>A	*>A	*>A
+*clefF4	*clefG2	*
+*k[f#]	*k[f#]	*
+*G:	*G:	*
+*M3/4	*M3/4	*
+*MM120	*MM120	*
+
+=89	=89	=89
+4D 4d	4dd)	.
+4DD 4D	4dT	.
+.	16c#qLL	.
+.	16dqJJ	.
+4r	4r	.
+=90	=90	=90
+(8BL	8r	.
+8d	(4dd	p
+8A	.	.
+8d	4ccn	.
+8G	.	.
+8dJ	[8b	.
+=91	=91	=91
+8F#L	8b]	.
+8d	4a	.
+8E	.	.
+8d	4g	.
+8D	.	.
+8dJ	8f#)	.
+!!LO:LB:g=original
+=92	=92	=92
+8EL	(16aLK	.
+.	8.gJ)	.
+8d	.	.
+8F#	(16bLK	.
+.	8.aJ)	.
+8d	.	.
+8G	(16ccLK	.
+.	8.bJ)	.
+8dJ	.	.
+=93	=93	=93
+8AL	(8.ddL	.
+8d	.	.
+.	16ccJk)	.
+8F#	4a	.
+8d	.	.
+8D	4r	.
+8dJ)	.	.
+*clefG2	*	*
+=94	=94	=94
+(>16bLL	8r	.
+16dd	.	.
+16b	(16dddLL	.
+16ddJJ	16eeeJJ	.
+16aLL	8cccL)	.
+16dd	.	.
+16a	(16cccL	.
+16ddJJ	16dddJJ	.
+16gLL	8bbL)	.
+16dd	.	.
+16g	(16bbL	.
+16ddJJ	16cccJJ	.
+=95	=95	=95
+16f#LL	8aaL)	.
+16dd	.	.
+16f#	(16aaL	.
+16ddJJ	16bbJJ	.
+16eLL	8ggL)	.
+16dd	.	.
+16e	(16ggL	.
+16ddJJ	16aaJJ	.
+16dLL	8ff#L)	.
+16dd	.	.
+16d	(16ff#L	.
+16ddJJ	16aaJJ	.
+=96	=96	=96
+16eLL	16ggLL	.
+16dd	16aa	.
+16e	16bb	.
+16ddJJ	16ggJJ	.
+16f#LL	16aaLL	.
+16dd	16bb	.
+16f#	16ccc	.
+16ddJJ	16aaJJ	.
+16gLL	16bbLL	.
+16dd	16ccc	.
+16g	16ddd	.
+16ddJJ	16bbJJ	.
+!!LO:LB:g=original
+*-	*-	*-

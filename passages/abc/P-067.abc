@@ -1,0 +1,43 @@
+%%linebreak <none>
+%%measurenb 2
+X: 35
+T: Piano Sonata No. 8 in A minor, K 310 (300d), mvmt. 2
+C: Wolfgang Amadeus Mozart
+%%abc-version 2.0
+%%abcx-abcm2ps-target-version 5.9.1 (29 Sep 2008)
+%%abc-creator hum2abc beta
+%%abcx-conversion-date 2021/01/14 17:01:32
+%%abc-copyright 2018 Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abcx-initial-encoding-date 2009/09/28
+%%gracespace 0 6 6
+%%humdrum-veritas 1643440585
+%%humdrum-veritas-data 844385869
+%%linebreak <none>
+%%barnumbers 0
+L: 1/16
+M: 3/4
+N: Derived from sonata08-2.krn
+Q: "Andante cantabile con espressione" 1/4=60
+%%staves {1 2}
+V: 1 clef=treble
+V: 2 clef=bass
+N: Extracted measures 42-49 from original score
+K: F
+[V:1] A2^G2 z2 !trill!d2{/^cd}f2.^G2 & [D4F4]x8 | 
+[V:2] (3B,,D,F, (3B,F,D, (3B,,D,F, (3B,F,D, (3B,,D,F, (3B,F,D, | 
+[V:1] (3:2:6AaAAAA (3:2:6AaAAAA (3:2:6AaAAAA | 
+[V:2] [A,,4^C,4]z2 .A,2.F,2.D,2 | 
+[V:1] (3:2:6[AB]b[AB][AB][AB][AB] (3:2:6[GB]b[GB][GB][GB][GB] (3:2:6[GB]b[GB][GB][GB][GB] | 
+[V:2] .G,2.G,,2 z2 G,2 !trill!E,3D,/C,/ | 
+[V:1] (3:2:6[GA]a[GA][GA][GA][GA] (3:2:6[FA]a[FA][FA][FA][FA] (3:2:6[FA]a[FA][FA][FA][FA] | 
+[V:2] F,2.F,,2 z2 .F,2.A,2.D,2 | 
+[V:1] (3:2:6[FG]g[FG][FG][FG][FG] (3:2:6[FG]g[FG][FG][FG][FG] (3:2:6[EG]g[EG][EG][EG][EG] | 
+[V:2] =B,,3z/B,,/ !trill!B,,3A,,/B,,/ !trill!^C,3B,,/C,/ | 
+[V:1] (3:2:6[EF]f[EF][EF][EF][EF] (3:2:6[DF]f[DF][DF][DF][DF] (3:2:6[DF]f[DF][DF][DF][DF] | 
+[V:2] .D,2.D,,2 z2 .D,2.=B,,2.G,,2 | 
+[V:1] (3:2:6[D_E]_e[DE][DE][DE][DE] (3:2:6[CE]e[CE][CE][CE][CE] (3:2:6[CE]e[CE][CE][CE][CE] | 
+[V:2] .C,2.C,,2 z2 C,2 !trill!A,,3G,,/A,,/ | 
+[V:1] (3:2:6[CD]d[CD][CD][CD][CD] (3:2:6[CD]d[CD][CD][CD][CD] (3:2:6[_B,D]d[B,D][B,D][B,D][B,D] | 
+[V:2] ^F,,3z/F,,/ !trill!F,,3E,,/F,,/ !trill!G,,3F,,/G,,/ | 

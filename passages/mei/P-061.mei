@@ -1,0 +1,850 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-model href="https://raw.githubusercontent.com/ism-dme/DIME-tools/main/validate/schemas/mei-DME-5.0.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/ism-dme/DIME-tools/main/validate/schemas/mei-DME-5.0.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<mei meiversion="5.0" xmlns="http://www.music-encoding.org/ns/mei">
+  <meiHead>
+    <fileDesc>
+      <titleStmt>
+        <title auth="KVonline" auth.uri="https://dme.mozarteum.at" label="NMA digital" type="unit" xml:id="fd_tit_1" xml:lang="DE">Sonate in D für Clavier, 1. Satz, KV 284/01</title>
+        <title auth="KVonline" auth.uri="https://dme.mozarteum.at" label="NMA digital" type="unit" xml:id="fd_tit_2" xml:lang="EN">Clavier Sonata in D, 1st mvt., K. 284/01</title>
+        <title type="file" xml:id="fd_tit_3">
+          <ref target="https://dme.mozarteum.at/movi/file/284/1" targettype="file_location">dmeref_284-001_3291.xml</ref>
+        </title>
+        <title label="NMA digital" type="subordinate" xml:id="fd_tit_4" xml:lang="EN">A digital edition</title>
+        <composer>
+          <persName auth="GND" auth.uri="https://d-nb.info/gnd/118584596" codedval="118584596" label="MI-PID_39409" xml:id="WAM">Wolfgang Amadé Mozart</persName>
+        </composer>
+        <funder n="1" xml:id="ISM">
+          <corpName auth="GND" auth.uri="https://d-nb.info/gnd/37019-8" codedval="37019-8">Internationale Stiftung Mozarteum Salzburg</corpName>
+          <address>
+            <addrLine>
+              <settlement auth="GeoNames" auth.uri="https://www.geonames.org/2766824">Salzburg</settlement>
+            </addrLine>
+            <addrLine>
+              <country>Austria</country>
+            </addrLine>
+          </address>
+        </funder>
+        <funder n="2" xml:id="PHI">
+          <corpName auth="GND" auth.uri="https://d-nb.info/dnbn/330242865" codedval="330242865">The Packard Humanities Institute</corpName>
+          <address>
+            <addrLine>
+              <settlement auth="GeoNames" auth.uri="https://www.geonames.org/5368335">Los Altos</settlement>
+            </addrLine>
+            <addrLine>
+              <country>California, USA</country>
+            </addrLine>
+          </address>
+        </funder>
+        <respStmt>
+          <corpName role="editor" xml:id="NMA-editors">
+            <persName auth="GND" auth.uri="https://d-nb.info/gnd/121083039" codedval="121083039" label="MI-PID_64730" role="editor" xml:id="WoPla">Wolfgang Plath</persName>
+            <persName auth="GND" auth.uri="https://d-nb.info/gnd/118898191" codedval="118898191" label="MI-PID_39459" role="editor" xml:id="WoReh">Wolfgang Rehm</persName>
+          </corpName>
+        </respStmt>
+      </titleStmt>
+      <editionStmt>
+        <edition>
+          <identifier type="version">1.0.0</identifier>
+          <date isodate="2022-12-19" label="first release"/>
+        </edition>
+        <respStmt n="1">
+          <resp>Digital remastering by:</resp>
+          <persName sameas="#IC" xml:id="ed.p1"/>
+        </respStmt>
+        <respStmt n="2">
+          <resp>Proofreading by:</resp>
+          <persName sameas="#IC" xml:id="pr.p1"/>
+          <persName sameas="#IC" xml:id="pr.p2"/>
+        </respStmt>
+      </editionStmt>
+      <pubStmt>
+        <publisher>
+          <corpName sameas="#ISM"/>
+        </publisher>
+        <respStmt>
+          <corpName role="sponsor" sameas="#ISM">Internationale Stiftung Mozarteum</corpName>
+        </respStmt>
+        <availability>
+          <useRestrict label="license">CC BY-NC-SA 4.0</useRestrict>
+        </availability>
+      </pubStmt>
+      <seriesStmt>
+        <title>Digital Interactive Mozart Edition (DIME)</title>
+        <respStmt>
+          <corpName label="Digital Mozart Edition Editorial Office" role="project execution" xml:id="DME-editors">
+            <persName auth="GND" auth.uri="https://d-nb.info/gnd/10403128X" codedval="10403128X" label="MI-PID_84344" role="pdr edt" xml:id="UL">Ulrich Leisinger</persName>
+            <persName auth="GND" auth.uri="https://d-nb.info/gnd/1083841270" codedval="1083841270" label="MI-PID_84344" role="rth edt" xml:id="IC">Iacopo Cividini</persName>
+            <persName auth="GND" auth.uri="https://d-nb.info/gnd/1161423672" codedval="1161423672" label="MI-PID_84341" role="edt mrk" xml:id="OS">Oleksii Sapov</persName>
+            <persName role="edt mrk" xml:id="RMG">Roland Mair-Gruber</persName>
+            <persName role="edt mrk" xml:id="YA">Yelyzaveta Albrekht</persName>
+            <persName auth="GND" auth.uri="https://d-nb.info/gnd/1061093409" codedval="1061093409" label="MI-PID_27802" role="led dtm" xml:id="FK">Franz Kelnreiter</persName>
+            <persName label="MI-PID_83688" role="dtm" xml:id="FG">Felix Gründer</persName>
+          </corpName>
+        </respStmt>
+      </seriesStmt>
+      <notesStmt>
+        <annot xml:lang="EN">This is the encoding of the 1st movement of K. 284 according to the Neue Mozart-Ausgabe IX/25/1.</annot>
+      </notesStmt>
+      <sourceDesc>
+        <source label="NMA1" n="1" xml:id="source_1">
+          <bibl>
+            <identifier auth="Bärenreiter" auth.uri="https://www.baerenreiter.com" type="catalog_number">BA 4600-01</identifier>
+            <title type="volume">Neue Ausgabe sämtlicher Werke, Serie IX, Werkgruppe 25: Klaviersonaten Band 1</title>
+            <title type="work">Sonate in D</title>
+            <title type="unit">Allegro</title>
+            <composer sameas="#WAM"/>
+            <editor corresp="#NMA-editors">
+              <persName sameas="#WoPla"/>
+              <persName sameas="#WoReh"/>
+            </editor>
+            <edition xml:lang="DE">[Erste Auflage]</edition>
+            <edition xml:lang="EN">[First edition]</edition>
+            <edition xml:id="digital_image">
+              <ref target="https://dme.mozarteum.at/DME/nma/nma_cont.php?vsep=196&amp;p1=60&amp;l=1" targettype="website">
+                <repository>NMA Online</repository>
+              </ref>
+            </edition>
+            <publisher>
+              <corpName auth="GND" auth.uri="https://d-nb.info/gnd/2005573-0" codedval="2005573-0" xml:id="BV">Bärenreiter</corpName>
+            </publisher>
+            <pubPlace>Kassel</pubPlace>
+            <date>1986</date>
+            <biblScope unit="page">60-66</biblScope>
+          </bibl>
+        </source>
+        <source label="NMA-KB" n="2" xml:id="source_2">
+          <bibl>
+            <identifier auth="Bärenreiter" auth.uri="https://www.baerenreiter.com" type="catalog_number">BA 4600-41</identifier>
+            <title>Wolfgang Amadeus Mozart, Neue Ausgabe sämtlicher Werke, Kritische Berichte, Serie IX, Werkgruppe 25: Klaviersonaten, Band 1 und 2.</title>
+            <author sameas="#WoReh"/>
+            <edition xml:lang="DE">[Auf Seite 203-207 zusammengestellte Berichtigungen und Ergänzungen zu den Notenbänden.]</edition>
+            <edition xml:lang="EN">[Corrigenda and addenda to the music editions reported on pp. 203-207.]</edition>
+            <publisher sameas="#BV"/>
+            <pubPlace>Kassel</pubPlace>
+            <date>1998</date>
+            <edition xml:id="digital_image_KB">
+              <ref target="https://dme.mozarteum.at/DME/nma/nma_cont.php?vsep=198&amp;p1=32&amp;l=1" targettype="website">
+                <repository>NMA Online</repository>
+              </ref>
+            </edition>
+          </bibl>
+        </source>
+        <source label="NMA: source A" sameas="#NMAsource_A" xml:id="source_A"/>
+        <source label="NMA: source B" sameas="#NMAsource_B" xml:id="source_B"/>
+      </sourceDesc>
+    </fileDesc>
+    <encodingDesc>
+      <appInfo>
+        <application n="1" version="0.2.0" xml:id="parseDox2XML.xsl_v0.2.0">
+          <name>parseDox2XML.xsl</name>
+        </application>
+        <application n="2" version="0.9.6" xml:id="doxml2mei.xsl_v0.9.6">
+          <name>doxml2mei.xsl</name>
+          <p>This converter is a reasonably large collection of XSLT stylesheets (utilizing XSLT 3.0), developed by <persName auth="GND" auth.uri="https://d-nb.info/gnd/174032757" codedval="174032757" xml:id="JoKep">Johannes Kepper</persName> (<ref target="https://edirom.de">
+              <corpName auth="GND" auth.uri="https://d-nb.info/gnd/1095564986" codedval="1095564986">ViFE</corpName>
+            </ref>) on behalf of and assisted by the <ref target="https://mozarteum.at">Salzburg Mozarteum Foundation</ref> staff, with revisions and extensions by <persName sameas="#FK">Franz Kelnreiter</persName>.</p>
+        </application>
+        <application n="3" version="2.5.0" xml:id="DOXconvX.xsl_v2.5.0">
+          <name>DOXconvX.xsl</name>
+          <p>This is an extension of the DOX conversion process. Among other corrections, it enriches the encoding by the project specific features. Developed by <persName sameas="#OS">Oleksii Sapov</persName>.</p>
+        </application>
+        <application version="v1.0" xml:id="mei40To50.xsl">
+          <name>mei40To50.xsl</name>
+          <ptr target="https://github.com/music-encoding/encoding-tools/blob/main/mei40To50/mei40To50.xsl"/>
+        </application>
+      </appInfo>
+      <editorialDecl label="Editor’s Note" xml:lang="EN">
+        <p>This is the encoding of the 1st movement of K. 284 according to the <rend rend="italic">Neue Mozart-Ausgabe</rend> IX/25/1 (ed. Wolfgang Plath and Wolfgang Rehm, 1986). In the digital edition, this publication is encoded as 'source_1', while the corresponding Critical Report (Wolfgang Rehm, 1998) is listed as 'source_2'. The Critical Report itself is not part of the electronic edition. However, its consultation is possible through NMA Online.</p>
+        <p>The NMA edition is based on Mozart’s <ref target="https://jbc.bj.uj.edu.pl/publication/242722" targettype="website">autograph score</ref> (NMA siglum A), held at the Biblioteka Jagiello&#324;ska, Kraków, call number <rend fontstyle="italic">Mus. ms. autogr. W. A. Mozart 279-284.330.455</rend>, and the first print edition published by Torricella in Vienna in 1784 (NMA siglum B). The NMA editors used the copy held at the Stadtbibliothek — Musikbibliothek Leipzig, call number <rend fontstyle="italic">III.9.29</rend>. For more information on the sources see the <ref target="https://dme.mozarteum.at/DME/nma/nma_cont.php?vsep=198&amp;p1=32&amp;l=1" targettype="website">Critical Report</ref>.</p>
+        <p>In the digital edition, the diacritic markup of editorial interventions used in the NMA print edition (i.e. small size, italics, brackets, dashed line form) are coded as additions; as such they are marked as decisions by the editors of the NMA (@resp). Wherever possible the markup of additions affects the smallest unit that can be individually addressed, usually an element. With the exception of possible corrections of obvious printing errors (marked in the code as such) the coding of the musical text is faithful to the aforementioned NMA edition. Corrigenda and addenda listed in the Critical Report have been tacitly taken over. Regarding this movement, however, no corrigenda and addenda are reported. Alternative readings suggested by the editors are encoded as corrections (&lt;corr&gt;) within a &lt;choice&gt; element. The digital edition gives preference to the original reading (&lt;orig&gt;). There are numerous variant readings (ossia) originating from source B that are coded with &lt;app&gt;, &lt;lem&gt;, and &lt;rdg&gt;. This includes also dynamic markings, printed in small size or in italics, that are evidently intended by the NMA editors as alternative readings from source B. Some normalizations have been applied; for a full description of the editorial principles see the <ref target="https://dme.mozarteum.at/musik/edition/#200" targettype="website">Editorial Guidelines of the DME Music Editions</ref>.</p>
+        <p>The present encoding in MEI 4.0.1 (with some minor customizations) is based on a previous encoding in DOX format. The DOX data were gained from optical music recognition (OMR) and proofreading processes developed and carried out by <corpName sameas="#PHI">The Packard Humanities Institute</corpName>, Los Altos, CA.</p>
+        <p>For technical reasons, it is possible that some of the original editorial markup not captured by OMR (e.g. small staccato signs) is not represented in the encoded versions.</p>
+        <p>Lacunae may be reported to the <ref target="dme@mozarteum.at" targettype="email">Editorial Office of the DME</ref>.</p>
+        <p>
+          <biblList>
+            <head>
+              <rend fontweight="bold">Bibliography</rend>
+            </head>
+            <bibl>Mozart, Wolfgang Amadeus. Neue Ausgabe sämtlicher Werke, Serie IX, Werkgruppe 25: Klaviersonaten Band 1. Ed. Wolfgang Plath and Wolfgang Rehm. Kassel: Bärenreiter, 1986.</bibl>
+            <bibl>Rehm, Wolfgang. Wolfgang Amadeus Mozart, Neue Ausgabe sämtlicher Werke, Kritische Berichte, Serie IX, Werkgruppe 25: Klaviersonaten Band 1 und 2. Kassel: Bärenreiter, 1998.</bibl>
+          </biblList>
+        </p>
+        <p>First release: <date isodate="2022-12-19"/>
+        </p>
+      </editorialDecl>
+      <projectDesc>
+        <p>The DOX data results from an optical music recognition (OMR) software and proofreading processes developed and realised by <corpName sameas="#PHI">The Packard Humanities Institute, Los Altos, CA</corpName>.</p>
+      </projectDesc>
+      <classDecls>
+        <taxonomy>
+          <bibl xml:id="classification_GND">classification_GND</bibl>
+          <category auth="GND" auth.uri="https://d-nb.info/gnd/4030995-2" xml:id="GND-genre"/>
+        </taxonomy>
+      </classDecls>
+    </encodingDesc>
+    <workList>
+      <work label="individual movement">
+        <identifier auth="ISM-IDW" type="work" xml:id="idw-3290">3290</identifier>
+        <identifier auth="ISM-IDW" type="movement" xml:id="idw-3291">3291</identifier>
+        <identifier auth="KVonline" label="KVonline" type="work" xml:id="kv284">284</identifier>
+        <identifier auth="KVonline" label="KVonline" type="movement" xml:id="kv284001">284/01</identifier>
+        <identifier auth="GND" auth.uri="https://d-nb.info/gnd/300111266" type="work" xml:id="gnd-work">300111266</identifier>
+        <title type="main" xml:id="titleDE" xml:lang="DE">
+          <titlePart>Sonate in D für Clavier</titlePart>
+          <identifier auth="KVonline" label="KV">KV 284</identifier>
+          <titlePart n="1" type="subordinate" xml:lang="DE">1. Satz</titlePart>
+        </title>
+        <title type="main" xml:id="titleEN" xml:lang="EN">
+          <titlePart>Clavier Sonata in D</titlePart>
+          <identifier auth="KVonline" label="KV">K. 284</identifier>
+          <titlePart n="1" type="subordinate" xml:lang="EN">1st mvt.</titlePart>
+        </title>
+        <expressionList>
+          <expression n="1" xml:id="expression_K284">
+            <title>Mozart’s composition of the piano sonata in D</title>
+            <title sameas="#tempo" type="movementHeading" xml:id="mvt_heading"/>
+            <composer sameas="#WAM">Wolfgang Amadé Mozart</composer>
+            <tempo xml:id="tempo">Allegro</tempo>
+            <key mode="major" pname="d"/>
+            <meter count="4" sym="common" unit="4"/>
+            <perfMedium>
+              <perfResList analog="marc:048" auth="marcmusperf" auth.uri="https://www.loc.gov/standards/valuelist/marcmusperf.html">
+                <perfRes codedval="ka" label="piano" n="1" xml:id="instrVoice_1">
+                  <perfRes n="1.1" xml:id="upper"/>
+                  <perfRes n="1.2" xml:id="lower"/>
+                </perfRes>
+              </perfResList>
+            </perfMedium>
+            <classification>
+              <termList>
+                <term class="#GND-genre">Klaviersonate</term>
+              </termList>
+            </classification>
+          </expression>
+        </expressionList>
+        <componentList>
+          <work label="complete work" n="1">
+            <identifier sameas="#idw-3290"/>
+            <title corresp="#titleDE #titleEN"/>
+            <contents>
+              <contentItem n="1">
+                <identifier auth="ISM-IDW" type="movement">3291</identifier>
+                <ref target="https://dme.mozarteum.at/movi/navigator/284/001/01" targettype="file_rendering"/>
+              </contentItem>
+              <contentItem n="2">
+                <identifier auth="ISM-IDW" type="movement">3293</identifier>
+                <ref target="https://dme.mozarteum.at/movi/navigator/284/002/01" targettype="file_rendering"/>
+              </contentItem>
+              <contentItem n="3">
+                <identifier auth="ISM-IDW" type="movement">3294</identifier>
+                <ref target="https://dme.mozarteum.at/movi/navigator/284/003/01" targettype="file_rendering"/>
+              </contentItem>
+            </contents>
+            <relationList>
+              <relation rel="hasPart" target="#idw-3291"/>
+            </relationList>
+          </work>
+          <work label="individual movement" n="2">
+            <identifier sameas="#idw-3291"/>
+            <title corresp="#mvt_heading"/>
+            <relationList>
+              <relation rel="isPartOf" target="#idw-3290"/>
+            </relationList>
+          </work>
+        </componentList>
+      </work>
+    </workList>
+    <manifestationList label="NMA sources">
+      <manifestation label="Autograph" n="1" xml:id="NMAsource_A">
+        <identifier auth="ISM-IDQ">10304</identifier>
+        <titleStmt>
+          <title xml:lang="DE">Autographe Partitur (NMA Quelle A)</title>
+          <title xml:lang="EN">Autograph Score (NMA Source A)</title>
+        </titleStmt>
+        <biblList>
+          <bibl>
+            <repository>
+              <identifier auth="RISM" auth.uri="https://www.rism.info/" type="library_siglum">PL-Kj</identifier>
+              <ptr target="https://jbc.bj.uj.edu.pl/publication/242722" targettype="website"/>
+            </repository>
+          </bibl>
+        </biblList>
+        <relationList>
+          <relation rel="isEmbodimentOf" target="#expression_K284"/>
+        </relationList>
+      </manifestation>
+      <manifestation label="First print edition" n="2" xml:id="NMAsource_B">
+        <identifier auth="ISM-IDQ">16523</identifier>
+        <titleStmt>
+          <title xml:lang="DE">Erstdruck (NMA Quelle B)</title>
+          <title xml:lang="EN">First print edition (NMA Source B)</title>
+        </titleStmt>
+        <biblList>
+          <bibl>
+            <repository label="copy_used_by_NMA">
+              <identifier auth="RISM" auth.uri="https://www.rism.info/" type="library_siglum">D-LEm</identifier>
+            </repository>
+          </bibl>
+        </biblList>
+        <relationList>
+          <relation rel="isEmbodimentOf" target="#expression_K284"/>
+        </relationList>
+      </manifestation>
+    </manifestationList>
+    <revisionDesc>
+      <change isodate="2022-02-03" n="1" resp="#FK">
+        <changeDesc>
+          <p>File converted from Dox to DoxML and MEI using <ptr target="#parseDox2XML.xsl_v0.2.0"/> and <ptr target="#doxml2mei.xsl_v0.9.6"/>.</p>
+        </changeDesc>
+      </change>
+      <change isodate="2022-03-15" n="2" resp="#IC">
+        <changeDesc>
+          <p>Processed with <ptr target="#DOXconvX.xsl_v2.5.0"/>.</p>
+        </changeDesc>
+      </change>
+      <change isodate="2022-03-18" n="3" resp="#IC">
+        <changeDesc>
+          <p>Revised and updated according to workflow_1.1.</p>
+        </changeDesc>
+      </change>
+      <change isodate="2022-12-17" n="5" resp="#IC">
+        <changeDesc>
+          <p>Proofreading according to workflow_1.2.</p>
+        </changeDesc>
+      </change>
+      <change isodate="2022-12-19" n="6" resp="#IC">
+        <changeDesc>
+          <p>Final review, workflow 1.3</p>
+        </changeDesc>
+      </change>
+      <change isodate="2022-12-19" n="7" resp="#DME-editors">
+        <changeDesc>
+          <p>First release, version 1.0.0</p>
+        </changeDesc>
+      </change>
+      <change n="7" resp="#mei40To50.xsl">
+        <changeDesc>
+          <p>Converted to MEI version 5.0 using mei40To50.xsl, version 1.0</p>
+        </changeDesc>
+        <date isodate="2024-02-23"/>
+      </change>
+    </revisionDesc>
+  </meiHead>
+  <music>
+    <body>
+      <mdiv>
+        <score>
+          <scoreDef key.mode="major" key.pname="d" keysig="2s" meter.count="4" meter.sym="common" meter.unit="4" optimize="false" xml:id="scoreDef_01">
+            <staffGrp bar.thru="true" decls="#instrVoice_1" doxml.id="d27e35" symbol="brace" xml:id="staffGrp_01">
+              <staffDef clef.line="2" clef.shape="G" decls="#upper" keysig="2s" lines="5" n="1" xml:id="staffDef_P1"/>
+              <staffDef clef.line="4" clef.shape="F" decls="#lower" keysig="2s" lines="5" n="2" xml:id="staffDef_P2"/>
+            </staffGrp>
+          </scoreDef>
+          <section>
+            <measure facs="#zoneOf_m106_k284_001" n="106" xml:id="m106_k284_001">
+                <staff decls="#upper" n="1" xml:id="staff_28038">
+                  <layer n="1" xml:id="layer_28044">
+                    <note accid.ges="s" doxml.id="d27e5885" dur="4" oct="5" pname="c" stem.dir="down" tstamp="1" xml:id="note_28050"/>
+                    <rest doxml.id="d27e5887" dur="8" tstamp="2" xml:id="rest_28056"/>
+                    <note artic="spicc" doxml.id="d27e5892" dur="8" oct="4" pname="a" tstamp="2.5" xml:id="note_28062"/>
+                    <beam xml:id="beam_28068">
+                      <note accid="s" doxml.id="d27e5896" dur="8" oct="4" pname="a" tstamp="3" xml:id="note_28074"/>
+                      <note doxml.id="d27e5898" dur="8" oct="4" pname="b" tstamp="3.5" xml:id="note_28080"/>
+                    </beam>
+                    <rest doxml.id="d27e5902" dur="8" tstamp="4" xml:id="rest_28086"/>
+                    <note doxml.id="d27e5904" dur="8" oct="4" pname="b" tstamp="4.5" xml:id="note_28092">
+                      <supplied resp="#NMA-editors" xml:id="supplied_28098">
+                        <artic artic="spicc" xml:id="artic_28104"/>
+                      </supplied>
+                    </note>
+                  </layer>
+                  <layer n="2" xml:id="layer_28110">
+                    <space dur="2" tstamp="1" xml:id="space_28116"/>
+                    <note accid.ges="s" doxml.id="d27e5894" dur="4" oct="4" pname="f" tstamp="3" xml:id="note_28122"/>
+                    <note doxml.id="d27e5900" dur="4" oct="4" pname="g" tstamp="4" xml:id="note_28128"/>
+                  </layer>
+                </staff>
+                <staff decls="#lower" n="2" xml:id="staff_28134">
+                  <layer n="1" xml:id="layer_28140">
+                    <beam xml:id="beam_28146">
+                      <chord doxml.id="d27e5908" dur="8" tstamp="1" xml:id="chord_28152">
+                        <note doxml.id="d27e5908" oct="4" pname="a" xml:id="note_28158"/>
+                        <note doxml.id="d27e5910" oct="3" pname="a" xml:id="note_28164"/>
+                      </chord>
+                      <note doxml.id="d27e5913" dur="8" oct="3" pname="a" tstamp="1.5" xml:id="note_28170"/>
+                    </beam>
+                    <clef line="4" shape="F" xml:id="clef_28176"/>
+                    <beam xml:id="beam_28182">
+                      <chord doxml.id="d27e5919" dur="8" tstamp="2" xml:id="chord_28188">
+                        <note accid.ges="s" doxml.id="d27e5919" oct="4" pname="c" xml:id="note_28194"/>
+                        <note doxml.id="d27e5921" oct="3" pname="a" xml:id="note_28200"/>
+                      </chord>
+                      <chord doxml.id="d27e5923" dur="8" tstamp="2.5" xml:id="chord_28206">
+                        <note accid.ges="s" doxml.id="d27e5923" oct="4" pname="c" xml:id="note_28212"/>
+                        <note doxml.id="d27e5925" oct="3" pname="a" xml:id="note_28218"/>
+                      </chord>
+                    </beam>
+                    <beam xml:id="beam_28224">
+                      <chord doxml.id="d27e5927" dur="8" tstamp="3" xml:id="chord_28230">
+                        <note accid="s" doxml.id="d27e5927" oct="4" pname="d" xml:id="note_28236"/>
+                        <note doxml.id="d27e5929" oct="3" pname="a" xml:id="note_28242"/>
+                      </chord>
+                      <chord doxml.id="d27e5931" dur="8" tstamp="3.5" xml:id="chord_28248">
+                        <note accid.ges="s" doxml.id="d27e5931" oct="4" pname="d" xml:id="note_28254"/>
+                        <note doxml.id="d27e5933" oct="3" pname="a" xml:id="note_28260"/>
+                      </chord>
+                      <chord doxml.id="d27e5936" dur="8" tstamp="4" xml:id="chord_28266">
+                        <note doxml.id="d27e5936" oct="4" pname="e" xml:id="note_28272"/>
+                        <note doxml.id="d27e5938" oct="3" pname="a" xml:id="note_28278"/>
+                      </chord>
+                      <chord doxml.id="d27e5940" dur="8" tstamp="4.5" xml:id="chord_28284">
+                        <note doxml.id="d27e5940" oct="4" pname="e" xml:id="note_28290"/>
+                        <note doxml.id="d27e5942" oct="3" pname="a" xml:id="note_28296"/>
+                      </chord>
+                    </beam>
+                  </layer>
+                </staff>
+                <dynam doxml.id="d27e5890" place="above" staff="1" startid="#note_28062" xml:id="dynam_28302">p</dynam>
+                <dynam doxml.id="d27e5917" staff="2" startid="#chord_28188" xml:id="dynam_28314">p</dynam>
+                <slur endid="#note_28080" staff="1" startid="#note_28074" xml:id="slur_28326"/>
+                <supplied resp="#NMA-editors" xml:id="supplied_28332">
+                  <slur endid="#note_28128" staff="1" startid="#note_28122" xml:id="slur_28338"/>
+                </supplied>
+                <tie endid="#note_28476" staff="1" startid="#note_28128" xml:id="tie_28344"/>
+              </measure>
+            <measure facs="#zoneOf_m107_k284_001" n="107" xml:id="m107_k284_001">
+                <staff decls="#upper" n="1" xml:id="staff_28362">
+                  <layer n="2" xml:id="layer_28470">
+                    <note doxml.id="d27e5956" dur="4" oct="4" pname="g" tstamp="1" xml:id="note_28476"/>
+                    <note accid.ges="s" doxml.id="d27e5963" dur="2" oct="4" pname="f" tstamp="2" xml:id="note_28482"/>
+                    <note doxml.id="d27e5973" dur="4" oct="4" pname="e" tstamp="4" xml:id="note_28488"/>
+                  </layer>
+                  <layer n="1" xml:id="layer_28368">
+                    <beam xml:id="beam_28374">
+                      <note accid="s" doxml.id="d27e5959" dur="8" oct="4" pname="g" tstamp="1" xml:id="note_28380"/>
+                      <note accid="n" doxml.id="d27e5961" dur="8" oct="4" pname="a" tstamp="1.5" xml:id="note_28386"/>
+                    </beam>
+                    <rest doxml.id="d27e5965" dur="8" tstamp="2" xml:id="rest_28392"/>
+                    <note accid.ges="n" doxml.id="d27e5967" dur="8" oct="4" pname="a" tstamp="2.5" xml:id="note_28398">
+                      <supplied resp="#NMA-editors" xml:id="supplied_28404">
+                        <artic artic="spicc" xml:id="artic_28410"/>
+                      </supplied>
+                    </note>
+                    <beam xml:id="beam_28416">
+                      <note doxml.id="d27e5969" dur="8" oct="5" pname="d" tstamp="3" xml:id="note_28422"/>
+                      <note doxml.id="d27e5971" dur="8" oct="4" pname="g" tstamp="3.5" xml:id="note_28428">
+                        <supplied resp="#NMA-editors" xml:id="supplied_28434">
+                          <accid accid="n" xml:id="accid_28440"/>
+                        </supplied>
+                      </note>
+                    </beam>
+                    <rest doxml.id="d27e5975" dur="8" tstamp="4" xml:id="rest_28446"/>
+                    <note accid.ges="n" doxml.id="d27e5977" dur="8" oct="4" pname="g" tstamp="4.5" xml:id="note_28452">
+                      <supplied resp="#NMA-editors" xml:id="supplied_28458">
+                        <artic artic="spicc" xml:id="artic_28464"/>
+                      </supplied>
+                    </note>
+                  </layer>
+                </staff>
+                <staff decls="#lower" n="2" xml:id="staff_28494">
+                  <layer n="1" xml:id="layer_28500">
+                    <beam xml:id="beam_28506">
+                      <chord doxml.id="d27e5982" dur="8" tstamp="1" xml:id="chord_28512">
+                        <note accid.ges="s" doxml.id="d27e5982" oct="4" pname="c" xml:id="note_28518"/>
+                        <note doxml.id="d27e5984" oct="3" pname="a" xml:id="note_28524"/>
+                      </chord>
+                      <chord doxml.id="d27e5986" dur="8" tstamp="1.5" xml:id="chord_28530">
+                        <note accid.ges="s" doxml.id="d27e5986" oct="4" pname="c" xml:id="note_28536"/>
+                        <note doxml.id="d27e5988" oct="3" pname="a" xml:id="note_28542"/>
+                      </chord>
+                      <chord doxml.id="d27e5990" dur="8" tstamp="2" xml:id="chord_28548">
+                        <note accid="n" doxml.id="d27e5990" oct="4" pname="d" xml:id="note_28554"/>
+                        <note doxml.id="d27e5992" oct="3" pname="a" xml:id="note_28560"/>
+                      </chord>
+                      <chord doxml.id="d27e5994" dur="8" tstamp="2.5" xml:id="chord_28566">
+                        <note doxml.id="d27e5994" oct="4" pname="d" xml:id="note_28572"/>
+                        <note doxml.id="d27e5996" oct="3" pname="a" xml:id="note_28578"/>
+                      </chord>
+                    </beam>
+                    <beam xml:id="beam_28584">
+                      <chord doxml.id="d27e5998" dur="8" tstamp="3" xml:id="chord_28590">
+                        <note doxml.id="d27e5998" oct="3" pname="b" xml:id="note_28596"/>
+                        <note doxml.id="d27e6000" oct="3" pname="a" xml:id="note_28602"/>
+                      </chord>
+                      <chord doxml.id="d27e6002" dur="8" tstamp="3.5" xml:id="chord_28608">
+                        <note doxml.id="d27e6002" oct="3" pname="b" xml:id="note_28614"/>
+                        <note doxml.id="d27e6005" oct="3" pname="a" xml:id="note_28620"/>
+                      </chord>
+                      <chord doxml.id="d27e6007" dur="8" tstamp="4" xml:id="chord_28626">
+                        <note accid.ges="s" doxml.id="d27e6007" oct="4" pname="c" xml:id="note_28632"/>
+                        <note doxml.id="d27e6009" oct="3" pname="a" xml:id="note_28638"/>
+                      </chord>
+                      <chord doxml.id="d27e6011" dur="8" tstamp="4.5" xml:id="chord_28644">
+                        <note accid.ges="s" doxml.id="d27e6011" oct="4" pname="c" xml:id="note_28650"/>
+                        <note doxml.id="d27e6013" oct="3" pname="a" xml:id="note_28656"/>
+                      </chord>
+                    </beam>
+                    <clef line="2" shape="G" xml:id="clef_28662"/>
+                  </layer>
+                </staff>
+                <slur endid="#note_28386" staff="1" startid="#note_28380" xml:id="slur_28668"/>
+                <slur endid="#note_28428" staff="1" startid="#note_28422" xml:id="slur_28674"/>
+              </measure>
+            <measure facs="#zoneOf_m108_k284_001" n="108" xml:id="m108_k284_001">
+                <staff decls="#upper" n="1" xml:id="staff_28686">
+                  <layer n="1" xml:id="layer_28692">
+                    <beam xml:id="beam_28698">
+                      <note accid="s" doxml.id="d27e6019" dur="8" oct="4" pname="e" tstamp="1" xml:id="note_28704"/>
+                      <note accid.ges="s" doxml.id="d27e6021" dur="8" oct="4" pname="f" tstamp="1.5" xml:id="note_28710"/>
+                    </beam>
+                    <rest doxml.id="d27e6023" dur="8" tstamp="2" xml:id="rest_28716"/>
+                    <note doxml.id="d27e6025" dur="8" oct="5" pname="a" tstamp="2.5" xml:id="note_28722">
+                      <supplied resp="#NMA-editors" xml:id="supplied_28728">
+                        <artic artic="spicc" xml:id="artic_28734"/>
+                      </supplied>
+                    </note>
+                    <beam xml:id="beam_28740">
+                      <note doxml.id="d27e6028" dur="16" oct="5" pname="b" tstamp="3" xml:id="note_28746"/>
+                      <note accid.ges="s" doxml.id="d27e6030" dur="16" oct="6" pname="c" tstamp="3.25" xml:id="note_28752"/>
+                      <note doxml.id="d27e6032" dur="16" oct="6" pname="d" tstamp="3.5" xml:id="note_28758"/>
+                      <note accid.ges="s" doxml.id="d27e6034" dur="16" oct="6" pname="c" tstamp="3.75" xml:id="note_28764"/>
+                    </beam>
+                    <beam xml:id="beam_28770">
+                      <note doxml.id="d27e6036" dur="16" oct="6" pname="e" tstamp="4" xml:id="note_28776"/>
+                      <note doxml.id="d27e6038" dur="16" oct="6" pname="d" tstamp="4.25" xml:id="note_28782"/>
+                      <note accid.ges="s" doxml.id="d27e6040" dur="16" oct="6" pname="c" tstamp="4.5" xml:id="note_28788"/>
+                      <note doxml.id="d27e6042" dur="16" oct="5" pname="b" tstamp="4.75" xml:id="note_28794"/>
+                    </beam>
+                  </layer>
+                </staff>
+                <staff decls="#lower" n="2" xml:id="staff_28800">
+                  <layer n="1" xml:id="layer_28806">
+                    <beam xml:id="beam_28812">
+                      <chord doxml.id="d27e6046" dur="8" tstamp="1" xml:id="chord_28818">
+                        <note doxml.id="d27e6046" oct="4" pname="d" xml:id="note_28824"/>
+                        <note doxml.id="d27e6048" oct="3" pname="a" xml:id="note_28830"/>
+                      </chord>
+                      <chord doxml.id="d27e6051" dur="8" tstamp="1.5" xml:id="chord_28836">
+                        <note doxml.id="d27e6051" oct="4" pname="d" xml:id="note_28842"/>
+                        <note doxml.id="d27e6053" oct="3" pname="a" xml:id="note_28848"/>
+                      </chord>
+                      <chord doxml.id="d27e6055" dur="8" tstamp="2" xml:id="chord_28854">
+                        <note accid.ges="s" doxml.id="d27e6055" oct="4" pname="f" xml:id="note_28860"/>
+                        <note doxml.id="d27e6057" oct="3" pname="a" xml:id="note_28866"/>
+                      </chord>
+                      <chord doxml.id="d27e6059" dur="8" tstamp="2.5" xml:id="chord_28872">
+                        <note accid.ges="s" doxml.id="d27e6059" oct="4" pname="f" xml:id="note_28878"/>
+                        <note doxml.id="d27e6061" oct="3" pname="a" xml:id="note_28884"/>
+                      </chord>
+                    </beam>
+                    <chord doxml.id="d27e6063" dur="2" tstamp="3" xml:id="chord_28890">
+                      <note doxml.id="d27e6063" oct="4" pname="g" xml:id="note_28896"/>
+                      <note doxml.id="d27e6065" oct="3" pname="a" xml:id="note_28902"/>
+                    </chord>
+                  </layer>
+                </staff>
+                <slur endid="#note_28710" staff="1" startid="#note_28704" xml:id="slur_28908"/>
+                <slur endid="#note_28764" staff="1" startid="#note_28746" xml:id="slur_28914"/>
+                <slur endid="#note_28794" staff="1" startid="#note_28776" xml:id="slur_28920"/>
+                <tie endid="#note_29118" staff="2" startid="#note_28902" xml:id="tie_28926"/>
+              </measure>
+            <measure facs="#zoneOf_m109_k284_001" n="109" xml:id="m109_k284_001">
+                <staff decls="#upper" n="1" xml:id="staff_28938">
+                  <layer n="1" xml:id="layer_28944">
+                    <beam xml:id="beam_28950">
+                      <note doxml.id="d27e6069" dur="16" oct="5" pname="a" tstamp="1" xml:id="note_28956"/>
+                      <note accid.ges="s" doxml.id="d27e6071" dur="16" oct="6" pname="c" tstamp="1.25" xml:id="note_28962"/>
+                      <note doxml.id="d27e6074" dur="16" oct="6" pname="d" tstamp="1.5" xml:id="note_28968"/>
+                      <note accid.ges="s" doxml.id="d27e6076" dur="16" oct="6" pname="c" tstamp="1.75" xml:id="note_28974"/>
+                    </beam>
+                    <beam xml:id="beam_28980">
+                      <note doxml.id="d27e6078" dur="16" oct="6" pname="d" tstamp="2" xml:id="note_28986"/>
+                      <note doxml.id="d27e6080" dur="16" oct="5" pname="a" tstamp="2.25" xml:id="note_28992"/>
+                      <note doxml.id="d27e6082" dur="16" oct="5" pname="b" tstamp="2.5" xml:id="note_28998"/>
+                      <note accid.ges="s" doxml.id="d27e6084" dur="16" oct="5" pname="f" tstamp="2.75" xml:id="note_29004"/>
+                    </beam>
+                    <beam xml:id="beam_29010">
+                      <note doxml.id="d27e6086" dur="16" oct="5" pname="g" tstamp="3" xml:id="note_29016"/>
+                      <note doxml.id="d27e6088" dur="16" oct="5" pname="a" tstamp="3.25" xml:id="note_29022"/>
+                      <note doxml.id="d27e6090" dur="16" oct="5" pname="b" tstamp="3.5" xml:id="note_29028"/>
+                      <note doxml.id="d27e6092" dur="16" oct="5" pname="a" tstamp="3.75" xml:id="note_29034"/>
+                    </beam>
+                    <note accid.ges="s" doxml.id="d27e6094" dur="16" grace="acc" oct="6" pname="c" stem.dir="up" xml:id="note_29040"/>
+                    <beam xml:id="beam_29046">
+                      <note doxml.id="d27e6097" dur="8" oct="5" pname="b" tstamp="4" xml:id="note_29052"/>
+                      <note doxml.id="d27e6099" dur="16" oct="5" pname="a" tstamp="4.5" xml:id="note_29058"/>
+                      <note doxml.id="d27e6101" dur="16" oct="5" pname="g" tstamp="4.75" xml:id="note_29064"/>
+                    </beam>
+                  </layer>
+                </staff>
+                <staff decls="#lower" n="2" xml:id="staff_29070">
+                  <layer n="1" xml:id="layer_29076">
+                    <note accid.ges="s" doxml.id="d27e6107" dur="4" oct="4" pname="f" tstamp="1" xml:id="note_29082"/>
+                    <note doxml.id="d27e6109" dur="4" oct="4" pname="d" tstamp="2" xml:id="note_29088"/>
+                    <note doxml.id="d27e6111" dur="4" oct="4" pname="e" tstamp="3" xml:id="note_29094"/>
+                    <note accid.ges="s" doxml.id="d27e6113" dur="4" oct="4" pname="c" tstamp="4" xml:id="note_29100"/>
+                    <clef line="4" shape="F" xml:id="clef_29106"/>
+                  </layer>
+                  <layer n="2" xml:id="layer_29112">
+                    <note doxml.id="d27e6105" dur="1" oct="3" pname="a" tstamp="1" xml:id="note_29118"/>
+                  </layer>
+                </staff>
+                <slur endid="#note_29004" staff="1" startid="#note_28956" xml:id="slur_29124"/>
+                <slur endid="#note_29034" staff="1" startid="#note_29016" xml:id="slur_29130"/>
+                <slur curvedir="below" endid="#note_29052" staff="1" startid="#note_29040" xml:id="slur_29136"/>
+                <slur endid="#note_29064" staff="1" startid="#note_29052" xml:id="slur_29142"/>
+              </measure>
+            <measure facs="#zoneOf_m110_k284_001" n="110" xml:id="m110_k284_001">
+                <staff decls="#upper" n="1" xml:id="staff_29166">
+                  <layer n="1" xml:id="layer_29172">
+                    <beam xml:id="beam_29178">
+                      <note accid.ges="s" doxml.id="d27e6130" dur="16" oct="5" pname="f" tstamp="1" xml:id="note_29184"/>
+                      <note doxml.id="d27e6132" dur="16" oct="5" pname="a" tstamp="1.25" xml:id="note_29190"/>
+                      <note doxml.id="d27e6134" dur="16" oct="6" pname="d" tstamp="1.5" xml:id="note_29196"/>
+                      <note accid.ges="s" doxml.id="d27e6136" dur="16" oct="6" pname="c" tstamp="1.75" xml:id="note_29202"/>
+                    </beam>
+                    <beam xml:id="beam_29208">
+                      <note doxml.id="d27e6138" dur="16" oct="6" pname="d" tstamp="2" xml:id="note_29214"/>
+                      <note doxml.id="d27e6140" dur="16" oct="5" pname="a" tstamp="2.25" xml:id="note_29220"/>
+                      <note accid.ges="s" doxml.id="d27e6143" dur="16" oct="5" pname="f" tstamp="2.5" xml:id="note_29226"/>
+                      <note doxml.id="d27e6145" dur="16" oct="5" pname="d" tstamp="2.75" xml:id="note_29232"/>
+                    </beam>
+                    <beam xml:id="beam_29238">
+                      <note doxml.id="d27e6147" dur="16" oct="6" pname="d" tstamp="3" xml:id="note_29244"/>
+                      <note doxml.id="d27e6149" dur="16" oct="5" pname="a" tstamp="3.25" xml:id="note_29250"/>
+                      <note accid.ges="s" doxml.id="d27e6151" dur="16" oct="5" pname="f" tstamp="3.5" xml:id="note_29256"/>
+                      <note doxml.id="d27e6153" dur="16" oct="5" pname="d" tstamp="3.75" xml:id="note_29262"/>
+                    </beam>
+                    <beam xml:id="beam_29268">
+                      <note doxml.id="d27e6155" dur="16" oct="6" pname="d" tstamp="4" xml:id="note_29274"/>
+                      <note doxml.id="d27e6157" dur="16" oct="5" pname="a" tstamp="4.25" xml:id="note_29280"/>
+                      <note accid.ges="s" doxml.id="d27e6159" dur="16" oct="5" pname="f" tstamp="4.5" xml:id="note_29286"/>
+                      <note doxml.id="d27e6161" dur="16" oct="5" pname="d" tstamp="4.75" xml:id="note_29292"/>
+                    </beam>
+                  </layer>
+                </staff>
+                <staff decls="#lower" n="2" xml:id="staff_29298">
+                  <layer n="1" xml:id="layer_29304">
+                    <rest doxml.id="d27e6166" dur="4" tstamp="1" xml:id="rest_29310"/>
+                    <rest doxml.id="d27e6168" dur="8" tstamp="2" xml:id="rest_29316"/>
+                    <chord doxml.id="d27e6172" dur="8" tstamp="2.5" xml:id="chord_29322">
+                      <note doxml.id="d27e6172" oct="3" pname="d" xml:id="note_29328"/>
+                      <note doxml.id="d27e6174" oct="2" pname="d" xml:id="note_29334"/>
+                    </chord>
+                    <beam xml:id="beam_29340">
+                      <chord doxml.id="d27e6176" dur="8" tstamp="3" xml:id="chord_29346">
+                        <note accid.ges="s" doxml.id="d27e6176" oct="3" pname="f" xml:id="note_29352"/>
+                        <note accid.ges="s" doxml.id="d27e6178" oct="2" pname="f" xml:id="note_29358"/>
+                      </chord>
+                      <chord doxml.id="d27e6180" dur="8" tstamp="3.5" xml:id="chord_29364">
+                        <note doxml.id="d27e6180" oct="3" pname="a" xml:id="note_29370"/>
+                        <note doxml.id="d27e6182" oct="2" pname="a" xml:id="note_29376"/>
+                      </chord>
+                    </beam>
+                    <chord doxml.id="d27e6184" dur="4" tstamp="4" xml:id="chord_29382">
+                      <note doxml.id="d27e6184" oct="4" pname="d" xml:id="note_29388"/>
+                      <note doxml.id="d27e6186" oct="3" pname="d" xml:id="note_29394"/>
+                    </chord>
+                  </layer>
+                </staff>
+                <dynam doxml.id="d27e6128" staff="1" startid="#note_29184" xml:id="dynam_29400">f</dynam>
+                <dynam doxml.id="d27e6170" staff="2" startid="#chord_29322" xml:id="dynam_29412">f</dynam>
+              </measure>
+            <measure facs="#zoneOf_m111_k284_001" n="111" xml:id="m111_k284_001">
+                <staff decls="#upper" n="1" xml:id="staff_29430">
+                  <layer n="1" xml:id="layer_29436">
+                    <beam xml:id="beam_29442">
+                      <note doxml.id="d27e6191" dur="16" oct="5" pname="b" tstamp="1" xml:id="note_29448"/>
+                      <note accid.ges="s" doxml.id="d27e6193" dur="16" oct="6" pname="c" tstamp="1.25" xml:id="note_29454"/>
+                      <note doxml.id="d27e6195" dur="16" oct="6" pname="d" tstamp="1.5" xml:id="note_29460"/>
+                      <note accid.ges="s" doxml.id="d27e6197" dur="16" oct="6" pname="c" tstamp="1.75" xml:id="note_29466"/>
+                    </beam>
+                    <beam xml:id="beam_29472">
+                      <note doxml.id="d27e6199" dur="16" oct="6" pname="d" tstamp="2" xml:id="note_29478"/>
+                      <note doxml.id="d27e6201" dur="16" oct="5" pname="b" tstamp="2.25" xml:id="note_29484"/>
+                      <note doxml.id="d27e6203" dur="16" oct="5" pname="g" tstamp="2.5" xml:id="note_29490"/>
+                      <note doxml.id="d27e6205" dur="16" oct="5" pname="d" tstamp="2.75" xml:id="note_29496"/>
+                    </beam>
+                    <beam xml:id="beam_29502">
+                      <note doxml.id="d27e6207" dur="16" oct="6" pname="d" tstamp="3" xml:id="note_29508"/>
+                      <note doxml.id="d27e6209" dur="16" oct="5" pname="b" tstamp="3.25" xml:id="note_29514"/>
+                      <note doxml.id="d27e6212" dur="16" oct="5" pname="g" tstamp="3.5" xml:id="note_29520"/>
+                      <note doxml.id="d27e6214" dur="16" oct="5" pname="d" tstamp="3.75" xml:id="note_29526"/>
+                    </beam>
+                    <beam xml:id="beam_29532">
+                      <note doxml.id="d27e6216" dur="16" oct="6" pname="d" tstamp="4" xml:id="note_29538"/>
+                      <note doxml.id="d27e6218" dur="16" oct="5" pname="b" tstamp="4.25" xml:id="note_29544"/>
+                      <note doxml.id="d27e6220" dur="16" oct="5" pname="g" tstamp="4.5" xml:id="note_29550"/>
+                      <note doxml.id="d27e6222" dur="16" oct="5" pname="d" tstamp="4.75" xml:id="note_29556"/>
+                    </beam>
+                  </layer>
+                </staff>
+                <staff decls="#lower" n="2" xml:id="staff_29562">
+                  <layer n="1" xml:id="layer_29568">
+                    <rest doxml.id="d27e6226" dur="4" tstamp="1" xml:id="rest_29574"/>
+                    <rest doxml.id="d27e6228" dur="8" tstamp="2" xml:id="rest_29580"/>
+                    <chord doxml.id="d27e6230" dur="8" tstamp="2.5" xml:id="chord_29586">
+                      <note doxml.id="d27e6230" oct="3" pname="g" xml:id="note_29592"/>
+                      <note doxml.id="d27e6232" oct="2" pname="g" xml:id="note_29598"/>
+                    </chord>
+                    <beam xml:id="beam_29604">
+                      <chord doxml.id="d27e6235" dur="8" tstamp="3" xml:id="chord_29610">
+                        <note doxml.id="d27e6235" oct="3" pname="b" xml:id="note_29616"/>
+                        <note doxml.id="d27e6237" oct="2" pname="b" xml:id="note_29622"/>
+                      </chord>
+                      <chord doxml.id="d27e6239" dur="8" tstamp="3.5" xml:id="chord_29628">
+                        <note doxml.id="d27e6239" oct="4" pname="d" xml:id="note_29634"/>
+                        <note doxml.id="d27e6241" oct="3" pname="d" xml:id="note_29640"/>
+                      </chord>
+                    </beam>
+                    <chord doxml.id="d27e6243" dur="4" tstamp="4" xml:id="chord_29646">
+                      <note doxml.id="d27e6243" oct="4" pname="g" xml:id="note_29652"/>
+                      <note doxml.id="d27e6245" oct="3" pname="g" xml:id="note_29658"/>
+                    </chord>
+                  </layer>
+                </staff>
+              </measure>
+            <measure facs="#zoneOf_m112_k284_001" n="112" xml:id="m112_k284_001">
+                <staff decls="#upper" n="1" xml:id="staff_29676">
+                  <layer n="1" xml:id="layer_29682">
+                    <beam xml:id="beam_29688">
+                      <chord dots="1" doxml.id="d27e6262" dur="8" tstamp="1" xml:id="chord_29694">
+                        <note doxml.id="d27e6262" oct="5" pname="a" xml:id="note_29700"/>
+                        <note accid.ges="s" doxml.id="d27e6264" oct="5" pname="f" xml:id="note_29706"/>
+                      </chord>
+                      <chord doxml.id="d27e6266" dur="32" tstamp="1.75" xml:id="chord_29712">
+                        <note doxml.id="d27e6266" oct="5" pname="b" xml:id="note_29718"/>
+                        <note doxml.id="d27e6268" oct="5" pname="g" xml:id="note_29724"/>
+                      </chord>
+                      <chord doxml.id="d27e6270" dur="32" tstamp="1.875" xml:id="chord_29730">
+                        <note doxml.id="d27e6270" oct="5" pname="g" xml:id="note_29736"/>
+                        <note doxml.id="d27e6272" oct="5" pname="e" xml:id="note_29742"/>
+                      </chord>
+                    </beam>
+                    <chord dots="1" doxml.id="d27e6274" dur="4" tstamp="2" xml:id="chord_29748">
+                      <note accid.ges="s" doxml.id="d27e6274" oct="5" pname="f" xml:id="note_29754"/>
+                      <note doxml.id="d27e6276" oct="5" pname="d" xml:id="note_29760"/>
+                    </chord>
+                    <beam xml:id="beam_29766">
+                      <chord doxml.id="d27e6281" dur="8" tstamp="3.5" xml:id="chord_29772">
+                        <note doxml.id="d27e6281" oct="5" pname="a" xml:id="note_29778"/>
+                        <note accid.ges="s" doxml.id="d27e6283" oct="5" pname="f" xml:id="note_29784"/>
+                      </chord>
+                      <chord doxml.id="d27e6285" dur="8" tstamp="4" xml:id="chord_29790">
+                        <note doxml.id="d27e6285" oct="5" pname="g" xml:id="note_29796"/>
+                        <note doxml.id="d27e6287" oct="5" pname="e" xml:id="note_29802"/>
+                      </chord>
+                      <chord doxml.id="d27e6289" dur="8" tstamp="4.5" xml:id="chord_29808">
+                        <note doxml.id="d27e6289" oct="5" pname="e" xml:id="note_29814"/>
+                        <note accid.ges="s" doxml.id="d27e6291" oct="5" pname="c" xml:id="note_29820"/>
+                      </chord>
+                    </beam>
+                  </layer>
+                </staff>
+                <staff decls="#lower" n="2" xml:id="staff_29826">
+                  <layer n="1" xml:id="layer_29832">
+                    <beam xml:id="beam_29838">
+                      <chord doxml.id="d27e6295" dur="8" tstamp="1" xml:id="chord_29844">
+                        <note doxml.id="d27e6295" oct="3" pname="a" xml:id="note_29850"/>
+                        <note doxml.id="d27e6297" oct="2" pname="a" xml:id="note_29856"/>
+                      </chord>
+                      <chord doxml.id="d27e6299" dur="8" tstamp="1.5" xml:id="chord_29862">
+                        <note doxml.id="d27e6299" oct="3" pname="a" xml:id="note_29868"/>
+                        <note doxml.id="d27e6301" oct="2" pname="a" xml:id="note_29874"/>
+                      </chord>
+                      <chord doxml.id="d27e6304" dur="8" tstamp="2" xml:id="chord_29880">
+                        <note doxml.id="d27e6304" oct="3" pname="a" xml:id="note_29886"/>
+                        <note doxml.id="d27e6306" oct="2" pname="a" xml:id="note_29892"/>
+                      </chord>
+                      <chord doxml.id="d27e6308" dur="8" tstamp="2.5" xml:id="chord_29898">
+                        <note doxml.id="d27e6308" oct="3" pname="a" xml:id="note_29904"/>
+                        <note doxml.id="d27e6310" oct="2" pname="a" xml:id="note_29910"/>
+                      </chord>
+                    </beam>
+                    <beam xml:id="beam_29916">
+                      <chord doxml.id="d27e6314" dur="8" tstamp="3" xml:id="chord_29922">
+                        <note doxml.id="d27e6314" oct="3" pname="a" xml:id="note_29928"/>
+                        <note doxml.id="d27e6316" oct="2" pname="a" xml:id="note_29934"/>
+                      </chord>
+                      <chord doxml.id="d27e6318" dur="8" tstamp="3.5" xml:id="chord_29940">
+                        <note doxml.id="d27e6318" oct="3" pname="a" xml:id="note_29946"/>
+                        <note doxml.id="d27e6320" oct="2" pname="a" xml:id="note_29952"/>
+                      </chord>
+                      <chord doxml.id="d27e6322" dur="8" tstamp="4" xml:id="chord_29958">
+                        <note doxml.id="d27e6322" oct="3" pname="a" xml:id="note_29964"/>
+                        <note doxml.id="d27e6324" oct="2" pname="a" xml:id="note_29970"/>
+                      </chord>
+                      <chord doxml.id="d27e6327" dur="8" tstamp="4.5" xml:id="chord_29976">
+                        <note doxml.id="d27e6327" oct="3" pname="a" xml:id="note_29982"/>
+                        <note doxml.id="d27e6329" oct="2" pname="a" xml:id="note_29988"/>
+                      </chord>
+                    </beam>
+                  </layer>
+                </staff>
+                <dynam doxml.id="d27e6260" place="between" staff="1 2" startid="#chord_29694" xml:id="dynam_29994">f</dynam>
+                <dynam doxml.id="d27e6278" staff="1" startid="#chord_29772" xml:id="dynam_30006">p</dynam>
+                <dynam doxml.id="d27e6312" staff="2" startid="#chord_29922" xml:id="dynam_30018">p</dynam>
+              </measure>
+            <measure facs="#zoneOf_m113_k284_001" n="113" xml:id="m113_k284_001">
+                <staff decls="#upper" n="1" xml:id="staff_30036">
+                  <layer n="1" xml:id="layer_30042">
+                    <beam xml:id="beam_30048">
+                      <note accid.ges="s" doxml.id="d27e6335" dur="16" oct="5" pname="f" tstamp="1" xml:id="note_30054"/>
+                      <note doxml.id="d27e6337" dur="16" oct="5" pname="a" tstamp="1.25" xml:id="note_30060"/>
+                      <note doxml.id="d27e6339" dur="16" oct="6" pname="d" tstamp="1.5" xml:id="note_30066"/>
+                      <note accid.ges="s" doxml.id="d27e6341" dur="16" oct="6" pname="c" tstamp="1.75" xml:id="note_30072"/>
+                    </beam>
+                    <beam xml:id="beam_30078">
+                      <note doxml.id="d27e6343" dur="16" oct="6" pname="d" tstamp="2" xml:id="note_30084"/>
+                      <note doxml.id="d27e6345" dur="16" oct="5" pname="a" tstamp="2.25" xml:id="note_30090"/>
+                      <note accid.ges="s" doxml.id="d27e6347" dur="16" oct="5" pname="f" tstamp="2.5" xml:id="note_30096"/>
+                      <note doxml.id="d27e6350" dur="16" oct="5" pname="d" tstamp="2.75" xml:id="note_30102"/>
+                    </beam>
+                    <beam xml:id="beam_30108">
+                      <note doxml.id="d27e6352" dur="16" oct="6" pname="d" tstamp="3" xml:id="note_30114"/>
+                      <note doxml.id="d27e6354" dur="16" oct="5" pname="a" tstamp="3.25" xml:id="note_30120"/>
+                      <note accid.ges="s" doxml.id="d27e6356" dur="16" oct="5" pname="f" tstamp="3.5" xml:id="note_30126"/>
+                      <note doxml.id="d27e6358" dur="16" oct="5" pname="d" tstamp="3.75" xml:id="note_30132"/>
+                    </beam>
+                    <beam xml:id="beam_30138">
+                      <note doxml.id="d27e6360" dur="16" oct="6" pname="d" tstamp="4" xml:id="note_30144"/>
+                      <note doxml.id="d27e6362" dur="16" oct="5" pname="a" tstamp="4.25" xml:id="note_30150"/>
+                      <note accid.ges="s" doxml.id="d27e6364" dur="16" oct="5" pname="f" tstamp="4.5" xml:id="note_30156"/>
+                      <note doxml.id="d27e6366" dur="16" oct="5" pname="d" tstamp="4.75" xml:id="note_30162"/>
+                    </beam>
+                  </layer>
+                </staff>
+                <staff decls="#lower" n="2" xml:id="staff_30168">
+                  <layer n="1" xml:id="layer_30174">
+                    <rest doxml.id="d27e6370" dur="4" tstamp="1" xml:id="rest_30180"/>
+                    <rest doxml.id="d27e6373" dur="8" tstamp="2" xml:id="rest_30186"/>
+                    <chord doxml.id="d27e6377" dur="8" tstamp="2.5" xml:id="chord_30192">
+                      <note doxml.id="d27e6377" oct="3" pname="d" xml:id="note_30198"/>
+                      <note doxml.id="d27e6379" oct="2" pname="d" xml:id="note_30204"/>
+                    </chord>
+                    <beam xml:id="beam_30210">
+                      <chord doxml.id="d27e6381" dur="8" tstamp="3" xml:id="chord_30216">
+                        <note accid.ges="s" doxml.id="d27e6381" oct="3" pname="f" xml:id="note_30222"/>
+                        <note accid.ges="s" doxml.id="d27e6383" oct="2" pname="f" xml:id="note_30228"/>
+                      </chord>
+                      <chord doxml.id="d27e6385" dur="8" tstamp="3.5" xml:id="chord_30234">
+                        <note doxml.id="d27e6385" oct="3" pname="a" xml:id="note_30240"/>
+                        <note doxml.id="d27e6387" oct="2" pname="a" xml:id="note_30246"/>
+                      </chord>
+                    </beam>
+                    <chord doxml.id="d27e6389" dur="4" tstamp="4" xml:id="chord_30252">
+                      <note doxml.id="d27e6389" oct="4" pname="d" xml:id="note_30258"/>
+                      <note doxml.id="d27e6391" oct="3" pname="d" xml:id="note_30264"/>
+                    </chord>
+                  </layer>
+                </staff>
+                <dynam doxml.id="d27e6333" staff="1" startid="#note_30054" xml:id="dynam_30270">f</dynam>
+                <dynam doxml.id="d27e6375" staff="2" startid="#chord_30192" xml:id="dynam_30282">f</dynam>
+              </measure>
+          </section>
+        </score>
+      </mdiv>
+    </body>
+  </music>
+</mei>

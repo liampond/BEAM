@@ -1,0 +1,60 @@
+!!!!SEGMENT: sonata12-1.krn
+!!!COM: Mozart, Wolfgang Amadeus
+!!!CDT: 1756/01/27/-1791/12/05/
+!!!CNT: German
+!!!OTL: Piano Sonata No. 12 in F major
+!!!SCT1: K<sup>1</sup> 332
+!!!SCT2: K<sup>6</sup> 300k
+!!!OMV: 1
+!!!OMD: Allegro
+!!!ODT: 1783
+!!!RDF**kern: > = above
+!!!RDF**kern: < = below
+!!!YOR: Alte Mozart-Ausgabe, Band 20, Breitkopf &amp; H&auml;rtel 1877-1883.
+!!!YOY: 1878
+!!!YEC: 2018 Craig Stuart Sapp
+!!!YEM: Licence: (CC BY-NC-SA 4.0) https://creativecommons.org/licenses/by-nc-sa/4.0
+!!!YER: 2018
+!!!URL-github: https://github.com/craigsapp/mozart-piano-sonatas/blob/main/kern/sonata12-1.krn
+!!!URL-vhv: https://verovio.humdrum.org/?file=mozart/sonatas/sonata12-1.krn
+!!!URL-pdf: https://github.com/craigsapp/mozart-piano-sonatas/blob/master/reference-edition/sonata12-1.pdf
+!!!URL-youtube: https://www.youtube.com/watch?v=QIWKqmkhD0M András Schiff
+!!!URL-wikipedia: https://en.wikipedia.org/wiki/Piano_Sonata_No._12_(Mozart)#I._Allegro
+!!!ENC: Craig Stuart Sapp
+!!!END: 2009/10/12
+!!!EED: Craig Stuart Sapp
+!!!EEV: 2024/06/06
+!!!EFL: 52/69
+!!!AGN: piano sonata
+!!!AFR: sonata-allegro
+!!!title: @{OTL}, K 332 (300k), mvmt. @{OMV}
+!!!filter-hands: hands -c
+
+**kern	**kern	**dynam
+*part1	*part1	*
+*staff2	*staff1	*staff1/2
+*ICklav	*ICklav	*
+*Ipiano	*Ipiano	*
+*LH	*RH	*
+*I"	*I"	*
+*>[A,A,B,B]	*>[A,A,B,B]	*>[A,A,B,B]
+*>norep[A,B]	*>norep[A,B]	*>norep[A,B]
+*>A	*>A	*>A
+*clefF4	*clefG2	*
+*k[b-]	*k[b-]	*
+*F:	*F:	*
+*M3/4	*M3/4	*
+*MM144	*MM144	*
+
+=31	=31	=31
+(8E-L	([4cc	.
+8G	.	.
+8c	16ccLL<]	.
+.	16g	.
+8G	16cc	.
+.	16gJJ	.
+8c	16ee-LL	.
+.	16cc	.
+8GJ	16ee-	.
+.	16ccJJ	.
+*-	*-	*-

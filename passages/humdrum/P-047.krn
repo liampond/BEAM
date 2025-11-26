@@ -1,0 +1,141 @@
+!!!!SEGMENT: sonata01-2.krn
+!!!COM: Mozart, Wolfgang Amadeus
+!!!CDT: 1756/01/27/-1791/12/05/
+!!!CNT: German
+!!!OTL: Piano Sonata No. 1 in C major
+!!!SCT1: K<sup>1</sup> 279
+!!!SCT2: K<sup>6</sup> 189d
+!!!OMV: 2
+!!!OMD: Andante
+!!!ODT: 1774
+!!!RDF**kern: > = above
+!!!RDF**kern: < = below
+!!!YOR: Alte Mozart-Ausgabe, Band 20, Breitkopf &amp; H&auml;rtel 1877-1883.
+!!!YOY: 1878
+!!!YEC: 2018 Craig Stuart Sapp
+!!!YEM: Licence: (CC BY-NC-SA 4.0) https://creativecommons.org/licenses/by-nc-sa/4.0
+!!!YER: 2018
+!!!URL-github: https://github.com/craigsapp/mozart-piano-sonatas/blob/main/kern/sonata01-2.krn
+!!!URL-vhv: https://verovio.humdrum.org/?file=mozart/sonatas/sonata01-2.krn
+!!!URL-pdf: https://github.com/craigsapp/mozart-piano-sonatas/blob/master/reference-edition/sonata01-2.pdf
+!!!URL-youtube: https://www.youtube.com/watch?v=BwcbJvGsuuc András Schiff
+!!!URL-wikipedia: https://en.wikipedia.org/wiki/Piano_Sonata_No._1_(Mozart)#II._Andante
+!!!ENC: Craig Stuart Sapp
+!!!END: 2009/10/15
+!!!EED: Craig Stuart Sapp
+!!!EEV: 2024/06/02
+!!!EFL: 2/69
+!!!AGN: piano sonata
+!!!AFR:
+!!!title: @{OTL}, K 279 (189d), mvmt. @{OMV}
+!!!filter-hands: hands -c
+
+**kern	**kern	**dynam
+*part1	*part1	*
+*staff2	*staff1	*staff1/2
+*ICklav	*ICklav	*
+*Ipiano	*Ipiano	*
+*LH	*RH	*
+*I"	*I"	*
+*>[A,A,B,B]	*>[A,A,B,B]	*>[A,A,B,B]
+*>norep[A,B]	*>norep[A,B]	*>norep[A,B]
+*>A	*>A	*>A
+*clefF4	*clefG2	*
+*k[b-]	*k[b-]	*
+*F:	*F:	*
+*M3/4	*M3/4	*
+*MM108	*MM108	*
+
+=43	=43	=43
+.	(32ddqq/	.
+!LO:TX:b:i:t=legato	!	!
+12FL	4cc)	f
+12A	.	.
+12cJ	.	.
+.	(32bnqq/	.
+12GL	4cc)	.
+12B-	.	.
+12cJ	.	.
+.	(32bqLLL>	.
+.	32ccq	.
+.	32ddqJJJ	.
+12FL	4cc)	.
+12A	.	.
+12cJ	.	.
+=44	=44	=44
+12EL	(4bb-X	.
+12G	.	.
+12cJ	.	.
+12CL	4b-)	.
+12E	.	.
+12GJ	.	.
+12FL	8r	p
+12A	.	.
+.	8a	.
+12cJ	.	.
+=45	=45	=45
+12BB-L	(12gL	.
+12D	12b-	.
+12GJ	12gJ)	.
+12CL	(12fL	.
+12F	12a	.
+12AJ	12fJ)	.
+12CL	(12eL	.
+12G	12g	.
+12B-J	12eJ)	.
+=46	=46	=46
+12D-L	(4bb-	f
+12E	.	.
+12GJ	.	.
+12CL	4b-)	.
+12E	.	.
+12GJ	.	.
+12D-L	8r	p
+12E	.	.
+.	16r	.
+12GJ	.	.
+.	16b-	.
+=47	=47	=47
+12CL	(4bb-	f
+12E	.	.
+12GJ	.	.
+12C#L	4b-)	.
+12E	.	.
+12GJ	.	.
+12DnL	8r	p
+12F	.	.
+.	8a	.
+12AJ	.	.
+!!LO:LB:g=original
+=48	=48	=48
+12r	(12aL	.
+12Bn 12d 12fL	12gJ)	.
+12B 12d 12fJ	12r	.
+12B 12d 12fL	4r	.
+12B 12d 12f	.	.
+12B 12d 12fJ	.	.
+12B 12d 12fL	4r	.
+12B 12d 12f	.	.
+12B 12d 12fJ	.	.
+=49	=49	=49
+12r	(12ffL	f
+12D 12F 12BnL	12bnJ)	.
+12D 12F 12BJ	12r	.
+12D 12F 12BL	4r	.
+12D 12F 12B	.	.
+12D 12F 12BJ	.	.
+12D 12F 12BL	4r	.
+12D 12F 12B	.	.
+12D 12F 12BJ	.	.
+=50	=50	=50
+4C: 4E: 4G: 4c:	12ccL	.
+.	12ccc	p
+.	12cccJ	.
+4r	12cccL	.
+.	12ccc	.
+.	12cccJ	.
+4r	12cccL	.
+.	12ccc	.
+.	12cccJ	.
+*clefG2	*	*
+*-	*-	*-

@@ -1,0 +1,43 @@
+%%linebreak <none>
+%%measurenb 2
+X: 1
+T: Piano Sonata No. 1 in C major, K 279 (189d), mvmt. 1
+C: Wolfgang Amadeus Mozart
+%%abc-version 2.0
+%%abcx-abcm2ps-target-version 5.9.1 (29 Sep 2008)
+%%abc-creator hum2abc beta
+%%abcx-conversion-date 2021/01/14 17:01:31
+%%abc-copyright 2018 Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abcx-initial-encoding-date 2009/10/15
+%%gracespace 0 6 6
+%%humdrum-veritas 373335571
+%%humdrum-veritas-data 1638175547
+%%linebreak <none>
+%%barnumbers 0
+L: 1/16
+M: C
+N: Derived from sonata01-1.krn
+Q: "Allegro." 1/4=120
+%%staves {1 2}
+V: 1 clef=treble
+V: 2 clef=bass
+N: Extracted measures 48-55 from original score
+K: C
+[V:1] z2 a=b .c'2.c'2c'4g2 z2 | 
+[V:2] FcAc FcAc EcGc EcGc | 
+[V:1] !trill!f3e/f/ g2f2^d4e2 z2 | 
+[V:2] D=BGB DBGB CcGc CcGc | 
+[V:1] z2 ef g2g2g4=d2 z2 | 
+[V:2] CGEG CGEG B,GDG B,GDG | 
+[V:1] !trill!c3B/c/ d2c2 BGcA dBec | 
+[V:2] A,^FCF A,FCF[G,4G4]z4[K:clef=bass] | 
+[V:1] [d4=f4][f4d'4]ecfd geaf | 
+[V:2] G,,G,^F,G, A,G,F,G,G,,4z4 | 
+[V:1] [e4g4][e4c'4]BGcA dBec | 
+[V:2] G,,G,^F,G, A,G,F,G,G,,4z4[K:clef=treble] | 
+[V:1] [d4f4][f4d'4]ecfd geaf | 
+[V:2] G,G^FG AGFGG,4z4 | 
+[V:1] [e4g4][e4c'4].[db]g^fg c'gec | 
+[V:2] G,G^FG AGFGG,4z4[K:clef=bass] | 

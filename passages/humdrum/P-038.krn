@@ -1,0 +1,60 @@
+!!!!SEGMENT: sonata14-1.krn
+!!!COM: Mozart, Wolfgang Amadeus
+!!!CDT: 1756/01/27/-1791/12/05/
+!!!CNT: German
+!!!OTL: Piano Sonata No. 14 in C minor
+!!!SCT: K 457
+!!!OMV: 1
+!!!OMD: Allegro
+!!!ODT: 1784
+!!!RDF**kern: > = above
+!!!RDF**kern: < = below
+!!!RDF**kern: i = editorial accidental, paren
+!!!YOR: Alte Mozart-Ausgabe, Band 20, Breitkopf &amp; H&auml;rtel 1877-1883.
+!!!YOY: 1878
+!!!YEC: 2018 Craig Stuart Sapp
+!!!YEM: Licence: (CC BY-NC-SA 4.0) https://creativecommons.org/licenses/by-nc-sa/4.0
+!!!YER: 2018
+!!!URL-github: https://github.com/craigsapp/mozart-piano-sonatas/blob/main/kern/sonata14-1.krn
+!!!URL-vhv: https://verovio.humdrum.org/?file=mozart/sonatas/sonata14-1.krn
+!!!URL-pdf: https://github.com/craigsapp/mozart-piano-sonatas/blob/master/reference-edition/sonata14-1.pdf
+!!!URL-youtube: https://www.youtube.com/watch?v=RVazaTmtWyw András Schiff
+!!!URL-wikipedia: https://en.wikipedia.org/wiki/Piano_Sonata_No._14_(Mozart)#I._Molto_allegro
+!!!ENC: Craig Stuart Sapp
+!!!END: 2009/09/29
+!!!EED: Craig Stuart Sapp
+!!!EEV: 2024/06/06
+!!!EFL: 58/69
+!!!AGN: piano sonata
+!!!AFR: sonata-allegro
+!!!title: @{OTL}, K 457, mvmt. @{OMV}
+!!!filter-hands: hands -c
+
+**kern	**kern	**dynam
+*part1	*part1	*
+*staff2	*staff1	*staff1/2
+*ICklav	*ICklav	*
+*Ipiano	*Ipiano	*
+*LH	*RH	*
+*I"	*I"	*
+*>[A,A,B,B,C]	*>[A,A,B,B,C]	*>[A,A,B,B,C]
+*>norep[A,B,C]	*>norep[A,B,C]	*>norep[A,B,C]
+*>A	*>A	*>A
+*clefF4	*clefG2	*
+*k[b-e-a-]	*k[b-e-a-]	*
+*c:	*c:	*
+*M4/4	*M4/4	*
+*met(c)	*met(c)	*
+*MM180	*MM180	*
+
+=125	=125	=125
+1An 1c 1e- 1f#	(8dd-L)	sfp
+.	8bn	.
+.	8cc	.
+.	8ddnJ	.
+.	8ffL	.
+.	8ee-	.
+.	8dd	.
+.	8ccJ)	.
+*clefF4	*	*
+*-	*-	*-

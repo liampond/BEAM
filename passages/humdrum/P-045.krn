@@ -1,0 +1,62 @@
+!!!!SEGMENT: sonata17-3.krn
+!!!COM: Mozart, Wolfgang Amadeus
+!!!CDT: 1756/01/27/-1791/12/05/
+!!!CNT: German
+!!!OTL: Piano Sonata No. 17 in D major
+!!!ONB: Piano Sonata No. 18 in Neue Mozart-Ausgabe [1986]
+!!!SCT: K 576
+!!!OMV: 3
+!!!OMD: Allegretto
+!!!ODT: 1789
+!!!ONB: flag is missing from E5 in RH
+!!!RDF**kern: > = above
+!!!RDF**kern: < = below
+!!!YOR: Alte Mozart-Ausgabe, Band 20, Breitkopf &amp; H&auml;rtel 1877-1883.
+!!!YOY: 1878
+!!!YEC: 2018 Craig Stuart Sapp
+!!!YEM: Licence: (CC BY-NC-SA 4.0) https://creativecommons.org/licenses/by-nc-sa/4.0
+!!!YER: 2018
+!!!URL-github: https://github.com/craigsapp/mozart-piano-sonatas/blob/main/kern/sonata17-3.krn
+!!!URL-vhv: https://verovio.humdrum.org/?file=mozart/sonatas/sonata17-3.krn
+!!!URL-pdf: https://github.com/craigsapp/mozart-piano-sonatas/blob/master/reference-edition/sonata17-3.pdf
+!!!URL-youtube: https://www.youtube.com/watch?v=KF2i2KQGtAE András Schiff
+!!!URL-wikipedia: https://en.wikipedia.org/wiki/Piano_Sonata_No._18_(Mozart)#III._Allegretto
+!!!ENC: Craig Stuart Sapp
+!!!END: 2009/10/07
+!!!EED: Craig Stuart Sapp
+!!!EEV: 2020/12/12
+!!!EFL: 69/69
+!!!AGN: piano sonata
+!!!AFR:
+!!!title: @{OTL}, K 576, mvmt. @{OMV}
+!!!filter-hands: hands -c
+
+**kern	**kern	**dynam
+*part1	*part1	*
+*staff2	*staff1	*staff1/2
+*ICklav	*ICklav	*
+*Ipiano	*Ipiano	*
+*LH	*RH	*
+*I"	*I"	*
+*clefF4	*clefG2	*
+*k[f#c#]	*k[f#c#]	*
+*D:	*D:	*
+*M2/4	*M2/4	*
+*MM104	*MM104	*
+
+=101	=101	=101
+(8.AL	24f#XLL>	.
+.	24ccn	.
+.	24ddJJ	.
+.	24ee-LL	.
+.	24dd	.
+32B-LL	.	.
+.	24ccJJ	.
+32AJJJ	.	.
+8GnL)	24aaLL	.
+.	24gg	.
+.	24ff#XJJ	.
+8AJ	24cccnLL	.
+.	24bb-	.
+.	24aaJJ	.
+*-	*-	*-

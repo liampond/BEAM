@@ -1,0 +1,43 @@
+%%linebreak <none>
+%%measurenb 2
+X: 53
+T: Piano Sonata No. 12 in F major, K 332 (300k), mvmt. 2
+C: Wolfgang Amadeus Mozart
+%%abc-version 2.0
+%%abcx-abcm2ps-target-version 5.9.1 (29 Sep 2008)
+%%abc-creator hum2abc beta
+%%abcx-conversion-date 2021/01/14 17:01:33
+%%abc-copyright 2018 Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abcx-initial-encoding-date 2009/10/15
+%%gracespace 0 6 6
+%%humdrum-veritas 809919296
+%%humdrum-veritas-data 2923766528
+%%linebreak <none>
+%%barnumbers 0
+L: 1/16
+M: 4/4
+N: Derived from sonata12-2.krn
+Q: "Adagio" 1/4=60
+%%staves {1 2}
+V: 1 clef=treble
+V: 2 clef=bass
+N: Extracted measures 8-15 from original score
+K: Bb
+[V:1] x4F2_AGF4z4 & !turn!c2>_d2 F2=E2x8 | 
+[V:2] x8=A,CCC A,CB,C & C,_A,F,A, C,B,G,B, F,2 z2 F,2G,2 | 
+[V:1] B2 z2 .G2.=E2 c>A.c2z4 | 
+[V:2] G,CCC E,CB,C A,CCC A,CB,C & =E,2 z2 C,2G,2 F,2 z2 F,2G,2 | 
+[V:1] B2 z2 .G2.=E2 c>A.c2 [fa][=eg][df][^ce] | 
+[V:2] G,CCC E,CB,C A,2 z2z4 & =E,2 z2 C,2G,2 F,2 x2x4 | 
+[V:1] [df][=c=e][Bd][A^c] [Bd][A=c][GB][^FA][D4-F4A4][DGB] !trill!B{/AB}cd | 
+[V:2] x12B,2=E2 & z8[D,4^F,4A,4C4]G,4 | 
+[V:1] (3cBA (3GBd =F2G2 G>^G.A2z4 & x4=F2=E2 E2F2x4 | 
+[V:2] x4A,2B,2 B,CCC A,CB,C & [A,2=F2][B,2D2]C,4F,2 z2 F,2G,2 | 
+[V:1] B2 z2 .=G2.=E2 c>A.c2z4 | 
+[V:2] G,CCC E,CB,C A,CCC A,CB,C & =E,2 z2 C,2G,2 F,2 z2 F,2G,2 | 
+[V:1] B2 z2 .G2.=E2 c>f.c2 [fa][=eg][df][^ce] | 
+[V:2] G,CCC E,CB,C A,2 z2z4 & =E,2 z2 C,2G,2 F,2 x2x4 | 
+[V:1] [df][=c=e][Bd][A^c] [Bd][A=c][GB][^FA][D4-F4A4][DGB] !trill!B{/AB}cd | 
+[V:2] x12B,2=E2 & z8[D,4^F,4A,4C4]G,4 | 

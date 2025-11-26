@@ -1,0 +1,170 @@
+!!!!SEGMENT: sonata06-1.krn
+!!!COM: Mozart, Wolfgang Amadeus
+!!!CDT: 1756/01/27/-1791/12/05/
+!!!CNT: German
+!!!OTL: Piano Sonata No. 6 in D major
+!!!OTP: Dürnitz
+!!!SCT1: K<sup>1</sup> 284
+!!!SCT2: K<sup>6</sup> 205b
+!!!OMV: 1
+!!!OMD: Allegro
+!!!ODT: 1775
+!!!RDF**kern: > = above
+!!!RDF**kern: < = below
+!!!verovio: slurEndpointFlexibility 1.0
+!!!verovio: slurMaxSlope 30
+!!!YOR: Alte Mozart-Ausgabe, Band 20, Breitkopf &amp; H&auml;rtel 1877-1883.
+!!!YOY: 1878
+!!!YEC: 2018 Craig Stuart Sapp
+!!!YEM: Licence: (CC BY-NC-SA 4.0) https://creativecommons.org/licenses/by-nc-sa/4.0
+!!!YER: 2018
+!!!URL-github: https://github.com/craigsapp/mozart-piano-sonatas/blob/main/kern/sonata06-1.krn
+!!!URL-vhv: https://verovio.humdrum.org/?file=mozart/sonatas/sonata06-1.krn
+!!!URL-pdf: https://github.com/craigsapp/mozart-piano-sonatas/blob/master/reference-edition/sonata06-1.pdf
+!!!URL-youtube: https://www.youtube.com/watch?v=sXxSC_tHhXc András Schiff
+!!!URL-wikipedia: https://en.wikipedia.org/wiki/Piano_Sonata_No._6_(Mozart)#Allegro
+!!!ENC: Craig Stuart Sapp
+!!!END: 2009/09/23
+!!!EED: Craig Stuart Sapp
+!!!EEV: 2025/02/28
+!!!EFL: 16/69
+!!!AGN: piano sonata
+!!!AFR: sonata-allegro
+!!!title: @{OTL} (<i>@{OTP}</i>), K 284 (205b), mvmt. @{OMV}
+!!!filter-hands: hands -c
+
+**kern	**kern	**dynam
+*part1	*part1	*
+*staff2	*staff1	*staff1/2
+*ICklav	*ICklav	*
+*Ipiano	*Ipiano	*
+*LH	*RH	*
+*I"	*I"	*
+*>[A,A,B,B]	*>[A,A,B,B]	*>[A,A,B,B]
+*>norep[A,B]	*>norep[A,B]	*>norep[A,B]
+*>A	*>A	*>A
+*clefF4	*clefG2	*
+*k[f#c#]	*k[f#c#]	*
+*D:	*D:	*
+*M4/4	*M4/4	*
+*met(c)	*met(c)	*
+*MM136	*MM136	*
+
+=106	=106	=106
+*	*^	*
+8A 8aL	4ryy	4cc#	.
+8AJ	.	.	.
+*clefF4	*	*	*
+8A 8c#L	8r	4ryyy	p
+8A 8c#J	8a	.	.
+8A 8d#L	(8a#L	4f#	.
+8A 8d#	8bJ)	.	.
+8A 8e	8r	[4gn	.
+8A 8eJ	8b	.	.
+!!LO:LB:g=original
+=107	=107	=107	=107
+8A 8c#L	(8g#L	4g]	.
+8A 8c#	8anJ)	.	.
+8A 8dn	8r	2f#	.
+8A 8dJ	8a	.	.
+8A 8BL	(8ddL	.	.
+8A 8B	8gnJ)	.	.
+8A 8c#	8r	4e	.
+8A 8c#J	8g	.	.
+*	*v	*v	*
+=108	=108	=108
+*^	*	*
+2ryy	8A 8dL	(8e#L	.
+.	8A 8d	8f#J)	.
+.	8A 8f#	8r	.
+.	8A 8f#J	8aa	.
+2g	[2A	(16bbLL	.
+.	.	16ccc#	.
+.	.	16ddd	.
+.	.	16ccc#JJ	.
+.	.	16eeenLL	.
+.	.	16ddd	.
+.	.	16ccc#	.
+.	.	16bbJJ	.
+=109	=109	=109	=109
+(4f#	1A]	16aaLL	.
+.	.	16ccc#	.
+.	.	16ddd	.
+.	.	16ccc#JJ	.
+4d)	.	16dddLL	.
+.	.	16aa	.
+.	.	16bb	.
+.	.	16ff#JJ	.
+(4e	.	16ggLL	.
+.	.	16aa	.
+.	.	16bb	.
+.	.	16aaJJ	.
+4c#)	.	16ccc#LL	.
+.	.	16bb	.
+.	.	16aa	.
+.	.	16ggJJ)	.
+*v	*v	*	*
+=110	=110	=110
+4r	(16ff#LL	f
+.	16aa	.
+.	16ddd	.
+.	16ccc#JJ	.
+8r	16dddLL	.
+.	16aa	.
+8DD 8D	16ff#	.
+.	16ddJJ	.
+8FF# 8F#L	16dddLL	.
+.	16aa	.
+8AA 8AJ	16ff#	.
+.	16ddJJ	.
+4D 4d	16dddLL	.
+.	16aa	.
+.	16ff#	.
+.	16ddJJ)	.
+!!LO:LB:g=original
+=111	=111	=111
+4r	(16bbLL	.
+.	16ccc#	.
+.	16ddd	.
+.	16ccc#JJ	.
+8r	16dddLL	.
+.	16bb	.
+8GG\ 8G\	16gg	.
+.	16ddJJ	.
+8BB 8BL	16dddLL	.
+.	16bb	.
+8D 8dJ	16gg	.
+.	16ddJJ	.
+4G 4g	16dddLL	.
+.	16bb	.
+.	16gg	.
+.	16ddJJ)	.
+=112	=112	=112
+8AA 8AL	8.ff# 8.aaL	.
+8AA 8A	.	.
+.	32gg 32bbLL	.
+.	32ee 32ggJJJ	.
+8AA 8A	4.dd 4.ff#	.
+8AA 8AJ	.	.
+8AA 8AL	.	.
+8AA 8A	8ff# (8aaL	p
+8AA 8A	8ee 8gg	.
+8AA 8AJ	8cc# 8eeJ)	.
+=113	=113	=113
+4r	(16ff#LL	f
+.	16aa	.
+.	16ddd	.
+.	16ccc#JJ	.
+8r	16dddLL	.
+.	16aa	.
+8DD 8D	16ff#	.
+.	16ddJJ	.
+8FF# 8F#L	16dddLL	.
+.	16aa	.
+8AA 8AJ	16ff#	.
+.	16ddJJ	.
+4D 4d	16dddLL	.
+.	16aa	.
+.	16ff#	.
+.	16ddJJ)	.
+*-	*-	*-

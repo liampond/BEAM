@@ -1,0 +1,149 @@
+!!!!SEGMENT: sonata13-2.krn
+!!!COM: Mozart, Wolfgang Amadeus
+!!!CDT: 1756/01/27/-1791/12/05/
+!!!CNT: German
+!!!OTL: Piano Sonata No. 13 in B-flat major
+!!!OTP: Linz Sonata
+!!!SCT1: K<sup>1</sup> 333
+!!!SCT2: K<sup>6</sup> 315c
+!!!OMV: 2
+!!!OMD: Andante cantabile
+!!!ODT: 1783
+!!!RDF**kern: > = above
+!!!RDF**kern: < = below
+!!!YOR: Alte Mozart-Ausgabe, Band 20, Breitkopf &amp; H&auml;rtel 1877-1883.
+!!!YOY: 1878
+!!!YEC: 2018 Craig Stuart Sapp
+!!!YEM: Licence: (CC BY-NC-SA 4.0) https://creativecommons.org/licenses/by-nc-sa/4.0
+!!!YER: 2018
+!!!URL-github: https://github.com/craigsapp/mozart-piano-sonatas/blob/main/kern/sonata13-2.krn
+!!!URL-vhv: https://verovio.humdrum.org/?file=mozart/sonatas/sonata13-2.krn
+!!!URL-pdf: https://github.com/craigsapp/mozart-piano-sonatas/blob/master/reference-edition/sonata13-2.pdf
+!!!URL-youtube: https://www.youtube.com/watch?v=O0x3eLuglek András Schiff
+!!!URL-wikipedia: https://en.wikipedia.org/wiki/Piano_Sonata_No._13_(Mozart)
+!!!ENC: Craig Stuart Sapp
+!!!END: 2009/10/09
+!!!EED: Craig Stuart Sapp
+!!!EEV: 2018/06/18
+!!!EFL: 56/69
+!!!AGN: piano sonata
+!!!AFR:
+!!!title: @{OTL} (<i>@{OTP}</i>), K 333 (315c), mvmt. @{OMV}
+!!!filter-hands: hands -c
+
+**kern	**kern	**dynam
+*part1	*part1	*
+*staff2	*staff1	*staff1/2
+*ICklav	*ICklav	*
+*Ipiano	*Ipiano	*
+*LH	*RH	*
+*I"	*I"	*
+*>[A,A,B,B1,B,B2]	*>[A,A,B,B1,B,B2]	*>[A,A,B,B1,B,B2]
+*>norep[A,B,B2]	*>norep[A,B,B2]	*>norep[A,B,B2]
+*>A	*>A	*>A
+*clefF4	*clefG2	*
+*k[b-e-a-]	*k[b-e-a-]	*
+*E-:	*E-:	*
+*M3/4	*M3/4	*
+*MM60	*MM60	*
+*	*^	*
+
+=75	=75	=75	=75
+*	*	*^	*
+(4A-	[4E-	(8.fL	(4d	.
+.	.	16f#Jk	.	.
+16G)	16E-]	8g)	8e-)	.
+*clefG2	*clefG2	*	*	*
+(16e-LL	8.ryy	.	.	.
+16g	.	8ee- 8bb-L	4.ryy	.
+16b-JJ	.	.	.	.
+16a-LL	4ryy	8ffn 8bb-	.	.
+16g	.	.	.	.
+16f	.	8gg 8bb-J	.	.
+16e-JJ	.	.	.	.
+*v	*v	*	*	*
+=76	=76	=76	=76
+16dLL	([8bb-L	4.aa-	.
+16f	.	.	.
+16a-	32bb-LL]	.	.
+.	32ccc	.	.
+16gJJ	32bb-	.	.
+.	32aanJJJ	.	.
+16fLL	8bb-)	.	.
+16e-	.	.	.
+16d	4.ryy	8dd (8bb-L	.
+16cJJ	.	.	.
+16B-LL	.	8ee- 8ccc	.
+16c	.	.	.
+16A-	.	8ff 8dddJ)	.
+16B-JJ	.	.	.
+=77	=77	=77	=77
+16GLL	[8eee-L	4.ee-	.
+16B-	.	.	.
+16c	(<32eee-LL]	.	.
+.	32ddd	.	.
+16dJJ	32eee-	.	.
+.	32bb-JJJ	.	.
+8e-)	8gg')	.	.
+(8e- 8gL	4.ryy	8gg (8bb-L	.
+8f 8a-	.	8ff 8aa-	.
+8g) 8b-J	.	8ee- 8ggJ)	.
+*	*v	*v	*
+!!LO:LB:g=original
+=78	=78	=78
+*^	*	*
+4a- 4cc	2ryy	(32eenLLL	.
+.	.	32ff	.
+.	.	32gg	.
+.	.	32ffJJJ	.
+.	.	32aa-LLL	.
+.	.	32gg	.
+.	.	32bb-	.
+.	.	32aa-JJJ	.
+4r	.	4ccc	.
+8dL	4B- 4a-	8bb-L)	.
+8fJ	.	16.r	.
+.	.	32ddJk	.
+*v	*v	*	*
+=79	=79	=79
+(16e-LL	4ee-X	.
+16g	.	.
+16b-	.	.
+16gJJ	.	.
+16e-LL	8r	.
+16g	.	.
+16b-	(8ddd-L	.
+16gJJ	.	.
+16a-LL	8ccc	.
+16f	.	.
+16b-	8dddnJ	.
+16a-JJ	.	.
+=80	=80	=80
+16gLL	8fffL	.
+16b-	.	.
+16g	8eee-J)	.
+16fJJ	.	.
+*clefF4	*	*
+16e-LL	8r	.
+16d-	.	.
+16B-	(8dd-L	.
+16GJJ	.	.
+16A-LL	8cc	.
+16F	.	.
+16B-	8a- 8ddnJ)	.
+16BB-JJ	.	.
+=81	=81	=81
+*>B1	*>B1	*>B1
+4.E-)	(<4a- ((4ff	.
+.	8g) 8ee-))	.
+(8A-L	(8d 8fL	.
+8G	8e- 8g	.
+8FJ)	8f) 8a-J	.
+=82:|!	=82:|!	=82:|!
+*>B2	*>B2	*>B2
+4.E-	4a- ((4ff	.
+.	8g 8ee-))	.
+8r	(8d 8fL	pp
+8r	8e- 8g	.
+8BB-	8f) 8a-J	.
+*-	*-	*-

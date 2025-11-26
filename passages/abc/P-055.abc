@@ -1,0 +1,43 @@
+%%linebreak <none>
+%%measurenb 2
+X: 10
+T: Piano Sonata No. 4 in E\b major, K 282 (189g), mvmt. 1
+C: Wolfgang Amadeus Mozart
+%%abc-version 2.0
+%%abcx-abcm2ps-target-version 5.9.1 (29 Sep 2008)
+%%abc-creator hum2abc beta
+%%abcx-conversion-date 2021/01/14 17:01:32
+%%abc-copyright 2018 Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abcx-initial-encoding-date 2009/10/05
+%%gracespace 0 6 6
+%%humdrum-veritas 2156033562
+%%humdrum-veritas-data 2664521069
+%%linebreak <none>
+%%barnumbers 0
+L: 1/16
+M: C
+N: Derived from sonata04-1.krn
+Q: "Allegro." 1/4=84
+%%staves {1 2}
+V: 1 clef=treble
+V: 2 clef=treble
+N: Extracted measures 24-31 from original score
+K: Eb
+[V:1] =B2c2 z2 .c2 e2=d2 z2 _B2 | 
+[V:2] A,CEA A,CEA A,B,=DF A,B,DF | 
+[V:1] f2e2 z2 .e2 f2_g2 z2 .e2 | 
+[V:2] G,B,EG G,B,EG =A,CE_G A,CEG | 
+[V:1] ded_g f[e=a][db][=A_g][A4g4][B2f2] z2 | 
+[V:2] F_GFE DGFEE4D2 z2[K:clef=bass] & B,8-B,4-B,2 z2 | 
+[V:1] z4z E=GB BA.F.D z DFA | 
+[V:2] E, [=G,B,][G,B,][G,B,] E, [G,B,][G,B,][G,B,] F, [A,B,][A,B,][A,B,] F, [A,B,][A,B,][A,B,] | 
+[V:1] cB.G.E z egb ba.f.d z dfa | 
+[V:2] E, [G,B,][G,B,][G,B,][K:clef=treble] E [GB][GB][GB] F [AB][AB][AB] F [AB][AB][AB] | 
+[V:1] c'b.g.e z .B =A/B/d/B/ eBB2- BG B/G/B/G/ | 
+[V:2] E [GB][GB][GB][K:clef=bass] E,G,F,A, G,B,EG G,,B,,E,G, | 
+[V:1] c_AA2- AF A/F/A/F/ BG- G/E/G/E/ AF- F/D/F/D/ | 
+[V:2] A,,C,F,A, A,,C,F,A, B,,E,G,B, B,,D,F,A, | 
+[V:1] F/E/D/E/ FG A{/G//}B{/A//}c{/B//}d e/b/=a/b/ c'/b/a/b/ z/ b/a/b/ z/ a/b/=b/ | 
+[V:2] [C,2G,2] z2z4[K:clef=treble][G2B2] z2 [G2e2][G2e2] | 

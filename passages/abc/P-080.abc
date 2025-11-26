@@ -1,0 +1,43 @@
+%%linebreak <none>
+%%measurenb 2
+X: 55
+T: Piano Sonata No. 13 in B\b major, K 333 (315c), mvmt. 1
+C: Wolfgang Amadeus Mozart
+%%abc-version 2.0
+%%abcx-abcm2ps-target-version 5.9.1 (29 Sep 2008)
+%%abc-creator hum2abc beta
+%%abcx-conversion-date 2021/01/14 17:01:31
+%%abc-copyright 2018 Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abcx-initial-encoding-date 2009/10/09
+%%gracespace 0 6 6
+%%humdrum-veritas 3828788847
+%%humdrum-veritas-data 4097178576
+%%linebreak <none>
+%%barnumbers 0
+L: 1/16
+M: C
+N: Derived from sonata13-1.krn
+Q: "Allegro" 1/4=120
+%%staves {1 2}
+V: 1 clef=treble
+V: 2 clef=bass
+N: Extracted measures 22-29 from original score
+K: Bb
+[V:1] =ec'ge cG=ECz8 | 
+[V:2] [C4c4]z4[K:clef=bass][C,,4C,4]z4 | 
+[V:1] [C6F6A6c6]dc B2.A2.G2.F2 | 
+[V:2] [F,,8F,8]z8 | 
+[V:1] F2d4<[F4d4]c2 =e2f2 | 
+[V:2] z4[B,,8B,8]A,4 | 
+[V:1] f2G4A2 f2G4A2 | 
+[V:2] [=B,4D4]C4[B,4D4]C4 | 
+[V:1] c4!trill!_B3A/B/ .A2A2B2c2 | 
+[V:2] D4=E4F4z4 | 
+[V:1] ^c2d4=cB A2G2A2B2 | 
+[V:2] z2 B,,2D,2G,2B,4z4 | 
+[V:1] d2c4BA G2F2G2A2 | 
+[V:2] z2 A,,2C,2F,2A,4z4 | 
+[V:1] c2B4G2 B2A4F2 | 
+[V:2] G,4=E,4F,4D,4 | 

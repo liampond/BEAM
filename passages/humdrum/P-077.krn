@@ -1,0 +1,113 @@
+!!!!SEGMENT: sonata12-1.krn
+!!!COM: Mozart, Wolfgang Amadeus
+!!!CDT: 1756/01/27/-1791/12/05/
+!!!CNT: German
+!!!OTL: Piano Sonata No. 12 in F major
+!!!SCT1: K<sup>1</sup> 332
+!!!SCT2: K<sup>6</sup> 300k
+!!!OMV: 1
+!!!OMD: Allegro
+!!!ODT: 1783
+!!!RDF**kern: > = above
+!!!RDF**kern: < = below
+!!!YOR: Alte Mozart-Ausgabe, Band 20, Breitkopf &amp; H&auml;rtel 1877-1883.
+!!!YOY: 1878
+!!!YEC: 2018 Craig Stuart Sapp
+!!!YEM: Licence: (CC BY-NC-SA 4.0) https://creativecommons.org/licenses/by-nc-sa/4.0
+!!!YER: 2018
+!!!URL-github: https://github.com/craigsapp/mozart-piano-sonatas/blob/main/kern/sonata12-1.krn
+!!!URL-vhv: https://verovio.humdrum.org/?file=mozart/sonatas/sonata12-1.krn
+!!!URL-pdf: https://github.com/craigsapp/mozart-piano-sonatas/blob/master/reference-edition/sonata12-1.pdf
+!!!URL-youtube: https://www.youtube.com/watch?v=QIWKqmkhD0M András Schiff
+!!!URL-wikipedia: https://en.wikipedia.org/wiki/Piano_Sonata_No._12_(Mozart)#I._Allegro
+!!!ENC: Craig Stuart Sapp
+!!!END: 2009/10/12
+!!!EED: Craig Stuart Sapp
+!!!EEV: 2024/06/06
+!!!EFL: 52/69
+!!!AGN: piano sonata
+!!!AFR: sonata-allegro
+!!!title: @{OTL}, K 332 (300k), mvmt. @{OMV}
+!!!filter-hands: hands -c
+
+**kern	**kern	**dynam
+*part1	*part1	*
+*staff2	*staff1	*staff1/2
+*ICklav	*ICklav	*
+*Ipiano	*Ipiano	*
+*LH	*RH	*
+*I"	*I"	*
+*>[A,A,B,B]	*>[A,A,B,B]	*>[A,A,B,B]
+*>norep[A,B]	*>norep[A,B]	*>norep[A,B]
+*>A	*>A	*>A
+*clefF4	*clefG2	*
+*k[b-]	*k[b-]	*
+*F:	*F:	*
+*M3/4	*M3/4	*
+*MM144	*MM144	*
+
+=214	=214	=214
+*^	*	*
+(2b-	2.f	(4.ddd	.
+.	.	16eeeLL	.
+.	.	16dddJJ	.
+4a)	.	4ccc)	.
+=215	=215	=215	=215
+*	*	*^	*
+4g	4c	(16cccLK	4ee	.
+.	.	8.bb-J)	.	.
+4g	4c	4bb-	4ee	.
+4g	4c	4bb-	4ee	.
+=216	=216	=216	=216	=216
+(2g	(2c	(2bb-	(2ee	.
+4f)	4d)	4aa)	4ff)	.
+*clefF4	*clefF4	*	*	*
+*	*	*v	*v	*
+*v	*v	*	*
+=217	=217	=217
+(4B-	8aa (8cccL	.
+.	8gg 8bb-J)	.
+4c	4ff 4aa	.
+4B-)	4ee 4gg	.
+=218	=218	=218
+8AA 8A	8aa 8cccL	fp
+8r	8aa 8cccJ	.
+8c#	8r	.
+8r	8gg 8bb-	.
+8d	8r	.
+8r	8ff 8aa	.
+=219	=219	=219
+8B-	8r	.
+8r	8b- 8gg	.
+8cn	8r	.
+8r	8a 8ff	.
+8B-	8r	.
+8r	8g 8ee	.
+!!LO:LB:g=original
+=220	=220	=220
+8AA 8A	16r	.
+.	(16aaLL	f
+8r	16ccc	.
+.	16aaJJ)	.
+8C# 8c#	16r	.
+.	(16ggLL	.
+8r	16bb-	.
+.	16ggJJ)	.
+8D 8d	16r	.
+.	(16ffLL	.
+8r	16aa	.
+.	16ffJJ)	.
+=221	=221	=221
+8BB- 8B-	16r	.
+.	(16b-LL	.
+8r	16gg	.
+.	16b-JJ)	.
+8Cn 8cn	16r	.
+.	(16aLL	.
+8r	16ff	.
+.	16aJJ)	.
+8CC 8C	16r	.
+.	(16gLL<	.
+8r	16ee	.
+.	16gJJ)	.
+*-	*-	*-

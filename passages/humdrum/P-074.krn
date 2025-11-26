@@ -1,0 +1,128 @@
+!!!!SEGMENT: sonata10-3.krn
+!!!COM: Mozart, Wolfgang Amadeus
+!!!CDT: 1756/01/27/-1791/12/05/
+!!!CNT: German
+!!!OTL: Piano Sonata No. 10 in C major
+!!!SCT1: K<sup>1</sup> 330
+!!!SCT2: K<sup>6</sup> 300h
+!!!OMV: 3
+!!!OMD: Allegretto
+!!!ODT: 1783
+!!!RDF**kern: < = below
+!!!RDF**kern: > = above
+!!!YOR: Alte Mozart-Ausgabe, Band 20, Breitkopf &amp; H&auml;rtel 1877-1883.
+!!!YOY: 1878
+!!!YEC: 2018 Craig Stuart Sapp
+!!!YEM: Licence: (CC BY-NC-SA 4.0) https://creativecommons.org/licenses/by-nc-sa/4.0
+!!!YER: 2018
+!!!URL-github: https://github.com/craigsapp/mozart-piano-sonatas/blob/main/kern/sonata10-3.krn
+!!!URL-vhv: https://verovio.humdrum.org/?file=mozart/sonatas/sonata10-3.krn
+!!!URL-pdf: https://github.com/craigsapp/mozart-piano-sonatas/blob/master/reference-edition/sonata10-3.pdf
+!!!URL-youtube: https://www.youtube.com/watch?v=nYpKbsJEKb0 András Schiff
+!!!URL-wikipedia: https://en.wikipedia.org/wiki/Piano_Sonata_No._10_(Mozart)#III._Allegretto
+!!!ENC: Craig Stuart Sapp
+!!!END: 2009/10/08
+!!!EED: Craig Stuart Sapp
+!!!EEV: 2024/06/05
+!!!EFL: 42/69
+!!!AGN: piano sonata
+!!!AFR:
+!!!title: @{OTL}, K 330 (300h), mvmt. @{OMV}
+!!!filter-hands: hands -c
+
+**kern	**kern	**dynam
+*part1	*part1	*
+*staff2	*staff1	*staff1/2
+*ICklav	*ICklav	*
+*Ipiano	*Ipiano	*
+*LH	*RH	*
+*I"	*I"	*
+*>[A,A,B,B]	*>[A,A,B,B]	*>[A,A,B,B]
+*>norep[A,B]	*>norep[A,B]	*>norep[A,B]
+*>A	*>A	*>A
+*clefF4	*clefG2	*
+*k[]	*k[]	*
+*C:	*C:	*
+*M2/4	*M2/4	*
+*MM112	*MM112	*
+
+=61	=61	=61
+16GLL	8g)	.
+16B	.	.
+16g	8r	.
+16BJJ	.	.
+16GLL	(8.ddL	.
+16B	.	.
+16g	.	.
+.	32ff#qq/	.
+16BJJ	32eeLL	.
+.	32ddJJJ	.
+=62	=62	=62
+16GLL	8ddd'L)	.
+16A	.	.
+16f#	8ccc'	.
+16AJJ	.	.
+16GLL	8bb'	.
+16c	.	.
+16f#	8aa'J	.
+16cJJ	.	.
+=63	=63	=63
+16GLL	(4gg	.
+16B	.	.
+16g	.	.
+16BJJ	.	.
+16GLL	8.ddL	.
+16B	.	.
+16g	.	.
+.	32ff#qq/	.
+16BJJ	32eeLL	.
+.	32ddJJJ	.
+!!LO:LB:g=original
+=64	=64	=64
+16GLL	8ddd'L)	.
+16A	.	.
+16f#	8ccc'	.
+16AJJ	.	.
+16GLL	8bb'	.
+16c	.	.
+16f#	8aa'J	.
+16cJJ	.	.
+=65	=65	=65
+*	*tuplet	*
+16GLL	8gg	.
+16B	.	.
+16g	8r	.
+16BJJ	.	.
+.	32ddqq/	.
+16GLL	(8.dddL	.
+16c	.	.
+16f#	.	.
+16cJJ	48cccLL	.
+.	48bb	.
+.	48aaJJJ	.
+=66	=66	=66
+16GLL	8gg)	.
+16B	.	.
+16g	8r	.
+16BJJ	.	.
+.	32ddqq/	.
+16GLL	(8.dddL	.
+16c	.	.
+16f#	.	.
+16cJJ	48cccLL	.
+.	48bb	.
+.	48aaJJJ	.
+=67	=67	=67
+4B 4g	8gg)	.
+.	(16.dLL	.
+.	32gJJk	.
+*clefF4	*	*
+8r	8bL)	.
+8D	8c 8aJ	.
+=68	=68	=68
+8GL	(>(4c 4a	.
+8D	.	.
+8GGJ	8B) 8g)	.
+8r	8r	.
+!!LO:LB:g=original
+*-	*-	*-

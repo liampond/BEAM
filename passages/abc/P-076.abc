@@ -1,0 +1,45 @@
+%%linebreak <none>
+%%measurenb 2
+X: 51
+T: Piano Sonata No. 11 in A major, K 331 (300i), mvmt. 3
+C: Wolfgang Amadeus Mozart
+%%abc-version 2.0
+%%abcx-abcm2ps-target-version 5.9.1 (29 Sep 2008)
+%%abc-creator hum2abc beta
+%%abcx-conversion-date 2021/01/14 17:01:31
+%%abc-copyright 2018 Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abcx-initial-encoding-date 2009/09/30
+%%gracespace 0 6 6
+%%humdrum-veritas 3401232660
+%%humdrum-veritas-data 3702371179
+%%linebreak <none>
+%%barnumbers 0
+L: 1/8
+M: 2/4
+N: Derived from sonata11-3.krn
+Q: "Alla Turca: Allegretto." 1/4=112
+%%staves {1 2}
+V: 1 clef=treble
+V: 2 clef=bass
+N: Extracted measures 26-33 from original score
+K: A
+[V:1] [cc'][Bb][Aa][Gg] | 
+[V:2] {/A,,/C,/E,/} A,A,A,A, | 
+[V:1] [Ff][Gg][Aa][Bb] | 
+[V:2] {/D,,/F,,/A,,/} D,D, {/^D,,/F,,/A,,/} ^D,D, | 
+[V:1] [Gg][Ee][Aa][Bb] | 
+[V:2] {/E,,/G,,/B,,/} E,E,E,E, | 
+[V:1] [c2c'2][Aa][Bb] | 
+[V:2] {/A,,/C,/E,/} A,A,A,A, | 
+[V:1] [cc'][Bb][Aa][Gg] | 
+[V:2] {/A,,/C,/E,/} A,A,A,A, | 
+[V:1] [Ff][Bb][Gg][Ee] | 
+[V:2] {/D,,/F,,/A,,/} D,D, {/E,,/G,,/B,,/} E,E, | 
+[V:1] [A2a2] :|]|:  
+[V:2] A,,2 :|]|:  
+[V:1] c'/d'/c'/b/ [I:setbarnb 33]| 
+[V:2] z2 | 
+[V:1] a/b/a/g/ f/a/g/f/ | 
+[V:2] F,[A,C][A,C][A,C] | 

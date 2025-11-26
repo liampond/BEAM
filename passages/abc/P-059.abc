@@ -1,0 +1,43 @@
+%%linebreak <none>
+%%measurenb 2
+X: 14
+T: Piano Sonata No. 5 in G major, K 283 (189h), mvmt. 2
+C: Wolfgang Amadeus Mozart
+%%abc-version 2.0
+%%abcx-abcm2ps-target-version 5.9.1 (29 Sep 2008)
+%%abc-creator hum2abc beta
+%%abcx-conversion-date 2021/01/14 17:01:32
+%%abc-copyright 2018 Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abcx-initial-encoding-date 2009/10/06
+%%gracespace 0 6 6
+%%humdrum-veritas 397252889
+%%humdrum-veritas-data 3263545118
+%%linebreak <none>
+%%barnumbers 0
+L: 1/16
+M: C
+N: Derived from sonata05-2.krn
+Q: "Andante" 1/4=84
+%%staves {1 2}
+V: 1 clef=treble
+V: 2 clef=treble
+N: Extracted measures 7-14 from original score
+K: C
+[V:1] A4cBAG ^FGAB cde^f | 
+[V:2] C,E,A,C EDCB, A,B,CB, A,B,CA, | 
+[V:1] gabc' d'be'c'[g4b4][^f2a2] z2 | 
+[V:2] B,^F,G,A, B,G,CA, DGE^C D=CB,A, | 
+[V:1] d3e/^f/ g.f.e.d dc/ z/ BA/ z/ G2^F z | 
+[V:2] G,DB,D G,DB,D A,DCD A,DCD | 
+[V:1] d3e/^f/ g/a/b/f/ g/d/e/B/ .dd/c/ .BB/A/ G2^F z | 
+[V:2] G,DB,D G,DB,D A,DCD A,DCD[K:clef=treble] | 
+[V:1] Ggg4=f2 ^d2e2 ag^fe | 
+[V:2] B,GDG B,GDG CGEG CGEG | 
+[V:1] e=dec B2!trill!A2 {/GA} Ggg4=f2 | 
+[V:2] B,GCA DGC^F B,GDG B,GDG | 
+[V:1] ^d2e2 !fermata!z2 a/g/^f/e/ ^c/d/c/d/ f/e/d/=c/ ^A/B/A/B/ d/c/B/=A/ |[1 
+[V:2] [C4G4]!fermata!z2 z2 [B,2G2][C2G2][D2G2][D2^F2] | 
+[V:1] .G2 c/B/c/A/ .G2 c/B/c/A/ .G2 z2z4 :|][2 
+[V:2] G,2 z2z4z ^FG^G A=FDB, :|]  

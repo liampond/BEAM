@@ -1,0 +1,66 @@
+!!!!SEGMENT: sonata03-3.krn
+!!!COM: Mozart, Wolfgang Amadeus
+!!!CDT: 1756/01/27/-1791/12/05/
+!!!CNT: German
+!!!OTL: Piano Sonata No. 3 in B-flat major
+!!!SCT1: K<sup>1</sup> 281
+!!!SCT2: K<sup>6</sup> 189f
+!!!OMV: 3
+!!!OMD: RONDO. Allegro.
+!!!ODT: 1774
+!!!RDF**kern: > = above
+!!!RDF**kern: < = below
+!!!YOR: Alte Mozart-Ausgabe, Band 20, Breitkopf &amp; H&auml;rtel 1877-1883.
+!!!YOY: 1878
+!!!YEC: 2018 Craig Stuart Sapp
+!!!YEM: Licence: (CC BY-NC-SA 4.0) https://creativecommons.org/licenses/by-nc-sa/4.0
+!!!YER: 2018
+!!!URL-github: https://github.com/craigsapp/mozart-piano-sonatas/blob/main/kern/sonata03-3.krn
+!!!URL-vhv: https://verovio.humdrum.org/?file=mozart/sonatas/sonata03-3.krn
+!!!URL-pdf: https://github.com/craigsapp/mozart-piano-sonatas/blob/master/reference-edition/sonata03-3.pdf
+!!!URL-youtube: https://www.youtube.com/watch?v=mekqM1nQBgU András Schiff
+!!!URL-wikipedia: https://en.wikipedia.org/wiki/Piano_Sonata_No._3_(Mozart)
+!!!ENC: Craig Stuart Sapp
+!!!END: 2009/10/02
+!!!EED: Craig Stuart Sapp
+!!!EEV: 2024/06/02
+!!!EFL: 9/69
+!!!AGN: piano sonata
+!!!AFR: rondo
+!!!title: @{OTL}, K 281 (189f), mvmt. @{OMV}
+!!!filter-hands: hands -c
+
+**kern	**kern	**dynam
+*part1	*part1	*
+*staff2	*staff1	*staff1/2
+*ICklav	*ICklav	*
+*Ipiano	*Ipiano	*
+*LH	*RH	*
+*I"	*I"	*
+*clefF4	*clefG2	*
+*>[A,B,B,C,C,D]	*>[A,B,B,C,C,D]	*>[A,B,B,C,C,D]
+*>norep[A,B,C,D]	*>norep[A,B,C,D]	*>norep[A,B,C,D]
+*>A	*>A	*>A
+*k[b-e-]	*k[b-e-]	*
+*B-:	*B-:	*
+*M2/2	*M2/2	*
+*met(c|)	*met(c|)	*
+*MM160	*MM160	*
+*clefG2	*	*
+
+=124	=124	=124
+12B-L	(4ff	.
+12d	.	.
+12fJ	.	.
+12B-L	8.bb-L	.
+12d	.	.
+12fJ	.	.
+.	16ddJk	.
+.	(32ffPqq	.
+12AL	4ee-p)	.
+12c	.	.
+12fJ	.	.
+12AL	4cc)	.
+12c	.	.
+12fJ	.	.
+*-	*-	*-

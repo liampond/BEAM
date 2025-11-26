@@ -1,0 +1,58 @@
+!!!!SEGMENT: sonata09-2.krn
+!!!COM: Mozart, Wolfgang Amadeus
+!!!CDT: 1756/01/27/-1791/12/05/
+!!!CNT: German
+!!!OTL: Piano Sonata No. 9 in D major
+!!!SCT1: K<sup>1</sup> 311
+!!!SCT2: K<sup>6</sup> 284c
+!!!OMV: 2
+!!!ODT: 1777
+!!!OMD: Andante con espressione
+!!!RDF**kern: > = above
+!!!RDF**kern: < = below
+!!!YOR: Alte Mozart-Ausgabe, Band 20, Breitkopf &amp; H&auml;rtel 1877-1883.
+!!!YOY: 1878
+!!!YEC: 2018 Craig Stuart Sapp
+!!!YEM: Licence: (CC BY-NC-SA 4.0) https://creativecommons.org/licenses/by-nc-sa/4.0
+!!!YER: 2018
+!!!URL-github: https://github.com/craigsapp/mozart-piano-sonatas/blob/main/kern/sonata09-2.krn
+!!!URL-vhv: https://verovio.humdrum.org/?file=mozart/sonatas/sonata09-2.krn
+!!!URL-pdf: https://github.com/craigsapp/mozart-piano-sonatas/blob/master/reference-edition/sonata09-2.pdf
+!!!URL-youtube: https://www.youtube.com/watch?v=TSgpBWn_Bhs András Schiff
+!!!URL-wikipedia: https://en.wikipedia.org/wiki/Piano_Sonata_No._9_(Mozart)
+!!!ENC: Craig Stuart Sapp
+!!!END: 2009/10/15
+!!!EED: Craig Stuart Sapp
+!!!EEV: 2021/01/05
+!!!EFL: 38/69
+!!!AGN: piano sonata
+!!!AFR:
+!!!title: @{OTL}, K 311 (284c), mvmt. @{OMV}
+!!!filter-hands: hands -c
+
+**kern	**kern	**dynam
+*part1	*part1	*
+*staff2	*staff1	*staff1/2
+*ICklav	*ICklav	*
+*Ipiano	*Ipiano	*
+*LH	*RH	*
+*I"	*I"	*
+*clefF4	*clefG2	*
+*k[f#]	*k[f#]	*
+*G:	*G:	*
+*M2/4	*M2/4	*
+*MM84	*MM84	*
+
+=55	=55	=55
+(16F#LL	(16aLL	.
+16A	16ddJ)	.
+16d	([8ddJ	.
+16AJJ)	.	.
+(16ELL	16ddLL]	.
+16A	32eeL	.
+.	32ddJJJ)	.
+16c	(32ddLLL	.
+.	32cc	.
+16AJJ)	32b	.
+.	32ccJJJ)	.
+*-	*-	*-

@@ -1,0 +1,43 @@
+%%linebreak <none>
+%%measurenb 2
+X: 4
+T: Piano Sonata No. 2 in F major, K 280 (189e), mvmt. 1
+C: Wolfgang Amadeus Mozart
+%%abc-version 2.0
+%%abcx-abcm2ps-target-version 5.9.1 (29 Sep 2008)
+%%abc-creator hum2abc beta
+%%abcx-conversion-date 2021/01/14 17:01:31
+%%abc-copyright 2018 Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abcx-initial-encoding-date 2009/09/24
+%%gracespace 0 6 6
+%%humdrum-veritas 1390848080
+%%humdrum-veritas-data 2176241645
+%%linebreak <none>
+%%barnumbers 0
+L: 1/16
+M: 3/4
+N: Derived from sonata02-1.krn
+Q: "Allegro assai." 1/4=152
+%%staves {1 2}
+V: 1 clef=treble
+V: 2 clef=bass
+N: Extracted measures 37-44 from original score
+K: F
+[V:1] (3z2 a2.=g2 (3.^f2.a2.e2 (3.d2.a2=c2 | 
+[V:2] [^F,,4^F,4]z4z4 | 
+[V:1] (3z2 c2^A2 (3=B2e2^d2 (3^f2e2g2 | 
+[V:2] [G,,4G,4]z4z4 | 
+[V:1] (3z2 .=b2.=a2 (3.^g2.b2.=f2 (3.e2.b2.=d2 | 
+[V:2] [^G,,4^G,4]z4z4 | 
+[V:1] (3z2 =B2c2.f4.e4 | 
+[V:2] [A,,4A,4][K:clef=treble](3z2 ^G2A2 (3z2 ^F2=G2 | 
+[V:1] (3z2 ^c2d2.a4.g4 | 
+[V:2] =F4(3z2 E2F2 (3z2 ^D2E2[K:clef=bass] | 
+[V:1] gfed=c4!trill!=B3A/B/ | 
+[V:2] =D4E4F4 & F,4G,8 | 
+[V:1] c4z =Bcd fedc | 
+[V:2] C,E,G,C E2 z2z4 | 
+[V:1] =B4z ^cde gfed | 
+[V:2] D,F,=B,D F2 z2z4 | 

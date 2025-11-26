@@ -1,0 +1,43 @@
+%%linebreak <none>
+%%measurenb 2
+X: 40
+T: Piano Sonata No. 10 in C major, K 330 (300h), mvmt. 1
+C: Wolfgang Amadeus Mozart
+%%abc-version 2.0
+%%abcx-abcm2ps-target-version 5.9.1 (29 Sep 2008)
+%%abc-creator hum2abc beta
+%%abcx-conversion-date 2021/01/14 17:01:34
+%%abc-copyright 2018 Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abcx-initial-encoding-date 2009/10/08
+%%gracespace 0 6 6
+%%humdrum-veritas 582689750
+%%humdrum-veritas-data 2783936324
+%%linebreak <none>
+%%barnumbers 0
+L: 1/16
+M: 2/4
+N: Derived from sonata10-1.krn
+Q: "Allegro moderato" 1/4=88
+%%staves {1 2}
+V: 1 clef=treble
+V: 2 clef=treble
+N: Extracted measures 114-121 from original score
+K: C
+[V:1] {/ab} c'2c'>c' c'2 b/a/g/f/ | 
+[V:2] (3FAc (3FAc (3FAc (3FAc | 
+[V:1] e2!trill!fe/f/ g2 z2 | 
+[V:2] (3CEc (3DFc (3EGc (3CEc | 
+[V:1] {/ab} c'2c'>c' c'2 b/a/g/f/ | 
+[V:2] (3FAc (3FAc (3FAc (3FAc[K:clef=bass] | 
+[V:1] .ec'/d'/ e'/d'/c'/b/ a/g/f/e/ d/c/B/A/ | 
+[V:2] C2 z2 F,2 z2 | 
+[V:1] G2F4E2 | 
+[V:2] G,2[^G,4B,4D4][A,2C2] | 
+[V:1] z .D.FA ^cdfa | 
+[V:2] [F,2A,2] z2z4 | 
+[V:1] a=cc4ed & x6B2 | 
+[V:2] z2 [=G,2-E2][G,4F4] | 
+[V:1] c2x6 & c2 z2 gec'.b | 
+[V:2] [C2E2]C,2z4 | 

@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-model href="https://raw.githubusercontent.com/ism-dme/DIME-tools/main/validate/schemas/mei-DME-5.0.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/ism-dme/DIME-tools/main/validate/schemas/mei-DME-5.0.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<mei meiversion="5.0" xmlns="http://www.music-encoding.org/ns/mei">
+  <meiHead>
+    <fileDesc>
+      <titleStmt>
+        <title auth="KVonline" auth.uri="https://dme.mozarteum.at" label="NMA digital" type="unit" xml:id="fd_tit_1" xml:lang="DE">Sonate in G für Clavier, 1. Satz, KV 283/01</title>
+        <title auth="KVonline" auth.uri="https://dme.mozarteum.at" label="NMA digital" type="unit" xml:id="fd_tit_2" xml:lang="EN">Clavier Sonata in G, 1st mvt., K. 283/01</title>
+        <title type="file" xml:id="fd_tit_3">
+          <ref target="https://dme.mozarteum.at/movi/file/283/1" targettype="file_location">dmeref_283-001_3066.xml</ref>
+        </title>
+        <title label="NMA digital" type="subordinate" xml:id="fd_tit_4" xml:lang="EN">A digital edition</title>
+        <composer>
+          <persName auth="GND" auth.uri="https://d-nb.info/gnd/118584596" codedval="118584596" label="MI-PID_39409" xml:id="WAM">Wolfgang Amadé Mozart</persName>
+        </composer>
+        <funder n="1" xml:id="ISM">
+          <corpName auth="GND" auth.uri="https://d-nb.info/gnd/37019-8" codedval="37019-8">Internationale Stiftung Mozarteum Salzburg</corpName>
+          <address>
+            <addrLine>
+              <settlement auth="GeoNames" auth.uri="https://www.geonames.org/2766824">Salzburg</settlement>
+            </addrLine>
+            <addrLine>
+              <country>Austria</country>
+            </addrLine>
+          </address>
+        </funder>
+        <funder n="2" xml:id="PHI">
+          <corpName auth="GND" auth.uri="https://d-nb.info/dnbn/330242865" codedval="330242865">The Packard Humanities Institute</corpName>
+          <address>
+            <addrLine>
+              <settlement auth="GeoNames" auth.uri="https://www.geonames.org/5368335">Los Altos</settlement>
+            </addrLine>
+            <addrLine>
+              <country>California, USA</country>
+            </addrLine>
+          </address>
+        </funder>
+        <respStmt>
+          <corpName role="editor" xml:id="NMA-editors">
+            <persName auth="GND" auth.uri="https://d-nb.info/gnd/121083039" codedval="121083039" label="MI-PID_64730" role="editor" xml:id="WoPla">Wolfgang Plath</persName>
+            <persName auth="GND" auth.uri="https://d-nb.info/gnd/118898191" codedval="118898191" label="MI-PID_39459" role="editor" xml:id="WoReh">Wolfgang Rehm</persName>
+          </corpName>
+        </respStmt>
+      </titleStmt>
+      <editionStmt>
+        <edition>
+          <identifier type="version">1.0.0</identifier>
+          <date isodate="2022-12-19" label="first release"/>
+        </edition>
+        <respStmt n="1">
+          <resp>Digital remastering by:</resp>
+          <persName sameas="#IC" xml:id="ed.p1"/>
+        </respStmt>
+        <respStmt n="2">
+          <resp>Proofreading by:</resp>
+          <persName sameas="#OS" xml:id="pr.p1"/>
+          <persName sameas="#IC" xml:id="pr.p2"/>
+        </respStmt>
+      </editionStmt>
+      <pubStmt>
+        <publisher>
+          <corpName sameas="#ISM"/>
+        </publisher>
+        <respStmt>
+          <corpName role="sponsor" sameas="#ISM">Internationale Stiftung Mozarteum</corpName>
+        </respStmt>
+        <availability>
+          <useRestrict label="license">CC BY-NC-SA 4.0</useRestrict>
+        </availability>
+      </pubStmt>
+      <seriesStmt>
+        <title>Digital Interactive Mozart Edition (DIME)</title>
+        <respStmt>
+          <corpName label="Digital Mozart Edition Editorial Office" role="project execution" xml:id="DME-editors">
+            <persName auth="GND" auth.uri="https://d-nb.info/gnd/10403128X" codedval="10403128X" label="MI-PID_84344" role="pdr edt" xml:id="UL">Ulrich Leisinger</persName>
+            <persName auth="GND" auth.uri="https://d-nb.info/gnd/1083841270" codedval="1083841270" label="MI-PID_84344" role="rth edt" xml:id="IC">Iacopo Cividini</persName>
+            <persName auth="GND" auth.uri="https://d-nb.info/gnd/1161423672" codedval="1161423672" label="MI-PID_84341" role="edt mrk" xml:id="OS">Oleksii Sapov</persName>
+            <persName role="edt mrk" xml:id="RMG">Roland Mair-Gruber</persName>
+            <persName role="edt mrk" xml:id="YA">Yelyzaveta Albrekht</persName>
+            <persName auth="GND" auth.uri="https://d-nb.info/gnd/1061093409" codedval="1061093409" label="MI-PID_27802" role="led dtm" xml:id="FK">Franz Kelnreiter</persName>
+            <persName label="MI-PID_83688" role="dtm" xml:id="FG">Felix Gründer</persName>
+          </corpName>
+        </respStmt>
+      </seriesStmt>
+      <notesStmt>
+        <annot xml:lang="EN">This is the encoding of the 1st movement of K. 283 according to the Neue Mozart-Ausgabe IX/25/1.</annot>
+      </notesStmt>
+      <sourceDesc>
+        <source label="NMA1" n="1" xml:id="source_1">
+          <bibl>
+            <identifier auth="Bärenreiter" auth.uri="https://www.baerenreiter.com" type="catalog_number">BA 4600-01</identifier>
+            <title type="volume">Neue Ausgabe sämtlicher Werke, Serie IX, Werkgruppe 25: Klaviersonaten Band 1</title>
+            <title type="work">Sonate in G</title>
+            <title type="unit">Allegro</title>
+            <composer sameas="#WAM"/>
+            <editor corresp="#NMA-editors">
+              <persName sameas="#WoPla"/>
+              <persName sameas="#WoReh"/>
+            </editor>
+            <edition xml:lang="DE">[Erste Auflage]</edition>
+            <edition xml:lang="EN">[First edition]</edition>
+            <edition xml:id="digital_image">
+              <ref target="https://dme.mozarteum.at/DME/nma/nma_cont.php?vsep=196&amp;p1=48&amp;l=1" targettype="website">
+                <repository>NMA Online</repository>
+              </ref>
+            </edition>
+            <publisher>
+              <corpName auth="GND" auth.uri="https://d-nb.info/gnd/2005573-0" codedval="2005573-0" xml:id="BV">Bärenreiter</corpName>
+            </publisher>
+            <pubPlace>Kassel</pubPlace>
+            <date>1986</date>
+            <biblScope unit="page">48-51</biblScope>
+          </bibl>
+        </source>
+        <source label="NMA-KB" n="2" xml:id="source_2">
+          <bibl>
+            <identifier auth="Bärenreiter" auth.uri="https://www.baerenreiter.com" type="catalog_number">BA 4600-41</identifier>
+            <title>Wolfgang Amadeus Mozart, Neue Ausgabe sämtlicher Werke, Kritische Berichte, Serie IX, Werkgruppe 25: Klaviersonaten, Band 1 und 2.</title>
+            <author sameas="#WoReh"/>
+            <edition xml:lang="DE">[Auf Seite 203-207 zusammengestellte Berichtigungen und Ergänzungen zu den Notenbänden.]</edition>
+            <edition xml:lang="EN">[Corrigenda and addenda to the music editions reported on pp. 203-207.]</edition>
+            <publisher sameas="#BV"/>
+            <pubPlace>Kassel</pubPlace>
+            <date>1998</date>
+            <edition xml:id="digital_image_KB">
+              <ref target="https://dme.mozarteum.at/DME/nma/nma_cont.php?vsep=198&amp;p1=29&amp;l=1" targettype="website">
+                <repository>NMA Online</repository>
+              </ref>
+            </edition>
+          </bibl>
+        </source>
+      </sourceDesc>
+    </fileDesc>
+    <encodingDesc>
+      <appInfo>
+        <application n="1" version="0.2.0" xml:id="parseDox2XML.xsl_v0.2.0">
+          <name>parseDox2XML.xsl</name>
+        </application>
+        <application n="2" version="0.9.6" xml:id="doxml2mei.xsl_v0.9.6">
+          <name>doxml2mei.xsl</name>
+          <p>This converter is a reasonably large collection of XSLT stylesheets (utilizing XSLT 3.0), developed by <persName auth="GND" auth.uri="https://d-nb.info/gnd/174032757" codedval="174032757" xml:id="JoKep">Johannes Kepper</persName> (<ref target="https://edirom.de">
+              <corpName auth="GND" auth.uri="https://d-nb.info/gnd/1095564986" codedval="1095564986">ViFE</corpName>
+            </ref>) on behalf of and assisted by the <ref target="https://mozarteum.at">Salzburg Mozarteum Foundation</ref> staff, with revisions and extensions by <persName sameas="#FK">Franz Kelnreiter</persName>.</p>
+        </application>
+        <application n="3" version="2.5.0" xml:id="DOXconvX.xsl_v2.5.0">
+          <name>DOXconvX.xsl</name>
+          <p>This is an extension of the DOX conversion process. Among other corrections, it enriches the encoding by the project specific features. Developed by <persName sameas="#OS">Oleksii Sapov</persName>.</p>
+        </application>
+        <application version="v1.0" xml:id="mei40To50.xsl">
+          <name>mei40To50.xsl</name>
+          <ptr target="https://github.com/music-encoding/encoding-tools/blob/main/mei40To50/mei40To50.xsl"/>
+        </application>
+      </appInfo>
+      <editorialDecl label="Editor’s Note" xml:lang="EN">
+        <p>This is the encoding of the 1st movement of K. 283 according to the <rend rend="italic">Neue Mozart-Ausgabe</rend> IX/25/1 (ed. Wolfgang Plath and Wolfgang Rehm, 1986). In the digital edition, this publication is encoded as 'source_1', while the corresponding Critical Report (Wolfgang Rehm, 1998) is listed as 'source_2'. The Critical Report itself is not part of the electronic edition. However, its consultation is possible through NMA Online.</p>
+        <p>The NMA edition is based on Mozart’s <ref target="https://jbc.bj.uj.edu.pl/publication/242722" targettype="website">autograph score</ref> (NMA siglum A), held at the Biblioteka Jagiello&#324;ska, Kraków, call number <rend fontstyle="italic">Mus. ms. autogr. W. A. Mozart 279-284.330.455</rend>. For more information on the sources see the <ref target="https://dme.mozarteum.at/DME/nma/nma_cont.php?vsep=198&amp;p1=29&amp;l=1" targettype="website">Critical Report</ref>.</p>
+        <p>In the digital edition, the diacritic markup of editorial interventions used in the NMA print edition (i.e. small size, italics, brackets, dashed line form) are coded as additions; as such they are marked as decisions by the editors of the NMA (@resp). Wherever possible the markup of additions affects the smallest unit that can be individually addressed, usually an element. With the exception of possible corrections of obvious printing errors (marked in the code as such) the coding of the musical text is faithful to the aforementioned NMA edition. Corrigenda and addenda listed in the Critical Report have been tacitly taken over. Some normalizations have been applied; for a full description of the editorial principles see the <ref target="https://dme.mozarteum.at/musik/edition/#200" targettype="website">Editorial Guidelines of the DME Music Editions</ref>.</p>
+        <p>The present encoding in MEI 4.0.1 (with some minor customizations) is based on a previous encoding in DOX format. The DOX data were gained from optical music recognition (OMR) and proofreading processes developed and carried out by <corpName sameas="#PHI">The Packard Humanities Institute</corpName>, Los Altos, CA.</p>
+        <p>For technical reasons, it is possible that some of the original editorial markup not captured by OMR (e.g. small staccato signs) is not represented in the encoded versions.</p>
+        <p>Lacunae may be reported to the <ref target="dme@mozarteum.at" targettype="email">Editorial Office of the DME</ref>.</p>
+        <p>
+          <biblList>
+            <head>
+              <rend fontweight="bold">Bibliography</rend>
+            </head>
+            <bibl>Mozart, Wolfgang Amadeus. Neue Ausgabe sämtlicher Werke, Serie IX, Werkgruppe 25: Klaviersonaten Band 1. Ed. Wolfgang Plath and Wolfgang Rehm. Kassel: Bärenreiter, 1986.</bibl>
+            <bibl>Rehm, Wolfgang. Wolfgang Amadeus Mozart, Neue Ausgabe sämtlicher Werke, Kritische Berichte, Serie IX, Werkgruppe 25: Klaviersonaten Band 1 und 2. Kassel: Bärenreiter, 1998.</bibl>
+          </biblList>
+        </p>
+        <p>First release: <date isodate="2022-12-19"/>
+        </p>
+      </editorialDecl>
+      <projectDesc>
+        <p>The DOX data results from an optical music recognition (OMR) software and proofreading processes developed and realised by <corpName sameas="#PHI">The Packard Humanities Institute, Los Altos, CA</corpName>.</p>
+      </projectDesc>
+      <classDecls>
+        <taxonomy>
+          <bibl xml:id="classification_GND">classification_GND</bibl>
+          <category auth="GND" auth.uri="https://d-nb.info/gnd/4030995-2" xml:id="GND-genre"/>
+        </taxonomy>
+      </classDecls>
+    </encodingDesc>
+    <workList>
+      <work label="individual movement">
+        <identifier auth="ISM-IDW" type="work" xml:id="idw-3065">3065</identifier>
+        <identifier auth="ISM-IDW" type="movement" xml:id="idw-3066">3066</identifier>
+        <identifier auth="KVonline" label="KVonline" type="work" xml:id="kv283">283</identifier>
+        <identifier auth="KVonline" label="KVonline" type="movement" xml:id="kv283001">283/01</identifier>
+        <identifier auth="GND" auth.uri="http://d-nb.info/gnd/300201869" type="work" xml:id="gnd-work">300201869</identifier>
+        <title type="main" xml:id="titleDE" xml:lang="DE">
+          <titlePart>Sonate in G für Clavier</titlePart>
+          <identifier auth="KVonline" label="KV">KV 283</identifier>
+          <titlePart n="1" type="subordinate" xml:lang="DE">1. Satz</titlePart>
+        </title>
+        <title type="main" xml:id="titleEN" xml:lang="EN">
+          <titlePart>Clavier Sonata in G</titlePart>
+          <identifier auth="KVonline" label="KV">K. 283</identifier>
+          <titlePart n="1" type="subordinate" xml:lang="EN">1st mvt.</titlePart>
+        </title>
+        <expressionList>
+          <expression n="1" xml:id="expression_K283">
+            <title>Mozart’s composition of the piano sonata in G</title>
+            <title sameas="#tempo" type="movementHeading" xml:id="mvt_heading"/>
+            <composer sameas="#WAM">Wolfgang Amadé Mozart</composer>
+            <tempo xml:id="tempo">Allegro</tempo>
+            <key mode="major" pname="g"/>
+            <meter count="3" unit="4"/>
+            <perfMedium>
+              <perfResList analog="marc:048" auth="marcmusperf" auth.uri="https://www.loc.gov/standards/valuelist/marcmusperf.html">
+                <perfRes codedval="ka" label="piano" n="1" xml:id="instrVoice_1">
+                  <perfRes n="1.1" xml:id="upper"/>
+                  <perfRes n="1.2" xml:id="lower"/>
+                </perfRes>
+                <perfRes type="player">
+                  <perfRes corresp="#upper" n="1" xml:id="right_hand"/>
+                  <perfRes corresp="#lower" n="2" xml:id="left_hand"/>
+                </perfRes>
+              </perfResList>
+            </perfMedium>
+            <classification>
+              <termList>
+                <term class="#GND-genre">Klaviersonate</term>
+              </termList>
+            </classification>
+          </expression>
+        </expressionList>
+        <componentList>
+          <work label="complete work" n="1">
+            <identifier sameas="#idw-3065"/>
+            <title corresp="#titleDE #titleEN"/>
+            <contents>
+              <contentItem n="1">
+                <identifier auth="ISM-IDW" type="movement">3066</identifier>
+                <ref target="https://dme.mozarteum.at/movi/navigator/283/001/01" targettype="file_rendering"/>
+              </contentItem>
+              <contentItem n="2">
+                <identifier auth="ISM-IDW" type="movement">3067</identifier>
+                <ref target="https://dme.mozarteum.at/movi/navigator/283/002/01" targettype="file_rendering"/>
+              </contentItem>
+              <contentItem n="3">
+                <identifier auth="ISM-IDW" type="movement">3068</identifier>
+                <ref target="https://dme.mozarteum.at/movi/navigator/283/003/01" targettype="file_rendering"/>
+              </contentItem>
+            </contents>
+            <relationList>
+              <relation rel="hasPart" target="#idw-3066"/>
+            </relationList>
+          </work>
+          <work label="individual movement" n="2">
+            <identifier sameas="#idw-3066"/>
+            <title corresp="#mvt_heading"/>
+            <relationList>
+              <relation rel="isPartOf" target="#idw-3065"/>
+            </relationList>
+          </work>
+        </componentList>
+      </work>
+    </workList>
+    <manifestationList label="NMA sources">
+      <manifestation label="Autograph" n="1" xml:id="NMAsource_A">
+        <identifier auth="ISM-IDQ">10296</identifier>
+        <titleStmt>
+          <title xml:lang="DE">Autographe Partitur (NMA Quelle A)</title>
+          <title xml:lang="EN">Autograph Score (NMA Source A)</title>
+        </titleStmt>
+        <biblList>
+          <bibl>
+            <repository>
+              <identifier auth="RISM" auth.uri="https://www.rism.info/" type="library_siglum">PL-Kj</identifier>
+              <ptr target="https://jbc.bj.uj.edu.pl/publication/242722" targettype="website"/>
+            </repository>
+          </bibl>
+        </biblList>
+        <relationList>
+          <relation rel="isEmbodimentOf" target="#expression_K283"/>
+        </relationList>
+      </manifestation>
+    </manifestationList>
+    <revisionDesc>
+      <change isodate="2022-02-01" n="1" resp="#FK">
+        <changeDesc>
+          <p>File converted from Dox to DoxML and MEI using <ptr target="#parseDox2XML.xsl_v0.2.0"/> and <ptr target="#doxml2mei.xsl_v0.9.6"/>.</p>
+        </changeDesc>
+      </change>
+      <change isodate="2022-02-21" n="2" resp="#IC">
+        <changeDesc>
+          <p>Processed with <ptr target="#DOXconvX.xsl_v2.5.0"/>.</p>
+        </changeDesc>
+      </change>
+      <change isodate="2022-02-24" n="3" resp="#IC">
+        <changeDesc>
+          <p>Revised and updated according to workflow_1.1.</p>
+        </changeDesc>
+      </change>
+      <change isodate="2022-11-16" n="4" resp="#OS">
+        <changeDesc>
+          <p>Proofreading according to workflow_1.2.</p>
+        </changeDesc>
+      </change>
+      <change isodate="2022-12-19" n="5" resp="#IC">
+        <changeDesc>
+          <p>Final review, workflow 1.3</p>
+        </changeDesc>
+      </change>
+      <change isodate="2022-12-19" n="6" resp="#DME-editors">
+        <changeDesc>
+          <p>First release, version 1.0.0</p>
+        </changeDesc>
+      </change>
+      <change n="7" resp="#mei40To50.xsl">
+        <changeDesc>
+          <p>Converted to MEI version 5.0 using mei40To50.xsl, version 1.0</p>
+        </changeDesc>
+        <date isodate="2024-02-23"/>
+      </change>
+    </revisionDesc>
+  </meiHead>
+  <music>
+    <body>
+      <mdiv>
+        <score>
+          <scoreDef key.mode="major" key.pname="g" keysig="1s" meter.count="3" meter.unit="4" optimize="false" xml:id="scoreDef_01">
+            <staffGrp bar.thru="true" decls="#instrVoice_1" doxml.id="d27e41" symbol="brace" xml:id="staffGrp_01">
+              <staffDef clef.line="2" clef.shape="G" decls="#upper" keysig="1s" lines="5" n="1" xml:id="staffDef_P1"/>
+              <staffDef clef.line="4" clef.shape="F" decls="#lower" keysig="1s" lines="5" n="2" xml:id="staffDef_P2"/>
+            </staffGrp>
+          </scoreDef>
+          <section>
+            <measure facs="#zoneOf_m41_k283_001" n="41" xml:id="m41_k283_001">
+                <staff decls="#upper" n="1" xml:id="staff_10128">
+                  <layer n="1" xml:id="layer_10134">
+                    <beam xml:id="beam_10140">
+                      <note doxml.id="d27e1643" dur="16" oct="5" pname="a" tstamp="1" xml:id="note_10146"/>
+                      <note accid.ges="s" doxml.id="d27e1645" dur="16" oct="5" pname="f" tstamp="1.25" xml:id="note_10152"/>
+                      <note doxml.id="d27e1647" dur="16" oct="5" pname="d" tstamp="1.5" xml:id="note_10158"/>
+                      <note doxml.id="d27e1649" dur="16" oct="4" pname="a" tstamp="1.75" xml:id="note_10164"/>
+                    </beam>
+                    <beam xml:id="beam_10170">
+                      <note accid="s" doxml.id="d27e1651" dur="16" oct="4" pname="g" tstamp="2" xml:id="note_10176"/>
+                      <note doxml.id="d27e1653" dur="16" oct="4" pname="a" tstamp="2.25" xml:id="note_10182"/>
+                      <note doxml.id="d27e1655" dur="16" oct="4" pname="b" tstamp="2.5" xml:id="note_10188"/>
+                      <note doxml.id="d27e1658" dur="16" oct="4" pname="a" tstamp="2.75" xml:id="note_10194"/>
+                    </beam>
+                    <beam xml:id="beam_10200">
+                      <note doxml.id="d27e1660" dur="16" oct="5" pname="a" tstamp="3" xml:id="note_10206"/>
+                      <note accid.ges="s" doxml.id="d27e1662" dur="16" oct="5" pname="f" tstamp="3.25" xml:id="note_10212"/>
+                      <note doxml.id="d27e1664" dur="16" oct="5" pname="d" tstamp="3.5" xml:id="note_10218"/>
+                      <note doxml.id="d27e1666" dur="16" oct="4" pname="a" tstamp="3.75" xml:id="note_10224"/>
+                    </beam>
+                  </layer>
+                </staff>
+                <staff decls="#lower" n="2" xml:id="staff_10230">
+                  <layer n="1" xml:id="layer_10236">
+                    <chord doxml.id="d27e1670" dur="4" tstamp="1" xml:id="chord_10242">
+                      <note doxml.id="d27e1670" oct="4" pname="d" xml:id="note_10248"/>
+                      <note oct="3" pname="a" xml:id="note_10254"/>
+                      <note accid.ges="s" doxml.id="d27e1674" oct="3" pname="f" xml:id="note_10260"/>
+                    </chord>
+                    <rest doxml.id="d27e1676" dur="8" tstamp="2" xml:id="rest_10266"/>
+                    <beam xml:id="beam_10272">
+                      <chord doxml.id="d27e1678" dur="8" tstamp="2.5" xml:id="chord_10278">
+                        <note doxml.id="d27e1678" oct="4" pname="d" xml:id="note_10284"/>
+                        <note oct="3" pname="a" xml:id="note_10290"/>
+                        <note accid.ges="s" doxml.id="d27e1683" oct="3" pname="f" xml:id="note_10296"/>
+                      </chord>
+                      <chord doxml.id="d27e1685" dur="8" tstamp="3" xml:id="chord_10302">
+                        <note doxml.id="d27e1685" oct="4" pname="d" xml:id="note_10308"/>
+                        <note oct="3" pname="a" xml:id="note_10314"/>
+                        <note accid.ges="s" doxml.id="d27e1689" oct="3" pname="f" xml:id="note_10320"/>
+                      </chord>
+                      <chord doxml.id="d27e1691" dur="8" tstamp="3.5" xml:id="chord_10326">
+                        <note doxml.id="d27e1691" oct="4" pname="d" xml:id="note_10332"/>
+                        <note oct="3" pname="a" xml:id="note_10338"/>
+                        <note accid.ges="s" doxml.id="d27e1695" oct="3" pname="f" xml:id="note_10344"/>
+                      </chord>
+                    </beam>
+                  </layer>
+                </staff>
+                <slur endid="#note_10164" staff="1" startid="#note_10146" xml:id="slur_10350"/>
+                <slur endid="#note_10194" staff="1" startid="#note_10176" xml:id="slur_10356"/>
+                <slur endid="#note_10224" staff="1" startid="#note_10206" xml:id="slur_10362"/>
+              </measure>
+          </section>
+        </score>
+      </mdiv>
+    </body>
+  </music>
+</mei>

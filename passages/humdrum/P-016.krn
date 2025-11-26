@@ -1,0 +1,62 @@
+!!!!SEGMENT: sonata06-1.krn
+!!!COM: Mozart, Wolfgang Amadeus
+!!!CDT: 1756/01/27/-1791/12/05/
+!!!CNT: German
+!!!OTL: Piano Sonata No. 6 in D major
+!!!OTP: Dürnitz
+!!!SCT1: K<sup>1</sup> 284
+!!!SCT2: K<sup>6</sup> 205b
+!!!OMV: 1
+!!!OMD: Allegro
+!!!ODT: 1775
+!!!RDF**kern: > = above
+!!!RDF**kern: < = below
+!!!verovio: slurEndpointFlexibility 1.0
+!!!verovio: slurMaxSlope 30
+!!!YOR: Alte Mozart-Ausgabe, Band 20, Breitkopf &amp; H&auml;rtel 1877-1883.
+!!!YOY: 1878
+!!!YEC: 2018 Craig Stuart Sapp
+!!!YEM: Licence: (CC BY-NC-SA 4.0) https://creativecommons.org/licenses/by-nc-sa/4.0
+!!!YER: 2018
+!!!URL-github: https://github.com/craigsapp/mozart-piano-sonatas/blob/main/kern/sonata06-1.krn
+!!!URL-vhv: https://verovio.humdrum.org/?file=mozart/sonatas/sonata06-1.krn
+!!!URL-pdf: https://github.com/craigsapp/mozart-piano-sonatas/blob/master/reference-edition/sonata06-1.pdf
+!!!URL-youtube: https://www.youtube.com/watch?v=sXxSC_tHhXc András Schiff
+!!!URL-wikipedia: https://en.wikipedia.org/wiki/Piano_Sonata_No._6_(Mozart)#Allegro
+!!!ENC: Craig Stuart Sapp
+!!!END: 2009/09/23
+!!!EED: Craig Stuart Sapp
+!!!EEV: 2025/02/28
+!!!EFL: 16/69
+!!!AGN: piano sonata
+!!!AFR: sonata-allegro
+!!!title: @{OTL} (<i>@{OTP}</i>), K 284 (205b), mvmt. @{OMV}
+!!!filter-hands: hands -c
+
+**kern	**kern	**dynam
+*part1	*part1	*
+*staff2	*staff1	*staff1/2
+*ICklav	*ICklav	*
+*Ipiano	*Ipiano	*
+*LH	*RH	*
+*I"	*I"	*
+*>[A,A,B,B]	*>[A,A,B,B]	*>[A,A,B,B]
+*>norep[A,B]	*>norep[A,B]	*>norep[A,B]
+*>A	*>A	*>A
+*clefF4	*clefG2	*
+*k[f#c#]	*k[f#c#]	*
+*D:	*D:	*
+*M4/4	*M4/4	*
+*met(c)	*met(c)	*
+*MM136	*MM136	*
+
+=122	=122	=122
+4GG 4G	8r	.
+.	8b (8bbL	p
+4r	8a# 8aa#	.
+.	8b 8bbJ	.
+2r	8a# 8aa#L	.
+.	8b 8bb	.
+.	8cc# 8ccc#	.
+.	8dd 8dddJ)	.
+*-	*-	*-

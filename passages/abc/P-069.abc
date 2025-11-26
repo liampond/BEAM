@@ -1,0 +1,43 @@
+%%linebreak <none>
+%%measurenb 2
+X: 37
+T: Piano Sonata No. 9 in D major, K 311 (284c), mvmt. 1
+C: Wolfgang Amadeus Mozart
+%%abc-version 2.0
+%%abcx-abcm2ps-target-version 5.9.1 (29 Sep 2008)
+%%abc-creator hum2abc beta
+%%abcx-conversion-date 2021/01/14 17:01:32
+%%abc-copyright 2018 Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abcx-initial-encoding-date 2009/10/14
+%%gracespace 0 6 6
+%%humdrum-veritas 3190262673
+%%humdrum-veritas-data 1817437041
+%%linebreak <none>
+%%barnumbers 0
+L: 1/16
+M: C
+N: Derived from sonata09-1.krn
+Q: "Allegro con spirito" 1/4=132
+%%staves {1 2}
+V: 1 clef=treble
+V: 2 clef=bass
+N: Extracted measures 85-92 from original score
+K: D
+[V:1] g2=f2 z2 e2 ^c2d2 z2 ^g2 | 
+[V:2] D2A2=C2A2 _B,2=F2E2D2 & x8_B,8 | 
+[V:1] ^g8a2 z2z4 | 
+[V:2] A,2D2=F2D2 [A,2^C2][K:clef=bass] [G,,2G,2][^F,,2^F,2][E,,2E,2] | 
+[V:1] ^fa^ga baga =gaga gaga | 
+[V:2] [D,,4D,4]z2[K:clef=treble] .d2 .e2.d2.c2.A2 | 
+[V:1] fa^ga baga =gaga gaga | 
+[V:2] d4z2 .D2 .E2.D2.C2.A,2 | 
+[V:1] f4z2 .d'2 .e'2.d'2.c'2.a2 | 
+[V:2] DA^GA BAGA =GAGA GAGA | 
+[V:1] d'4[K:clef=bass]z2 .D,2 .E,2.D,2.C,2.A,,2 | 
+[V:2] FA^GA BAGA =GAGA GAGA | 
+[V:1] D,4[K:clef=treble]a4g4f4 | 
+[V:2] F4FdFd EdEd DdDd | 
+[V:1] b3(3c'/b/a/ b2c'2 e'2d'2c'2b2 | 
+[V:2] Gdcd Gdcd Gdcd Gdcd | 

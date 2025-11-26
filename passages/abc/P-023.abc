@@ -1,0 +1,29 @@
+%%linebreak <none>
+%%measurenb 2
+X: 36
+T: Piano Sonata No. 8 in A minor, K 310 (300d), mvmt. 3
+C: Wolfgang Amadeus Mozart
+%%abc-version 2.0
+%%abcx-abcm2ps-target-version 5.9.1 (29 Sep 2008)
+%%abc-creator hum2abc beta
+%%abcx-conversion-date 2021/01/14 17:01:33
+%%abc-copyright 2018 Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abcx-initial-encoding-date 2009/09/28
+%%gracespace 0 6 6
+%%humdrum-veritas 687665955
+%%humdrum-veritas-data 4274865739
+%%linebreak <none>
+%%barnumbers 0
+L: 1/8
+M: 2/4
+N: Derived from sonata08-3.krn
+Q: "Presto" 1/4=160
+%%staves {1 2}
+V: 1 clef=treble
+V: 2 clef=bass
+N: Extracted measures 164-164 from original score
+K: A
+[V:1] d=cB=A | 
+[V:2] z4 | 

@@ -1,0 +1,193 @@
+!!!!SEGMENT: sonata01-1.krn
+!!!COM: Mozart, Wolfgang Amadeus
+!!!CDT: 1756/01/27/-1791/12/05/
+!!!CNT: German
+!!!OTL: Piano Sonata No. 1 in C major
+!!!SCT1: K<sup>1</sup> 279
+!!!SCT2: K<sup>6</sup> 189d
+!!!OMV: 1
+!!!OMD: Allegro.
+!!!ODT: 1774
+!!!RDF**kern: > = above
+!!!RDF**kern: < = below
+!!!YOR: Alte Mozart-Ausgabe, Band 20, Breitkopf &amp; H&auml;rtel 1877-1883.
+!!!YOY: 1878
+!!!YEC: 2018 Craig Stuart Sapp
+!!!YEM: Licence: (CC BY-NC-SA 4.0) https://creativecommons.org/licenses/by-nc-sa/4.0
+!!!YER: 2018
+!!!URL-github: https://github.com/craigsapp/mozart-piano-sonatas/blob/main/kern/sonata01-1.krn
+!!!URL-vhv: https://verovio.humdrum.org/?file=mozart/sonatas/sonata01-1.krn
+!!!URL-pdf: https://github.com/craigsapp/mozart-piano-sonatas/blob/master/reference-edition/sonata01-1.pdf
+!!!URL-youtube: https://www.youtube.com/watch?v=jUVmpWrRif4 András Schiff
+!!!URL-wikipedia: https://en.wikipedia.org/wiki/Piano_Sonata_No._1_(Mozart)#I._Allegro
+!!!ENC: Craig Stuart Sapp
+!!!END: 2009/10/15
+!!!EED: Craig Stuart Sapp
+!!!EEV: 2020/08/06
+!!!EFL: 1/69
+!!!AGN: piano sonata
+!!!AFR: sonata-allegro
+!!!title: @{OTL}, K 279 (189d), mvmt. @{OMV}
+!!!filter-hands: hands -c
+
+**kern	**kern	**dynam
+*part1	*part1	*
+*staff2	*staff1	*staff1/2
+*ICklav	*ICklav	*
+*Ipiano	*Ipiano	*
+*LH	*RH	*
+*I"	*I"	*
+*>[A,A,B]	*>[A,A,B]	*>[A,A,B]
+*>norep[A,B]	*>norep[A,B]	*>norep[A,B]
+*>A	*>A	*>A
+*clefF4	*clefG2	*
+*k[]	*k[]	*
+*C:	*C:	*
+*M4/4	*M4/4	*
+*met(c)	*met(c)	*
+*MM120	*MM120	*
+
+=48	=48	=48
+(16fLL	8r	p
+16cc	.	.
+16a	(16aaLL	.
+16ccJJ	16bbnJJ)	.
+16fLL	8ccc'L	.
+16cc	.	.
+16a	8ccc'J	.
+16ccJJ	.	.
+16eLL	(4ccc	.
+16cc	.	.
+16g	.	.
+16ccJJ	.	.
+16eLL	8gg)	.
+16cc	.	.
+16g	8r	.
+16ccJJ	.	.
+=49	=49	=49
+16dLL	(8.ffTTL	f
+16bn	.	.
+16g	.	.
+16bJJ	32eeLL	.
+.	32ffJJJ	.
+16dLL	8ggL)	.
+16b	.	.
+16g	8ffJ	.
+16bJJ	.	.
+16cLL	(4dd#	.
+16cc	.	.
+16g	.	.
+16ccJJ	.	.
+16cLL	8ee)	.
+16cc	.	.
+16g	8r	.
+16ccJJ	.	.
+!!LO:LB:g=original
+=50	=50	=50
+16cLL	8r	p
+16g	.	.
+16e	(16eeLL	.
+16gJJ	16ffJJ)	.
+16cLL	8ggL	.
+16g	.	.
+16e	8ggJ	.
+16gJJ	.	.
+16BLL	(4gg	.
+16g	.	.
+16d	.	.
+16gJJ	.	.
+16BLL	8ddn)	.
+16g	.	.
+16d	8r	.
+16gJJ	.	.
+=51	=51	=51
+16ALL	(8.ccTTL	f
+16f#	.	.
+16c	.	.
+16f#JJ	32bLL	.
+.	32ccJJJ	.
+16ALL	8ddL)	.
+16f#	.	.
+16c	8ccJ	.
+16f#JJ)	.	.
+4G 4g	(>16bLL<	.
+.	16g	.
+.	16cc	.
+.	16aJJ	.
+4r	16ddLL	.
+.	16b	.
+.	16ee	.
+.	16ccJJ	.
+*clefF4	*	*
+=52	=52	=52
+(16GGLL	4dd 4ffn)	.
+16G	.	.
+16F#	.	.
+16GJJ	.	.
+16ALL	4ff 4ddd	.
+16G	.	.
+16F#	.	.
+16GJJ	.	.
+4GG)	(16eeLL	.
+.	16cc	.
+.	16ff	.
+.	16ddJJ	.
+4r	16ggLL	.
+.	16ee	.
+.	16aa	.
+.	16ffJJ	.
+=53	=53	=53
+(16GGLL	4ee 4gg)	.
+16G	.	.
+16F#	.	.
+16GJJ	.	.
+16ALL	4ee 4ccc	.
+16G	.	.
+16F#	.	.
+16GJJ	.	.
+4GG)	(>16bLL<	p
+.	16g	.
+.	16cc	.
+.	16aJJ	.
+4r	16ddLL	.
+.	16b	.
+.	16ee	.
+.	16ccJJ	.
+*clefG2	*	*
+!!LO:LB:g=original
+=54	=54	=54
+(16GLL	4dd 4ff)	.
+16g	.	.
+16f#	.	.
+16gJJ	.	.
+16aLL	4ff 4ddd	.
+16g	.	.
+16f#	.	.
+16gJJ	.	.
+4G)	(16eeLL	.
+.	16cc	.
+.	16ff	.
+.	16ddJJ	.
+4r	16ggLL	.
+.	16ee	.
+.	16aa	.
+.	16ffJJ	.
+=55	=55	=55
+(16GLL	4ee 4gg)	.
+16g	.	.
+16f#	.	.
+16gJJ	.	.
+16aLL	4ee 4ccc	.
+16g	.	.
+16f#	.	.
+16gJJ	.	.
+4G)	16dd' 16bb'LL	.
+.	(16gg	f
+.	16ff#	.
+.	16ggJJ	.
+4r	16cccLL	.
+.	16gg	.
+.	16ee	.
+.	16ccJJ)	.
+*clefF4	*	*
+*-	*-	*-

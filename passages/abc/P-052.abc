@@ -1,0 +1,43 @@
+%%linebreak <none>
+%%measurenb 2
+X: 7
+T: Piano Sonata No. 3 in B\b major, K 281 (189f), mvmt. 1
+C: Wolfgang Amadeus Mozart
+%%abc-version 2.0
+%%abcx-abcm2ps-target-version 5.9.1 (29 Sep 2008)
+%%abc-creator hum2abc beta
+%%abcx-conversion-date 2021/01/14 17:01:32
+%%abc-copyright 2018 Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abcx-initial-encoding-date 2009/10/02
+%%gracespace 0 6 6
+%%humdrum-veritas 3127453041
+%%humdrum-veritas-data 2130521599
+%%linebreak <none>
+%%barnumbers 0
+L: 1/16
+M: 2/4
+N: Derived from sonata03-1.krn
+Q: "Allegro." 1/4=84
+%%staves {1 2}
+V: 1 clef=treble
+V: 2 clef=bass
+N: Extracted measures 39-46 from original score
+K: Bb
+[V:1] [FA].[FA] z [fa] [=eg].[eg] z [egb] | 
+[V:2] F,,/F,/=E,/F,/ F,,/F,/E,/F,/ F,,/F,/E,/F,/ F,,/F,/E,/F,/ | 
+[V:1] [=e4g4b4][f2a2] z2 :|]  
+[V:2] [F,,6F,6]z2 :|]  
+[V:1] {/=B/c/d/}c4-cf=ed | 
+[V:2] [K:clef=treble]F/A/^G/A/ F/A/G/A/ F/A/G/A/ F/A/G/A/ | 
+[V:1] !mordent!dc z .c =Bcdc | 
+[V:2] =E/=G/^F/G/ E/G/F/G/ E/G/F/G/ E/G/F/G/ | 
+[V:1] !mordent!c_B z .B !mordent!BA z .A | 
+[V:2] D/=F/=E/F/ D/F/E/F/ C/E/D/E/ C/E/D/E/ | 
+[V:1] !mordent!AGBG =EF z2 | 
+[V:2] B,/D/C/D/ B,/D/C/D/ A,/C/B,/C/ A,/C/B,/C/[K:clef=bass] | 
+[V:1] !trill!F3G/A/ (3:2:6F=EG!beambr1!FEB | 
+[V:2] C8 & A,4B,4 | 
+[V:1] (3:2:6GFA!beambr1!GFc .A2 z2 | 
+[V:2] C4z4 & A,4x4 | 

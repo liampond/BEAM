@@ -1,0 +1,112 @@
+!!!!SEGMENT: sonata17-1.krn
+!!!COM: Mozart, Wolfgang Amadeus
+!!!CDT: 1756/01/27/-1791/12/05/
+!!!CNT: German
+!!!OTL: Piano Sonata No. 17 in D major
+!!!ONB: Piano Sonata No. 18 in Neue Mozart-Ausgabe [1986]
+!!!SCT: K 576
+!!!OMV: 1
+!!!OMD: Allegro
+!!!ODT: 1789
+!!!RDF**kern: > = above
+!!!RDF**kern: < = below
+!!!YOR: Alte Mozart-Ausgabe, Band 20, Breitkopf &amp; H&auml;rtel 1877-1883.
+!!!YOY: 1878
+!!!YEC: 2018 Craig Stuart Sapp
+!!!YEM: Licence: (CC BY-NC-SA 4.0) https://creativecommons.org/licenses/by-nc-sa/4.0
+!!!YER: 2018
+!!!URL-github: https://github.com/craigsapp/mozart-piano-sonatas/blob/main/kern/sonata17-1.krn
+!!!URL-vhv: https://verovio.humdrum.org/?file=mozart/sonatas/sonata17-1.krn
+!!!URL-pdf: https://github.com/craigsapp/mozart-piano-sonatas/blob/master/reference-edition/sonata17-1.pdf
+!!!URL-youtube: https://www.youtube.com/watch?v=Tm_7Rjwnz90 András Schiff
+!!!URL-wikipedia: https://en.wikipedia.org/wiki/Piano_Sonata_No._18_(Mozart)#I. Allegro
+!!!ENC: Craig Stuart Sapp
+!!!END: 2009/10/07
+!!!EED: Craig Stuart Sapp
+!!!EEV: 2023/04/22
+!!!EFL: 67/69
+!!!AGN: piano sonata
+!!!AFR: sonata-allegro
+!!!title: @{OTL}, K 576, mvmt. @{OMV}
+!!!filter-hands: hands -c
+
+**kern	**kern	**dynam
+*part1	*part1	*
+*staff2	*staff1	*staff1/2
+*ICklav	*ICklav	*
+*Ipiano	*Ipiano	*
+*LH	*RH	*
+*I"	*I"	*
+*>[A,A,B]	*>[A,A,B]	*>[A,A,B]
+*>norep[A,B]	*>norep[A,B]	*>norep[A,B]
+*>A	*>A	*>A
+*clefF4	*clefG2	*
+*k[f#c#]	*k[f#c#]	*
+*D:	*D:	*
+*M6/8	*M6/8	*
+*MM124	*MM124	*
+
+=83	=83	=83
+4f#)	(8ff#L	.
+.	8cc#	.
+8r	8aanJ	.
+4r	8ff#L	.
+.	8cc#	.
+8r	8aaJ	.
+=84	=84	=84
+*^	*	*
+2.b	(4.f#	8gg#L	.
+.	.	8cc#	.
+.	.	8bbJ	.
+.	4.e#)	8gg#L	.
+.	.	8cc#	.
+.	.	8bbJ	.
+=85	=85	=85	=85
+(4.gn	2.en	8aa#L	.
+.	.	8cc#	.
+.	.	8ccc#J	.
+4.f#)	.	8aa#L	.
+.	.	8cc#	.
+.	.	8ccc#J	.
+*v	*v	*	*
+*clefF4	*	*
+=86	=86	=86
+(8BL	4bb)	.
+8F#	.	.
+8dJ	8r	.
+8BL	4r	.
+8F#	.	<
+8dJ	8r	.
+!!LO:LB:g=original
+=87	=87	=87
+*	*^	*
+8c#L	(4.bb	2.ee	.
+8F#	.	.	.
+8eJ	.	.	.
+8c#L	4.aa#)	.	.
+8F#	.	.	.
+8eJ	.	.	.
+=88	=88	=88	=88
+8d#L	2.aan	(4.ccn	.
+8F#	.	.	.
+8f#J	.	.	.
+8d#L	.	4.b)	.
+8F#	.	.	.
+8f#J	.	.	.
+*	*v	*v	*
+=89	=89	=89
+4e)	(8eeL	.
+.	8b	.
+8r	8ggnJ	.
+4r	8eeL	.
+.	8b	.
+8r	8ggJ	.
+=90	=90	=90
+*^	*	*
+(4.e	2.B	8ff#L	.
+.	.	8b	.
+.	.	8aaJ	.
+4.d#)	.	8ff#L	.
+.	.	8b	.
+.	.	8aaJ	.
+*-	*-	*-	*-

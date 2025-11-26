@@ -1,0 +1,57 @@
+!!!!SEGMENT: sonata15-3.krn
+!!!COM: Mozart, Wolfgang Amadeus
+!!!CDT: 1756/01/27/-1791/12/05/
+!!!CNT: German
+!!!OTL: Sonata No. 15 in C major
+!!!OTP: sonata facile
+!!!ONB: Piano Sonata No. 16 in NMA
+!!!SCT1: K 545
+!!!OMV: 3
+!!!OMD: Rondo: Allegretto
+!!!ODT: 1788
+!!!RDF**kern: > = above
+!!!RDF**kern: < = below
+!!!YOR: Alte Mozart-Ausgabe, Band 20, Breitkopf &amp; H&auml;rtel 1877-1883.
+!!!YOY: 1878
+!!!YEC: 2018 Craig Stuart Sapp
+!!!YEM: Licence: (CC BY-NC-SA 4.0) https://creativecommons.org/licenses/by-nc-sa/4.0
+!!!YER: 2018
+!!!URL-github: https://github.com/craigsapp/mozart-piano-sonatas/blob/main/kern/sonata15-3.krn
+!!!URL-vhv: https://verovio.humdrum.org/?file=mozart/sonatas/sonata15-3.krn
+!!!URL-pdf: https://github.com/craigsapp/mozart-piano-sonatas/blob/master/reference-edition/sonata15-3.pdf
+!!!URL-youtube: https://www.youtube.com/watch?v=NgkPanG06Ds András Schiff
+!!!URL-wikipedia:  https://en.wikipedia.org/wiki/Piano_Sonata_No._16_(Mozart)#III._Rondo:_Allegretto
+!!!ENC: Craig Stuart Sapp
+!!!END: 2009/09/24
+!!!EED: Craig Stuart Sapp
+!!!EEV: 2024/06/06
+!!!EFL: 63/69
+!!!AGN: piano sonata
+!!!AFR: rondo
+!!!title: @{OTL} (<i>@{OTP}</i>), @{SCT1}, mvmt. @{OMV}
+!!!filter-hands: hands -c
+
+**kern	**kern	**dynam
+*part1	*part1	*
+*staff2	*staff1	*staff1/2
+*ICklav	*ICklav	*
+*Ipiano	*Ipiano	*
+*LH	*RH	*
+*I"	*I"	*
+*>[A,A,B]	*>[A,A,B]	*>[A,A,B]
+*>norep[A,B]	*>norep[A,B]	*>norep[A,B]
+*>A	*>A	*>A
+*clefF4	*clefG2	*
+*k[]	*k[]	*
+*C:	*C:	*
+*M2/4	*M2/4	*
+*MM112	*MM112	*
+
+=31	=31	=31
+(16eLL	8cc' 8aa'	.
+16d#	.	.
+16f	8r	.
+16eJJ)	.	.
+4r	8ddn' 8bb'L	.
+.	8dd' 8bb'J	.
+*-	*-	*-

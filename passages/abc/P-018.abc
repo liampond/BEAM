@@ -1,0 +1,29 @@
+%%linebreak <none>
+%%measurenb 2
+X: 31
+T: Piano Sonata No. 7 in C major, K 309 (284b), mvmt. 1
+C: Wolfgang Amadeus Mozart
+%%abc-version 2.0
+%%abcx-abcm2ps-target-version 5.9.1 (29 Sep 2008)
+%%abc-creator hum2abc beta
+%%abcx-conversion-date 2021/01/14 17:01:31
+%%abc-copyright 2018 Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abcx-initial-encoding-date 2009/09/24
+%%gracespace 0 6 6
+%%humdrum-veritas 1297688603
+%%humdrum-veritas-data 3852052513
+%%linebreak <none>
+%%barnumbers 0
+L: 1/8
+M: 4/4
+N: Derived from sonata07-1.krn
+Q: "Allegro con spirito" 1/4=160
+%%staves {1 2}
+V: 1 clef=treble
+V: 2 clef=bass
+N: Extracted measures 79-79 from original score
+K: C
+[V:1] z .a.c'.^f .a.^d.f.c | 
+[V:2] [^D,,2^D,2]z2z4 | 

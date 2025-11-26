@@ -1,0 +1,63 @@
+!!!!SEGMENT: sonata04-2.krn
+!!!COM: Mozart, Wolfgang Amadeus
+!!!CDT: 1756/01/27/-1791/12/05/
+!!!CNT: German
+!!!OTL: Piano Sonata No. 4 in E-flat major
+!!!SCT1: K<sup>1</sup> 282
+!!!SCT2: K<sup>6</sup> 189g
+!!!OMV: 2
+!!!OMD: Menuetto I & II
+!!!ODT: 1774
+!!!OMD: Menuetto II
+!!!RDF**kern: > = above
+!!!RDF**kern: < = below
+!!!YOR: Alte Mozart-Ausgabe, Band 20, Breitkopf &amp; H&auml;rtel 1877-1883.
+!!!YOY: 1878
+!!!YEC: 2018 Craig Stuart Sapp
+!!!YEM: Licence: (CC BY-NC-SA 4.0) https://creativecommons.org/licenses/by-nc-sa/4.0
+!!!YER: 2018
+!!!URL-github: https://github.com/craigsapp/mozart-piano-sonatas/blob/main/kern/sonata04-2.krn
+!!!URL-vhv: https://verovio.humdrum.org/?file=mozart/sonatas/sonata04-2.krn
+!!!URL-pdf: https://github.com/craigsapp/mozart-piano-sonatas/blob/master/reference-edition/sonata04-2.pdf
+!!!URL-youtube: https://www.youtube.com/watch?v=tx3wIn8YBU0 András Schiff
+!!!URL-wikipedia: https://en.wikipedia.org/wiki/Piano_Sonata_No._4_(Mozart)
+!!!ENC: Craig Stuart Sapp
+!!!END: 2009/10/05
+!!!EED: Craig Stuart Sapp
+!!!EEV: 2024/06/02
+!!!EFL: 11/69
+!!!AGN: piano sonata
+!!!AFR:
+!!!title: @{OTL}, K 282 (189g), mvmt. @{OMV}
+!!!ONB: Some notational improvements needed
+!!!filter-hands: hands -c
+
+**kern	**kern	**dynam
+*part1	*part1	*
+*staff2	*staff1	*staff1/2
+*ICklav	*ICklav	*
+*Ipiano	*Ipiano	*
+*LH	*RH	*
+*I"	*I"	*
+*>[A,A,B,B,C,C,D,D,A,B]	*>[A,A,B,B,C,C,D,D,A,B]	*>[A,A,B,B,C,C,D,D,A,B]
+*>norep[A,B,C,D,A,B]	*>norep[A,B,C,D,A,B]	*>norep[A,B,C,D,A,B]
+*>A	*>A	*>A
+*clefF4	*clefG2	*
+*k[b-e-]	*k[b-e-]	*
+*B-:	*B-:	*
+*M3/4	*M3/4	*
+*MM120	*MM120	*
+*	*^	*
+
+=36	=36	=36	=36
+4f	8dL	(4bb-	f
+.	8B-	.	.
+4f	8d	4aa-)	.
+.	8B-	.	.
+4f	8d	(16aa-LL	.
+.	.	16bb-	.
+.	8B-J	16aa-	.
+.	.	16ffJJ	.
+*v	*v	*	*
+!!LO:LB:g=original
+*-	*-	*-

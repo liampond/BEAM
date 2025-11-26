@@ -1,0 +1,146 @@
+!!!!SEGMENT: sonata06-2.krn
+!!!COM: Mozart, Wolfgang Amadeus
+!!!CDT: 1756/01/27/-1791/12/05/
+!!!CNT: German
+!!!OTL: Piano Sonata No. 6 in D major
+!!!OTP: D&uuml;rnitz
+!!!SCT1: K<sup>1</sup> 284
+!!!SCT2: K<sup>6</sup> 205b
+!!!OMV: 2
+!!!OMD: Rondeau en polonaise: Andante
+!!!ODT: 1775
+!!!RDF**kern: > = above
+!!!RDF**kern: < = below
+!!!YOR: Alte Mozart-Ausgabe, Band 20, Breitkopf &amp; H&auml;rtel 1877-1883.
+!!!YOY: 1878
+!!!YEC: 2018 Craig Stuart Sapp
+!!!YEM: Licence: (CC BY-NC-SA 4.0) https://creativecommons.org/licenses/by-nc-sa/4.0
+!!!YER: 2018
+!!!URL-github: https://github.com/craigsapp/mozart-piano-sonatas/blob/main/kern/sonata06-2.krn
+!!!URL-vhv: https://verovio.humdrum.org/?file=mozart/sonatas/sonata06-2.krn
+!!!URL-pdf: https://github.com/craigsapp/mozart-piano-sonatas/blob/master/reference-edition/sonata06-2.pdf
+!!!URL-youtube: https://www.youtube.com/watch?v=Y9s5ffhVOl8 András Schiff
+!!!URL-wikipedia: https://en.wikipedia.org/wiki/Piano_Sonata_No._6_(Mozart)#Rondeau_en_polonaise_(Rondo_in_the_style_of_a_Polonaise)
+!!!ENC: Craig Stuart Sapp
+!!!END: 2009/09/24
+!!!EED: Craig Stuart Sapp
+!!!EEV: 2024/06/03
+!!!EFL: 17/69
+!!!AGN: piano sonata
+!!!AFR:
+!!!title: @{OTL} (<i>@{OTP}</i>), K 284 (205b), mvmt. @{OMV}
+!!!filter-hands: hands -c
+
+**kern	**kern	**dynam
+*part1	*part1	*
+*staff2	*staff1	*staff1/2
+*ICklav	*ICklav	*
+*Ipiano	*Ipiano	*
+*LH	*RH	*
+*I"	*I"	*
+*clefF4	*clefG2	*
+*k[f#c#g#]	*k[f#c#g#]	*
+*A:	*A:	*
+*M3/4	*M3/4	*
+*MM104	*MM104	*
+
+=61	=61	=61
+(16ALL	(16cc#LL	.
+16e	16ee	.
+16c#	16ff#	<
+16eJJ	16gg#JJ	.
+16ALL	16aaLL	.
+16e	16bb	.
+16c#	16ccc#	.
+16eJJ	16dddJJ	.
+16ALL	16eeeLL	.
+16e	16ccc#	.
+16c#	16gg#	.
+16eJJ	16aaJJ	.
+=62	=62	=62
+16BLL	16dddLL	f
+16e	16bb	.
+16d	16ff#	.
+16eJJ	16gg#JJ	.
+16G#LL	16bbLL	p
+16e	16gg#	.
+16B	16dd#	.
+16eJJ	16eeJJ	.
+16ELL	16ff#LL	.
+16e	16ddn	.
+16G#	16a#	.
+16eJJ	16bJJ)	.
+!!LO:LB:g=original
+=63	=63	=63
+16ALL	(16cc#LL	.
+16e	16ee	.
+16c#	16ff#	<
+16eJJ	16gg#JJ	.
+16ALL	16aanLL	.
+16e	16bb	.
+16c#	16ccc#	.
+16eJJ	16dddJJ	.
+16ALL	16eeeLL	.
+16e	16ccc#	.
+16c#	16gg#	.
+16eJJ	16aaJJ	.
+=64	=64	=64
+16BLL	16dddLL	f
+16e	16bb	.
+16d	16ff#	.
+16eJJ	16gg#JJ	.
+16G#LL	16bbLL	p
+16e	16gg#	.
+16B	16dd#	.
+16eJJ	16eeJJ	.
+16ELL	16ff#LL	.
+16e	16ddn	.
+16G#	16a#	.
+16eJJ	16bJJ	.
+=65	=65	=65
+4A 4c#)	16cc#LL	.
+.	16ee	.
+.	16aan	f
+.	16gg#JJ)	.
+4D 4A	(16gg#LL	p
+.	16ff#	.
+.	16ddd	f
+.	16ccc#JJ)	.
+4D# 4F#	(16ccc#LL	p
+.	16bb)	.
+.	(16bb	.
+.	16aaJJ)	.
+=66	=66	=66
+4E 4G#	(16aaLL	.
+.	16gg#)	.
+.	(16gg#	.
+.	16ff#JJ)	.
+4F# 4A	(16ff#LL	.
+.	16ee)	.
+.	(16ee	.
+.	16dd#JJ)	.
+4r	4r	.
+*clefG2	*	*
+!!LO:LB:g=original
+=67	=67	=67
+(>4f# ((4a	(16ff#LL	p
+.	16ee)	.
+.	(16ee	.
+.	16dd#JJ)	.
+4g#) 4b))	(16ff#LL	.
+.	16ee)	.
+.	(16ee	.
+.	16ddnJJ)	.
+4r	4r	.
+*clefF4	*	*
+=68	=68	=68
+16A (16aLL	4ccn 4aa	f
+16Gn 16gn)	.	.
+16G (16g	.	.
+16Fn 16fnJJ)	.	.
+16F (16fLL	4aa 4cccn	.
+16E 16e)	.	.
+16E (16e	.	.
+16D# 16d#JJ)	.	.
+4r	4r	.
+*-	*-	*-

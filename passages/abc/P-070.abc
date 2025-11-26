@@ -1,0 +1,43 @@
+%%linebreak <none>
+%%measurenb 2
+X: 38
+T: Piano Sonata No. 9 in D major, K 311 (284c), mvmt. 2
+C: Wolfgang Amadeus Mozart
+%%abc-version 2.0
+%%abcx-abcm2ps-target-version 5.9.1 (29 Sep 2008)
+%%abc-creator hum2abc beta
+%%abcx-conversion-date 2021/01/14 17:01:32
+%%abc-copyright 2018 Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abcx-initial-encoding-date 2009/10/15
+%%gracespace 0 6 6
+%%humdrum-veritas 1298082709
+%%humdrum-veritas-data 1234146497
+%%linebreak <none>
+%%barnumbers 0
+L: 1/16
+M: 2/4
+N: Derived from sonata09-2.krn
+Q: "Andante con espressione" 1/4=84
+%%staves {1 2}
+V: 1 clef=treble
+V: 2 clef=bass
+N: Extracted measures 14-21 from original score
+K: G
+[V:1] A4[D2^G2d2][D2G2d2] | 
+[V:2] [D,4F,4][B,,2B,2][B,,2B,2] | 
+[V:1] [D4^G4d4][^c2a2][c2a2] | 
+[V:2] [B,,4B,4][A,2E2][A,2E2] | 
+[V:1] [^c4a4]z2 !trill!f3/g/ | 
+[V:2] [A,4E4]z4[K:clef=treble] | 
+[V:1] a2a2- aa!trill!a3/b/ | 
+[V:2] DFAF DFAF | 
+[V:1] ag2<g2 .g.f.e | 
+[V:2] DEBE DEBE | 
+[V:1] eaa2- ab/a/ a/g/f/g/ | 
+[V:2] ^CEAE B,DGD[K:clef=bass] | 
+[V:1] gf2<f2 {/f/g/} .a.g.f | 
+[V:2] ^A,^CEA, B,F=A,D | 
+[V:1] fe.e.e e2e2 | 
+[V:2] ^G,B,DB, G,B,DB, | 

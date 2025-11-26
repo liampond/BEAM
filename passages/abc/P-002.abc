@@ -1,0 +1,29 @@
+%%linebreak <none>
+%%measurenb 2
+X: 2
+T: Piano Sonata No. 1 in C major, K 279 (189d), mvmt. 2
+C: Wolfgang Amadeus Mozart
+%%abc-version 2.0
+%%abcx-abcm2ps-target-version 5.9.1 (29 Sep 2008)
+%%abc-creator hum2abc beta
+%%abcx-conversion-date 2021/01/14 17:01:31
+%%abc-copyright 2018 Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abcx-initial-encoding-date 2009/10/15
+%%gracespace 0 6 6
+%%humdrum-veritas 579699858
+%%humdrum-veritas-data 852372239
+%%linebreak <none>
+%%barnumbers 0
+L: 1/8
+M: 3/4
+N: Derived from sonata01-2.krn
+Q: "Andante" 1/4=108
+%%staves {1 2}
+V: 1 clef=treble
+V: 2 clef=bass
+N: Extracted measures 22-22 from original score
+K: F
+[V:1] (3ed zz2z2 | 
+[V:2] (3:2:9z [F,A,C][F,A,C] [F,A,C][F,A,C][F,A,C] [F,A,C][F,A,C][F,A,C] | 

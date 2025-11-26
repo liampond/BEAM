@@ -1,0 +1,43 @@
+%%linebreak <none>
+%%measurenb 2
+X: 69
+T: Piano Sonata No. 17 in D major, K 576, mvmt. 3
+C: Wolfgang Amadeus Mozart
+%%abc-version 2.0
+%%abcx-abcm2ps-target-version 5.9.1 (29 Sep 2008)
+%%abc-creator hum2abc beta
+%%abcx-conversion-date 2021/01/14 17:01:33
+%%abc-copyright 2018 Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abcx-initial-encoding-date 2009/10/07
+%%gracespace 0 6 6
+%%humdrum-veritas 1190151099
+%%humdrum-veritas-data 1547812814
+%%linebreak <none>
+%%barnumbers 0
+L: 1/16
+M: 2/4
+N: Derived from sonata17-3.krn
+Q: "Allegretto" 1/4=104
+%%staves {1 2}
+V: 1 clef=treble
+V: 2 clef=treble
+N: Extracted measures 108-115 from original score
+K: D
+[V:1] (3dFB (3dfb (3d'bf (3bfd | 
+[V:2] B,3C/B,/ ^A,2.B,2 | 
+[V:1] g3a/g/ f2.g2 | 
+[V:2] (3E,E,,G,, (3B,,E,G, (3B,G,E, (3G,E,B,, | 
+[V:1] (3cEA (3cea (3c'ae (3aec | 
+[V:2] A,3B,/A,/ ^G,2A,2 | 
+[V:1] f3g/f/ e2.f2 | 
+[V:2] (3D,D,,F,, (3A,,D,F, (3A,F,D, (3F,D,A,, | 
+[V:1] (3BEG (3BGB (3eBe (3geg | 
+[V:2] G,8- | 
+[V:1] (3b=c'b (3agf (3gag (3fed | 
+[V:2] G,6^G,2 | 
+[V:1] ^c2 z2 [A2d2f2] z2 | 
+[V:2] (3A,,,C,,E,, (3A,,C,E, (3D,,F,,A,, (3D,F,A, | 
+[V:1] (3A,CE (3Ace (3fad' (3afd | 
+[V:2] [A,,2C,2] z2 [A,,2D,2] z2 | 

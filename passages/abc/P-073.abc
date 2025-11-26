@@ -1,0 +1,45 @@
+%%linebreak <none>
+%%measurenb 2
+X: 41
+T: Piano Sonata No. 10 in C major, K 330 (300h), mvmt. 2
+C: Wolfgang Amadeus Mozart
+%%abc-version 2.0
+%%abcx-abcm2ps-target-version 5.9.1 (29 Sep 2008)
+%%abc-creator hum2abc beta
+%%abcx-conversion-date 2021/01/14 17:01:31
+%%abc-copyright 2018 Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abcx-initial-encoding-date 2009/10/08
+%%gracespace 0 6 6
+%%humdrum-veritas 2484659066
+%%humdrum-veritas-data 2798534667
+%%linebreak <none>
+%%barnumbers 0
+L: 1/8
+M: 3/4
+N: Derived from sonata10-2.krn
+Q: "Andante cantabile" 1/4=88
+%%staves {1 2}
+V: 1 clef=treble
+V: 2 clef=bass
+N: Extracted measures 30-37 from original score
+K: Ab
+[V:1] c2B CFA | 
+[V:2] z E,G,[=E,B,][F,2A,2] | 
+[V:1] c3B/A/ G.F | 
+[V:2] z D,F,A,B,=B, & x D,-D,4 | 
+[V:1] [F2A2][=EG] cfa | 
+[V:2] [C,2C2]>z2 z A,, | 
+[V:1] gf z cfa | 
+[V:2] _B,,_B, =B,C z C, | 
+[V:1] gf z .[=Ac_ef].[Acef].[Acef] | 
+[V:2] D,D _E .[C,C].[=A,,=A,].[F,,F,] | 
+[V:1] x4A/G/F/G/ & [d/f/][B/d/][B/d/][G/B/][F2_A2]=E2 | 
+[V:2] [B,,2B,2][C,2C2]C,2 | 
+[V:1] F2z & F2z :|]  
+[V:2] F,2F,, :|]  
+[V:1] .[CA].[CA].[CA] [I:setbarnb 37]| 
+[V:2] zz2 | 
+[V:1] [C2A2]>[B,2G2][DB][G,=E] | 
+[V:2] F,,/F,/F,/F,/ F,/F,/F,/F,/ F,/F,/F,/F,/ | 

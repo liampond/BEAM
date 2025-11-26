@@ -1,0 +1,43 @@
+%%linebreak <none>
+%%measurenb 2
+X: 6
+T: Piano Sonata No. 2 in F major, K 280 (189e), mvmt. 3
+C: Wolfgang Amadeus Mozart
+%%abc-version 2.0
+%%abcx-abcm2ps-target-version 5.9.1 (29 Sep 2008)
+%%abc-creator hum2abc beta
+%%abcx-conversion-date 2021/01/14 17:01:33
+%%abc-copyright 2018 Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abcx-initial-encoding-date 2009/09/24
+%%gracespace 0 6 6
+%%humdrum-veritas 2508046536
+%%humdrum-veritas-data 3524592136
+%%linebreak <none>
+%%barnumbers 0
+L: 1/8
+M: 3/8
+N: Derived from sonata02-3.krn
+Q: "Presto." 3/8=108
+%%staves {1 2}
+V: 1 clef=treble
+V: 2 clef=bass
+N: Extracted measures 115-122 from original score
+K: F
+[V:1] E/F/G/E/ c/A/ | 
+[V:2] C z z | 
+[V:1] .F.F.F | 
+[V:2] z3[K:clef=bass] | 
+[V:1] {/E//} B z z | 
+[V:2] [G,C] z z | 
+[V:1] {/F//} A z z | 
+[V:2] [F,C] z z | 
+[V:1] {/E//} G z z | 
+[V:2] [B,C] z z | 
+[V:1] F/G/A/B/c/^c/ | 
+[V:2] [A,,3A,3] | 
+[V:1] d/e/f/g/a/b/ | 
+[V:2] [B,,B,] z z | 
+[V:1] .c' [Af][Ge] | 
+[V:2] z CC, | 

@@ -1,0 +1,149 @@
+!!!!SEGMENT: sonata10-1.krn
+!!!COM: Mozart, Wolfgang Amadeus
+!!!CDT: 1756/01/27/-1791/12/05/
+!!!CNT: German
+!!!OTL: Piano Sonata No. 10 in C major
+!!!SCT1: K<sup>1</sup> 330
+!!!SCT2: K<sup>6</sup> 300h
+!!!OMV: 1
+!!!OMD: Allegro moderato
+!!!ODT: 1783
+!!!RDF**kern: < = below
+!!!RDF**kern: > = above
+!!!YOR: Alte Mozart-Ausgabe, Band 20, Breitkopf &amp; H&auml;rtel 1877-1883.
+!!!YOY: 1878
+!!!YEC: 2018 Craig Stuart Sapp
+!!!YEM: Licence: (CC BY-NC-SA 4.0) https://creativecommons.org/licenses/by-nc-sa/4.0
+!!!YER: 2018
+!!!URL-github: https://github.com/craigsapp/mozart-piano-sonatas/blob/main/kern/sonata10-1.krn
+!!!URL-vhv: https://verovio.humdrum.org/?file=mozart/sonatas/sonata10-1.krn
+!!!URL-pdf: https://github.com/craigsapp/mozart-piano-sonatas/blob/master/reference-edition/sonata10-1.pdf
+!!!URL-youtube: https://www.youtube.com/watch?v=Szsm2QuBN00 András Schiff
+!!!URL-wikipedia: https://en.wikipedia.org/wiki/Piano_Sonata_No._10_(Mozart)#I._Allegro_moderato
+!!!ENC: Craig Stuart Sapp
+!!!END: 2009/10/08
+!!!EED: Craig Stuart Sapp
+!!!EEV: 2024/06/05
+!!!EFL: 40/69
+!!!AGN: piano sonata
+!!!AFR: sonata-allegro
+!!!title: @{OTL}, K 330 (300h), mvmt. @{OMV}
+!!!filter-hands: hands -c
+
+**kern	**kern	**dynam
+*part1	*part1	*
+*staff2	*staff1	*staff1/2
+*ICklav	*ICklav	*
+*Ipiano	*Ipiano	*
+*LH	*RH	*
+*I"	*I"	*
+*>[A,A,B,B]	*>[A,A,B,B]	*>[A,A,B,B]
+*>norep[A,B]	*>norep[A,B]	*>norep[A,B]
+*>A	*>A	*>A
+*clefF4	*clefG2	*
+*k[]	*k[]	*
+*C:	*C:	*
+*M2/4	*M2/4	*
+*MM88	*MM88	*
+
+=114	=114	=114
+.	(16aaqLL/	.
+.	16bbqJJ/	.
+24fLL	8cccL)	.
+24a	.	.
+24ccJJ	.	.
+24fLL	16.cccL	.
+24a	.	.
+24ccJJ	.	.
+.	32cccJJk	.
+24fLL	8ccc	.
+24a	.	.
+24ccJJ	.	.
+24fLL	(32bbLLL	.
+.	32aa	.
+24a	.	.
+.	32gg	.
+24ccJJ	.	.
+.	32ffJJJ	.
+=115	=115	=115
+24cLL	8eeL)	.
+24e	.	.
+24ccJJ	.	.
+24dLL	(16ffTL	.
+24f	.	.
+.	32eeL	.
+24ccJJ	.	.
+.	32ffJJJ	.
+24eLL	8gg)	.
+24g	.	.
+24ccJJ	.	.
+24cLL	8r	.
+24e	.	.
+24ccJJ	.	.
+=116	=116	=116
+.	(16aaqLL/	.
+.	16bbqJJ/	.
+24fLL	8cccL)	.
+24a	.	.
+24ccJJ	.	.
+24fLL	16.cccL	.
+24a	.	.
+24ccJJ	.	.
+.	32cccJJk	.
+24fLL	(8ccc	.
+24a	.	.
+24ccJJ	.	.
+24fLL	32bbLLL	.
+.	32aa	.
+24a	.	.
+.	32gg	.
+24ccJJ	.	.
+.	32ffJJJ	.
+*clefF4	*	*
+!!LO:LB:g=original
+=117	=117	=117
+8c	16ee'LL)	.
+.	(32cccL	.
+.	32dddJJJ	.
+8r	32eeeLLL	.
+.	32ddd	.
+.	32ccc	.
+.	32bbJJJ	.
+8F	32aaLLL	.
+.	32gg	.
+.	32ff	.
+.	32eeJJJ	.
+8r	32ddLLL	.
+.	32cc	.
+.	32b	.
+.	32aJJJ	.
+=118	=118	=118
+8G	8g)	.
+(4G# 4B (4d	(4f	fp
+8A) 8c)	8e)	.
+=119	=119	=119
+8F 8A	16r	.
+.	16d'LL	.
+8r	16f'	.
+.	16aJJ	.
+4r	(16cc#LL	.
+.	16dd	.
+.	16ff	.
+.	16aaJJ)	.
+=120	=120	=120
+*	*^	*
+8r	(>16aaLL\	4.ryy	.
+.	16ccnJJ)\	.	.
+[8Gn (8e	(4cc\	.	.
+4G] 4f)	.	.	.
+.	16eeLL	8b	.
+.	16ddJJ)	.	.
+=121	=121	=121	=121
+8c 8eL	8cc	8cc	.
+8CJ	4.ryy	8r	.
+4r	.	(>16ggLL	sfp
+.	.	16ee	.
+.	.	16ccc)	.
+.	.	16bb'>JJ	.
+*	*v	*v	*
+*-	*-	*-

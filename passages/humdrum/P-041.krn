@@ -1,0 +1,66 @@
+!!!!SEGMENT: sonata15-1.krn
+!!!COM: Mozart, Wolfgang Amadeus
+!!!CDT: 1756/01/27/-1791/12/05/
+!!!CNT: German
+!!!OTL: Piano Sonata No. 15 in C major
+!!!OTP: sonata facile
+!!!ONB: Sonata No. 16 in NMA
+!!!SCT1: K 545
+!!!OMV: 1
+!!!OMD: Allegro
+!!!ODT: 1788
+!!!RDF**kern: > = above
+!!!RDF**kern: < = below
+!!!YOR: Alte Mozart-Ausgabe, Band 20, Breitkopf &amp; H&auml;rtel 1877-1883.
+!!!YOY: 1878
+!!!YEC: 2018 Craig Stuart Sapp
+!!!YEM: Licence: (CC BY-NC-SA 4.0) https://creativecommons.org/licenses/by-nc-sa/4.0
+!!!YER: 2018
+!!!URL-github: https://github.com/craigsapp/mozart-piano-sonatas/blob/main/kern/sonata15-1.krn
+!!!URL-vhv: https://verovio.humdrum.org/?file=mozart/sonatas/sonata15-1.krn
+!!!URL-pdf: https://github.com/craigsapp/mozart-piano-sonatas/blob/master/reference-edition/sonata15-1.pdf
+!!!URL-youtube: https://www.youtube.com/watch?v=Tfe8jlNskTs András Schiff
+!!!URL-wikipedia: https://en.wikipedia.org/wiki/Piano_Sonata_No._16_(Mozart)#I._Allegro
+!!!ENC: Craig Stuart Sapp
+!!!END: 2004/10/26
+!!!EED: Craig Stuart Sapp
+!!!EEV: 2024/06/06
+!!!EFL: 61/69
+!!!AGN: piano sonata
+!!!AFR: sonata-allegro
+!!!title: @{OTL} (<i>@{OTP}</i>), @{SCT1}, mvmt. @{OMV}
+!!!filter-hands: hands -c
+
+**kern	**kern	**dynam
+*part1	*part1	*
+*>[A,A,B,B]	*>[A,A,B,B]	*
+*>norep[A,B]	*>norep[A,B]	*
+*>A	*>A	*
+*Ipiano	*Ipiano	*
+*LH	*RH	*
+*staff2	*staff1	*staff1/2
+*ICklav	*ICklav	*
+*Ipiano	*Ipiano	*
+*I"	*I"	*
+*clefG2	*clefG2	*
+*k[]	*k[]	*
+*C:	*C:	*
+*met(c)	*met(c)	*
+*M4/4	*M4/4	*
+*MM120	*MM120	*
+
+=26	=26	=
+4g 4b)	4gg)	f
+4r	(16ggLL	.
+.	16dd	.
+.	16gg	.
+.	16bbJJ	.
+4r	16dddLL	.
+.	16bb	.
+.	16gg	.
+.	16bbJJ	.
+(4d 4a 4cc	16cccLL	.
+.	16aa	.
+.	16ff#	.
+.	16aaJJ	.
+*-	*-	*-

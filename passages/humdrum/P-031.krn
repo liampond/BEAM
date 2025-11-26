@@ -1,0 +1,60 @@
+!!!!SEGMENT: sonata11-3.krn
+!!!COM: Mozart, Wolfgang Amadeus
+!!!CDT: 1756/01/27/-1791/12/05/
+!!!CNT: German
+!!!OTL: Piano Sonata No. 11 in A major
+!!!SCT1: K<sup>1</sup> 331
+!!!SCT2: K<sup>6</sup> 300i
+!!!OMV: 3
+!!!OMD: Alla Turca: Allegretto.
+!!!ODT: 1783
+!!!RDF**kern: > = above
+!!!RDF**kern: < = below
+!!!YOR: Alte Mozart-Ausgabe, Band 20, Breitkopf &amp; H&auml;rtel 1877-1883.
+!!!YOY: 1878
+!!!YEC: 2018 Craig Stuart Sapp
+!!!YEM: Licence: (CC BY-NC-SA 4.0) https://creativecommons.org/licenses/by-nc-sa/4.0
+!!!YER: 2018
+!!!URL-github: https://github.com/craigsapp/mozart-piano-sonatas/blob/main/kern/sonata11-3.krn
+!!!URL-vhv: https://verovio.humdrum.org/?file=mozart/sonatas/sonata11-3.krn
+!!!URL-pdf: https://github.com/craigsapp/mozart-piano-sonatas/blob/master/reference-edition/sonata11-3.pdf
+!!!URL-youtube: https://www.youtube.com/watch?v=lfAw693rYRQ András Schiff
+!!!URL-wikipedia: https://en.wikipedia.org/wiki/Piano_Sonata_No._11_(Mozart)#III._Alla_turca
+!!!ENC: Craig Stuart Sapp
+!!!END: 2009/09/30
+!!!EED: Craig Stuart Sapp
+!!!EEV: 2020/08/24
+!!!EFL: 51/69
+!!!AGN: piano sonata
+!!!AFR:
+!!!title: @{OTL}, K 331 (300i), mvmt. @{OMV}
+!!!filter-hands: hands -c
+
+**kern	**kern	**dynam
+*part1	*part1	*
+*staff2	*staff1	*staff1/2
+*ICklav	*ICklav	*
+*Ipiano	*Ipiano	*
+*LH	*RH	*
+*I"	*I"	*
+*>[A,A,B,B,C,C,D,D,E,E,F,F,G,G,H,H,I,I1,I,I2,J]	*>[A,A,B,B,C,C,D,D,E,E,F,F,G,G,H,H,I,I1,I,I2,J]	*>[A,A,B,B,C,C,D,D,E,E,F,F,G,G,H,H,I,I1,I,I2,J]
+*>norep[A,B,C,D,E,F,G,H,I,I2,J]	*>norep[A,B,C,D,E,F,G,H,I,I2,J]	*>norep[A,B,C,D,E,F,G,H,I,I2,J]
+*>A	*>A	*>A
+*clefF4	*clefG2	*
+*k[]	*k[]	*
+*a:	*a:	*
+*M2/4	*M2/4	*
+*MM112	*MM112	*
+
+=59	=59	=59
+(>32DDqLLL	.	.
+32FF#q	.	.
+32AAqJJJ	.	.
+8DL)	8f# 8ff#L	.
+8DJ	8g# 8gg#	.
+(>32DD#qLLL	.	.
+32FF#q	.	.
+32AAqJJJ	.	.
+8D#L)	8a 8aa	.
+8D#J	8b 8bbJ	.
+*-	*-	*-

@@ -1,0 +1,65 @@
+!!!!SEGMENT: sonata05-1.krn
+!!!COM: Mozart, Wolfgang Amadeus
+!!!CDT: 1756/01/27/-1791/12/05/
+!!!CNT: German
+!!!OTL: Piano Sonata No. 5 in G major
+!!!SCT1: K<sup>1</sup> 283
+!!!SCT2: K<sup>6</sup> 189h
+!!!OMV: 1
+!!!OMD: Allegro
+!!!ODT: 1774
+!!!RDF**kern: > = above
+!!!RDF**kern: < = below
+!!!YOR: Alte Mozart-Ausgabe, Band 20, Breitkopf &amp; H&auml;rtel 1877-1883.
+!!!YOY: 1878
+!!!YEC: 2018 Craig Stuart Sapp
+!!!YEM: Licence: (CC BY-NC-SA 4.0) https://creativecommons.org/licenses/by-nc-sa/4.0
+!!!YER: 2018
+!!!URL-github: https://github.com/craigsapp/mozart-piano-sonatas/blob/main/kern/sonata05-1.krn
+!!!URL-vhv: https://verovio.humdrum.org/?file=mozart/sonatas/sonata05-1.krn
+!!!URL-pdf: https://github.com/craigsapp/mozart-piano-sonatas/blob/master/reference-edition/sonata05-1.pdf
+!!!URL-youtube: https://www.youtube.com/watch?v=mYchsjuc2lM András Schiff
+!!!URL-wikipedia: https://en.wikipedia.org/wiki/Piano_Sonata_No._5_(Mozart)
+!!!ENC: Craig Stuart Sapp
+!!!END: 2009/10/05
+!!!EED: Craig Stuart Sapp
+!!!EEV: 2024/06/02
+!!!EFL: 13/69
+!!!AGN: piano sonata
+!!!AFR:
+!!!title: @{OTL}, K 283 (189h), mvmt. @{OMV}
+!!!filter-hands: hands -c
+
+**kern	**kern	**dynam
+*part1	*part1	*
+*staff2	*staff1	*staff1/2
+*ICklav	*ICklav	*
+*Ipiano	*Ipiano	*
+*LH	*RH	*
+*I"	*I"	*
+*>[A,A,B]	*>[A,A,B]	*>[A,A,B]
+*>norep[A,B]	*>norep[A,B]	*>norep[A,B]
+*>A	*>A	*>A
+*clefF4	*clefG2	*
+*k[f#]	*k[f#]	*
+*G:	*G:	*
+*M3/4	*M3/4	*
+*MM120	*MM120	*
+
+=42	=42	=42
+*^	*	*
+4G\ 4B\ 4e\	4ryy	(16bLL	.
+.	.	16ee	.
+.	.	16gg	.
+.	.	16bbJJ)	.
+*clefG2	*	*	*
+4d 4f#	2A	(16bbLL	.
+.	.	16aa	.
+.	.	16gg	.
+.	.	16ff#JJ)	.
+4e 4g	.	(16ff#LL	.
+.	.	16ee	.
+.	.	16dd	.
+.	.	16cc#JJ	.
+!!LO:LB:g=original
+*-	*-	*-	*-

@@ -1,0 +1,58 @@
+!!!!SEGMENT: sonata13-3.krn
+!!!COM: Mozart, Wolfgang Amadeus
+!!!CDT: 1756/01/27/-1791/12/05/
+!!!CNT: German
+!!!OTL: Piano Sonata No. 13 in B-flat major
+!!!OTP: Linz Sonata
+!!!SCT1: K<sup>1</sup> 333
+!!!SCT2: K<sup>6</sup> 315c
+!!!OMV: 3
+!!!OMD: Allegro grazioso
+!!!ODT: 1783
+!!!RDF**kern: N = linked
+!!!RDF**kern: > = above
+!!!RDF**kern: < = below
+!!!YOR: Alte Mozart-Ausgabe, Band 20, Breitkopf &amp; H&auml;rtel 1877-1883.
+!!!YOY: 1878
+!!!YEC: 2018 Craig Stuart Sapp
+!!!YEM: Licence: (CC BY-NC-SA 4.0) https://creativecommons.org/licenses/by-nc-sa/4.0
+!!!YER: 2018
+!!!URL-github: https://github.com/craigsapp/mozart-piano-sonatas/blob/main/kern/sonata13-3.krn
+!!!URL-vhv: https://verovio.humdrum.org/?file=mozart/sonatas/sonata13-3.krn
+!!!URL-pdf: https://github.com/craigsapp/mozart-piano-sonatas/blob/master/reference-edition/sonata13-3.pdf
+!!!URL-youtube: https://www.youtube.com/watch?v=18ylXSmZs0w András Schiff
+!!!URL-wikipedia: https://en.wikipedia.org/wiki/Piano_Sonata_No._13_(Mozart)
+!!!ENC: Craig Stuart Sapp
+!!!END: 2009/10/09
+!!!EED: Craig Stuart Sapp
+!!!EEV: 2024/06/06
+!!!EFL: 57/69
+!!!AGN: piano sonata
+!!!AFR: sonata-rondo
+!!!title: @{OTL} (<i>@{OTP}</i>), K 333 (315c), mvmt. @{OMV}
+!!!filter-hands: hands -c
+
+**kern	**kern	**dynam
+*part1	*part1	*
+*staff2	*staff1	*staff1/2
+*ICklav	*ICklav	*
+*Ipiano	*Ipiano	*
+*LH	*RH	*
+*I"	*I"	*
+*clefF4	*clefG2	*
+*k[b-e-]	*k[b-e-]	*
+*B-:	*B-:	*
+*M4/4	*M4/4	*
+*met(c)	*met(c)	*
+*MM144	*MM144	*
+
+=189	=189	=189
+4Bn	8dd 8ffn 8ggL	f
+.	8dd 8ff 8ggJ	.
+4BBn 4B	8r	.
+.	8dd 8ff 8gg	.
+4C 4c	8ee- 8gg 8eee-L	.
+.	8ee- 8gg 8eee-J	.
+4BB- 4B-	8r	.
+.	8cc 8ee- 8gg	.
+*-	*-	*-

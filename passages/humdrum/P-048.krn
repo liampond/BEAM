@@ -1,0 +1,99 @@
+!!!!SEGMENT: sonata01-3.krn
+!!!COM: Mozart, Wolfgang Amadeus
+!!!CDT: 1756/01/27/-1791/12/05/
+!!!CNT: German
+!!!OTL: Piano Sonata No. 1 in C major
+!!!SCT1: K<sup>1</sup> 279
+!!!SCT2: K<sup>6</sup> 189d
+!!!OMV: 3
+!!!OMD: Allegro
+!!!ODT: 1774
+!!!RDF**kern: i = editorial accidental (paren)
+!!!RDF**kern: > = above
+!!!RDF**kern: < = below
+!!!YOR: Alte Mozart-Ausgabe, Band 20, Breitkopf &amp; H&auml;rtel 1877-1883.
+!!!YOY: 1878
+!!!YEC: 2018 Craig Stuart Sapp
+!!!YEM: Licence: (CC BY-NC-SA 4.0) https://creativecommons.org/licenses/by-nc-sa/4.0
+!!!YER: 2018
+!!!URL-github: https://github.com/craigsapp/mozart-piano-sonatas/blob/main/kern/sonata01-3.krn
+!!!URL-vhv: https://verovio.humdrum.org/?file=mozart/sonatas/sonata01-3.krn
+!!!URL-pdf: https://github.com/craigsapp/mozart-piano-sonatas/blob/master/reference-edition/sonata01-3.pdf
+!!!URL-youtube: https://www.youtube.com/watch?v=kItgPiR-_Q8 András Schiff
+!!!URL-wikipedia: https://en.wikipedia.org/wiki/Piano_Sonata_No._1_(Mozart)#III._Allegro
+!!!ENC: Craig Stuart Sapp
+!!!END: 2009/10/12
+!!!EED: Craig Stuart Sapp
+!!!EEV: 2024/06/02
+!!!EFL: 3/69
+!!!AGN: piano sonata
+!!!AFR:
+!!!title: @{OTL}, K 279 (189d), mvmt. @{OMV}
+!!!filter-hands: hands -c
+
+**kern	**kern	**dynam
+*part1	*part1	*
+*staff2	*staff1	*staff1/2
+*ICklav	*ICklav	*
+*Ipiano	*Ipiano	*
+*LH	*RH	*
+*I"	*I"	*
+*>[A,A,B,B]	*>[A,A,B,B]	*>[A,A,B,B]
+*>norep[A,B]	*>norep[A,B]	*>norep[A,B]
+*>A	*>A	*>A
+*clefF4	*clefG2	*
+*k[]	*k[]	*
+*C:	*C:	*
+*M2/4	*M2/4	*
+*MM132	*MM132	*
+*clefG2	*	*
+
+=26	=26	=26
+*^	*	*
+8r	8ryy	(4.ee	.
+(8gL	4cn	.	.
+8a	.	.	.
+8bJ)	8B	8dd)	.
+*v	*v	*	*
+=27	=27	=27
+2r	8g'L	.
+.	8g'	.
+.	8g'	.
+.	8g'J	.
+=28	=28	=28
+*^	*	*
+8r	8ryy	4cc	.
+(8eL	4A	.	.
+8f#	.	8r	.
+8gJ)	8G	(8b	.
+*v	*v	*	*
+=29	=29	=29
+8r	4ee)	.
+(8c	.	.
+4c#)	8r	.
+.	(8g	.
+!!LO:LB:g=original
+=30	=30	=30
+8d	4f#)	.
+(8cc#	.	.
+4dd)	8r	.
+!	!	!LO:DY:ed=paren
+.	(8g 8b-	pp
+=31	=31	=31
+8r	4f#) 4a	.
+(8c#	.	.
+*	*clefF4	*
+4d)	8r	.
+.	8G (8B-	.
+*clefF4	*	*
+=32	=32	=32
+8r	4F# 4A)	.
+(8DD# 8D#L	.	f
+8EE 8E	4r	.
+8FF#) 8F#J	.	.
+=33	=33	=33
+8GG 8G	2r	.
+(8BBB 8BBL	.	.
+8CC 8C	.	.
+8DDn) 8DnJ	.	.
+*-	*-	*-

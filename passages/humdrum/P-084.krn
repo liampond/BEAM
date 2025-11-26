@@ -1,0 +1,275 @@
+!!!!SEGMENT: sonata14-2.krn
+!!!COM: Mozart, Wolfgang Amadeus
+!!!CDT: 1756/01/27/-1791/12/05/
+!!!CNT: German
+!!!OTL: Piano Sonata No. 14 in C minor
+!!!SCT: K 457
+!!!OMV: 2
+!!!OMD: Adagio
+!!!ODT: 1784
+!!!RDF**kern: > = above
+!!!RDF**kern: < = below
+!!!RDF**kern: N = linked
+!!!RDF**kern: i = editorial accidental, paren
+!!!YOR: Alte Mozart-Ausgabe, Band 20, Breitkopf &amp; H&auml;rtel 1877-1883.
+!!!YOY: 1878
+!!!YEC: 2018 Craig Stuart Sapp
+!!!YEM: Licence: (CC BY-NC-SA 4.0) https://creativecommons.org/licenses/by-nc-sa/4.0
+!!!YER: 2018
+!!!URL-github: https://github.com/craigsapp/mozart-piano-sonatas/blob/main/kern/sonata14-2.krn
+!!!URL-vhv: https://verovio.humdrum.org/?file=mozart/sonatas/sonata14-2.krn
+!!!URL-pdf: https://github.com/craigsapp/mozart-piano-sonatas/blob/master/reference-edition/sonata14-2.pdf
+!!!URL-youtube: https://www.youtube.com/watch?v=7eEmHxz1qYo András Schiff
+!!!URL-wikipedia: https://en.wikipedia.org/wiki/Piano_Sonata_No._14_(Mozart)#II._Adagio
+!!!ENC: Craig Stuart Sapp
+!!!END: 2009/10/01
+!!!EED: Craig Stuart Sapp
+!!!EEV: 2018/06/20
+!!!EFL: 59/69
+!!!AGN: piano sonata
+!!!AFR:
+!!!title: @{OTL}, K 457, mvmt. @{OMV}
+!!!filter-hands: hands -c
+
+**kern	**kern	**dynam
+*part1	*part1	*
+*staff2	*staff1	*staff1/2
+*ICklav	*ICklav	*
+*Ipiano	*Ipiano	*
+*LH	*RH	*
+*I"	*I"	*
+*clefF4	*clefG2	*
+*k[b-e-a-]	*k[b-e-a-]	*
+*E-:	*E-:	*
+*M4/4	*M4/4	*
+*met(c)	*met(c)	*
+*MM60	*MM60	*
+
+=40	=40	=40
+!	!	!LO:DY:ed=paren
+4D	(32bb-XLLL	f
+.	32bbn	.
+.	32ccc	.
+.	32bb-JJJ	.
+.	32aa-XLLL	.
+.	32gg	.
+.	32ff	.
+.	32ee-JJJ	.
+4r	32ddLLL	.
+.	32cc	.
+.	32b-	.
+.	32anJJJ	.
+.	32a-LLL	.
+.	32g	.
+.	32f	.
+.	32e-JJJ	.
+2BB-X 2F 2A-X	32dLLL	.
+.	32c	.
+.	32B-	.
+.	32cJJJ	.
+.	32dLLL	.
+.	32e-	.
+!	!	!LO:DY:ed:t=(calando %s)
+.	32f	pp
+.	32gJJJ	.
+.	32a-LLL	.
+.	32g	.
+.	32f	.
+.	32enJJJ	.
+.	32fLLL	.
+.	32g	.
+.	32a-	.
+.	32a-JJJ)	.
+=41	=41	=41
+*	*^	*
+!	!LO:TX:a:B:t=a tempo	!	!
+(16E-LL	[8b-L>	2ryy	p
+16G	.	.	.
+16B-	(32b-LL]	.	.
+.	32cc	.	.
+16GJJ	32dd	.	.
+.	32ee-JJJ)	.	.
+16E-LL	(16ee-LL>	.	.
+16G	16g)	.	.
+16B-	(16g'	.	.
+16GJJ	16g'JJ)	.	.
+16BB-LL	8..gSsSL	(4e-	.
+16E-	.	.	.
+16G	.	.	.
+16E-JJ	.	.	.
+.	32a-Jkk	.	.
+16BB-LL	8f	8d)	.
+16D	.	.	.
+*	*Xbrackettup	*	*
+16F	48r	8rc	.
+.	(<48b-LLL	.	.
+.	48anJJJ	.	.
+16DJJ)	48a-LLL	.	.
+.	48g	.	.
+.	48fJJJ)	.	.
+!!LO:LB:g=original
+=42	=42	=42	=42
+4E-	4e-	(16GLL	f
+.	.	16B-	.
+.	.	16G	.
+.	.	16B-JJ)	.
+4BB-	4f	(16dLL	.
+.	.	16B-	.
+.	.	16d	.
+.	.	16B-JJ)	.
+4EE-	(16.gSsSLL	8e-	.
+.	32a-JJk	.	p
+.	32b-LLL>	8ryy	.
+.	32cc	.	.
+.	32dd	.	.
+.	32ee-JJJ)	.	.
+4r	16b-/	4ryy	.
+.	16r	.	.
+.	(32ee-LLL	.	.
+.	32gg	.	.
+.	32dd	.	.
+.	32ffJJJ	.	.
+=43	=43	=43	=43
+8r	32ccLLL	2ryy	.
+.	32ee-	.	.
+.	32b-	.	.
+.	32ddJJJ	.	.
+(32DDLLL	32a-LLL	.	.
+32D	32cc	.	.
+32EE-	32g	.	.
+32E-JJJ	32b-JJJ	.	.
+32FFLLL	32fLLL	.	<
+32F	32a-	.	.
+32GG	32e-	.	.
+32GJJJ	32gJJJ	.	.
+32AA-LLL	32cLLL	.	.
+32A-	32cc	.	.
+32FF	32f	.	.
+32FJJJ)	32a-JJJ)	.	.
+(32AnLLL	(4g	(4e-	f
+32B-	.	.	.
+32c	.	.	.
+32B-JJJ	.	.	.
+32ALLL	.	.	.
+32B-	.	.	.
+32G	.	.	.
+32E-JJJ	.	.	.
+8BB-)	32fLLL)	32d)	.
+.	(32e-'	16.ryy	p
+.	32d'	.	.
+.	32e-'JJJ	.	.
+8r	32f'LLL	8ryy	.
+.	32g'	.	.
+.	32a-'	.	.
+.	32an'JJJ)	.	.
+!!LO:LB:g=original
+=44	=44	=44	=44
+(16E-LL	2ryy	[8b-L	.
+16G	.	.	.
+16B-	.	(32b-LL]	.
+.	.	64ddL	.
+.	.	64cc	.
+16GJJ	.	64ee-	.
+.	.	64dd	.
+.	.	64ff	.
+.	.	64ee-JJJJ)	.
+16E-LL	.	(16ee-LL<	.
+16G	.	16g)	.
+16B-	.	16g'	.
+16GJJ	.	16g'JJ	.
+16BB-LL	(8gSsSL	(4e-	.
+16E-	.	.	.
+16G	[8b-z<J)	.	.
+16E-JJ	.	.	.
+16BB-LL	32b-LLL]	16d)	.
+.	(<32an'<	.	p
+16D	32a-'	8.ryy	.
+.	32g'JJJ	.	.
+16F	32b-'LLL	.	.
+.	32a-'	.	.
+16DJJ)	32g'	.	.
+.	32f'JJJ)	.	.
+=45	=45	=45	=45
+4EE- 4E-	8..e-L	16r	f
+.	.	(16B-LL	.
+.	.	16G	.
+.	.	16B-JJ)	.
+.	32enJkk	.	.
+4BBB- 4BB-	8..fL	16r	.
+.	.	(16dLL	.
+.	.	16B-	.
+.	.	16dJJ)	.
+.	32f#Jkk	.	.
+4EE- 4E-	(16.gSssLL	8e-	.
+.	32a-JJk	.	p
+.	48anLLL	8ryy	.
+.	48b-	.	.
+.	48bnJJJ	.	.
+.	64ccLLLL	.	.
+.	64dd-	.	.
+.	64ddn	.	.
+.	64ee-JJJJ	.	.
+4r	4ryy	16b-)	.
+.	.	16r	.
+.	.	(32ee-'LLL	p
+.	.	32dd'	.
+.	.	32dd-'	.
+.	.	32cc'JJJ)	.
+*	*v	*v	*
+!!LO:LB:g=original
+=46	=46	=46
+(32e-'LLL	16bn	.
+32dn'	.	.
+32d-'	16r	.
+32c'JJJ)	.	.
+16G 16Bn	(32ee-'LLL	.
+.	32ddn'	.
+16r	32dd-'	.
+.	32cc'JJJ)	.
+(32e-'LLL	16b	.
+32dn'	.	.
+32d-'	16r	.
+32c'JJJ)	.	.
+16G 16B	(32ee-'LLL	.
+.	32ddn'	.
+16r	32dd-'	.
+.	32cc'JJJ)	.
+(<4G [4e-	(8.bSsSL	f
+.	32.ddnLL	.
+.	64ccJJJk)	.
+16A-) 16e-]	16cc	.
+16r	16r	.
+8r	(32f'LLL	p
+.	32g'	.
+.	32a-'	.
+.	32an'JJJ)	.
+=47	=47	=47
+*^	*^	*
+8r	4ryy	4ryy	[8b-XL	.
+!	!	!	!LO:TUP:r=16	!
+!	!	!	!LO:TUP:a	!
+8GG 8E-	.	.	(48b-'LL]	<
+.	.	.	48bn'	.
+.	.	.	48cc'	.
+!	!	!	!LO:TUP:a	!
+.	.	.	48dd-'	.
+.	.	.	48ddn'	.
+.	.	.	48ee-'>JJJ)	.
+(8GL	4BB-	(>8.e-SSsL	8.ryy	f
+8A-J)	.	.	.	.
+.	.	32gLL	16d	.
+.	.	32fJJJ)	.	.
+2ryy	(16E-LL	2ryy	8e-	p
+.	16G	.	.	.
+.	16B-	.	8r	.
+.	16GJJ	.	.	.
+!	!	!	!LO:TURN:lacc=n	!
+.	16E-LL	.	(8.ccSSsL	.
+.	16A-	.	.	.
+.	16c	.	.	.
+.	16A-JJ	.	32ee-LL	.
+.	.	.	32ccJJJ	.
+*v	*v	*	*	*
+*	*v	*v	*
+!!LO:LB:g=original
+*-	*-	*-

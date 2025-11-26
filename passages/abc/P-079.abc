@@ -1,0 +1,43 @@
+%%linebreak <none>
+%%measurenb 2
+X: 54
+T: Piano Sonata No. 12 in F major, K 332 (300k), mvmt. 3
+C: Wolfgang Amadeus Mozart
+%%abc-version 2.0
+%%abcx-abcm2ps-target-version 5.9.1 (29 Sep 2008)
+%%abc-creator hum2abc beta
+%%abcx-conversion-date 2021/01/14 17:01:32
+%%abc-copyright 2018 Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abcx-initial-encoding-date 2009/10/15
+%%gracespace 0 6 6
+%%humdrum-veritas 2076952681
+%%humdrum-veritas-data 1683986030
+%%linebreak <none>
+%%barnumbers 0
+L: 1/8
+M: 6/8
+N: Derived from sonata12-3.krn
+Q: "Allegro assai" 3/8=96
+%%staves {1 2}
+V: 1 clef=treble
+V: 2 clef=bass
+N: Extracted measures 103-110 from original score
+K: F
+[V:1] f'/_e'/d'/c'/=b/_a/ g/^f/g/a/g/=f/ | 
+[V:2] z6 | 
+[V:1] =e/G/f/G/e/G/ f/G/e/G/f/G/ | 
+[V:2] C=B,C _DCB, | 
+[V:1] e/G/f/G/e/G/ f/G/e/G/f/G/ | 
+[V:2] C=B,C _DCB, | 
+[V:1] e z z/ E/ B/ C/E/G/ B/ e/ | 
+[V:2] z/ C,/E,/G,/ _B,/ z/z3 | 
+[V:1] b/a/g/f/e/=d/ c/d/c/B/A/G/ | 
+[V:2] z6 | 
+[V:1] F/_e/_G/e/F/e/ G/e/_A/e/G/e/ | 
+[V:2] A,B,A, B,_CB, | 
+[V:1] F/_e/_G/e/F/e/ G/e/_A/e/G/e/ | 
+[V:2] A,B,A, B,_CB, | 
+[V:1] F z z/ =A/ _e/ F/A/c/ e/ a/ | 
+[V:2] z/ A,/=C/_E/ F/ x/x3 | 

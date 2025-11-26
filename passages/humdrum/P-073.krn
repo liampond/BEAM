@@ -1,0 +1,120 @@
+!!!!SEGMENT: sonata10-2.krn
+!!!COM: Mozart, Wolfgang Amadeus
+!!!CDT: 1756/01/27/-1791/12/05/
+!!!CNT: German
+!!!OTL: Piano Sonata No. 10 in C major
+!!!SCT1: K<sup>1</sup> 330
+!!!SCT2: K<sup>6</sup> 300h
+!!!OMV: 2
+!!!OMD: Andante cantabile
+!!!ODT: 1783
+!!!RDF**kern: < = below
+!!!RDF**kern: > = above
+!!!YOR: Alte Mozart-Ausgabe, Band 20, Breitkopf &amp; H&auml;rtel 1877-1883.
+!!!YOY: 1878
+!!!YEC: 2018 Craig Stuart Sapp
+!!!YEM: Licence: (CC BY-NC-SA 4.0) https://creativecommons.org/licenses/by-nc-sa/4.0
+!!!YER: 2018
+!!!URL-github: https://github.com/craigsapp/mozart-piano-sonatas/blob/main/kern/sonata10-2.krn
+!!!URL-vhv: https://verovio.humdrum.org/?file=mozart/sonatas/sonata10-2.krn
+!!!URL-pdf: https://github.com/craigsapp/mozart-piano-sonatas/blob/master/reference-edition/sonata10-2.pdf
+!!!URL-youtube: https://www.youtube.com/watch?v=UG-cxewq7LQ András Schiff
+!!!URL-wikipedia: https://en.wikipedia.org/wiki/Piano_Sonata_No._10_(Mozart)#II._Andante_cantabile
+!!!ENC: Craig Stuart Sapp
+!!!END: 2009/10/08
+!!!EED: Craig Stuart Sapp
+!!!EEV: 2024/06/05
+!!!EFL: 41/69
+!!!AGN: piano sonata
+!!!AFR:
+!!!title: @{OTL}, K 330 (300h), mvmt. @{OMV}
+!!!filter-hands: hands -c
+
+**kern	**kern	**dynam
+*part1	*part1	*
+*staff2	*staff1	*staff1/2
+*ICklav	*ICklav	*
+*Ipiano	*Ipiano	*
+*LH	*RH	*
+*I"	*I"	*
+*clefF4	*clefG2	*
+*>[A,A,B,B,C,C,D,D,E]	*>[A,A,B,B,C,C,D,D,E]	*>[A,A,B,B,C,C,D,D,E]
+*>norep[A,B,C,D,E]	*>norep[A,B,C,D,E]	*>norep[A,B,C,D,E]
+*>A	*>A	*>A
+*k[b-]	*k[b-]	*
+*F:	*F:	*
+*M3/4	*M3/4	*
+*MM88	*MM88	*
+
+=30	=30	=30
+8r	(4cc	.
+(8E-L	.	.
+8G	8b-)	.
+8En 8B-J	(8cL	.
+4F 4A-)	8f	.
+.	8a-J)	.
+=31	=31	=31
+*^	*	*
+8r	8ryy	(4.cc	sf
+(8D-L	[8D-	.	.
+8F	2D-]	.	.
+8A-	.	16b-LL	.
+.	.	16a-JJ	.
+8B-	.	8gL)	p
+8BnJ)	.	8f'J	.
+*v	*v	*	*
+=32	=32	=32
+4.C 4.c	(4f (4a-	.
+.	8en) 8g)	.
+8r	(8ccL	<
+8r	8ff	.
+(>8AA-	8aa-J)	.
+=33	=33	=33
+8BB-XL	(8ggL	.
+8B-XJ)	8ffJ)	.
+(8BnL	8r	.
+8cJ)	(8ccL	.
+8r	8ff	.
+(>8C	8aa-J)	.
+=34	=34	=34
+8D-L	(8ggL	.
+8d-J	8ffJ)	.
+8e-X)	8r	.
+8C' 8c'L	8an' 8cc' 8ee-X' (8ff'L	f
+8AAn' 8An'	8a' 8cc' 8ee-' 8ff'	.
+8FF' 8F'J	8a' 8cc' 8ee-' 8ff'J)	.
+!!LO:LB:g=original
+=35	=35	=35
+*	*^	*
+4BB- 4B-	2ryy	16dd- (>16ffLL	.
+.	.	16b- 16dd-)	.
+.	.	16b- (>16dd-	.
+.	.	16g 16b-JJ)	.
+4C 4c	.	4f/ 4a-X/	.
+4C	(16a-LL	4en	.
+.	16g	.	.
+.	16f	.	.
+.	16gJJ)	.	.
+=36	=36	=36	=36
+4F	4f	4f	.
+8FF	8r	8r	.
+*	*v	*v	*
+=:|!	=:|!	=:|!
+*>E	*>E	*>E
+8r	(8c' 8a-'L	pp
+4r	8c' 8a-'	.
+.	8c') 8a-'J	.
+=37	=37	=37
+16FFLL>	4.c 4.a-	.
+16F	.	.
+16F	.	.
+16FJJ	.	.
+16FLL	.	.
+16F	.	.
+16F	(8B- 8gL	.
+16FJJ	.	.
+16FLL	8d- 8b-	.
+16F	.	.
+16F	8G) 8enJ	.
+16FJJ	.	.
+*-	*-	*-

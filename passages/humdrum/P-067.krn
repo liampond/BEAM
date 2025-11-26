@@ -1,0 +1,232 @@
+!!!!SEGMENT: sonata08-2.krn
+!!!COM: Mozart, Wolfgang Amadeus
+!!!CDT: 1756/01/27/-1791/12/05/
+!!!CNT: German
+!!!OTL: Piano Sonata No. 8 in A minor
+!!!SCT1: K<sup>1</sup> 310
+!!!SCT2: K<sup>6</sup> 300d
+!!!OMV: 2
+!!!OMD: Andante cantabile con espressione.
+!!!ODT: 1778
+!!!RDF**kern: > = above
+!!!RDF**kern: < = below
+!!!YOR: Alte Mozart-Ausgabe, Band 20, Breitkopf &amp; H&auml;rtel 1877-1883.
+!!!YOY: 1878
+!!!YEC: 2018 Craig Stuart Sapp
+!!!YEM: Licence: (CC BY-NC-SA 4.0) https://creativecommons.org/licenses/by-nc-sa/4.0
+!!!YER: 2018
+!!!URL-github: https://github.com/craigsapp/mozart-piano-sonatas/blob/main/kern/sonata08-2.krn
+!!!URL-vhv: https://verovio.humdrum.org/?file=mozart/sonatas/sonata08-2.krn
+!!!URL-pdf: https://github.com/craigsapp/mozart-piano-sonatas/blob/master/reference-edition/sonata08-2.pdf
+!!!URL-youtube: https://www.youtube.com/watch?v=utOMTcnY6cM András Schiff
+!!!URL-wikipedia: https://en.wikipedia.org/wiki/Piano_Sonata_No._8_(Mozart)
+!!!ENC: Craig Stuart Sapp
+!!!END: 2009/09/28
+!!!EED: Craig Stuart Sapp
+!!!EEV: 2021/01/13
+!!!EFL: 35/69
+!!!AGN: piano sonata
+!!!AFR:
+!!!title: @{OTL}, K 310 (300d), mvmt. @{OMV}
+!!!filter-hands: hands -c
+
+**kern	**kern	**dynam
+*part1	*part1	*
+*staff2	*staff1	*staff1/2
+*ICklav	*ICklav	*
+*Ipiano	*Ipiano	*
+*LH	*RH	*
+*I"	*I"	*
+*>[A,A,B]	*>[A,A,B]	*>[A,A,B]
+*>norep[A,B]	*>norep[A,B]	*>norep[A,B]
+*>A	*>A	*>A
+*clefF4	*clefG2	*
+*k[b-]	*k[b-]	*
+*F:	*F:	*
+*M3/4	*M3/4	*
+*MM60	*MM60	*
+
+=42	=42	=42
+*	*^	*
+24BB-LL	(8aL	4d 4f	.
+24D	.	.	.
+24FJJ	.	.	.
+24B-LL	8g#J)	.	.
+24F	.	.	.
+24DJJ	.	.	.
+24BB-LL	8r	2ryy	f
+24D	.	.	.
+24FJJ	.	.	.
+24B-LL	(8ddTL<	.	.
+24F	.	.	.
+24DJJ	.	.	.
+.	16cc#qLL	.	.
+.	16ddqJJ	.	.
+24BB-LL	8ff)	.	.
+24D	.	.	.
+24FJJ	.	.	.
+24B-LL	8g#X'J	.	.
+24F	.	.	.
+24DJJ	.	.	.
+*	*v	*v	*
+=43	=43	=43
+*	*Xbrackettup	*
+!	!LO:TUP:r=8:a	!
+4AA 4C#	24aLL	.
+.	24aa	.
+.	24a	.
+!	!LO:TUP:a	!
+.	24a	.
+.	24a	.
+.	24aJJ	.
+!	!LO:TUP:r=8:a	!
+8r	24aLL	.
+.	24aa	.
+.	24a	.
+!	!LO:TUP:a	!
+8A'L	24a	.
+.	24a	.
+.	24aJJ	.
+!	!LO:TUP:r=8:a	!
+8F'	24aLL	.
+.	24aa	.
+.	24a	.
+!	!LO:TUP:a	!
+8D'J	24a	.
+.	24a	.
+.	24aJJ	.
+=44	=44	=44
+*	*Xtuplet	*
+8G'L<	24a 24b-LL	.
+.	24bb-	.
+.	24a 24b-	.
+8GG'J	24a 24b-	.
+.	24a 24b-	.
+.	24a 24b-JJ	.
+8r	24g 24b-LL	.
+.	24bb-	.
+.	24g 24b-	.
+8G	24g 24b-	.
+.	24g 24b-	.
+.	24g 24b-JJ	.
+(8.EttL	24g 24b-LL	.
+.	24bb-	.
+.	24g 24b-	.
+.	24g 24b-	.
+.	24g 24b-	.
+32DLL	.	.
+.	24g 24b-JJ	.
+32CJJJ	.	.
+!!LO:LB:g=original
+=45	=45	=45
+8FL)	24g 24aLL<	.
+.	24aa	.
+.	24g 24a	.
+8FF'J	24g 24a	.
+.	24g 24a	.
+.	24g 24aJJ	.
+8r	24f 24aLL<	.
+.	24aa	.
+.	24f 24a	.
+8F'L	24f 24a	.
+.	24f 24a	.
+.	24f 24aJJ	.
+8A'	24f 24aLL<	.
+.	24aa	.
+.	24f 24a	.
+8D'J	24f 24a	.
+.	24f 24a	.
+.	24f 24aJJ	.
+=46	=46	=46
+8.BBnL	24f 24gLL<	.
+.	24gg	.
+.	24f 24g	.
+.	24f 24g	.
+.	24f 24g	.
+32r	.	.
+.	24f 24gJJ	.
+32BBJkk	.	.
+(<8.BBttL	24f 24gLL<	.
+.	24gg	.
+.	24f 24g	.
+.	24f 24g	.
+.	24f 24g	.
+32AALL	.	.
+.	24f 24gJJ	.
+32BBJJJ	.	.
+8.C#ttL	24e 24gLL<	.
+.	24gg	.
+.	24e 24g	.
+.	24e 24g	.
+.	24e 24g	.
+32BBLL	.	.
+.	24e 24gJJ	.
+32C#JJJ	.	.
+!!LO:LB:g=original
+=47	=47	=47
+8D'L)	24e 24fLL	.
+.	24ff	.
+.	24e 24f	.
+8DD'J	24e 24f	.
+.	24e 24f	.
+.	24e 24fJJ	.
+8r	24d 24fLL	.
+.	24ff	.
+.	24d 24f	.
+8D'L	24d 24f	.
+.	24d 24f	.
+.	24d 24fJJ	.
+8BBn'	24d 24fLL	.
+.	24ff	.
+.	24d 24f	.
+8GG'J	24d 24f	.
+.	24d 24f	.
+.	24d 24fJJ	.
+=48	=48	=48
+8C'L	24d 24e-LL	.
+.	24ee-	.
+.	24d 24e-	.
+8CC'J	24d 24e-	.
+.	24d 24e-	.
+.	24d 24e-JJ	.
+8r	24c 24e-LL	.
+.	24ee-	.
+.	24c 24e-	.
+8C	24c 24e-	.
+.	24c 24e-	.
+.	24c 24e-JJ	.
+(8.AAttL	24c 24e-LL	.
+.	24ee-	.
+.	24c 24e-	.
+.	24c 24e-	.
+.	24c 24e-	.
+32GGLL	.	.
+.	24c 24e-JJ	.
+32AAJJJ	.	.
+!!LO:LB:g=original
+=49	=49	=49
+8.FF#L)	24c 24dLL	.
+.	24dd	.
+.	24c 24d	.
+.	24c 24d	.
+.	24c 24d	.
+32r	.	.
+.	24c 24dJJ	.
+32FF#Jkk	.	.
+(8.FF#ttL	24c 24dLL	.
+.	24dd	.
+.	24c 24d	.
+.	24c 24d	.
+.	24c 24d	.
+32EELL	.	.
+.	24c 24dJJ	.
+32FF#JJJ	.	.
+8.GGTTL	24B-X 24dLL	.
+.	24dd	.
+.	24B- 24d	.
+.	24B- 24d	.
+.	24B- 24d	.
+32FF#LL	.	.
+.	24B- 24dJJ	.
+32GGJJJ	.	.
+*-	*-	*-

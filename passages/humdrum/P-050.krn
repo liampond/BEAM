@@ -1,0 +1,133 @@
+!!!!SEGMENT: sonata02-2.krn
+!!!COM: Mozart, Wolfgang Amadeus
+!!!CDT: 1756/01/27/-1791/12/05/
+!!!CNT: German
+!!!OTL: Piano Sonata No. 2 in F major
+!!!SCT1: K<sup>1</sup> 280
+!!!SCT2: K<sup>6</sup> 189e
+!!!OMV: 2
+!!!OMD: Adagio.
+!!!ODT: 1774
+!!!RDF**kern: > = above
+!!!RDF**kern: < = below
+!!!YOR: Alte Mozart-Ausgabe, Band 20, Breitkopf &amp; H&auml;rtel 1877-1883.
+!!!YOY: 1878
+!!!YEC: 2018 Craig Stuart Sapp
+!!!YEM: Licence: (CC BY-NC-SA 4.0) https://creativecommons.org/licenses/by-nc-sa/4.0
+!!!YER: 2018
+!!!URL-github: https://github.com/craigsapp/mozart-piano-sonatas/blob/main/kern/sonata02-2.krn
+!!!URL-vhv: https://verovio.humdrum.org/?file=mozart/sonatas/sonata02-2.krn
+!!!URL-pdf: https://github.com/craigsapp/mozart-piano-sonatas/blob/master/reference-edition/sonata02-2.pdf
+!!!URL-youtube: https://www.youtube.com/watch?v=V_uGtDofGoE András Schiff
+!!!URL-wikipedia: https://en.wikipedia.org/wiki/Piano_Sonata_No._2_(Mozart)#Adagio
+!!!ENC: Craig Stuart Sapp
+!!!END: 2009/09/25
+!!!EED: Craig Stuart Sapp
+!!!EEV: 2020/08/15
+!!!EFL: 5/69
+!!!AGN: piano sonata
+!!!AFR: siciliana
+!!!title: @{OTL}, K 280 (189e), mvmt. @{OMV}
+!!!filter-hands: hands -c
+
+**kern	**kern	**dynam
+*part1	*part1	*
+*staff2	*staff1	*staff1/2
+*ICklav	*ICklav	*
+*Ipiano	*Ipiano	*
+*LH	*RH	*
+*I"	*I"	*
+*>[A,A,B,B]	*>[A,A,B,B]	*>[A,A,B,B]
+*>norep[A,B]	*>norep[A,B]	*>norep[A,B]
+*>A	*>A	*>A
+*clefF4	*clefG2	*
+*k[b-e-a-d-]	*k[b-e-a-d-]	*
+*f:	*f:	*
+*M6/8	*M6/8	*
+*MM72	*MM72	*
+
+=25:|!|:	=25:|!|:	=25:|!|:
+*>B	*>B	*>B
+2.r	8.ee-TL	p
+.	16ffk	.
+.	8ee-J	.
+.	4ee-	.
+.	8ee-	.
+*clefG2	*	*
+=26	=26	=26
+*	*^	*
+(4g-	(4ee-	[4.an [4.cc	f
+8f)	8ff)	.	.
+8e-	8gg-	8a] 8cc]	.
+8r	4ryy	8r	.
+8r	.	8r	.
+*clefF4	*	*	*
+=27	=27	=27	=27
+(4G-	(4e-	[4.An [4.c	p
+8F)	8f)	.	.
+8E-	8g-	8A] 8c]	.
+8r	8r	4ryy	.
+8r	8r	.	.
+*	*v	*v	*
+=28	=28	=28
+8D-' 8d-'L	8f' 8b-'L	f
+8C' 8c'	8e-' 8an'	.
+8BB-' 8B-'J	8d-' 8b-'J	.
+8AAn' 8An'	8f:/ 8cc:/ 8ee-:/	.
+8r	8r	.
+8r	8r	.
+=29	=29	=29
+*	*^	*
+8BB-	4.ryy	16r	p
+.	.	(>16dd-LL	.
+8r	.	16cc	.
+.	.	16dd-	.
+8r	.	16ee-	.
+.	.	16dd-JJ	.
+16r	[4.gg-)	16r	.
+(16B-LL	.	(16dd-LL	.
+16An	.	16cc	.
+16B-	.	16dd-	.
+16c	.	16ee-	.
+16B-JJ	.	16dd-JJ	.
+!!LO:LB:g=original
+=30	=30	=30	=30
+[4.An)	16gg-LL]	[4.cc)	.
+.	(16gg-	.	.
+.	16ff	.	.
+.	16gg-	.	.
+.	16aa-X	.	.
+.	16gg-JJ	.	.
+16ALL]	[4.ff)	16ccLL]	.
+(16A-	.	(16cc	.
+16G	.	16bn	.
+16A-	.	16cc	.
+16B-X	.	16dd-X	.
+16A-JJ	.	16ccJJ	.
+=31	=31	=31	=31
+*^	*	*	*
+16r	8G)	16ffLL]	8bn)	.
+(16dnLL	.	(16ff	.	.
+16c#	8rBB	16een	8rg	.
+16d	.	16ff	.	.
+16e-X	8rBB	16ggn	8rg	.
+16dJJ)	.	16ffJJ)	.	.
+16r	8F#	4.ryy	16r	.
+(16cnLL	.	.	(>16ee-LL	.
+16Bn	8rBB	.	16ddn	.
+16c	.	.	16ee-	.
+16d	8rBB	.	16ff	.
+16cJJ)	.	.	16ee-JJ	.
+*v	*v	*	*	*
+*	*v	*v	*
+=32	=32	=32
+16r	8bn 8ddn)	f
+(16GLL	.	.
+16F#	8r	.
+16G	.	.
+16A-X	8r	.
+16GJJ)	.	.
+8GG;<	4r;	.
+8r	.	.
+8r	8r	.
+*-	*-	*-

@@ -1,0 +1,113 @@
+!!!!SEGMENT: sonata09-2.krn
+!!!COM: Mozart, Wolfgang Amadeus
+!!!CDT: 1756/01/27/-1791/12/05/
+!!!CNT: German
+!!!OTL: Piano Sonata No. 9 in D major
+!!!SCT1: K<sup>1</sup> 311
+!!!SCT2: K<sup>6</sup> 284c
+!!!OMV: 2
+!!!ODT: 1777
+!!!OMD: Andante con espressione
+!!!RDF**kern: > = above
+!!!RDF**kern: < = below
+!!!YOR: Alte Mozart-Ausgabe, Band 20, Breitkopf &amp; H&auml;rtel 1877-1883.
+!!!YOY: 1878
+!!!YEC: 2018 Craig Stuart Sapp
+!!!YEM: Licence: (CC BY-NC-SA 4.0) https://creativecommons.org/licenses/by-nc-sa/4.0
+!!!YER: 2018
+!!!URL-github: https://github.com/craigsapp/mozart-piano-sonatas/blob/main/kern/sonata09-2.krn
+!!!URL-vhv: https://verovio.humdrum.org/?file=mozart/sonatas/sonata09-2.krn
+!!!URL-pdf: https://github.com/craigsapp/mozart-piano-sonatas/blob/master/reference-edition/sonata09-2.pdf
+!!!URL-youtube: https://www.youtube.com/watch?v=TSgpBWn_Bhs András Schiff
+!!!URL-wikipedia: https://en.wikipedia.org/wiki/Piano_Sonata_No._9_(Mozart)
+!!!ENC: Craig Stuart Sapp
+!!!END: 2009/10/15
+!!!EED: Craig Stuart Sapp
+!!!EEV: 2021/01/05
+!!!EFL: 38/69
+!!!AGN: piano sonata
+!!!AFR:
+!!!title: @{OTL}, K 311 (284c), mvmt. @{OMV}
+!!!filter-hands: hands -c
+
+**kern	**kern	**dynam
+*part1	*part1	*
+*staff2	*staff1	*staff1/2
+*ICklav	*ICklav	*
+*Ipiano	*Ipiano	*
+*LH	*RH	*
+*I"	*I"	*
+*clefF4	*clefG2	*
+*k[f#]	*k[f#]	*
+*G:	*G:	*
+*M2/4	*M2/4	*
+*MM84	*MM84	*
+
+=14	=14	=14
+4D 4F#	4a	.
+8BB 8BL	8d 8g# 8ddL	f
+8BB 8BJ	8d 8g# 8ddJ	.
+=15	=15	=15
+4BB 4B	4d 4g# 4dd	.
+8A 8eL	8cc# 8aaL	p
+8A 8eJ	8cc# 8aaJ	.
+=16	=16	=16
+4A 4e	4cc# 4aa	.
+4r	8r	.
+.	(16.ff#tLL	f
+.	32ggJJk	.
+*clefG2	*	*
+=17	=17	=17
+(16dLL	8aaL)	.
+16f#	.	.
+16a	[8aaJ	.
+16f#JJ)	.	.
+(16dLL	16aaLL]	.
+16f#	16aa	.
+16a	16.aaT	.
+16f#JJ)	.	.
+.	32bbJJk	.
+=18	=18	=18
+(16dLL	(16aaLL	.
+16e	16ggJ)	.
+16b	8.ggJ	.
+16eJJ)	.	.
+(16dLL	.	.
+16e	16gg'LL	.
+16b	16ff#'	.
+16eJJ)	16ee'JJ	.
+=19	=19	=19
+(16c#LL	(16eeLL	.
+16e	16aaJ)	.
+16a	([8aaJ	.
+16eJJ)	.	.
+(16BLL	16aaLL]	.
+16d	32bbL	.
+.	32aaJJJ)	.
+16g	(32aaLLL	.
+.	32gg	.
+16dJJ)	32ff#	.
+.	32ggJJJ)	.
+*clefF4	*	*
+!!LO:LB:g=original
+=20	=20	=20
+(16A#LL	(16ggLL	.
+16c#	16ff#J)	.
+16e	8.ff#J	.
+16A#JJ)	.	.
+(16BLL	.	.
+.	(32ff#qLLL	.
+.	32ggqJJJ	.
+16f#	16aa'LL)	.
+16An	16gg'	.
+16dJJ)	16ff#'JJ	.
+=21	=21	=21
+(16G#LL	(16ff#LL	.
+16B	16ee)	.
+16d	16ee'	.
+16BJJ)	16ee'JJ	.
+(16G#LL	8eeL	.
+16B	.	.
+16d	8eeJ	.
+16BJJ)	.	.
+*-	*-	*-

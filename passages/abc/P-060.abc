@@ -1,0 +1,43 @@
+%%linebreak <none>
+%%measurenb 2
+X: 15
+T: Piano Sonata No. 5 in G major, K 283 (189h), mvmt. 3
+C: Wolfgang Amadeus Mozart
+%%abc-version 2.0
+%%abcx-abcm2ps-target-version 5.9.1 (29 Sep 2008)
+%%abc-creator hum2abc beta
+%%abcx-conversion-date 2021/01/14 17:01:33
+%%abc-copyright 2018 Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abcx-initial-encoding-date 2009/10/06
+%%gracespace 0 6 6
+%%humdrum-veritas 2596865002
+%%humdrum-veritas-data 3466518942
+%%linebreak <none>
+%%barnumbers 0
+L: 1/8
+M: 3/8
+N: Derived from sonata05-3.krn
+Q: "Presto" 3/8=96
+%%staves {1 2}
+V: 1 clef=treble
+V: 2 clef=bass
+N: Extracted measures 69-76 from original score
+K: G
+[V:1] z z [dfa] | 
+[V:2] D,/F,/A,/D/ .F | 
+[V:1] z z [dgd'] | 
+[V:2] G,,/B,,/D,/G,/ .B,[K:clef=treble] | 
+[V:1] A3 | 
+[V:2] A,/F/D/F/A,/F/ | 
+[V:1] !trill!e3{/de} | 
+[V:2] A,/G/^C/G/A,/G/ | 
+[V:1] d z .a | 
+[V:2] [DF] z z | 
+[V:1] gf.f | 
+[V:2] z z .[^A,E] | 
+[V:1] .f z .f | 
+[V:2] .[B,D] z z | 
+[V:1] =c'b.b | 
+[V:2] z z .[^D=A] | 

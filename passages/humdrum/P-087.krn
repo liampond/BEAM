@@ -1,0 +1,119 @@
+!!!!SEGMENT: sonata15-3.krn
+!!!COM: Mozart, Wolfgang Amadeus
+!!!CDT: 1756/01/27/-1791/12/05/
+!!!CNT: German
+!!!OTL: Sonata No. 15 in C major
+!!!OTP: sonata facile
+!!!ONB: Piano Sonata No. 16 in NMA
+!!!SCT1: K 545
+!!!OMV: 3
+!!!OMD: Rondo: Allegretto
+!!!ODT: 1788
+!!!RDF**kern: > = above
+!!!RDF**kern: < = below
+!!!YOR: Alte Mozart-Ausgabe, Band 20, Breitkopf &amp; H&auml;rtel 1877-1883.
+!!!YOY: 1878
+!!!YEC: 2018 Craig Stuart Sapp
+!!!YEM: Licence: (CC BY-NC-SA 4.0) https://creativecommons.org/licenses/by-nc-sa/4.0
+!!!YER: 2018
+!!!URL-github: https://github.com/craigsapp/mozart-piano-sonatas/blob/main/kern/sonata15-3.krn
+!!!URL-vhv: https://verovio.humdrum.org/?file=mozart/sonatas/sonata15-3.krn
+!!!URL-pdf: https://github.com/craigsapp/mozart-piano-sonatas/blob/master/reference-edition/sonata15-3.pdf
+!!!URL-youtube: https://www.youtube.com/watch?v=NgkPanG06Ds András Schiff
+!!!URL-wikipedia:  https://en.wikipedia.org/wiki/Piano_Sonata_No._16_(Mozart)#III._Rondo:_Allegretto
+!!!ENC: Craig Stuart Sapp
+!!!END: 2009/09/24
+!!!EED: Craig Stuart Sapp
+!!!EEV: 2024/06/06
+!!!EFL: 63/69
+!!!AGN: piano sonata
+!!!AFR: rondo
+!!!title: @{OTL} (<i>@{OTP}</i>), @{SCT1}, mvmt. @{OMV}
+!!!filter-hands: hands -c
+
+**kern	**kern	**dynam
+*part1	*part1	*
+*staff2	*staff1	*staff1/2
+*ICklav	*ICklav	*
+*Ipiano	*Ipiano	*
+*LH	*RH	*
+*I"	*I"	*
+*>[A,A,B]	*>[A,A,B]	*>[A,A,B]
+*>norep[A,B]	*>norep[A,B]	*>norep[A,B]
+*>A	*>A	*>A
+*clefF4	*clefG2	*
+*k[]	*k[]	*
+*C:	*C:	*
+*M2/4	*M2/4	*
+*MM112	*MM112	*
+
+=9	=9	=9
+16BLL	16aaLL	.
+16g	16gg	.
+16d	16ff#	.
+16gJJ	16eeJJ)	.
+*clefF4	*	*
+16F#LL	16dd'LL	.
+16d	16dd'	.
+16A	16dd'	.
+16dJJ	16dd'JJ	.
+!!LO:LB:g=original
+=10	=10	=10
+16GLL	(16eeLL	.
+16d	16dd	.
+16B	16cc	.
+16dJJ	16bJJ)	.
+16BBLL	(16eeeLL	.
+16G	16ddd	.
+16D	16ccc	.
+16GJJ	16bbJJ	.
+=11	=11	=11
+16CLL	16gg#LL	.
+16A	16aa	.
+16E	16bb	.
+16AJJ	16cccJJ	.
+16C#LL	16eeLL	.
+16A	16ff#	.
+16E	16ggn	.
+16AJJ	16aaJJ	.
+=12	=12	=12
+8D	16ggLL	>
+.	16ff#	.
+8r	16ee	.
+.	16ddJJ)	]
+4r	8bb' 8ddd'L	p
+.	8bb' 8ddd'J	.
+*clefG2	*	*
+=13	=13	=13
+8e' 8g'L	8gg' 8bb'	.
+8e' 8g'J	8r	.
+8c' 8e'	8aa' 8ccc'L	.
+8r	8aa' 8ccc'J	.
+=14	=14	=14
+8d' 8f#'L	8ff#' 8aa'	.
+8d' 8f#'J	8r	.
+8B' 8d'	(16ggLL	.
+.	16aa	.
+8r	16bb	.
+.	16ggJJ	.
+*clefF4	*	*
+!!LO:LB:g=original
+=15	=15	=15
+*^	*	*
+(4.G	(4C	16dd#LL	.
+.	.	16ee	.
+.	.	16gg	.
+.	.	16eeJJ	.
+.	4D)	16ddnLL	.
+.	.	16b	.
+8F#	.	16cc	.
+.	.	16aJJ	.
+*v	*v	*	*
+=16	=16	=16
+8G'L)	8g)	.
+8GG'J	8r	.
+4r	(16gLL<	.
+.	16a	.
+.	16b	.
+.	16ccJJ	.
+*-	*-	*-

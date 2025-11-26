@@ -1,0 +1,43 @@
+%%linebreak <none>
+%%measurenb 2
+X: 60
+T: Piano Sonata No. 14 in C minor, K 457, mvmt. 3
+C: Wolfgang Amadeus Mozart
+%%abc-version 2.0
+%%abcx-abcm2ps-target-version 5.9.1 (29 Sep 2008)
+%%abc-creator hum2abc beta
+%%abcx-conversion-date 2021/01/14 17:01:32
+%%abc-copyright 2018 Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abcx-initial-encoding-date 2009/10/01
+%%gracespace 0 6 6
+%%humdrum-veritas 3983136728
+%%humdrum-veritas-data 3733765789
+%%linebreak <none>
+%%barnumbers 0
+L: 1/4
+M: 3/4
+N: Derived from sonata14-3.krn
+Q: "Molto allegro" 3/4=100
+%%staves {1 2}
+V: 1 clef=treble
+V: 2 clef=bass
+N: Extracted measures 150-157 from original score
+K: Eb
+[V:1] _d2c | 
+[V:2] F,A,C | 
+[V:1] zzz/ c'/ | 
+[V:2] =E,G,B, | 
+[V:1] _d'2c' | 
+[V:2] F,A,C | 
+[V:1] z3 | 
+[V:2] _E,G,C | 
+[V:1] .=D[=Ac^f][cf=a] | 
+[V:2] .=D,[C,C][=A,,=A,] | 
+[V:1] .[e=ac']zz | 
+[V:2] .[^F,,^F,]zz | 
+[V:1] !fermata!z3 | 
+[V:2] !fermata!z3 | 
+[V:1] z3 | 
+[V:2] G,B,D | 

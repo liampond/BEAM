@@ -1,0 +1,60 @@
+!!!!SEGMENT: sonata06-2.krn
+!!!COM: Mozart, Wolfgang Amadeus
+!!!CDT: 1756/01/27/-1791/12/05/
+!!!CNT: German
+!!!OTL: Piano Sonata No. 6 in D major
+!!!OTP: D&uuml;rnitz
+!!!SCT1: K<sup>1</sup> 284
+!!!SCT2: K<sup>6</sup> 205b
+!!!OMV: 2
+!!!OMD: Rondeau en polonaise: Andante
+!!!ODT: 1775
+!!!RDF**kern: > = above
+!!!RDF**kern: < = below
+!!!YOR: Alte Mozart-Ausgabe, Band 20, Breitkopf &amp; H&auml;rtel 1877-1883.
+!!!YOY: 1878
+!!!YEC: 2018 Craig Stuart Sapp
+!!!YEM: Licence: (CC BY-NC-SA 4.0) https://creativecommons.org/licenses/by-nc-sa/4.0
+!!!YER: 2018
+!!!URL-github: https://github.com/craigsapp/mozart-piano-sonatas/blob/main/kern/sonata06-2.krn
+!!!URL-vhv: https://verovio.humdrum.org/?file=mozart/sonatas/sonata06-2.krn
+!!!URL-pdf: https://github.com/craigsapp/mozart-piano-sonatas/blob/master/reference-edition/sonata06-2.pdf
+!!!URL-youtube: https://www.youtube.com/watch?v=Y9s5ffhVOl8 András Schiff
+!!!URL-wikipedia: https://en.wikipedia.org/wiki/Piano_Sonata_No._6_(Mozart)#Rondeau_en_polonaise_(Rondo_in_the_style_of_a_Polonaise)
+!!!ENC: Craig Stuart Sapp
+!!!END: 2009/09/24
+!!!EED: Craig Stuart Sapp
+!!!EEV: 2024/06/03
+!!!EFL: 17/69
+!!!AGN: piano sonata
+!!!AFR:
+!!!title: @{OTL} (<i>@{OTP}</i>), K 284 (205b), mvmt. @{OMV}
+!!!filter-hands: hands -c
+
+**kern	**kern	**dynam
+*part1	*part1	*
+*staff2	*staff1	*staff1/2
+*ICklav	*ICklav	*
+*Ipiano	*Ipiano	*
+*LH	*RH	*
+*I"	*I"	*
+*clefF4	*clefG2	*
+*k[f#c#g#]	*k[f#c#g#]	*
+*A:	*A:	*
+*M3/4	*M3/4	*
+*MM104	*MM104	*
+
+=76	=76	=76
+4C# 4c#	(16.aLL	f
+.	32bk	.
+.	16.a	.
+.	32g#JJk	.
+8r	16.aLL)	.
+.	(32ek	p
+8D (8dL	16.g# 16.b	.
+.	32eJJk	.
+8C# 8c#	16.a 16.cc#LL	.
+.	32ek	.
+8BB 8BJ)	16.b 16.dd	.
+.	32eJJk)	.
+*-	*-	*-

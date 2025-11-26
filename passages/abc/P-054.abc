@@ -1,0 +1,43 @@
+%%linebreak <none>
+%%measurenb 2
+X: 9
+T: Piano Sonata No. 3 in B\b major, K 281 (189f), mvmt. 3
+C: Wolfgang Amadeus Mozart
+%%abc-version 2.0
+%%abcx-abcm2ps-target-version 5.9.1 (29 Sep 2008)
+%%abc-creator hum2abc beta
+%%abcx-conversion-date 2021/01/14 17:01:32
+%%abc-copyright 2018 Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abc-edited-by Craig Stuart Sapp
+%%abcx-initial-encoding-date 2009/10/02
+%%gracespace 0 6 6
+%%humdrum-veritas 975977952
+%%humdrum-veritas-data 3694880662
+%%linebreak <none>
+%%barnumbers 0
+L: 1/8
+M: C|
+N: Derived from sonata03-3.krn
+Q: "RONDO. Allegro." 1/2=80
+%%staves {1 2}
+V: 1 clef=treble
+V: 2 clef=treble
+N: Extracted measures 44-51 from original score
+K: Bb
+[V:1] fedce2f2 | 
+[V:2] [C4G4]z2[A,2F2] | 
+[V:1] edcBf2b2 | 
+[V:2] [_B,4F4]z2B2 & x6D2 | 
+[V:1] aggf feed | 
+[V:2] B4A2B2 & E2D2C2B,2 | 
+[V:1] d2c2f=efg | 
+[V:2] B2A2x4[K:clef=bass] & F4z2[=B,,2=B,2] | 
+[V:1] f_edc edef | 
+[V:2] [C,2C2][E,2E2]z2[A,,2A,2] | 
+[V:1] edcB Bdfb | 
+[V:2] x6B,2 & [_B,,2_B,2][D,2D2]z2D,2 | 
+[V:1] bgec {/B/c/d/}!trill!c4{/Bc} | 
+[V:2] B,2B,4A,2 & E,2G,2F,4 | 
+[V:1] B2c2^c2d2 ]|:  
+[V:2] B,2z2z4[K:clef=treble] & B,,2z2z4 ]|:  
