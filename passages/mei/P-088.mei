@@ -396,66 +396,6 @@
             </staffGrp>
           </scoreDef>
           <section>
-            <measure facs="#zoneOf_m81_k576_001" n="81" xml:id="m81_k576_001">
-                <staff decls="#upper" n="1" xml:id="staff_16326">
-                  <layer n="1" xml:id="layer_16332">
-                    <beam xml:id="beam_16338">
-                      <note accid.ges="s" doxml.id="d27e3242" dur="8" oct="5" pname="f" tstamp="1" xml:id="note_16344"/>
-                      <note accid.ges="s" doxml.id="d27e3245" dur="8" oct="5" pname="c" tstamp="2" xml:id="note_16350"/>
-                      <note accid="s" doxml.id="d27e3247" dur="8" oct="5" pname="a" tstamp="3" xml:id="note_16356"/>
-                    </beam>
-                    <beam xml:id="beam_16362">
-                      <note accid.ges="s" doxml.id="d27e3249" dur="8" oct="5" pname="f" tstamp="4" xml:id="note_16368"/>
-                      <note accid.ges="s" doxml.id="d27e3251" dur="8" oct="5" pname="c" tstamp="5" xml:id="note_16374"/>
-                      <note accid.ges="s" doxml.id="d27e3253" dur="8" oct="5" pname="a" tstamp="6" xml:id="note_16380"/>
-                    </beam>
-                  </layer>
-                </staff>
-                <staff decls="#lower" n="2" xml:id="staff_16386">
-                  <layer n="1" xml:id="layer_16392">
-                    <chord doxml.id="d27e3257" dur="4" stem.dir="up" tstamp="1" xml:id="chord_16398">
-                      <note accid.ges="s" doxml.id="d27e3257" oct="4" pname="c" xml:id="note_16404"/>
-                      <note accid="s" doxml.id="d27e3259" oct="3" pname="a" xml:id="note_16410"/>
-                    </chord>
-                    <rest doxml.id="d27e3263" dur="8" tstamp="3" xml:id="rest_16416"/>
-                    <rest doxml.id="d27e3265" dur="4" tstamp="4" xml:id="rest_16422"/>
-                    <rest doxml.id="d27e3268" dur="8" tstamp="6" xml:id="rest_16428"/>
-                    <clef line="2" shape="G" xml:id="clef_16434"/>
-                  </layer>
-                  <layer n="2" xml:id="layer_16440">
-                    <note accid.ges="s" doxml.id="d27e3261" dur="4" oct="3" pname="f" tstamp="1" xml:id="note_16446"/>
-                    <space doxml.id="d27e3263" dur="8" tstamp="3" xml:id="space_16452"/>
-                    <space dots="1" doxml.id="d27e3265" dur="4" tstamp="4" xml:id="space_16458"/>
-                    <clef sameas="#clef_16434" xml:id="clef_16464"/>
-                  </layer>
-                </staff>
-                <slur endid="#note_16380" staff="1" startid="#note_16344" xml:id="slur_16470"/>
-              </measure>
-            <measure facs="#zoneOf_m82_k576_001" n="82" xml:id="m82_k576_001">
-                <staff decls="#upper" n="1" xml:id="staff_16482">
-                  <layer n="1" xml:id="layer_16488">
-                    <note accid.ges="s" doxml.id="d27e3274" dur="4" oct="5" pname="f" tstamp="1" xml:id="note_16494"/>
-                    <rest doxml.id="d27e3276" dur="8" tstamp="3" xml:id="rest_16500"/>
-                    <rest doxml.id="d27e3278" dur="4" tstamp="4" xml:id="rest_16506"/>
-                    <rest doxml.id="d27e3280" dur="8" tstamp="6" xml:id="rest_16512"/>
-                  </layer>
-                </staff>
-                <staff decls="#lower" n="2" xml:id="staff_16518">
-                  <layer n="1" xml:id="layer_16524">
-                    <beam xml:id="beam_16530">
-                      <note accid.ges="s" doxml.id="d27e3284" dur="8" oct="4" pname="f" tstamp="1" xml:id="note_16536"/>
-                      <note accid.ges="s" doxml.id="d27e3286" dur="8" oct="4" pname="c" tstamp="2" xml:id="note_16542"/>
-                      <note accid="s" doxml.id="d27e3288" dur="8" oct="4" pname="a" tstamp="3" xml:id="note_16548"/>
-                    </beam>
-                    <beam xml:id="beam_16554">
-                      <note accid.ges="s" doxml.id="d27e3291" dur="8" oct="4" pname="f" tstamp="4" xml:id="note_16560"/>
-                      <note accid.ges="s" doxml.id="d27e3293" dur="8" oct="4" pname="c" tstamp="5" xml:id="note_16566"/>
-                      <note accid.ges="s" doxml.id="d27e3295" dur="8" oct="4" pname="a" tstamp="6" xml:id="note_16572"/>
-                    </beam>
-                  </layer>
-                </staff>
-                <slur endid="#note_16572" staff="2" startid="#note_16536" xml:id="slur_16578"/>
-              </measure>
             <measure facs="#zoneOf_m83_k576_001" n="83" xml:id="m83_k576_001">
                 <staff decls="#upper" n="1" xml:id="staff_16590">
                   <layer n="1" xml:id="layer_16596">
@@ -611,6 +551,57 @@
                   </layer>
                 </staff>
                 <slur endid="#note_17244" staff="2" startid="#note_17208" xml:id="slur_17250"/>
+              </measure>
+            <measure facs="#zoneOf_m89_k576_001" n="89" xml:id="m89_k576_001">
+                <staff decls="#upper" n="1" xml:id="staff_17262">
+                  <layer n="1" xml:id="layer_17268">
+                    <beam xml:id="beam_17274">
+                      <note doxml.id="d27e3460" dur="8" oct="5" pname="e" tstamp="1" xml:id="note_17280"/>
+                      <note doxml.id="d27e3462" dur="8" oct="4" pname="b" tstamp="2" xml:id="note_17286"/>
+                      <note accid="n" doxml.id="d27e3464" dur="8" oct="5" pname="g" tstamp="3" xml:id="note_17292"/>
+                    </beam>
+                    <beam xml:id="beam_17298">
+                      <note doxml.id="d27e3466" dur="8" oct="5" pname="e" tstamp="4" xml:id="note_17304"/>
+                      <note doxml.id="d27e3468" dur="8" oct="4" pname="b" tstamp="5" xml:id="note_17310"/>
+                      <note doxml.id="d27e3470" dur="8" oct="5" pname="g" tstamp="6" xml:id="note_17316"/>
+                    </beam>
+                  </layer>
+                </staff>
+                <staff decls="#lower" n="2" xml:id="staff_17322">
+                  <layer n="1" xml:id="layer_17328">
+                    <note doxml.id="d27e3475" dur="4" oct="4" pname="e" tstamp="1" xml:id="note_17334"/>
+                    <rest doxml.id="d27e3477" dur="8" tstamp="3" xml:id="rest_17340"/>
+                    <rest doxml.id="d27e3479" dur="4" tstamp="4" xml:id="rest_17346"/>
+                    <rest doxml.id="d27e3481" dur="8" tstamp="6" xml:id="rest_17352"/>
+                  </layer>
+                </staff>
+                <slur endid="#note_17316" staff="1" startid="#note_17280" xml:id="slur_17358"/>
+              </measure>
+            <measure facs="#zoneOf_m90_k576_001" n="90" xml:id="m90_k576_001">
+                <staff decls="#upper" n="1" xml:id="staff_17376">
+                  <layer n="1" xml:id="layer_17382">
+                    <beam xml:id="beam_17388">
+                      <note accid.ges="s" doxml.id="d27e3502" dur="8" oct="5" pname="f" tstamp="1" xml:id="note_17394"/>
+                      <note doxml.id="d27e3504" dur="8" oct="4" pname="b" tstamp="2" xml:id="note_17400"/>
+                      <note doxml.id="d27e3506" dur="8" oct="5" pname="a" tstamp="3" xml:id="note_17406"/>
+                    </beam>
+                    <beam xml:id="beam_17412">
+                      <note accid.ges="s" doxml.id="d27e3508" dur="8" oct="5" pname="f" tstamp="4" xml:id="note_17418"/>
+                      <note doxml.id="d27e3510" dur="8" oct="4" pname="b" tstamp="5" xml:id="note_17424"/>
+                      <note doxml.id="d27e3512" dur="8" oct="5" pname="a" tstamp="6" xml:id="note_17430"/>
+                    </beam>
+                  </layer>
+                </staff>
+                <staff decls="#lower" n="2" xml:id="staff_17436">
+                  <layer n="1" xml:id="layer_17442">
+                    <note dots="1" doxml.id="d27e3516" dur="4" oct="4" pname="e" tstamp="1" xml:id="note_17448"/>
+                    <note accid="s" dots="1" doxml.id="d27e3521" dur="4" oct="4" pname="d" tstamp="4" xml:id="note_17454"/>
+                  </layer>
+                  <layer n="2" xml:id="layer_17460">
+                    <note dots="1" doxml.id="d27e3518" dur="2" oct="3" pname="b" tstamp="1" xml:id="note_17466"/>
+                  </layer>
+                </staff>
+                <slur endid="#note_17430" staff="1" startid="#note_17394" xml:id="slur_17472"/>
               </measure>
           </section>
         </score>

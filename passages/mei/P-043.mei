@@ -396,36 +396,36 @@
             </staffGrp>
           </scoreDef>
           <section>
-            <measure facs="#zoneOf_m34_k576_001" n="34" xml:id="m34_k576_001">
-                <staff decls="#upper" n="1" xml:id="staff_8934">
-                  <layer n="1" xml:id="layer_8940">
-                    <beam xml:id="beam_8946">
-                      <note accid.ges="s" doxml.id="d27e1382" dur="16" oct="4" pname="c" tstamp="1" xml:id="note_8952"/>
-                      <note doxml.id="d27e1384" dur="16" oct="4" pname="e" tstamp="1.5" xml:id="note_8958"/>
-                      <note accid="s" doxml.id="d27e1386" dur="16" oct="4" pname="d" tstamp="2" xml:id="note_8964"/>
-                      <note doxml.id="d27e1388" dur="16" oct="4" pname="e" tstamp="2.5" xml:id="note_8970"/>
-                      <note accid.ges="s" doxml.id="d27e1390" dur="16" oct="4" pname="f" tstamp="3" xml:id="note_8976"/>
-                      <note doxml.id="d27e1392" dur="16" oct="4" pname="e" tstamp="3.5" xml:id="note_8982"/>
+            <measure facs="#zoneOf_m35_k576_001" n="35" xml:id="m35_k576_001">
+                <staff decls="#upper" n="1" xml:id="staff_9096">
+                  <layer n="1" xml:id="layer_9102">
+                    <beam xml:id="beam_9108">
+                      <note doxml.id="d27e1434" dur="16" oct="3" pname="b" tstamp="1" xml:id="note_9114"/>
+                      <note doxml.id="d27e1436" dur="16" oct="4" pname="e" tstamp="1.5" xml:id="note_9120"/>
+                      <note accid="s" doxml.id="d27e1438" dur="16" oct="4" pname="d" tstamp="2" xml:id="note_9126"/>
+                      <note doxml.id="d27e1440" dur="16" oct="4" pname="e" tstamp="2.5" xml:id="note_9132"/>
+                      <note accid.ges="s" doxml.id="d27e1442" dur="16" oct="4" pname="c" tstamp="3" xml:id="note_9138"/>
+                      <note doxml.id="d27e1444" dur="16" oct="4" pname="e" tstamp="3.5" xml:id="note_9144"/>
                     </beam>
-                    <beam xml:id="beam_8988">
-                      <note doxml.id="d27e1394" dur="16" oct="4" pname="a" tstamp="4" xml:id="note_8994"/>
-                      <note doxml.id="d27e1396" dur="16" oct="4" pname="e" tstamp="4.5" xml:id="note_9000"/>
-                      <note accid.ges="s" doxml.id="d27e1398" dur="16" oct="4" pname="d" tstamp="5" xml:id="note_9006"/>
-                      <note doxml.id="d27e1400" dur="16" oct="4" pname="e" tstamp="5.5" xml:id="note_9012"/>
-                      <note accid.ges="s" doxml.id="d27e1402" dur="16" oct="4" pname="f" tstamp="6" xml:id="note_9018"/>
-                      <note doxml.id="d27e1405" dur="16" oct="4" pname="e" tstamp="6.5" xml:id="note_9024"/>
+                    <beam xml:id="beam_9150">
+                      <note accid="n" doxml.id="d27e1446" dur="16" oct="4" pname="d" tstamp="4" xml:id="note_9156"/>
+                      <note doxml.id="d27e1448" dur="16" oct="4" pname="e" tstamp="4.5" xml:id="note_9162"/>
+                      <note accid.ges="s" doxml.id="d27e1451" dur="16" oct="4" pname="c" tstamp="5" xml:id="note_9168"/>
+                      <note doxml.id="d27e1453" dur="16" oct="4" pname="e" tstamp="5.5" xml:id="note_9174"/>
+                      <note doxml.id="d27e1455" dur="16" oct="3" pname="b" tstamp="6" xml:id="note_9180"/>
+                      <note doxml.id="d27e1457" dur="16" oct="4" pname="e" tstamp="6.5" xml:id="note_9186"/>
                     </beam>
                   </layer>
                 </staff>
-                <staff decls="#lower" n="2" xml:id="staff_9030">
-                  <layer n="1" xml:id="layer_9036">
-                    <note doxml.id="d27e1409" dur="4" oct="3" pname="a" tstamp="1" xml:id="note_9042"/>
-                    <rest doxml.id="d27e1411" dur="8" tstamp="3" xml:id="rest_9048"/>
-                    <chord doxml.id="d27e1413" dur="4" tstamp="4" xml:id="chord_9054">
-                      <note accid.ges="s" doxml.id="d27e1413" oct="4" pname="c" xml:id="note_9060"/>
-                      <note doxml.id="d27e1415" oct="3" pname="a" xml:id="note_9066"/>
-                    </chord>
-                    <rest doxml.id="d27e1417" dur="8" tstamp="6" xml:id="rest_9072"/>
+                <staff decls="#lower" n="2" xml:id="staff_9192">
+                  <layer n="1" xml:id="layer_9198">
+                    <note accid="s" doxml.id="d27e1461" dur="4" oct="3" pname="g" tstamp="1" xml:id="note_9204"/>
+                    <note doxml.id="d27e1463" dur="8" oct="3" pname="a" tstamp="3" xml:id="note_9210"/>
+                    <beam xml:id="beam_9216">
+                      <note doxml.id="d27e1465" dur="8" oct="3" pname="b" tstamp="4" xml:id="note_9222"/>
+                      <note doxml.id="d27e1467" dur="8" oct="3" pname="a" tstamp="5" xml:id="note_9228"/>
+                      <note accid.ges="s" doxml.id="d27e1469" dur="8" oct="3" pname="g" tstamp="6" xml:id="note_9234"/>
+                    </beam>
                   </layer>
                 </staff>
               </measure>

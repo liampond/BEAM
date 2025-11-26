@@ -1418,7 +1418,10 @@
           <tuplet type="stop"/>
           </notations>
         </note>
-      </measure><measure number="108" width="320.65">
+      </measure>
+  </part>
+  <part id="P2">
+    <measure number="108" width="320.65">
       <attributes>
         <divisions>24</divisions>
         <key>
@@ -1429,8 +1432,8 @@
           <beat-type>4</beat-type>
           </time>
         <clef>
-          <sign>G</sign>
-          <line>2</line>
+          <sign>F</sign>
+          <line>4</line>
           </clef>
         </attributes>
       <attributes>

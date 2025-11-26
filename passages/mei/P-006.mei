@@ -337,30 +337,34 @@
             </staffGrp>
           </scoreDef>
           <section>
-            <measure facs="#zoneOf_m169_k280_003" n="169" xml:id="m169_k280_003">
-                <staff decls="#upper" n="1" xml:id="staff_20898">
-                  <layer n="1" xml:id="layer_20904">
-                    <beam xml:id="beam_20910">
-                      <note doxml.id="d27e4229" dur="16" oct="4" pname="a" tstamp="1" xml:id="note_20916"/>
-                      <note doxml.id="d27e4231" dur="16" oct="5" pname="c" tstamp="1.5" xml:id="note_20922"/>
-                      <note doxml.id="d27e4234" dur="16" oct="5" pname="f" tstamp="2" xml:id="note_20928"/>
-                      <note doxml.id="d27e4236" dur="16" oct="5" pname="e" tstamp="2.5" xml:id="note_20934"/>
-                      <note doxml.id="d27e4238" dur="16" oct="5" pname="d" tstamp="3" xml:id="note_20940"/>
-                      <note doxml.id="d27e4240" dur="16" oct="5" pname="c" tstamp="3.5" xml:id="note_20946"/>
+            <measure facs="#zoneOf_m171_k280_003" n="171" xml:id="m171_k280_003">
+                <staff decls="#upper" n="1" xml:id="staff_21138">
+                  <layer n="1" xml:id="layer_21144">
+                    <beam xml:id="beam_21150">
+                      <note accid="n" doxml.id="d27e4288" dur="16" oct="4" pname="g" tstamp="1" xml:id="note_21156"/>
+                      <note doxml.id="d27e4290" dur="16" oct="4" pname="a" tstamp="1.5" xml:id="note_21162"/>
+                      <note accid.ges="f" doxml.id="d27e4292" dur="16" oct="4" pname="b" tstamp="2" xml:id="note_21168"/>
+                      <note doxml.id="d27e4294" dur="16" oct="4" pname="g" tstamp="2.5" xml:id="note_21174"/>
+                      <note doxml.id="d27e4298" dur="16" oct="4" pname="e" tstamp="3" xml:id="note_21180"/>
+                      <note doxml.id="d27e4300" dur="16" oct="4" pname="f" tstamp="3.5" xml:id="note_21186"/>
                     </beam>
                   </layer>
                 </staff>
-                <staff decls="#lower" n="2" xml:id="staff_20952">
-                  <layer n="1" xml:id="layer_20958">
-                    <chord doxml.id="d27e4244" dur="8" tstamp="1" xml:id="chord_20964">
-                      <note doxml.id="d27e4244" oct="3" pname="f" xml:id="note_20970"/>
-                      <note doxml.id="d27e4246" oct="2" pname="f" xml:id="note_20976"/>
+                <staff decls="#lower" n="2" xml:id="staff_21192">
+                  <layer n="1" xml:id="layer_21198">
+                    <chord doxml.id="d27e4305" dur="4" tstamp="1" xml:id="chord_21204">
+                      <note doxml.id="d27e4305" oct="4" pname="d" xml:id="note_21210"/>
+                      <note accid.ges="f" doxml.id="d27e4307" oct="3" pname="b" xml:id="note_21216"/>
                     </chord>
-                    <rest doxml.id="d27e4248" dur="8" tstamp="2" xml:id="rest_20982"/>
-                    <rest doxml.id="d27e4250" dur="8" tstamp="3" xml:id="rest_20988"/>
-                    <clef doxml.id="d27e4252" line="2" shape="G" xml:id="clef_20994"/>
+                    <chord doxml.id="d27e4309" dur="8" tstamp="3" xml:id="chord_21222">
+                      <note doxml.id="d27e4309" oct="4" pname="c" xml:id="note_21228"/>
+                      <note doxml.id="d27e4311" oct="3" pname="a" xml:id="note_21234"/>
+                    </chord>
+                    <clef doxml.id="d27e4313" line="4" shape="F" xml:id="clef_21240"/>
                   </layer>
                 </staff>
+                <dynam doxml.id="d27e4286" place="between" staff="1 2" startid="#note_21156" xml:id="dynam_21246">f</dynam>
+                <dynam doxml.id="d27e4296" place="between" staff="1 2" startid="#note_21180" xml:id="dynam_21258">p</dynam>
               </measure>
           </section>
         </score>

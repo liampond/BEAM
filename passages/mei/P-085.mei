@@ -561,23 +561,6 @@
             </staffGrp>
           </scoreDef>
           <section>
-            <measure facs="#zoneOf_m149_k457_003" n="149" xml:id="m149_k457_003">
-              <staff decls="#upper" n="1" xml:id="staff_22158">
-                <layer n="1" xml:id="layer_22146">
-                  <note doxml.id="d27e3870" dur="4" oct="5" pname="c" tstamp="1" xml:id="note_23202"/>
-                  <rest doxml.id="d27e3872" dur="4" tstamp="2" xml:id="rest_23208"/>
-                  <rest doxml.id="d27e3874" dur="8" tstamp="3" xml:id="rest_23214"/>
-                  <note doxml.id="d27e3876" dur="8" oct="5" pname="c" tstamp="3.5" xml:id="note_23220"/>
-                </layer>
-              </staff>
-              <staff decls="#lower" n="2" xml:id="staff_22194">
-                <layer n="1" xml:id="layer_22182">
-                  <note accid="n" doxml.id="d27e3880" dur="4" oct="3" pname="e" tstamp="1" xml:id="note_23238"/>
-                  <note doxml.id="d27e3882" dur="4" oct="3" pname="g" tstamp="2" xml:id="note_23244"/>
-                  <note accid.ges="f" doxml.id="d27e3884" dur="4" oct="3" pname="b" tstamp="3" xml:id="note_23250"/>
-                </layer>
-              </staff>
-            </measure>
             <measure facs="#zoneOf_m150_k457_003" n="150" xml:id="m150_k457_003">
               <staff decls="#upper" n="1" xml:id="staff_22230">
                 <layer n="1" xml:id="layer_22218">
@@ -710,6 +693,22 @@
               </staff>
               <fermata doxml.id="d27e4004" startid="#mRest_23784" xml:id="fermata_23808"/>
               <fermata doxml.id="d27e4010" startid="#mRest_23802" xml:id="fermata_23814"/>
+            </measure>
+            <measure facs="#zoneOf_m157_k457_003" n="157" xml:id="m157_k457_003">
+              <staff decls="#upper" n="1" xml:id="staff_22800">
+                <layer n="1" xml:id="layer_22788">
+                  <mRest tstamp="1" xml:id="mRest_23844"/>
+                </layer>
+              </staff>
+              <staff decls="#lower" n="2" xml:id="staff_22818">
+                <layer n="1" xml:id="layer_22806">
+                  <note doxml.id="d27e4047" dur="4" oct="3" pname="g" tstamp="1" xml:id="note_23862"/>
+                  <note accid="f" doxml.id="d27e4050" dur="4" oct="3" pname="b" tstamp="2" xml:id="note_23868"/>
+                  <note doxml.id="d27e4052" dur="4" oct="4" pname="d" tstamp="3" xml:id="note_23874"/>
+                </layer>
+              </staff>
+              <dynam doxml.id="d27e4045" staff="2" startid="#note_23862" xml:id="dynam_23880">p</dynam>
+              <slur endid="#note_23946" staff="2" startid="#note_23862" xml:id="slur_22314"/>
             </measure>
           </section>
         </score>

@@ -18,7 +18,7 @@
       </score-part>
     </part-list>
   <part id="P1">
-    <measure number="135" width="153.49">
+    <measure number="136" width="131.05">
       <attributes>
         <divisions>4</divisions>
         <key>
@@ -34,84 +34,53 @@
           <line>4</line>
           </clef>
         </attributes>
-      <harmony print-frame="no">
-        <root>
-          <root-step text="">C</root-step>
-          </root>
-        <kind text="V">none</kind>
-        </harmony>
-      <note default-x="15.80" default-y="-55.00" xml:id="note1360">
-        <pitch>
-          <step>B</step>
-          <octave>3</octave>
-          </pitch>
-        <duration>4</duration>
-        <voice>1</voice>
-        <type>quarter</type>
-        <stem>up</stem>
-        <staff>1</staff>
-        <notations>
-          <slur type="stop" number="1"/>
-          </notations>
-        </note>
-      <note default-x="15.80" default-y="-45.00" xml:id="note1361">
-        <chord/>
-        <pitch>
-          <step>D</step>
-          <octave>4</octave>
-          </pitch>
-        <duration>4</duration>
-        <voice>1</voice>
-        <type>quarter</type>
-        <stem>up</stem>
-        <staff>1</staff>
-        </note>
-      <note xml:id="note1362">
+      <note xml:id="note1366">
         <rest/>
         <duration>4</duration>
         <voice>1</voice>
         <type>quarter</type>
         <staff>1</staff>
+        </note>
+      <note xml:id="note1367">
+        <rest/>
+        <duration>2</duration>
+        <voice>1</voice>
+        <type>eighth</type>
+        <staff>1</staff>
+        </note>
+      <direction placement="below">
+        <direction-type>
+          <dynamics default-x="3.29" default-y="-40.00" relative-y="-40.00">
+            <p/>
+            </dynamics>
+          </direction-type>
+        <staff>1</staff>
+        <sound dynamics="54.44"/>
+        </direction>
+      <note default-x="97.08" default-y="5.00" xml:id="note1368">
+        <pitch>
+          <step>G</step>
+          <octave>5</octave>
+          </pitch>
+        <duration>2</duration>
+        <voice>1</voice>
+        <type>eighth</type>
+        <stem>down</stem>
+        <staff>1</staff>
+        <notations>
+          <articulations>
+            <staccato/>
+            </articulations>
+          </notations>
         </note>
       <backup>
         <duration>8</duration>
         </backup>
-      <note xml:id="note1363">
+      <note xml:id="note1369">
         <rest/>
-        <duration>2</duration>
+        <duration>8</duration>
         <voice>5</voice>
-        <type>eighth</type>
         <staff>2</staff>
-        </note>
-      <note default-x="53.60" default-y="-155.13" xml:id="note1364">
-        <pitch>
-          <step>F</step>
-          <alter>1</alter>
-          <octave>2</octave>
-          </pitch>
-        <duration>2</duration>
-        <voice>5</voice>
-        <type>eighth</type>
-        <accidental>sharp</accidental>
-        <stem>up</stem>
-        <staff>2</staff>
-        <notations>
-          <slur type="start" placement="below" number="1"/>
-          </notations>
-        </note>
-      <note default-x="91.40" default-y="-150.13" xml:id="note1365">
-        <pitch>
-          <step>G</step>
-          <octave>2</octave>
-          </pitch>
-        <duration>4</duration>
-        <voice>5</voice>
-        <type>quarter</type>
-        <stem>up</stem>
-        <staff>2</staff>
-        <notations>
-          <slur type="stop" number="1"/>
-          </notations>
         </note>
       </measure>
   </part>

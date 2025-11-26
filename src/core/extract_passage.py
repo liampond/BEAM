@@ -214,13 +214,36 @@ def extract_abc(file_path: Path, start_measure: int, end_measure: int) -> str:
     return result
 
 
+def _get_mei_base_measure_number(n_attr: str) -> int:
+    """
+    Extract the base measure number from an MEI measure 'n' attribute.
+    
+    Handles cases like:
+    - "9" -> 9
+    - "8a" -> 8 (first ending)
+    - "8b" -> 8 (second ending)
+    - "0" -> 0 (pickup/anacrusis)
+    
+    Returns the integer base measure number, or -1 if not parseable.
+    """
+    if not n_attr:
+        return -1
+    # Extract leading digits from the n attribute
+    match = re.match(r'^(\d+)', n_attr)
+    if match:
+        return int(match.group(1))
+    return -1
+
+
 def extract_mei(file_path: Path, start_measure: int, end_measure: int) -> str:
     """
     Extract measures from MEI file with complete header and scoreDef.
     
-    Uses document-order indexing (1-based position in file) rather than 
-    the 'n' attribute, since MEI files may have non-unique measure numbers
-    (e.g., Menuetto and Trio sections both starting at measure 1).
+    Uses the 'n' attribute to identify measures by their base measure number.
+    Handles partial measures (e.g., "8a", "8b") by treating them as belonging
+    to the same base measure and including all parts. For files with repeated 
+    measure numbers (e.g., Menuetto/Trio), takes the first occurrence of each 
+    measure number by detecting when measure numbers restart.
     
     Returns the extracted content as a string.
     """
@@ -245,17 +268,39 @@ def extract_mei(file_path: Path, start_measure: int, end_measure: int) -> str:
     measure_pattern = r'<measure[^>]*>.*?</measure>'
     all_measures = list(re.finditer(measure_pattern, content, re.DOTALL))
     
+    # Build list of (base_measure_number, measure_xml, position) for all measures
+    measure_info = []
+    for measure_match in all_measures:
+        measure_xml = measure_match.group(0)
+        
+        # Extract the 'n' attribute from the measure tag
+        n_match = re.search(r'<measure[^>]*\bn=["\']([^"\']+)["\']', measure_xml)
+        if not n_match:
+            continue
+        
+        n_attr = n_match.group(1)
+        base_measure = _get_mei_base_measure_number(n_attr)
+        
+        if base_measure >= 0:
+            measure_info.append((base_measure, measure_xml, measure_match.start()))
+    
+    # Extract measures in target range, handling both:
+    # 1. Split measures (8a, 8b) - include all parts of same base measure
+    # 2. Duplicate measure numbers - only take first occurrence of each measure number
     extracted_measures = []
     first_measure_pos = -1
+    seen_measures = set()  # Track which measure numbers we've already extracted
     
-    # Extract measures by document order (1-indexed position in file)
-    # This avoids issues with non-unique 'n' attributes in files with
-    # section restarts (e.g., Menuetto/Trio movements)
-    for i in range(start_measure - 1, end_measure):
-        if 0 <= i < len(all_measures):
-            extracted_measures.append(all_measures[i].group(0))
-            if first_measure_pos == -1:
-                first_measure_pos = all_measures[i].start()
+    for base_measure, measure_xml, pos in measure_info:
+        # Check if this base measure is in our target range
+        if start_measure <= base_measure <= end_measure:
+            # Only take first occurrence of each base measure number
+            if base_measure not in seen_measures:
+                extracted_measures.append(measure_xml)
+                seen_measures.add(base_measure)
+                
+                if first_measure_pos == -1:
+                    first_measure_pos = pos
     
     # Select the scoreDef that appears before the first extracted measure
     selected_scoredef = ''
@@ -294,6 +339,7 @@ def extract_mei(file_path: Path, start_measure: int, end_measure: int) -> str:
 def extract_musicxml(file_path: Path, start_measure: int, end_measure: int) -> str:
     """
     Extract measures from MusicXML file with attributes.
+    Handles multi-part scores (e.g., piano with separate treble/bass parts).
     
     Returns the extracted content as a string.
     """
@@ -314,102 +360,113 @@ def extract_musicxml(file_path: Path, start_measure: int, end_measure: int) -> s
     partlist_match = re.search(r'<part-list>.*?</part-list>', content, re.DOTALL)
     partlist = partlist_match.group(0) if partlist_match else '<part-list></part-list>'
     
-    # Find the most recent values for each attribute component
-    # Track divisions, key, time, staves, and clefs separately since they can change independently
+    # Find all parts in the file
+    part_pattern = r'<part id="([^"]+)">(.*?)</part>'
+    parts = list(re.finditer(part_pattern, content, re.DOTALL))
+    
     measure_pattern = r'<measure[^>]*number=["\'](\d+)["\'][^>]*>(.*?)</measure>'
     
-    most_recent = {
-        'divisions': None,
-        'key': None,
-        'time': None,
-        'staves': None,
-        'clefs': []
-    }
+    extracted_parts = []
     
-    for match in re.finditer(measure_pattern, content, re.DOTALL):
-        measure_num = int(match.group(1))
-        measure_content = match.group(2)
+    for part_match in parts:
+        part_id = part_match.group(1)
+        part_content = part_match.group(2)
         
-        # Stop once we've passed the start measure
-        if measure_num > start_measure:
-            break
-            
-        # Look for attributes in this measure and update most recent values
-        attr_match = re.search(r'<attributes>.*?</attributes>', measure_content, re.DOTALL)
-        if attr_match:
-            attr_content = attr_match.group(0)
-            
-            # Update each component if present
-            if '<divisions>' in attr_content:
-                div_match = re.search(r'<divisions>.*?</divisions>', attr_content, re.DOTALL)
-                if div_match:
-                    most_recent['divisions'] = div_match.group(0)
-            
-            if '<key>' in attr_content:
-                key_match = re.search(r'<key>.*?</key>', attr_content, re.DOTALL)
-                if key_match:
-                    most_recent['key'] = key_match.group(0)
-            
-            if '<time' in attr_content:  # Changed from '<time>' to '<time' to catch attributes like symbol="common"
-                time_match = re.search(r'<time[^>]*>.*?</time>', attr_content, re.DOTALL)
-                if time_match:
-                    most_recent['time'] = time_match.group(0)
-            
-            if '<staves>' in attr_content:
-                staves_match = re.search(r'<staves>.*?</staves>', attr_content, re.DOTALL)
-                if staves_match:
-                    most_recent['staves'] = staves_match.group(0)
-            
-            # Collect all clefs (can have multiple for different staves)
-            clef_matches = re.findall(r'<clef[^>]*>.*?</clef>', attr_content, re.DOTALL)
-            if clef_matches:
-                most_recent['clefs'] = clef_matches
-    
-    # Build complete attributes from most recent values
-    attributes_xml = ''
-    if any(most_recent.values()):
-        attr_parts = []
-        if most_recent['divisions']:
-            attr_parts.append(most_recent['divisions'])
-        if most_recent['key']:
-            attr_parts.append(most_recent['key'])
-        if most_recent['time']:
-            attr_parts.append(most_recent['time'])
-        if most_recent['staves']:
-            attr_parts.append(most_recent['staves'])
-        if most_recent['clefs']:
-            attr_parts.extend(most_recent['clefs'])
+        # Find the most recent values for each attribute component within this part
+        most_recent = {
+            'divisions': None,
+            'key': None,
+            'time': None,
+            'staves': None,
+            'clefs': []
+        }
         
-        if attr_parts:
-            attributes_content = '\n        '.join(attr_parts)
-            attributes_xml = f'<attributes>\n        {attributes_content}\n        </attributes>'
+        for match in re.finditer(measure_pattern, part_content, re.DOTALL):
+            measure_num = int(match.group(1))
+            measure_content = match.group(2)
+            
+            # Stop once we've passed the start measure
+            if measure_num > start_measure:
+                break
+                
+            # Look for attributes in this measure and update most recent values
+            attr_match = re.search(r'<attributes>.*?</attributes>', measure_content, re.DOTALL)
+            if attr_match:
+                attr_content = attr_match.group(0)
+                
+                # Update each component if present
+                if '<divisions>' in attr_content:
+                    div_match = re.search(r'<divisions>.*?</divisions>', attr_content, re.DOTALL)
+                    if div_match:
+                        most_recent['divisions'] = div_match.group(0)
+                
+                if '<key>' in attr_content:
+                    key_match = re.search(r'<key>.*?</key>', attr_content, re.DOTALL)
+                    if key_match:
+                        most_recent['key'] = key_match.group(0)
+                
+                if '<time' in attr_content:
+                    time_match = re.search(r'<time[^>]*>.*?</time>', attr_content, re.DOTALL)
+                    if time_match:
+                        most_recent['time'] = time_match.group(0)
+                
+                if '<staves>' in attr_content:
+                    staves_match = re.search(r'<staves>.*?</staves>', attr_content, re.DOTALL)
+                    if staves_match:
+                        most_recent['staves'] = staves_match.group(0)
+                
+                # Collect all clefs (can have multiple for different staves)
+                clef_matches = re.findall(r'<clef[^>]*>.*?</clef>', attr_content, re.DOTALL)
+                if clef_matches:
+                    most_recent['clefs'] = clef_matches
+        
+        # Build complete attributes from most recent values
+        attributes_xml = ''
+        if any(most_recent.values()):
+            attr_parts = []
+            if most_recent['divisions']:
+                attr_parts.append(most_recent['divisions'])
+            if most_recent['key']:
+                attr_parts.append(most_recent['key'])
+            if most_recent['time']:
+                attr_parts.append(most_recent['time'])
+            if most_recent['staves']:
+                attr_parts.append(most_recent['staves'])
+            if most_recent['clefs']:
+                attr_parts.extend(most_recent['clefs'])
+            
+            if attr_parts:
+                attributes_content = '\n        '.join(attr_parts)
+                attributes_xml = f'<attributes>\n        {attributes_content}\n        </attributes>'
+        
+        # Extract requested measures from this part
+        extracted_measures = []
+        
+        for match in re.finditer(measure_pattern, part_content, re.DOTALL):
+            measure_num = int(match.group(1))
+            if start_measure <= measure_num <= end_measure:
+                measure_xml = match.group(0)
+                # Add complete attributes to first extracted measure to ensure context is preserved
+                if measure_num == start_measure and attributes_xml:
+                    # Insert attributes right after the opening <measure> tag
+                    measure_xml = re.sub(
+                        r'(<measure[^>]*>)',
+                        rf'\1\n      {attributes_xml}',
+                        measure_xml,
+                        count=1
+                    )
+                extracted_measures.append(measure_xml)
+        
+        if extracted_measures:
+            extracted_parts.append(f'  <part id="{part_id}">\n    {"".join(extracted_measures)}\n  </part>')
     
-    # Extract requested measures
-    extracted_measures = []
-    
-    for match in re.finditer(measure_pattern, content, re.DOTALL):
-        measure_num = int(match.group(1))
-        if start_measure <= measure_num <= end_measure:
-            measure_xml = match.group(0)
-            # Add complete attributes to first extracted measure to ensure context is preserved
-            if measure_num == start_measure and attributes_xml:
-                # Insert attributes right after the opening <measure> tag
-                measure_xml = re.sub(
-                    r'(<measure[^>]*>)',
-                    rf'\1\n      {attributes_xml}',
-                    measure_xml,
-                    count=1
-                )
-            extracted_measures.append(measure_xml)
-    
-    # Build minimal MusicXML document
+    # Build minimal MusicXML document with all parts
+    parts_xml = '\n'.join(extracted_parts)
     result = f"""{xml_header}
 <!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 3.1 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
 {partwise_tag}
   {partlist}
-  <part id="P1">
-    {''.join(extracted_measures)}
-  </part>
+{parts_xml}
 </score-partwise>
 """
     return result
@@ -610,13 +667,25 @@ def extract_humdrum(file_path: Path, start_measure: int, end_measure: int) -> st
                         if current_kern_count > base_kern_count:
                             # Kern spines split - need to add *^ for each split
                             # Generate a split line
-                            # Assuming RH (second spine) splits if we have 3 kern from 2
                             diff = current_count - base_count
                             if diff == 1 and base_kern_count == 2:
                                 # One spine split - could be LH or RH
-                                # Check spine_states to see which one has duplicated states
-                                # For now, assume RH splits (common pattern)
-                                split_line = ['*', '*^'] + ['*'] * (len(base_spines) - 2)
+                                # Check spine_states to see which spine has duplicated staff values
+                                # In current_spines, find consecutive spines with same staff
+                                split_on_first = False
+                                if len(spine_states) >= 2:
+                                    # Check if first two spines share staff2 (LH split)
+                                    staff0 = spine_states[0].get('staff', '')
+                                    staff1 = spine_states[1].get('staff', '')
+                                    if staff0 == staff1 and 'staff2' in staff0:
+                                        split_on_first = True
+                                
+                                if split_on_first:
+                                    # LH (first spine) splits
+                                    split_line = ['*^'] + ['*'] * (len(base_spines) - 1)
+                                else:
+                                    # RH (second spine) splits
+                                    split_line = ['*', '*^'] + ['*'] * (len(base_spines) - 2)
                                 spine_def_lines.append('\t'.join(split_line))
                 
                 measure_lines.append(line)

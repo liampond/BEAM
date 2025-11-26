@@ -626,7 +626,10 @@
         <stem>down</stem>
         <beam number="1">end</beam>
         </note>
-      </measure><measure number="83" width="176.88">
+      </measure>
+  </part>
+  <part id="P2">
+    <measure number="83" width="176.88">
       <attributes>
         <divisions>8</divisions>
         <key>

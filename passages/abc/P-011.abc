@@ -23,7 +23,7 @@ Q: "Menuetto II" 1/4=120
 %%staves {1 2}
 V: 1 clef=treble
 V: 2 clef=bass
-N: Extracted measures 36-36 from original score
-K: Eb
-[V:1] b2a2a/b/a/f/ | 
-[V:2] F2F2F2 & DB,DB,DB, | 
+N: Extracted measures 7-7 from original score
+K: Bb
+[V:1] fbagf=e | 
+[V:2] D2z4 & F,2z2z2 | 

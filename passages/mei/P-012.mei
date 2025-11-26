@@ -321,40 +321,39 @@
             </staffGrp>
           </scoreDef>
           <section>
-            <measure facs="#zoneOf_m55_k282_003" n="55" xml:id="m55_k282_003">
-                <staff decls="#upper" n="1" xml:id="staff_9930">
-                  <layer n="1" xml:id="layer_9936">
-                    <chord doxml.id="d28e1664" dur="8" tstamp="1" xml:id="chord_9942">
-                      <note doxml.id="d28e1664" oct="5" pname="c" xml:id="note_9948"/>
-                      <note accid.ges="f" doxml.id="d28e1666" oct="4" pname="a" xml:id="note_9954"/>
-                    </chord>
-                    <chord doxml.id="d28e1668" dur="8" tstamp="1.5" xml:id="chord_9960">
-                      <note accid="n" doxml.id="d28e1668" oct="4" pname="b" xml:id="note_9966"/>
-                      <note doxml.id="d28e1670" oct="4" pname="g" xml:id="note_9972"/>
-                    </chord>
-                    <beam xml:id="beam_9978">
-                      <chord doxml.id="d28e1672" dur="8" tstamp="2" xml:id="chord_9984">
-                        <note accid.ges="n" doxml.id="d28e1672" oct="4" pname="b" xml:id="note_9990"/>
-                        <note doxml.id="d28e1674" oct="4" pname="g" xml:id="note_9996"/>
-                      </chord>
-                      <note accid.ges="n" doxml.id="d28e1676" dur="8" oct="4" pname="b" tstamp="2.5" xml:id="note_10002"/>
+            <measure facs="#zoneOf_m56_k282_003" n="56" xml:id="m56_k282_003">
+                <staff decls="#upper" n="1" xml:id="staff_10080">
+                  <layer n="1" xml:id="layer_10086">
+                    <beam xml:id="beam_10092">
+                      <note doxml.id="d28e1706" dur="8" oct="5" pname="c" tstamp="1" xml:id="note_10098"/>
+                      <note accid="n" doxml.id="d28e1708" dur="8" oct="5" pname="d" tstamp="1.5" xml:id="note_10104"/>
+                      <note accid.ges="f" doxml.id="d28e1710" dur="8" oct="5" pname="e" tstamp="2" xml:id="note_10110"/>
+                      <note doxml.id="d28e1712" dur="8" oct="5" pname="f" tstamp="2.5" xml:id="note_10116"/>
                     </beam>
                   </layer>
                 </staff>
-                <staff decls="#lower" n="2" xml:id="staff_10008">
-                  <layer n="1" xml:id="layer_10014">
-                    <chord dots="1" doxml.id="d28e1681" dur="4" tstamp="1" xml:id="chord_10020">
-                      <note doxml.id="d28e1681" oct="4" pname="f" xml:id="note_10026"/>
-                      <note doxml.id="d28e1683" oct="3" pname="f" xml:id="note_10032"/>
-                    </chord>
-                    <clef doxml.id="d28e1685" line="2" shape="G" xml:id="clef_10038"/>
-                    <beam xml:id="beam_10044">
-                      <note doxml.id="d28e1687" dur="16" oct="4" pname="f" tstamp="2.5" xml:id="note_10050"/>
-                      <note doxml.id="d28e1689" dur="16" oct="4" pname="g" tstamp="2.75" xml:id="note_10056"/>
+                <staff decls="#lower" n="2" xml:id="staff_10122">
+                  <layer n="1" xml:id="layer_10128">
+                    <beam xml:id="beam_10134">
+                      <note accid.ges="f" doxml.id="d28e1716" dur="16" oct="4" pname="e" tstamp="1" xml:id="note_10140"/>
+                      <note doxml.id="d28e1718" dur="16" oct="4" pname="g" tstamp="1.25" xml:id="note_10146"/>
+                      <note doxml.id="d28e1720" dur="16" oct="4" pname="d" tstamp="1.5" xml:id="note_10152">
+                        <supplied resp="#NMA-editors" xml:id="supplied_10158">
+                          <accid accid="n" xml:id="accid_10164"/>
+                        </supplied>
+                      </note>
+                      <note doxml.id="d28e1722" dur="16" oct="4" pname="g" tstamp="1.75" xml:id="note_10170"/>
+                    </beam>
+                    <beam xml:id="beam_10176">
+                      <note doxml.id="d28e1724" dur="16" oct="4" pname="c" tstamp="2" xml:id="note_10182"/>
+                      <note doxml.id="d28e1727" dur="16" oct="4" pname="g" tstamp="2.25" xml:id="note_10188"/>
+                      <note accid="n" doxml.id="d28e1729" dur="16" oct="3" pname="b" tstamp="2.5" xml:id="note_10194"/>
+                      <note doxml.id="d28e1731" dur="16" oct="4" pname="g" tstamp="2.75" xml:id="note_10200"/>
                     </beam>
                   </layer>
                 </staff>
-                <slur endid="#note_10056" staff="2" startid="#note_10050" xml:id="slur_10062"/>
+                <slur endid="#note_10116" staff="1" startid="#note_10098" xml:id="slur_10206"/>
+                <slur endid="#note_10200" staff="2" startid="#note_10140" xml:id="slur_10212"/>
               </measure>
           </section>
         </score>

@@ -1875,7 +1875,10 @@
         <beam number="1">end</beam>
         <beam number="2">end</beam>
         </note>
-      </measure><measure number="8" width="433.46">
+      </measure>
+  </part>
+  <part id="P2">
+    <measure number="8" width="433.46">
       <attributes>
         <divisions>480</divisions>
         <key>
@@ -1887,8 +1890,8 @@
           <beat-type>4</beat-type>
           </time>
         <clef>
-          <sign>G</sign>
-          <line>2</line>
+          <sign>F</sign>
+          <line>4</line>
           </clef>
         </attributes>
       <note print-object="no" xml:id="note726">

@@ -19,7 +19,7 @@
       </score-part>
     </part-list>
   <part id="P1">
-    <measure number="68" width="162.41">
+    <measure number="100" width="132.56">
       <attributes>
         <divisions>24</divisions>
         <key>
@@ -31,47 +31,137 @@
           </time>
         <staves>2</staves>
         <clef number="1">
-          <sign>F</sign>
-          <line>4</line>
+          <sign>G</sign>
+          <line>2</line>
           </clef>
         </attributes>
-      <print new-system="yes">
-        <system-layout>
-          <system-margins>
-            <left-margin>20.85</left-margin>
-            <right-margin>0.00</right-margin>
-            </system-margins>
-          <system-distance>90.65</system-distance>
-          </system-layout>
-        <staff-layout number="2">
-          <staff-distance>65.00</staff-distance>
-          </staff-layout>
-        </print>
       <harmony print-frame="no">
         <root>
           <root-step text="">C</root-step>
           </root>
-        <kind text="I6">none</kind>
+        <kind text="i.#viio65">none</kind>
         </harmony>
-      <note xml:id="note556">
-        <rest/>
-        <duration>36</duration>
+      <note default-x="14.36" default-y="-25.00" xml:id="note849">
+        <pitch>
+          <step>A</step>
+          <alter>-1</alter>
+          <octave>4</octave>
+          </pitch>
+        <duration>6</duration>
         <voice>1</voice>
+        <type>16th</type>
+        <stem>up</stem>
         <staff>1</staff>
+        <beam number="1">begin</beam>
+        <beam number="2">begin</beam>
+        </note>
+      <note default-x="30.96" default-y="-35.00" xml:id="note850">
+        <pitch>
+          <step>F</step>
+          <octave>4</octave>
+          </pitch>
+        <duration>6</duration>
+        <voice>1</voice>
+        <type>16th</type>
+        <stem>up</stem>
+        <staff>1</staff>
+        <beam number="1">continue</beam>
+        <beam number="2">continue</beam>
+        </note>
+      <note default-x="57.98" default-y="-20.00" xml:id="note851">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+          </pitch>
+        <duration>6</duration>
+        <voice>1</voice>
+        <type>16th</type>
+        <accidental>natural</accidental>
+        <stem>up</stem>
+        <staff>1</staff>
+        <beam number="1">continue</beam>
+        <beam number="2">continue</beam>
+        </note>
+      <note default-x="74.58" default-y="-25.00" xml:id="note852">
+        <pitch>
+          <step>A</step>
+          <alter>-1</alter>
+          <octave>4</octave>
+          </pitch>
+        <duration>6</duration>
+        <voice>1</voice>
+        <type>16th</type>
+        <stem>up</stem>
+        <staff>1</staff>
+        <beam number="1">continue</beam>
+        <beam number="2">continue</beam>
+        </note>
+      <note default-x="91.19" default-y="-10.00" xml:id="note853">
+        <pitch>
+          <step>D</step>
+          <octave>5</octave>
+          </pitch>
+        <duration>6</duration>
+        <voice>1</voice>
+        <type>16th</type>
+        <stem>up</stem>
+        <staff>1</staff>
+        <beam number="1">continue</beam>
+        <beam number="2">continue</beam>
+        </note>
+      <note default-x="107.79" default-y="-20.00" xml:id="note854">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+          </pitch>
+        <duration>6</duration>
+        <voice>1</voice>
+        <type>16th</type>
+        <stem>up</stem>
+        <staff>1</staff>
+        <beam number="1">end</beam>
+        <beam number="2">end</beam>
         </note>
       <backup>
         <duration>36</duration>
         </backup>
-      <note default-x="102.67" default-y="-180.00" xml:id="note557">
+      <note default-x="14.36" default-y="-125.00" xml:id="note855">
         <pitch>
-          <step>G</step>
-          <octave>1</octave>
+          <step>D</step>
+          <octave>3</octave>
           </pitch>
         <duration>36</duration>
         <voice>5</voice>
         <type>quarter</type>
         <dot/>
-        <stem>up</stem>
+        <stem>down</stem>
+        <staff>2</staff>
+        </note>
+      <note default-x="14.36" default-y="-115.00" xml:id="note856">
+        <chord/>
+        <pitch>
+          <step>F</step>
+          <octave>3</octave>
+          </pitch>
+        <duration>36</duration>
+        <voice>5</voice>
+        <type>quarter</type>
+        <dot/>
+        <stem>down</stem>
+        <staff>2</staff>
+        </note>
+      <note default-x="14.36" default-y="-100.00" xml:id="note857">
+        <chord/>
+        <pitch>
+          <step>B</step>
+          <octave>3</octave>
+          </pitch>
+        <duration>36</duration>
+        <voice>5</voice>
+        <type>quarter</type>
+        <dot/>
+        <accidental>natural</accidental>
+        <stem>down</stem>
         <staff>2</staff>
         </note>
       </measure>

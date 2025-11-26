@@ -412,38 +412,35 @@
             </staffGrp>
           </scoreDef>
           <section>
-            <measure facs="#zoneOf_m9_k309_003" n="9" xml:id="m9_k309_003">
-              <staff decls="#upper" n="1" xml:id="staff_5598">
-                <layer n="1" xml:id="layer_5604">
-                  <note doxml.id="d27e309" dur="16" grace="acc" oct="5" pname="f" stem.dir="up" xml:id="note_5610"/>
-                  <beam xml:id="beam_5616">
-                    <note doxml.id="d27e311" dur="8" oct="5" pname="e" tstamp="1" xml:id="note_5622"/>
-                    <note doxml.id="d27e313" dur="16" oct="5" pname="d" tstamp="1.5" xml:id="note_5628"/>
-                    <note doxml.id="d27e315" dur="16" oct="5" pname="c" tstamp="1.75" xml:id="note_5634"/>
+            <measure facs="#zoneOf_m10_k309_003" n="10" xml:id="m10_k309_003">
+              <staff decls="#upper" n="1" xml:id="staff_5742">
+                <layer n="1" xml:id="layer_5748">
+                  <beam xml:id="beam_5754">
+                    <note doxml.id="d27e342" dur="32" grace="unknown" oct="4" pname="b" stem.dir="up" xml:id="note_5760"/>
+                    <note doxml.id="d27e344" dur="32" grace="unknown" oct="5" pname="c" stem.dir="up" xml:id="note_5766"/>
+                    <note doxml.id="d27e347" dur="32" grace="unknown" oct="5" pname="d" stem.dir="up" xml:id="note_5772"/>
                   </beam>
-                  <beam xml:id="beam_5640">
-                    <note doxml.id="d27e317" dur="8" oct="5" pname="c" tstamp="2" xml:id="note_5646"/>
-                    <note doxml.id="d27e319" dur="8" oct="5" pname="c" tstamp="2.5" xml:id="note_5652"/>
+                  <note dots="1" doxml.id="d27e349" dur="4" oct="5" pname="c" tstamp="1" xml:id="note_5778"/>
+                  <note doxml.id="d27e351" dur="8" oct="6" pname="c" tstamp="2.5" xml:id="note_5784"/>
+                </layer>
+              </staff>
+              <staff decls="#lower" n="2" xml:id="staff_5790">
+                <layer n="1" xml:id="layer_5796">
+                  <beam xml:id="beam_5802">
+                    <note doxml.id="d27e355" dur="16" oct="4" pname="c" tstamp="1" xml:id="note_5808"/>
+                    <note doxml.id="d27e357" dur="16" oct="4" pname="e" tstamp="1.25" xml:id="note_5814"/>
+                    <note doxml.id="d27e359" dur="16" oct="4" pname="g" tstamp="1.5" xml:id="note_5820"/>
+                    <note doxml.id="d27e361" dur="16" oct="4" pname="e" tstamp="1.75" xml:id="note_5826"/>
+                  </beam>
+                  <beam xml:id="beam_5832">
+                    <note doxml.id="d27e363" dur="16" oct="4" pname="c" tstamp="2" xml:id="note_5838"/>
+                    <note doxml.id="d27e365" dur="16" oct="4" pname="e" tstamp="2.25" xml:id="note_5844"/>
+                    <note doxml.id="d27e367" dur="16" oct="4" pname="g" tstamp="2.5" xml:id="note_5850"/>
+                    <note doxml.id="d27e370" dur="16" oct="4" pname="e" tstamp="2.75" xml:id="note_5856"/>
                   </beam>
                 </layer>
               </staff>
-              <staff decls="#lower" n="2" xml:id="staff_5658">
-                <layer n="1" xml:id="layer_5664">
-                  <beam xml:id="beam_5670">
-                    <note doxml.id="d27e324" dur="16" oct="4" pname="c" tstamp="1" xml:id="note_5676"/>
-                    <note doxml.id="d27e326" dur="16" oct="4" pname="e" tstamp="1.25" xml:id="note_5682"/>
-                    <note doxml.id="d27e328" dur="16" oct="4" pname="g" tstamp="1.5" xml:id="note_5688"/>
-                    <note doxml.id="d27e330" dur="16" oct="4" pname="e" tstamp="1.75" xml:id="note_5694"/>
-                  </beam>
-                  <beam xml:id="beam_5700">
-                    <note doxml.id="d27e332" dur="16" oct="4" pname="c" tstamp="2" xml:id="note_5706"/>
-                    <note doxml.id="d27e334" dur="16" oct="4" pname="e" tstamp="2.25" xml:id="note_5712"/>
-                    <note doxml.id="d27e336" dur="16" oct="4" pname="g" tstamp="2.5" xml:id="note_5718"/>
-                    <note doxml.id="d27e338" dur="16" oct="4" pname="e" tstamp="2.75" xml:id="note_5724"/>
-                  </beam>
-                </layer>
-              </staff>
-              <slur curvedir="below" endid="#note_5622" staff="1" startid="#note_5610" xml:id="slur_5730"/>
+              <slur curvedir="below" endid="#note_5778" staff="1" startid="#note_5760" xml:id="slur_5862"/>
             </measure>
           </section>
         </score>

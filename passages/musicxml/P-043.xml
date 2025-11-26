@@ -236,7 +236,10 @@
         <beam number="1">end</beam>
         <beam number="2">end</beam>
         </note>
-      </measure><measure number="35" width="409.07">
+      </measure>
+  </part>
+  <part id="P2">
+    <measure number="35" width="409.07">
       <attributes>
         <divisions>8</divisions>
         <key>
@@ -247,8 +250,8 @@
           <beat-type>8</beat-type>
           </time>
         <clef>
-          <sign>G</sign>
-          <line>2</line>
+          <sign>F</sign>
+          <line>4</line>
           </clef>
         </attributes>
       <print new-system="yes">

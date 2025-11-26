@@ -374,31 +374,20 @@
             </staffGrp>
           </scoreDef>
           <section>
-            <measure facs="#zoneOf_m133_k279_003" n="133" xml:id="m133_k279_003">
-                <staff decls="#upper" n="1" xml:id="staff_20208">
-                  <layer n="1" xml:id="layer_20214">
-                    <chord doxml.id="d27e3928" dur="4" tstamp="1" xml:id="chord_20220">
-                      <note doxml.id="d27e3928" oct="5" pname="d" xml:id="note_20226"/>
-                      <note doxml.id="d27e3930" oct="4" pname="b" xml:id="note_20232"/>
-                    </chord>
-                    <rest doxml.id="d27e3932" dur="8" tstamp="2" xml:id="rest_20238"/>
-                    <chord doxml.id="d27e3937" dur="8" tstamp="2.5" xml:id="chord_20244">
-                      <note accid="f" doxml.id="d27e3937" oct="4" pname="e" xml:id="note_20250"/>
-                      <note doxml.id="d27e3939" oct="4" pname="c" xml:id="note_20256"/>
-                    </chord>
+            <measure facs="#zoneOf_m135_k279_003" n="135" xml:id="m135_k279_003">
+                <staff decls="#upper" n="1" xml:id="staff_20418">
+                  <layer n="1" xml:id="layer_20424">
+                    <rest doxml.id="d27e3993" dur="4" tstamp="1" xml:id="rest_20430"/>
+                    <rest doxml.id="d27e3995" dur="8" tstamp="2" xml:id="rest_20436"/>
+                    <note doxml.id="d27e3999" dur="8" oct="5" pname="g" tstamp="2.5" xml:id="note_20442"/>
                   </layer>
                 </staff>
-                <staff decls="#lower" n="2" xml:id="staff_20262">
-                  <layer n="1" xml:id="layer_20268">
-                    <rest doxml.id="d27e3943" dur="8" tstamp="1" xml:id="rest_20274"/>
-                    <note accid="s" doxml.id="d27e3947" dur="8" oct="3" pname="f" tstamp="1.5" xml:id="note_20280"/>
-                    <note doxml.id="d27e3949" dur="4" oct="3" pname="g" tstamp="2" xml:id="note_20286"/>
+                <staff decls="#lower" n="2" xml:id="staff_20448">
+                  <layer n="1" xml:id="layer_20454">
+                    <mRest xml:id="mRest_20460"/>
                   </layer>
                 </staff>
-                <dynam doxml.id="d27e3935" staff="1" startid="#chord_20244" xml:id="dynam_20292">f</dynam>
-                <dynam doxml.id="d27e3945" staff="2" startid="#note_20280" xml:id="dynam_20304">f</dynam>
-                <slur curvedir="below" endid="#chord_20346" staff="1" startid="#chord_20244" xml:id="slur_20316"/>
-                <slur endid="#note_20286" staff="2" startid="#note_20280" xml:id="slur_20322"/>
+                <dynam doxml.id="d27e3997" staff="1" startid="#note_20442" xml:id="dynam_20466">p</dynam>
               </measure>
           </section>
         </score>

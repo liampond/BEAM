@@ -373,54 +373,71 @@
             </staffGrp>
           </scoreDef>
           <section>
-            <measure facs="#zoneOf_measure62" n="54" xml:id="m54_k331_003">
-                <staff decls="#upper" n="1" xml:id="staff_12036">
-                  <layer n="1" xml:id="layer_12042">
-                    <beam xml:id="beam_12048">
-                      <note doxml.id="d28e1965" dur="16" oct="6" pname="d" tstamp="1" xml:id="note_12054"/>
-                      <note doxml.id="d28e1967" dur="16" oct="6" pname="c" tstamp="1.25" xml:id="note_12060">
-                        <accid accid.ges="s" xml:id="accid_13488"/>
-                      </note>
-                      <note doxml.id="d28e1969" dur="16" oct="5" pname="b" tstamp="1.5" xml:id="note_12066"/>
-                      <note doxml.id="d28e1971" dur="16" oct="5" pname="a" tstamp="1.75" xml:id="note_12072"/>
-                    </beam>
-                    <beam xml:id="beam_12078">
-                      <note doxml.id="d28e1973" dur="16" oct="5" pname="g" tstamp="2" xml:id="note_12084">
-                        <accid accid.ges="s" xml:id="accid_13518"/>
-                      </note>
-                      <note doxml.id="d28e1975" dur="16" oct="5" pname="a" tstamp="2.25" xml:id="note_12090"/>
-                      <note doxml.id="d28e1977" dur="16" oct="5" pname="b" tstamp="2.5" xml:id="note_12096"/>
-                      <note doxml.id="d28e1980" dur="16" oct="5" pname="g" tstamp="2.75" xml:id="note_12102">
-                        <accid accid.ges="s" xml:id="accid_13542"/>
-                      </note>
-                    </beam>
-                  </layer>
-                </staff>
-                <staff decls="#lower" n="2" xml:id="staff_12108">
-                  <layer n="1" xml:id="layer_12114">
-                    <beam xml:id="beam_12120">
-                      <note doxml.id="d28e1984" dur="8" oct="2" pname="b" tstamp="1" xml:id="note_12126"/>
-                      <chord doxml.id="d28e1986" dur="8" tstamp="1.5" xml:id="chord_12132">
-                        <note doxml.id="d28e1986" oct="3" pname="b" xml:id="note_12138"/>
-                        <note doxml.id="d28e1988" oct="3" pname="g" xml:id="note_12144">
-                          <accid accid="s" xml:id="accid_13590"/>
+            <measure facs="#zoneOf_measure68" n="59" xml:id="m59_k331_003">
+                <staff decls="#upper" n="1" xml:id="staff_12840">
+                  <layer n="1" xml:id="layer_12846">
+                    <beam xml:id="beam_12852">
+                      <chord doxml.id="d28e2157" dur="8" tstamp="1" xml:id="chord_12858">
+                        <note doxml.id="d28e2157" oct="5" pname="f" xml:id="note_12864">
+                          <accid accid.ges="s" xml:id="accid_14490"/>
+                        </note>
+                        <note doxml.id="d28e2159" oct="4" pname="f" xml:id="note_12870">
+                          <accid accid.ges="s" xml:id="accid_14502"/>
                         </note>
                       </chord>
-                      <chord doxml.id="d28e1990" dur="8" tstamp="2" xml:id="chord_12150">
-                        <note doxml.id="d28e1990" oct="3" pname="b" xml:id="note_12156"/>
-                        <note doxml.id="d28e1992" oct="3" pname="g" xml:id="note_12162">
-                          <accid accid.ges="s" xml:id="accid_13614"/>
+                      <chord doxml.id="d28e2161" dur="8" tstamp="1.5" xml:id="chord_12876">
+                        <note doxml.id="d28e2161" oct="5" pname="g" xml:id="note_12882">
+                          <accid accid.ges="s" xml:id="accid_14520"/>
+                        </note>
+                        <note doxml.id="d28e2164" oct="4" pname="g" xml:id="note_12888">
+                          <accid accid.ges="s" xml:id="accid_14532"/>
                         </note>
                       </chord>
-                      <chord doxml.id="d28e1994" dur="8" tstamp="2.5" xml:id="chord_12168">
-                        <note doxml.id="d28e1994" oct="3" pname="b" xml:id="note_12174"/>
-                        <note doxml.id="d28e1996" oct="3" pname="g" xml:id="note_12180">
-                          <accid accid.ges="s" xml:id="accid_13638"/>
-                        </note>
+                      <chord doxml.id="d28e2166" dur="8" tstamp="2" xml:id="chord_12894">
+                        <note doxml.id="d28e2166" oct="5" pname="a" xml:id="note_12900"/>
+                        <note doxml.id="d28e2168" oct="4" pname="a" xml:id="note_12906"/>
+                      </chord>
+                      <chord doxml.id="d28e2170" dur="8" tstamp="2.5" xml:id="chord_12912">
+                        <note doxml.id="d28e2170" oct="5" pname="b" xml:id="note_12918"/>
+                        <note doxml.id="d28e2172" oct="4" pname="b" xml:id="note_12924"/>
                       </chord>
                     </beam>
                   </layer>
                 </staff>
+                <staff decls="#lower" n="2" xml:id="staff_12930">
+                  <layer n="1" xml:id="layer_12936">
+                    <beam xml:id="beam_12942">
+                      <note doxml.id="d28e2176" dur="32" grace="unknown" oct="2" pname="d" stem.dir="up" xml:id="note_12948"/>
+                      <note doxml.id="d28e2178" dur="32" grace="unknown" oct="2" pname="f" stem.dir="up" xml:id="note_12954">
+                        <accid accid.ges="s" xml:id="accid_14604"/>
+                      </note>
+                      <note doxml.id="d28e2180" dur="32" grace="unknown" oct="2" pname="a" stem.dir="up" xml:id="note_12960"/>
+                    </beam>
+                    <beam xml:id="beam_12966">
+                      <note doxml.id="d28e2182" dur="8" oct="3" pname="d" tstamp="1" xml:id="note_12972"/>
+                      <note doxml.id="d28e2184" dur="8" oct="3" pname="d" tstamp="1.5" xml:id="note_12978"/>
+                    </beam>
+                    <beam xml:id="beam_12984">
+                      <note doxml.id="d28e2187" dur="32" grace="unknown" oct="2" pname="d" stem.dir="up" xml:id="note_12990">
+                        <accid accid="s" xml:id="accid_14646"/>
+                      </note>
+                      <note doxml.id="d28e2189" dur="32" grace="unknown" oct="2" pname="f" stem.dir="up" xml:id="note_12996">
+                        <accid accid.ges="s" xml:id="accid_14658"/>
+                      </note>
+                      <note doxml.id="d28e2191" dur="32" grace="unknown" oct="2" pname="a" stem.dir="up" xml:id="note_13002"/>
+                    </beam>
+                    <beam xml:id="beam_13008">
+                      <note doxml.id="d28e2193" dur="8" oct="3" pname="d" tstamp="2" xml:id="note_13014">
+                        <accid accid="s" xml:id="accid_14682"/>
+                      </note>
+                      <note doxml.id="d28e2195" dur="8" oct="3" pname="d" tstamp="2.5" xml:id="note_13020">
+                        <accid accid.ges="s" xml:id="accid_14694"/>
+                      </note>
+                    </beam>
+                  </layer>
+                </staff>
+                <slur curvedir="above" endid="#note_12972" staff="2" startid="#note_12948" xml:id="slur_13026"/>
+                <slur curvedir="above" endid="#note_13014" staff="2" startid="#note_12990" xml:id="slur_13032"/>
               </measure>
           </section>
         </score>

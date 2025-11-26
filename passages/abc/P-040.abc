@@ -23,7 +23,7 @@ Q: "Molto allegro" 3/4=100
 %%staves {1 2}
 V: 1 clef=treble
 V: 2 clef=bass
-N: Extracted measures 65-65 from original score
+N: Extracted measures 100-100 from original score
 K: Eb
-[V:1] B,z/ =A,,/B,,/A,,/ | 
-[V:2] zB,,,z | 
+[V:1] _A/F/=B/A/d/B/ | 
+[V:2] [D,3F,3=B,3] | 

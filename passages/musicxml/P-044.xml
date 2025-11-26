@@ -183,7 +183,10 @@
         <stem>up</stem>
         <beam number="1">end</beam>
         </note>
-      </measure><measure number="44" width="260.69">
+      </measure>
+  </part>
+  <part id="P2">
+    <measure number="44" width="260.69">
       <attributes>
         <divisions>16</divisions>
         <key>
@@ -194,8 +197,8 @@
           <beat-type>4</beat-type>
           </time>
         <clef>
-          <sign>G</sign>
-          <line>2</line>
+          <sign>F</sign>
+          <line>4</line>
           </clef>
         </attributes>
       <note default-x="15.80" default-y="-98.15" dynamics="111.11" xml:id="note1325">

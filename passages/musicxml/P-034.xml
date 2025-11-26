@@ -19,7 +19,7 @@
       </score-part>
     </part-list>
   <part id="P1">
-    <measure number="169" width="107.76">
+    <measure number="165" width="221.69">
       <attributes>
         <divisions>24</divisions>
         <key>
@@ -39,145 +39,218 @@
         <root>
           <root-step text="">C</root-step>
           </root>
-        <kind text="I\\">none</kind>
+        <kind text="I(#4)">none</kind>
         </harmony>
-      <note default-x="15.80" default-y="-35.00" dynamics="62.22" xml:id="note2322">
+      <note default-x="14.36" default-y="-20.00" dynamics="56.67" xml:id="note2261">
         <pitch>
-          <step>F</step>
+          <step>B</step>
           <octave>4</octave>
           </pitch>
         <duration>36</duration>
         <voice>1</voice>
         <type>quarter</type>
         <dot/>
-        <stem>up</stem>
+        <accidental>natural</accidental>
+        <stem>down</stem>
         <staff>1</staff>
         <notations>
-          <articulations>
-            <staccato/>
-            </articulations>
+          <slur type="start" placement="above" number="1"/>
           </notations>
         </note>
       <harmony print-frame="no">
         <root>
           <root-step text="">C</root-step>
           </root>
-        <kind text=".It6/ii">none</kind>
+        <kind text="I">none</kind>
         </harmony>
-      <note default-x="61.91" default-y="-15.00" dynamics="76.67" xml:id="note2323">
+      <note default-x="117.22" default-y="-15.00" dynamics="50.00" xml:id="note2262">
         <pitch>
           <step>C</step>
-          <alter>1</alter>
           <octave>5</octave>
           </pitch>
-        <duration>36</duration>
+        <duration>12</duration>
         <voice>1</voice>
-        <type>quarter</type>
-        <dot/>
-        <accidental>sharp</accidental>
+        <type>eighth</type>
         <stem>down</stem>
         <staff>1</staff>
+        <notations>
+          <slur type="stop" number="1"/>
+          <articulations>
+            <staccato/>
+            </articulations>
+          </notations>
         </note>
-      <note default-x="61.91" default-y="20.00" dynamics="91.11" xml:id="note2324">
-        <chord/>
-        <pitch>
-          <step>C</step>
-          <alter>1</alter>
-          <octave>6</octave>
-          </pitch>
-        <duration>36</duration>
+      <note xml:id="note2263">
+        <rest/>
+        <duration>12</duration>
         <voice>1</voice>
-        <type>quarter</type>
-        <dot/>
-        <accidental>sharp</accidental>
-        <stem>down</stem>
+        <type>eighth</type>
+        <staff>1</staff>
+        </note>
+      <note xml:id="note2264">
+        <rest/>
+        <duration>12</duration>
+        <voice>1</voice>
+        <type>eighth</type>
         <staff>1</staff>
         </note>
       <backup>
         <duration>72</duration>
         </backup>
-      <note default-x="15.80" default-y="-115.00" dynamics="35.56" xml:id="note2325">
+      <note default-x="14.36" default-y="-115.00" dynamics="45.56" xml:id="note2265">
         <pitch>
           <step>F</step>
           <octave>3</octave>
           </pitch>
-        <duration>36</duration>
+        <duration>12</duration>
         <voice>5</voice>
-        <type>quarter</type>
-        <dot/>
+        <type>eighth</type>
         <stem>down</stem>
         <staff>2</staff>
+        <beam number="1">begin</beam>
+        </note>
+      <note default-x="48.64" default-y="-105.00" dynamics="26.67" xml:id="note2266">
+        <pitch>
+          <step>A</step>
+          <octave>3</octave>
+          </pitch>
+        <duration>12</duration>
+        <voice>5</voice>
+        <type>eighth</type>
+        <stem>down</stem>
+        <staff>2</staff>
+        <beam number="1">continue</beam>
         <notations>
           <articulations>
             <staccato/>
             </articulations>
           </notations>
         </note>
-      <note default-x="15.80" default-y="-105.00" dynamics="35.56" xml:id="note2326">
+      <note default-x="48.64" default-y="-95.00" dynamics="34.44" xml:id="note2267">
         <chord/>
+        <pitch>
+          <step>C</step>
+          <octave>4</octave>
+          </pitch>
+        <duration>12</duration>
+        <voice>5</voice>
+        <type>eighth</type>
+        <stem>down</stem>
+        <staff>2</staff>
+        </note>
+      <note default-x="82.93" default-y="-105.00" dynamics="26.67" xml:id="note2268">
         <pitch>
           <step>A</step>
           <octave>3</octave>
           </pitch>
-        <duration>36</duration>
+        <duration>12</duration>
         <voice>5</voice>
-        <type>quarter</type>
-        <dot/>
+        <type>eighth</type>
         <stem>down</stem>
         <staff>2</staff>
+        <beam number="1">end</beam>
+        <notations>
+          <articulations>
+            <staccato/>
+            </articulations>
+          </notations>
         </note>
-      <note default-x="15.80" default-y="-95.00" dynamics="45.56" xml:id="note2327">
+      <note default-x="82.93" default-y="-95.00" dynamics="34.44" xml:id="note2269">
         <chord/>
         <pitch>
           <step>C</step>
           <octave>4</octave>
           </pitch>
-        <duration>36</duration>
+        <duration>12</duration>
         <voice>5</voice>
-        <type>quarter</type>
-        <dot/>
+        <type>eighth</type>
         <stem>down</stem>
         <staff>2</staff>
         </note>
-      <note default-x="61.91" default-y="-120.00" dynamics="57.78" xml:id="note2328">
+      <note default-x="117.22" default-y="-105.00" dynamics="26.67" xml:id="note2270">
         <pitch>
-          <step>E</step>
-          <alter>-1</alter>
+          <step>A</step>
           <octave>3</octave>
           </pitch>
-        <duration>36</duration>
+        <duration>12</duration>
         <voice>5</voice>
-        <type>quarter</type>
-        <dot/>
-        <accidental>flat</accidental>
+        <type>eighth</type>
         <stem>down</stem>
         <staff>2</staff>
+        <beam number="1">begin</beam>
+        <notations>
+          <articulations>
+            <staccato/>
+            </articulations>
+          </notations>
         </note>
-      <note default-x="61.91" default-y="-110.00" dynamics="57.78" xml:id="note2329">
-        <chord/>
-        <pitch>
-          <step>G</step>
-          <octave>3</octave>
-          </pitch>
-        <duration>36</duration>
-        <voice>5</voice>
-        <type>quarter</type>
-        <dot/>
-        <stem>down</stem>
-        <staff>2</staff>
-        </note>
-      <note default-x="61.91" default-y="-95.00" dynamics="68.89" xml:id="note2330">
+      <note default-x="117.22" default-y="-95.00" dynamics="34.44" xml:id="note2271">
         <chord/>
         <pitch>
           <step>C</step>
-          <alter>1</alter>
           <octave>4</octave>
           </pitch>
-        <duration>36</duration>
+        <duration>12</duration>
         <voice>5</voice>
-        <type>quarter</type>
-        <dot/>
-        <accidental>sharp</accidental>
+        <type>eighth</type>
+        <stem>down</stem>
+        <staff>2</staff>
+        </note>
+      <note default-x="151.51" default-y="-105.00" dynamics="26.67" xml:id="note2272">
+        <pitch>
+          <step>A</step>
+          <octave>3</octave>
+          </pitch>
+        <duration>12</duration>
+        <voice>5</voice>
+        <type>eighth</type>
+        <stem>down</stem>
+        <staff>2</staff>
+        <beam number="1">continue</beam>
+        <notations>
+          <articulations>
+            <staccato/>
+            </articulations>
+          </notations>
+        </note>
+      <note default-x="151.51" default-y="-95.00" dynamics="34.44" xml:id="note2273">
+        <chord/>
+        <pitch>
+          <step>C</step>
+          <octave>4</octave>
+          </pitch>
+        <duration>12</duration>
+        <voice>5</voice>
+        <type>eighth</type>
+        <stem>down</stem>
+        <staff>2</staff>
+        </note>
+      <note default-x="185.80" default-y="-105.00" dynamics="26.67" xml:id="note2274">
+        <pitch>
+          <step>A</step>
+          <octave>3</octave>
+          </pitch>
+        <duration>12</duration>
+        <voice>5</voice>
+        <type>eighth</type>
+        <stem>down</stem>
+        <staff>2</staff>
+        <beam number="1">end</beam>
+        <notations>
+          <articulations>
+            <staccato/>
+            </articulations>
+          </notations>
+        </note>
+      <note default-x="185.80" default-y="-95.00" dynamics="34.44" xml:id="note2275">
+        <chord/>
+        <pitch>
+          <step>C</step>
+          <octave>4</octave>
+          </pitch>
+        <duration>12</duration>
+        <voice>5</voice>
+        <type>eighth</type>
         <stem>down</stem>
         <staff>2</staff>
         </note>

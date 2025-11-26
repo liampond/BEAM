@@ -339,52 +339,52 @@
             </staffGrp>
           </scoreDef>
           <section>
-            <measure facs="#zoneOf_m123_k281_003" n="123" xml:id="m123_k281_003">
-                <staff decls="#upper" n="1" xml:id="staff_25344">
-                  <layer n="1" xml:id="layer_25350">
-                    <chord doxml.id="d27e4863" dur="4" tstamp="1" xml:id="chord_25356">
-                      <note doxml.id="d27e4863" oct="5" pname="f" xml:id="note_25362"/>
-                      <note doxml.id="d27e4865" oct="5" pname="c" xml:id="note_25368"/>
-                      <note doxml.id="d27e4867" oct="4" pname="a" xml:id="note_25374"/>
-                    </chord>
-                    <rest doxml.id="d27e4869" dur="4" tstamp="1.5" xml:id="rest_25380"/>
-                    <rest doxml.id="d27e4871" dur="2" tstamp="2" xml:id="rest_25386"/>
+            <measure facs="#zoneOf_m124_k281_003" n="124" xml:id="m124_k281_003">
+                <staff decls="#upper" n="1" xml:id="staff_25572">
+                  <layer n="1" xml:id="layer_25578">
+                    <note doxml.id="d27e4919" dur="4" oct="5" pname="f" tstamp="1" xml:id="note_25584"/>
+                    <beam xml:id="beam_25590">
+                      <note accid.ges="f" dots="1" doxml.id="d27e4921" dur="8" oct="5" pname="b" tstamp="1.5" xml:id="note_25596"/>
+                      <note doxml.id="d27e4924" dur="16" oct="5" pname="d" tstamp="1.875" xml:id="note_25602"/>
+                    </beam>
+                    <note doxml.id="d27e4926" dur="16" grace="unknown" oct="5" pname="f" stem.dir="up" xml:id="note_25608"/>
+                    <note accid.ges="f" doxml.id="d27e4928" dur="4" oct="5" pname="e" tstamp="2" xml:id="note_25614"/>
+                    <note doxml.id="d27e4930" dur="4" oct="5" pname="c" tstamp="2.5" xml:id="note_25620"/>
                   </layer>
                 </staff>
-                <staff decls="#lower" n="2" xml:id="staff_25392">
-                  <layer n="1" xml:id="layer_25398">
-                    <beam xml:id="beam_25404">
-                      <tuplet bracket.visible="false" num="3" num.visible="true" numbase="2" type="num_supplied_NMA-editors" xml:id="tuplet_25410">
-                        <note doxml.id="d27e4875" dur="8" oct="4" pname="f" tstamp="1" xml:id="note_25416"/>
-                        <note doxml.id="d27e4880" dur="8" oct="4" pname="g" tstamp="1.16667" xml:id="note_25422"/>
-                        <note doxml.id="d27e4882" dur="8" oct="4" pname="f" tstamp="1.33333" xml:id="note_25428"/>
+                <staff decls="#lower" n="2" xml:id="staff_25626">
+                  <layer n="1" xml:id="layer_25632">
+                    <beam xml:id="beam_25638">
+                      <tuplet bracket.visible="false" num="3" num.visible="false" numbase="2" xml:id="tuplet_25644">
+                        <note accid.ges="f" doxml.id="d27e4934" dur="8" oct="3" pname="b" tstamp="1" xml:id="note_25650"/>
+                        <note doxml.id="d27e4936" dur="8" oct="4" pname="d" tstamp="1.16667" xml:id="note_25656"/>
+                        <note doxml.id="d27e4938" dur="8" oct="4" pname="f" tstamp="1.33333" xml:id="note_25662"/>
                       </tuplet>
                     </beam>
-                    <beam xml:id="beam_25434">
-                      <tuplet bracket.visible="false" num="3" num.visible="true" numbase="2" type="num_supplied_NMA-editors" xml:id="tuplet_25440">
-                        <note accid="f" doxml.id="d27e4884" dur="8" oct="4" pname="e" tstamp="1.5" xml:id="note_25446"/>
-                        <note doxml.id="d27e4888" dur="8" oct="4" pname="f" tstamp="1.66667" xml:id="note_25452"/>
-                        <note accid.ges="f" doxml.id="d27e4890" dur="8" oct="4" pname="e" tstamp="1.83333" xml:id="note_25458"/>
+                    <beam xml:id="beam_25668">
+                      <tuplet bracket.visible="false" num="3" num.visible="false" numbase="2" xml:id="tuplet_25674">
+                        <note accid.ges="f" doxml.id="d27e4940" dur="8" oct="3" pname="b" tstamp="1.5" xml:id="note_25680"/>
+                        <note doxml.id="d27e4942" dur="8" oct="4" pname="d" tstamp="1.66667" xml:id="note_25686"/>
+                        <note doxml.id="d27e4944" dur="8" oct="4" pname="f" tstamp="1.83333" xml:id="note_25692"/>
                       </tuplet>
                     </beam>
-                    <beam xml:id="beam_25464">
-                      <tuplet bracket.visible="false" num="3" num.visible="false" numbase="2" xml:id="tuplet_25470">
-                        <note doxml.id="d27e4892" dur="8" oct="4" pname="d" tstamp="2" xml:id="note_25476"/>
-                        <note accid.ges="f" doxml.id="d27e4894" dur="8" oct="4" pname="e" tstamp="2.16667" xml:id="note_25482"/>
-                        <note doxml.id="d27e4896" dur="8" oct="4" pname="d" tstamp="2.33333" xml:id="note_25488"/>
+                    <beam xml:id="beam_25698">
+                      <tuplet bracket.visible="false" num="3" num.visible="false" numbase="2" xml:id="tuplet_25704">
+                        <note doxml.id="d27e4947" dur="8" oct="3" pname="a" tstamp="2" xml:id="note_25710"/>
+                        <note doxml.id="d27e4949" dur="8" oct="4" pname="c" tstamp="2.16667" xml:id="note_25716"/>
+                        <note doxml.id="d27e4951" dur="8" oct="4" pname="f" tstamp="2.33333" xml:id="note_25722"/>
                       </tuplet>
                     </beam>
-                    <beam xml:id="beam_25494">
-                      <tuplet bracket.visible="false" num="3" num.visible="false" numbase="2" xml:id="tuplet_25500">
-                        <note doxml.id="d27e4898" dur="8" oct="4" pname="c" tstamp="2.5" xml:id="note_25506"/>
-                        <note doxml.id="d27e4901" dur="8" oct="4" pname="d" tstamp="2.66667" xml:id="note_25512"/>
-                        <note doxml.id="d27e4903" dur="8" oct="4" pname="c" tstamp="2.83333" xml:id="note_25518"/>
+                    <beam xml:id="beam_25728">
+                      <tuplet bracket.visible="false" num="3" num.visible="false" numbase="2" xml:id="tuplet_25734">
+                        <note doxml.id="d27e4953" dur="8" oct="3" pname="a" tstamp="2.5" xml:id="note_25740"/>
+                        <note doxml.id="d27e4955" dur="8" oct="4" pname="c" tstamp="2.66667" xml:id="note_25746"/>
+                        <note doxml.id="d27e4957" dur="8" oct="4" pname="f" tstamp="2.83333" xml:id="note_25752"/>
                       </tuplet>
                     </beam>
                   </layer>
                 </staff>
-                <slur endid="#note_25518" staff="2" startid="#note_25416" xml:id="slur_25554"/>
-                <arpeg plist="#note_25374 #note_25368 #note_25362" staff="1" xml:id="arpeg-0000000077422010"/>
+                <slur endid="#note_25614" staff="1" startid="#note_25608" xml:id="slur_25758"/>
               </measure>
           </section>
         </score>

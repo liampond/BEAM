@@ -337,86 +337,80 @@
             </staffGrp>
           </scoreDef>
           <section>
-            <measure facs="#zoneOf_m21_k279_002" n="21" xml:id="m21_k279_002">
-                <staff decls="#upper" n="1" xml:id="staff_7860">
-                  <layer n="1" xml:id="layer_7866">
-                    <chord dur="16" grace="unknown" stem.dir="up" xml:id="chord_7872">
-                      <note doxml.id="d27e999" oct="5" pname="a" xml:id="note_7878"/>
-                      <note oct="5" pname="f" xml:id="note_7884"/>
-                    </chord>
-                    <chord doxml.id="d27e1003" dur="4" tstamp="1" xml:id="chord_7890">
-                      <note doxml.id="d27e1003" oct="5" pname="g" xml:id="note_7896"/>
-                      <note doxml.id="d27e1005" oct="5" pname="e" xml:id="note_7902"/>
-                    </chord>
-                    <chord dur="16" grace="unknown" stem.dir="up" xml:id="chord_7908">
-                      <note doxml.id="d27e1007" oct="5" pname="g" xml:id="note_7914"/>
-                      <note oct="5" pname="e" xml:id="note_7920"/>
-                    </chord>
-                    <chord doxml.id="d27e1009" dur="4" tstamp="2" xml:id="chord_7926">
-                      <note doxml.id="d27e1009" oct="5" pname="f" xml:id="note_7932"/>
-                      <note doxml.id="d27e1011" oct="5" pname="d" xml:id="note_7938"/>
-                    </chord>
-                    <chord dur="16" grace="unknown" stem.dir="up" xml:id="chord_7944">
-                      <note doxml.id="d27e1014" oct="5" pname="f" xml:id="note_7950"/>
-                      <note oct="5" pname="d" xml:id="note_7956"/>
-                    </chord>
-                    <chord doxml.id="d27e1016" dur="4" tstamp="3" xml:id="chord_7962">
-                      <note doxml.id="d27e1016" oct="5" pname="e" xml:id="note_7968"/>
-                      <note doxml.id="d27e1018" oct="5" pname="c" xml:id="note_7974"/>
-                    </chord>
+            <measure facs="#zoneOf_m22_k279_002" n="22" xml:id="m22_k279_002">
+                <staff decls="#upper" n="1" xml:id="staff_8220">
+                  <layer n="1" xml:id="layer_8226">
+                    <tuplet bracket.visible="false" num="3" num.visible="false" numbase="2" xml:id="tuplet_8232">
+                      <beam xml:id="beam_8238">
+                        <note doxml.id="d27e278" dur="8" oct="5" pname="e" tstamp="1" xml:id="note_8244"/>
+                        <note doxml.id="d27e280" dur="8" oct="5" pname="d" tstamp="1.33333" xml:id="note_8250"/>
+                      </beam>
+                      <rest doxml.id="d27e273" dur="8" tstamp="1.66667" xml:id="rest_8256"/>
+                    </tuplet>
+                    <rest doxml.id="d27e1066" dur="4" tstamp="2" xml:id="rest_8262"/>
+                    <rest doxml.id="d27e1068" dur="4" tstamp="3" xml:id="rest_8268"/>
                   </layer>
                 </staff>
-                <staff decls="#lower" n="2" xml:id="staff_7980">
-                  <layer n="1" xml:id="layer_7986">
-                    <tuplet bracket.visible="false" num="3" num.visible="false" numbase="2" xml:id="tuplet_7992">
-                      <rest doxml.id="d27e1022" dur="8" tstamp="1" xml:id="rest_7998"/>
-                      <beam xml:id="beam_8004">
-                        <chord doxml.id="d27e1026" dur="8" tstamp="1.33333" xml:id="chord_8010">
-                          <note accid="n" doxml.id="d27e1026" oct="2" pname="b" xml:id="note_8016"/>
-                          <note accid="n" doxml.id="d27e1028" oct="1" pname="b" xml:id="note_8022"/>
+                <staff decls="#lower" n="2" xml:id="staff_8274">
+                  <layer n="1" xml:id="layer_8280">
+                    <tuplet bracket.visible="false" num="3" num.visible="false" numbase="2" xml:id="tuplet_8286">
+                      <rest doxml.id="d27e1072" dur="8" tstamp="1" xml:id="rest_8292"/>
+                      <beam xml:id="beam_8298">
+                        <chord doxml.id="d27e1076" dur="8" tstamp="1.33333" xml:id="chord_8304">
+                          <note doxml.id="d27e1076" oct="4" pname="c" xml:id="note_8310"/>
+                          <note doxml.id="d27e1078" oct="3" pname="a" xml:id="note_8316"/>
+                          <note doxml.id="d27e1080" oct="3" pname="f" xml:id="note_8322"/>
                         </chord>
-                        <chord doxml.id="d27e1030" dur="8" tstamp="1.66667" xml:id="chord_8028">
-                          <note doxml.id="d27e1030" oct="3" pname="c" xml:id="note_8034"/>
-                          <note doxml.id="d27e1032" oct="2" pname="c" xml:id="note_8040"/>
-                        </chord>
-                      </beam>
-                    </tuplet>
-                    <tuplet bracket.visible="false" num="3" num.visible="false" numbase="2" xml:id="tuplet_8046">
-                      <rest doxml.id="d27e1034" dur="8" tstamp="2" xml:id="rest_8052"/>
-                      <beam xml:id="beam_8058">
-                        <chord doxml.id="d27e1037" dur="8" tstamp="2.33333" xml:id="chord_8064">
-                          <note accid="s" doxml.id="d27e1037" oct="3" pname="c" xml:id="note_8070"/>
-                          <note accid="s" doxml.id="d27e1039" oct="2" pname="c" xml:id="note_8076"/>
-                        </chord>
-                        <chord doxml.id="d27e1041" dur="8" tstamp="2.66667" xml:id="chord_8082">
-                          <note doxml.id="d27e1041" oct="3" pname="d" xml:id="note_8088"/>
-                          <note doxml.id="d27e1043" oct="2" pname="d" xml:id="note_8094"/>
+                        <chord doxml.id="d27e1083" dur="8" tstamp="1.66667" xml:id="chord_8328">
+                          <note doxml.id="d27e1083" oct="4" pname="c" xml:id="note_8334"/>
+                          <note doxml.id="d27e1085" oct="3" pname="a" xml:id="note_8340"/>
+                          <note doxml.id="d27e1087" oct="3" pname="f" xml:id="note_8346"/>
                         </chord>
                       </beam>
                     </tuplet>
-                    <tuplet bracket.visible="false" num="3" num.visible="false" numbase="2" xml:id="tuplet_8100">
-                      <rest doxml.id="d27e1045" dur="8" tstamp="3" xml:id="rest_8106"/>
-                      <beam xml:id="beam_8112">
-                        <chord doxml.id="d27e1047" dur="8" tstamp="3.33333" xml:id="chord_8118">
-                          <note accid="s" doxml.id="d27e1047" oct="3" pname="d" xml:id="note_8124"/>
-                          <note accid="s" doxml.id="d27e1049" oct="2" pname="d" xml:id="note_8130"/>
+                    <beam xml:id="beam_8352">
+                      <tuplet bracket.visible="false" num="3" num.visible="false" numbase="2" xml:id="tuplet_8358">
+                        <chord doxml.id="d27e1089" dur="8" tstamp="2" xml:id="chord_8364">
+                          <note doxml.id="d27e1089" oct="4" pname="c" xml:id="note_8370"/>
+                          <note doxml.id="d27e1091" oct="3" pname="a" xml:id="note_8376"/>
+                          <note doxml.id="d27e1093" oct="3" pname="f" xml:id="note_8382"/>
                         </chord>
-                        <chord doxml.id="d27e1051" dur="8" tstamp="3.66667" xml:id="chord_8136">
-                          <note doxml.id="d27e1051" oct="3" pname="e" xml:id="note_8142"/>
-                          <note doxml.id="d27e1053" oct="2" pname="e" xml:id="note_8148"/>
+                        <chord doxml.id="d27e1095" dur="8" tstamp="2.33333" xml:id="chord_8388">
+                          <note doxml.id="d27e1095" oct="4" pname="c" xml:id="note_8394"/>
+                          <note doxml.id="d27e1097" oct="3" pname="a" xml:id="note_8400"/>
+                          <note doxml.id="d27e1099" oct="3" pname="f" xml:id="note_8406"/>
                         </chord>
-                      </beam>
-                    </tuplet>
+                        <chord doxml.id="d27e1101" dur="8" tstamp="2.66667" xml:id="chord_8412">
+                          <note doxml.id="d27e1101" oct="4" pname="c" xml:id="note_8418"/>
+                          <note doxml.id="d27e1103" oct="3" pname="a" xml:id="note_8424"/>
+                          <note doxml.id="d27e1106" oct="3" pname="f" xml:id="note_8430"/>
+                        </chord>
+                      </tuplet>
+                    </beam>
+                    <beam xml:id="beam_8436">
+                      <tuplet bracket.visible="false" num="3" num.visible="false" numbase="2" xml:id="tuplet_8442">
+                        <chord doxml.id="d27e1108" dur="8" tstamp="3" xml:id="chord_8448">
+                          <note doxml.id="d27e1108" oct="4" pname="c" xml:id="note_8454"/>
+                          <note doxml.id="d27e1110" oct="3" pname="a" xml:id="note_8460"/>
+                          <note doxml.id="d27e1112" oct="3" pname="f" xml:id="note_8466"/>
+                        </chord>
+                        <chord doxml.id="d27e1114" dur="8" tstamp="3.33333" xml:id="chord_8472">
+                          <note doxml.id="d27e1114" oct="4" pname="c" xml:id="note_8478"/>
+                          <note doxml.id="d27e1116" oct="3" pname="a" xml:id="note_8484"/>
+                          <note doxml.id="d27e1118" oct="3" pname="f" xml:id="note_8490"/>
+                        </chord>
+                        <chord doxml.id="d27e1120" dur="8" tstamp="3.66667" xml:id="chord_8496">
+                          <note doxml.id="d27e1120" oct="4" pname="c" xml:id="note_8502"/>
+                          <note doxml.id="d27e1122" oct="3" pname="a" xml:id="note_8508"/>
+                          <note doxml.id="d27e1124" oct="3" pname="f" xml:id="note_8514"/>
+                        </chord>
+                      </tuplet>
+                    </beam>
                   </layer>
                 </staff>
-                <dynam doxml.id="d27e1001" staff="1" startid="#chord_7890" xml:id="dynam_8154">f</dynam>
-                <dynam doxml.id="d27e1024" staff="2" startid="#chord_8010" xml:id="dynam_8166">f</dynam>
-                <slur curvedir="below" endid="#chord_7890" staff="1" startid="#chord_7872" xml:id="slur_8178"/>
-                <slur curvedir="below" endid="#chord_7926" staff="1" startid="#chord_7908" xml:id="slur_8184"/>
-                <slur curvedir="below" endid="#chord_7962" staff="1" startid="#chord_7944" xml:id="slur_8190"/>
-                <slur curvedir="below" endid="#chord_8028" staff="2" startid="#chord_8010" xml:id="slur_8196"/>
-                <slur curvedir="below" endid="#chord_8082" staff="2" startid="#chord_8064" xml:id="slur_8202"/>
-                <slur curvedir="below" endid="#chord_8136" staff="2" startid="#chord_8118" xml:id="slur_8208"/>
+                <dynam doxml.id="d27e1057" staff="1" startid="#note_8244" xml:id="dynam_8520">p</dynam>
+                <dynam doxml.id="d27e1074" staff="2" startid="#chord_8304" xml:id="dynam_8532">p</dynam>
+                <slur endid="#note_8250" staff="1" startid="#note_8244" xml:id="slur_8544"/>
               </measure>
           </section>
         </score>

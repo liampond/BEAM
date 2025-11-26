@@ -1342,7 +1342,10 @@
         <voice>1</voice>
         <type>eighth</type>
         </note>
-      </measure><measure number="3" width="378.96">
+      </measure>
+  </part>
+  <part id="P2">
+    <measure number="3" width="378.96">
       <attributes>
         <divisions>16</divisions>
         <key>

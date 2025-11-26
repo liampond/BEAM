@@ -18,74 +18,41 @@
       </score-part>
     </part-list>
   <part id="P1">
-    <measure number="36" width="325.64">
+    <measure number="7" width="270.15">
       <attributes>
         <divisions>24</divisions>
         <key>
-          <fifths>-3</fifths>
+          <fifths>-2</fifths>
           </key>
         <time>
           <beats>3</beats>
           <beat-type>4</beat-type>
           </time>
         <staves>2</staves>
-        <clef number="1">
-          <sign>G</sign>
-          <line>2</line>
-          </clef>
         <clef number="2">
           <sign>F</sign>
           <line>4</line>
           </clef>
         </attributes>
-      <direction placement="below">
-        <direction-type>
-          <dynamics default-x="3.29" default-y="-40.00" relative-y="-40.00">
-            <f/>
-            </dynamics>
-          </direction-type>
-        <staff>1</staff>
-        <sound dynamics="106.67"/>
-        </direction>
       <harmony print-frame="no">
         <root>
           <root-step text="">C</root-step>
           </root>
-        <kind text="viio6(2)">none</kind>
+        <kind text="V6]">none</kind>
         </harmony>
-      <note default-x="14.50" default-y="-5.00" xml:id="note399">
+      <note default-x="15.80" default-y="0.00" xml:id="note71">
         <pitch>
-          <step>E</step>
-          <alter>-1</alter>
+          <step>F</step>
           <octave>5</octave>
           </pitch>
-        <duration>24</duration>
+        <duration>12</duration>
         <voice>1</voice>
-        <type>quarter</type>
+        <type>eighth</type>
         <stem>down</stem>
         <staff>1</staff>
+        <beam number="1">begin</beam>
         <notations>
           <slur type="start" placement="above" number="1"/>
-          </notations>
-        </note>
-      <harmony print-frame="no">
-        <root>
-          <root-step text="">C</root-step>
-          </root>
-        <kind text="viio6">none</kind>
-        </harmony>
-      <note default-x="109.74" default-y="-10.00" xml:id="note400">
-        <pitch>
-          <step>D</step>
-          <octave>5</octave>
-          </pitch>
-        <duration>24</duration>
-        <voice>1</voice>
-        <type>quarter</type>
-        <stem>down</stem>
-        <staff>1</staff>
-        <notations>
-          <slur type="stop" number="1"/>
           </notations>
         </note>
       <direction placement="below">
@@ -97,69 +64,73 @@
         <staff>1</staff>
         <sound dynamics="54.44"/>
         </direction>
+      <note default-x="57.92" default-y="15.00" xml:id="note72">
+        <pitch>
+          <step>B</step>
+          <alter>-1</alter>
+          <octave>5</octave>
+          </pitch>
+        <duration>12</duration>
+        <voice>1</voice>
+        <type>eighth</type>
+        <stem>down</stem>
+        <staff>1</staff>
+        <beam number="1">end</beam>
+        </note>
+      <note default-x="100.05" default-y="10.00" xml:id="note73">
+        <pitch>
+          <step>A</step>
+          <octave>5</octave>
+          </pitch>
+        <duration>12</duration>
+        <voice>1</voice>
+        <type>eighth</type>
+        <stem>down</stem>
+        <staff>1</staff>
+        <beam number="1">begin</beam>
+        </note>
+      <note default-x="142.17" default-y="5.00" xml:id="note74">
+        <pitch>
+          <step>G</step>
+          <octave>5</octave>
+          </pitch>
+        <duration>12</duration>
+        <voice>1</voice>
+        <type>eighth</type>
+        <stem>down</stem>
+        <staff>1</staff>
+        <beam number="1">end</beam>
+        </note>
+      <note default-x="184.30" default-y="0.00" xml:id="note75">
+        <pitch>
+          <step>F</step>
+          <octave>5</octave>
+          </pitch>
+        <duration>12</duration>
+        <voice>1</voice>
+        <type>eighth</type>
+        <stem>down</stem>
+        <staff>1</staff>
+        <beam number="1">begin</beam>
+        </note>
       <harmony print-frame="no">
         <root>
           <root-step text="">C</root-step>
           </root>
-        <kind text="V43">none</kind>
+        <kind text="@none">none</kind>
         </harmony>
-      <note default-x="204.99" default-y="-20.00" xml:id="note401">
+      <note default-x="226.42" default-y="-5.00" xml:id="note76">
         <pitch>
-          <step>B</step>
-          <alter>-1</alter>
-          <octave>4</octave>
-          </pitch>
-        <duration>6</duration>
-        <voice>1</voice>
-        <type>16th</type>
-        <stem>down</stem>
-        <staff>1</staff>
-        <beam number="1">begin</beam>
-        <beam number="2">begin</beam>
-        <notations>
-          <slur type="start" placement="above" number="1"/>
-          </notations>
-        </note>
-      <note default-x="234.75" default-y="-15.00" xml:id="note402">
-        <pitch>
-          <step>C</step>
+          <step>E</step>
           <octave>5</octave>
           </pitch>
-        <duration>6</duration>
+        <duration>12</duration>
         <voice>1</voice>
-        <type>16th</type>
-        <stem>down</stem>
-        <staff>1</staff>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        </note>
-      <note default-x="264.51" default-y="-20.00" xml:id="note403">
-        <pitch>
-          <step>B</step>
-          <alter>-1</alter>
-          <octave>4</octave>
-          </pitch>
-        <duration>6</duration>
-        <voice>1</voice>
-        <type>16th</type>
-        <stem>down</stem>
-        <staff>1</staff>
-        <beam number="1">continue</beam>
-        <beam number="2">continue</beam>
-        </note>
-      <note default-x="294.28" default-y="-25.00" xml:id="note404">
-        <pitch>
-          <step>A</step>
-          <octave>4</octave>
-          </pitch>
-        <duration>6</duration>
-        <voice>1</voice>
-        <type>16th</type>
+        <type>eighth</type>
         <accidental>natural</accidental>
         <stem>down</stem>
         <staff>1</staff>
         <beam number="1">end</beam>
-        <beam number="2">end</beam>
         <notations>
           <slur type="stop" number="1"/>
           </notations>
@@ -167,10 +138,9 @@
       <backup>
         <duration>72</duration>
         </backup>
-      <note default-x="14.50" default-y="-131.15" xml:id="note405">
+      <note default-x="15.80" default-y="-108.35" xml:id="note77">
         <pitch>
-          <step>A</step>
-          <alter>-1</alter>
+          <step>D</step>
           <octave>4</octave>
           </pitch>
         <duration>24</duration>
@@ -179,107 +149,51 @@
         <stem>up</stem>
         <staff>2</staff>
         </note>
-      <note default-x="109.74" default-y="-131.15" xml:id="note406">
-        <pitch>
-          <step>A</step>
-          <alter>-1</alter>
-          <octave>4</octave>
-          </pitch>
+      <note print-object="no" xml:id="note78">
+        <rest/>
         <duration>24</duration>
         <voice>5</voice>
         <type>quarter</type>
-        <stem>up</stem>
         <staff>2</staff>
         </note>
-      <note default-x="204.99" default-y="-131.15" xml:id="note407">
-        <pitch>
-          <step>A</step>
-          <alter>-1</alter>
-          <octave>4</octave>
-          </pitch>
+      <note print-object="no" xml:id="note79">
+        <rest/>
         <duration>24</duration>
         <voice>5</voice>
         <type>quarter</type>
-        <stem>up</stem>
         <staff>2</staff>
         </note>
       <backup>
         <duration>72</duration>
         </backup>
-      <note default-x="14.50" default-y="-141.15" xml:id="note408">
+      <note default-x="15.80" default-y="-133.35" xml:id="note80">
         <pitch>
           <step>F</step>
-          <octave>4</octave>
-          </pitch>
-        <duration>12</duration>
-        <voice>6</voice>
-        <type>eighth</type>
-        <stem>down</stem>
-        <staff>2</staff>
-        <beam number="1">begin</beam>
-        </note>
-      <note default-x="62.12" default-y="-161.15" xml:id="note409">
-        <pitch>
-          <step>B</step>
-          <alter>-1</alter>
           <octave>3</octave>
           </pitch>
-        <duration>12</duration>
+        <duration>24</duration>
+        <tie type="stop"/>
         <voice>6</voice>
-        <type>eighth</type>
+        <type>quarter</type>
         <stem>down</stem>
         <staff>2</staff>
-        <beam number="1">end</beam>
+        <notations>
+          <tied type="stop"/>
+          </notations>
         </note>
-      <note default-x="109.74" default-y="-141.15" xml:id="note410">
-        <pitch>
-          <step>F</step>
-          <octave>4</octave>
-          </pitch>
-        <duration>12</duration>
+      <note xml:id="note81">
+        <rest/>
+        <duration>24</duration>
         <voice>6</voice>
-        <type>eighth</type>
-        <stem>down</stem>
+        <type>quarter</type>
         <staff>2</staff>
-        <beam number="1">begin</beam>
         </note>
-      <note default-x="157.36" default-y="-161.15" xml:id="note411">
-        <pitch>
-          <step>B</step>
-          <alter>-1</alter>
-          <octave>3</octave>
-          </pitch>
-        <duration>12</duration>
+      <note xml:id="note82">
+        <rest/>
+        <duration>24</duration>
         <voice>6</voice>
-        <type>eighth</type>
-        <stem>down</stem>
+        <type>quarter</type>
         <staff>2</staff>
-        <beam number="1">end</beam>
-        </note>
-      <note default-x="204.99" default-y="-141.15" xml:id="note412">
-        <pitch>
-          <step>F</step>
-          <octave>4</octave>
-          </pitch>
-        <duration>12</duration>
-        <voice>6</voice>
-        <type>eighth</type>
-        <stem>down</stem>
-        <staff>2</staff>
-        <beam number="1">begin</beam>
-        </note>
-      <note default-x="264.51" default-y="-161.15" xml:id="note413">
-        <pitch>
-          <step>B</step>
-          <alter>-1</alter>
-          <octave>3</octave>
-          </pitch>
-        <duration>12</duration>
-        <voice>6</voice>
-        <type>eighth</type>
-        <stem>down</stem>
-        <staff>2</staff>
-        <beam number="1">end</beam>
         </note>
       </measure>
   </part>
