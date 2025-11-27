@@ -6,6 +6,7 @@ Respond with a single number.
 """
 
 from ..registry import register_extractor
+from .utils import get_upper_staff_voices, count_notes_for_voices
 
 
 @register_extractor(2, "abc")
@@ -19,5 +20,13 @@ def extract(file_path: str) -> str:
     Returns:
         The count as a string
     """
-    # TODO: Implement ABC parsing for upper staff note count
-    raise NotImplementedError("ABC Q2 extractor not yet implemented")
+    with open(file_path, 'r') as f:
+        content = f.read()
+    
+    # Get voice(s) for the upper staff
+    upper_voices = get_upper_staff_voices(content)
+    
+    # Count notes across all voices in the upper staff
+    note_count = count_notes_for_voices(content, upper_voices)
+    
+    return str(note_count)
