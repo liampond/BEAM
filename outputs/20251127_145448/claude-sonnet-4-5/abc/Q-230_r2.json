@@ -1,0 +1,21 @@
+{
+  "question_id": "Q-230",
+  "passage_id": "P-026",
+  "format": "abc",
+  "model_name": "claude-sonnet-4-5",
+  "provider": "anthropic",
+  "run_number": 2,
+  "question_text": "What is the duration of the longest note in this passage? Respond in the number of quarter notes. Do not use unnecessary decimals. Round to the nearest hundredth if necessary (e.g., 2 for a half note, 0.33 for a triplet eighth note). Count tied notes as one note (e.g., if you see a dotted quarter note tied to an eighth note, return 2).",
+  "expected_answer": "1",
+  "extracted_answer": "1",
+  "raw_response": "I need to analyze the ABC notation to find the duration of the longest note.\n\nLet me examine the notation:\n\n**Header information:**\n- L: 1/8 (default note length is 1/8 note)\n- M: 6/8 (time signature)\n\n**Voice 1 (treble clef):**\n`f/e/d/c/B/A/ d/c/B/A/^G/F/`\n\nThe `/` notation indicates notes shorter than the default length. Each `/` divides the note by 2.\n- `f/e/d/c/B/A/` - these are all sixteenth notes (1/8 \u00f7 2 = 1/16)\n- `d/c/B/A/^G/F/` - these are all sixteenth notes (1/16)\n\n**Voice 2 (bass clef):**\n`[D,2A,2]z D/C/B,/A,/^G,/F,/`\n\n- `[D,2A,2]` - this is a chord where both notes have duration 2 (meaning 2 \u00d7 1/8 = 2/8 = 1/4 note)\n- `z` - this is a rest with default duration (1/8)\n- `D/C/B,/A,/^G,/F,/` - these are all sixteenth notes (1/16)\n\nNow converting to quarter notes:\n- Sixteenth notes = 1/16 note = 0.25 quarter notes\n- Eighth note (rest) = 1/8 note = 0.5 quarter notes\n- The chord `[D,2A,2]` = 2/8 note = 1/4 note = 1 quarter note\n\nThe longest note duration is **1 quarter note** (the chord in voice 2).\n\n{\"answer\": \"1\"}",
+  "is_correct": true,
+  "success": true,
+  "error": null,
+  "duration_seconds": 0.0,
+  "input_tokens": null,
+  "output_tokens": null,
+  "timestamp": "2025-11-27T15:41:12.620918",
+  "prompt": "Passage:\n%%linebreak <none>\n%%measurenb 2\nX: 39\nT: Piano Sonata No. 9 in D major, K 311 (284c), mvmt. 3\nC: Wolfgang Amadeus Mozart\n%%abc-version 2.0\n%%abcx-abcm2ps-target-version 5.9.1 (29 Sep 2008)\n%%abc-creator hum2abc beta\n%%abcx-conversion-date 2021/01/14 17:01:33\n%%abc-copyright 2018 Craig Stuart Sapp\n%%abc-edited-by Craig Stuart Sapp\n%%abc-edited-by Craig Stuart Sapp\n%%abcx-initial-encoding-date 2009/10/15\n%%gracespace 0 6 6\n%%humdrum-veritas 1367281939\n%%humdrum-veritas-data 3210103122\n%%linebreak <none>\n%%barnumbers 0\nL: 1/8\nM: 6/8\nN: Derived from sonata09-3.krn\nQ: \"Adagio\" 3/8=80\n%%staves {1 2}\nV: 1 clef=treble\nV: 2 clef=bass\nN: Extracted measures 39-39 from original score\nK: D\n[V:1] f/e/d/c/B/A/ d/c/B/A/^G/F/ | \n[V:2] [D,2A,2]z D/C/B,/A,/^G,/F,/ | \n\n\nQuestion: What is the duration of the longest note in this passage? Respond in the number of quarter notes. Do not use unnecessary decimals. Round to the nearest hundredth if necessary (e.g., 2 for a half note, 0.33 for a triplet eighth note). Count tied notes as one note (e.g., if you see a dotted quarter note tied to an eighth note, return 2).\n[Note: This passage is encoded in ABC notation]\n",
+  "system_prompt": "You are a music encoding parser. Your task is to analyze music notation files in various formats (ABC, MEI, MusicXML, Humdrum) and extract specific musical information to answer questions.\n\nInstructions:\n- Read the music encoding carefully, paying attention to the format-specific syntax\n- Count or identify the requested musical elements accurately\n- Respond with ONLY the answer in valid JSON format\n- Use the field name \"answer\" for your response\n- Do not include explanations, reasoning, or any text outside the JSON object\n- For pitch questions, always include the octave (e.g., \"C4\", \"F#5\")\n- Always consider grace notes and ornaments to be the same as normal notes.\n- For questions with a short answer response, do not use hyphens (e.g., Perfect fifth, Quarter note)\n- Only respond based on elements that will be visually rendered in the score. For example, if the encoded file contains invisible notes or rests, do not consider these elements in your response.\n- If there is no valid answer (e.g., if the question asks about notes in the upper staff but there are none), return N/A\n\nExample response format:\n{\"answer\": \"99\"}"
+}

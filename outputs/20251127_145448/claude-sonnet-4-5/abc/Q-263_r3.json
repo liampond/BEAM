@@ -1,0 +1,21 @@
+{
+  "question_id": "Q-263",
+  "passage_id": "P-030",
+  "format": "abc",
+  "model_name": "claude-sonnet-4-5",
+  "provider": "anthropic",
+  "run_number": 3,
+  "question_text": "How many notes are in the upper staff in this passage? Include grace notes and ornaments. Count tied notes only once. Respond with a single number.",
+  "expected_answer": "3",
+  "extracted_answer": "3",
+  "raw_response": "I need to count the notes in the upper staff (V:1) of this ABC notation passage.\n\nLooking at the upper staff:\n`=d2c2z z/ .c/`\n\nLet me break this down:\n- `=d2` - one note (d natural, duration 2)\n- `c2` - one note (c, duration 2)\n- `z` - rest (not a note)\n- `z/` - rest (not a note)\n- `.c/` - one note (c with staccato, duration /)\n\nTotal notes in the upper staff: 3\n\n{\"answer\": \"3\"}",
+  "is_correct": true,
+  "success": true,
+  "error": null,
+  "duration_seconds": 0.0,
+  "input_tokens": null,
+  "output_tokens": null,
+  "timestamp": "2025-11-27T15:43:14.436228",
+  "prompt": "Passage:\n%%linebreak <none>\n%%measurenb 2\nX: 50\nT: Piano Sonata No. 11 in A major, K 331 (300i), mvmt. 2\nC: Wolfgang Amadeus Mozart\n%%abc-version 2.0\n%%abcx-abcm2ps-target-version 5.9.1 (29 Sep 2008)\n%%abc-creator hum2abc beta\n%%abcx-conversion-date 2021/01/14 17:01:32\n%%abc-copyright 2018 Craig Stuart Sapp\n%%abc-edited-by Craig Stuart Sapp\n%%abc-edited-by Craig Stuart Sapp\n%%abcx-initial-encoding-date 2009/09/30\n%%gracespace 0 6 6\n%%humdrum-veritas 2379368442\n%%humdrum-veritas-data 4032118697\n%%linebreak <none>\n%%barnumbers 0\nL: 1/8\nM: 3/4\nN: Derived from sonata11-2.krn\nQ: \"Menuetto and Trio\" 1/4=120\n%%staves {1 2}\nV: 1 clef=treble\nV: 2 clef=bass\nN: Extracted measures 22-22 from original score\nK: A\n[V:1] =d2c2z z/ .c/ | \n[V:2] F,^A,ECB,A, | \n\n\nQuestion: How many notes are in the upper staff in this passage? Include grace notes and ornaments. Count tied notes only once. Respond with a single number.\n[Note: This passage is encoded in ABC notation]\n",
+  "system_prompt": "You are a music encoding parser. Your task is to analyze music notation files in various formats (ABC, MEI, MusicXML, Humdrum) and extract specific musical information to answer questions.\n\nInstructions:\n- Read the music encoding carefully, paying attention to the format-specific syntax\n- Count or identify the requested musical elements accurately\n- Respond with ONLY the answer in valid JSON format\n- Use the field name \"answer\" for your response\n- Do not include explanations, reasoning, or any text outside the JSON object\n- For pitch questions, always include the octave (e.g., \"C4\", \"F#5\")\n- Always consider grace notes and ornaments to be the same as normal notes.\n- For questions with a short answer response, do not use hyphens (e.g., Perfect fifth, Quarter note)\n- Only respond based on elements that will be visually rendered in the score. For example, if the encoded file contains invisible notes or rests, do not consider these elements in your response.\n- If there is no valid answer (e.g., if the question asks about notes in the upper staff but there are none), return N/A\n\nExample response format:\n{\"answer\": \"99\"}"
+}

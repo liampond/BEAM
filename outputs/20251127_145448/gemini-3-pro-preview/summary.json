@@ -1,0 +1,34 @@
+{
+  "model": "gemini-3-pro-preview",
+  "provider": "google",
+  "total_results": 1215,
+  "unique_questions": 405,
+  "runs_per_question": 3,
+  "by_run": {
+    "run_1": {
+      "total": 405,
+      "correct": 227,
+      "accuracy": 0.5604938271604938
+    },
+    "run_2": {
+      "total": 405,
+      "correct": 0,
+      "accuracy": 0.0
+    },
+    "run_3": {
+      "total": 405,
+      "correct": 1,
+      "accuracy": 0.0024691358024691358
+    }
+  },
+  "consistency": {
+    "consistent_correct": 0,
+    "consistent_wrong": 178,
+    "inconsistent": 227
+  },
+  "overall": {
+    "total": 1215,
+    "correct": 228,
+    "accuracy": 0.18765432098765433
+  }
+}
