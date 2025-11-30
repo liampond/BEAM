@@ -10,11 +10,11 @@ __author__ = "Liam Pond"
 
 # Make common imports available at package level
 from .core import db_utils, extract_passage
-from .llm import runner, evaluator
+from .llm_eval import BenchmarkConfig, BenchmarkRunner
 
 __all__ = [
     "db_utils",
     "extract_passage",
-    "runner",
-    "evaluator",
+    "BenchmarkConfig",
+    "BenchmarkRunner",
 ]

@@ -1,0 +1,21 @@
+{
+  "question_id": "Q-220",
+  "passage_id": "P-025",
+  "format": "abc",
+  "model_name": "claude-sonnet-4-5",
+  "provider": "anthropic",
+  "run_number": 1,
+  "question_text": "What is the pitch of the lowest note in the lower staff? Respond in scientific pitch notation. Use 'b' to indicate flats and '#' to indicate sharps (e.g., Bb4).",
+  "expected_answer": "E3",
+  "extracted_answer": "F2",
+  "raw_response": "I need to analyze the lower staff (V:2) to find the lowest pitch.\n\nThe lower staff contains the following notes:\nF,A,DA, E,A,CA,\n\nIn ABC notation:\n- Capital letters (A, B, C, etc.) represent notes in the octave starting from C below middle C (C3-B3)\n- Letters with a comma (C, D, E, etc.) represent notes one octave lower (C2-B2)\n- Letters with two commas would be another octave lower\n\nThe notes in the lower staff are:\n- F, = F2\n- A, = A2\n- D = D3\n- A, = A2\n- E, = E2\n- A, = A2\n- C = C3\n- A, = A2\n\nThe lowest note is F, which is F2.\n\n{\"answer\": \"F2\"}",
+  "is_correct": false,
+  "success": true,
+  "error": null,
+  "duration_seconds": 0.0,
+  "input_tokens": null,
+  "output_tokens": null,
+  "timestamp": "2025-11-27T15:39:10.434428",
+  "prompt": "Passage:\n%%linebreak <none>\n%%measurenb 2\nX: 38\nT: Piano Sonata No. 9 in D major, K 311 (284c), mvmt. 2\nC: Wolfgang Amadeus Mozart\n%%abc-version 2.0\n%%abcx-abcm2ps-target-version 5.9.1 (29 Sep 2008)\n%%abc-creator hum2abc beta\n%%abcx-conversion-date 2021/01/14 17:01:32\n%%abc-copyright 2018 Craig Stuart Sapp\n%%abc-edited-by Craig Stuart Sapp\n%%abc-edited-by Craig Stuart Sapp\n%%abcx-initial-encoding-date 2009/10/15\n%%gracespace 0 6 6\n%%humdrum-veritas 1298082709\n%%humdrum-veritas-data 1234146497\n%%linebreak <none>\n%%barnumbers 0\nL: 1/16\nM: 2/4\nN: Derived from sonata09-2.krn\nQ: \"Andante con espressione\" 1/4=84\n%%staves {1 2}\nV: 1 clef=treble\nV: 2 clef=bass\nN: Extracted measures 55-55 from original score\nK: G\n[V:1] Add2- de/d/ d/c/B/c/ | \n[V:2] F,A,DA, E,A,CA, | \n\n\nQuestion: What is the pitch of the lowest note in the lower staff? Respond in scientific pitch notation. Use 'b' to indicate flats and '#' to indicate sharps (e.g., Bb4).\n[Note: This passage is encoded in ABC notation]\n",
+  "system_prompt": "You are a music encoding parser. Your task is to analyze music notation files in various formats (ABC, MEI, MusicXML, Humdrum) and extract specific musical information to answer questions.\n\nInstructions:\n- Read the music encoding carefully, paying attention to the format-specific syntax\n- Count or identify the requested musical elements accurately\n- Respond with ONLY the answer in valid JSON format\n- Use the field name \"answer\" for your response\n- Do not include explanations, reasoning, or any text outside the JSON object\n- For pitch questions, always include the octave (e.g., \"C4\", \"F#5\")\n- Always consider grace notes and ornaments to be the same as normal notes.\n- For questions with a short answer response, do not use hyphens (e.g., Perfect fifth, Quarter note)\n- Only respond based on elements that will be visually rendered in the score. For example, if the encoded file contains invisible notes or rests, do not consider these elements in your response.\n- If there is no valid answer (e.g., if the question asks about notes in the upper staff but there are none), return N/A\n\nExample response format:\n{\"answer\": \"99\"}"
+}

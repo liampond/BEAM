@@ -1,0 +1,21 @@
+{
+  "question_id": "Q-215",
+  "passage_id": "P-024",
+  "format": "abc",
+  "model_name": "gpt-5.1-2025-11-13",
+  "provider": "openai",
+  "run_number": 1,
+  "question_text": "How many rests are in this passage? Respond with a number (e.g., 3).",
+  "expected_answer": "1",
+  "extracted_answer": "2",
+  "raw_response": "{\"answer\": \"2\"}",
+  "is_correct": false,
+  "success": true,
+  "error": null,
+  "duration_seconds": 0.0,
+  "input_tokens": null,
+  "output_tokens": null,
+  "timestamp": "2025-11-27T15:02:53.841583",
+  "prompt": "Passage:\n%%linebreak <none>\n%%measurenb 2\nX: 37\nT: Piano Sonata No. 9 in D major, K 311 (284c), mvmt. 1\nC: Wolfgang Amadeus Mozart\n%%abc-version 2.0\n%%abcx-abcm2ps-target-version 5.9.1 (29 Sep 2008)\n%%abc-creator hum2abc beta\n%%abcx-conversion-date 2021/01/14 17:01:32\n%%abc-copyright 2018 Craig Stuart Sapp\n%%abc-edited-by Craig Stuart Sapp\n%%abc-edited-by Craig Stuart Sapp\n%%abcx-initial-encoding-date 2009/10/14\n%%gracespace 0 6 6\n%%humdrum-veritas 3190262673\n%%humdrum-veritas-data 1817437041\n%%linebreak <none>\n%%barnumbers 0\nL: 1/16\nM: C\nN: Derived from sonata09-1.krn\nQ: \"Allegro con spirito\" 1/4=132\n%%staves {1 2}\nV: 1 clef=treble\nV: 2 clef=bass\nN: Extracted measures 97-97 from original score\nK: D\n[V:1] A2 z2[A4a4][G4g4][F4f4] | \n[V:2] F,DCD F,,D,F,,D, E,,D,E,,D, D,,D,D,,D, | \n\n\nQuestion: How many rests are in this passage? Respond with a number (e.g., 3).\n[Note: This passage is encoded in ABC notation]\n",
+  "system_prompt": "You are a music encoding parser. Your task is to analyze music notation files in various formats (ABC, MEI, MusicXML, Humdrum) and extract specific musical information to answer questions.\n\nInstructions:\n- Read the music encoding carefully, paying attention to the format-specific syntax\n- Count or identify the requested musical elements accurately\n- Respond with ONLY the answer in valid JSON format\n- Use the field name \"answer\" for your response\n- Do not include explanations, reasoning, or any text outside the JSON object\n- For pitch questions, always include the octave (e.g., \"C4\", \"F#5\")\n- Always consider grace notes and ornaments to be the same as normal notes.\n- For questions with a short answer response, do not use hyphens (e.g., Perfect fifth, Quarter note)\n- Only respond based on elements that will be visually rendered in the score. For example, if the encoded file contains invisible notes or rests, do not consider these elements in your response.\n- If there is no valid answer (e.g., if the question asks about notes in the upper staff but there are none), return N/A\n\nExample response format:\n{\"answer\": \"99\"}"
+}

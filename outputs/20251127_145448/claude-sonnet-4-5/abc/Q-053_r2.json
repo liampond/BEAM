@@ -1,0 +1,21 @@
+{
+  "question_id": "Q-053",
+  "passage_id": "P-006",
+  "format": "abc",
+  "model_name": "claude-sonnet-4-5",
+  "provider": "anthropic",
+  "run_number": 2,
+  "question_text": "How many rests are in this passage? Respond with a number (e.g., 3).",
+  "expected_answer": "0",
+  "extracted_answer": "0",
+  "raw_response": "I need to analyze this ABC notation passage to count the number of rests.\n\nLet me examine each voice:\n\n**Voice 1 (treble clef):**\n`=G/A/B/G/E/F/`\n\nThis shows six notes (G, A, B, G, E, F) all with duration of 1/16 (indicated by the `/` which divides the default length). No rests here.\n\n**Voice 2 (bass clef):**\n`[B,2D2][A,C]`\n\nThis shows two chords:\n- First chord: [B,2D2] - B, and D, both with duration 2 (which is 2/8 or quarter note)\n- Second chord: [A,C] - A, and C with default duration 1 (which is 1/8 or eighth note)\n\nNo rests here either.\n\nTotal rests in the passage: 0\n\n{\"answer\": \"0\"}",
+  "is_correct": true,
+  "success": true,
+  "error": null,
+  "duration_seconds": 0.0,
+  "input_tokens": null,
+  "output_tokens": null,
+  "timestamp": "2025-11-27T15:41:12.616976",
+  "prompt": "Passage:\n%%linebreak <none>\n%%measurenb 2\nX: 6\nT: Piano Sonata No. 2 in F major, K 280 (189e), mvmt. 3\nC: Wolfgang Amadeus Mozart\n%%abc-version 2.0\n%%abcx-abcm2ps-target-version 5.9.1 (29 Sep 2008)\n%%abc-creator hum2abc beta\n%%abcx-conversion-date 2021/01/14 17:01:33\n%%abc-copyright 2018 Craig Stuart Sapp\n%%abc-edited-by Craig Stuart Sapp\n%%abc-edited-by Craig Stuart Sapp\n%%abcx-initial-encoding-date 2009/09/24\n%%gracespace 0 6 6\n%%humdrum-veritas 2508046536\n%%humdrum-veritas-data 3524592136\n%%linebreak <none>\n%%barnumbers 0\nL: 1/8\nM: 3/8\nN: Derived from sonata02-3.krn\nQ: \"Presto.\" 3/8=108\n%%staves {1 2}\nV: 1 clef=treble\nV: 2 clef=bass\nN: Extracted measures 171-171 from original score\nK: F\n[V:1] =G/A/B/G/E/F/ | \n[V:2] [B,2D2][A,C] | \n\n\nQuestion: How many rests are in this passage? Respond with a number (e.g., 3).\n[Note: This passage is encoded in ABC notation]\n",
+  "system_prompt": "You are a music encoding parser. Your task is to analyze music notation files in various formats (ABC, MEI, MusicXML, Humdrum) and extract specific musical information to answer questions.\n\nInstructions:\n- Read the music encoding carefully, paying attention to the format-specific syntax\n- Count or identify the requested musical elements accurately\n- Respond with ONLY the answer in valid JSON format\n- Use the field name \"answer\" for your response\n- Do not include explanations, reasoning, or any text outside the JSON object\n- For pitch questions, always include the octave (e.g., \"C4\", \"F#5\")\n- Always consider grace notes and ornaments to be the same as normal notes.\n- For questions with a short answer response, do not use hyphens (e.g., Perfect fifth, Quarter note)\n- Only respond based on elements that will be visually rendered in the score. For example, if the encoded file contains invisible notes or rests, do not consider these elements in your response.\n- If there is no valid answer (e.g., if the question asks about notes in the upper staff but there are none), return N/A\n\nExample response format:\n{\"answer\": \"99\"}"
+}

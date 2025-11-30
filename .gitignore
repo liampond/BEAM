@@ -43,12 +43,14 @@ data/question_passages_humdrum/
 data/passages/
 .env
 src/**/*.db
-outputs/
 backups/
 CLEANUP_PLAN.md
 tests/passages_for_verification/
 tests/verification_templates/
 database_exports/
+
+# Paper/thesis materials
+paper/
 
 # Jupyter Notebook
 *.ipynb_checkpoints
