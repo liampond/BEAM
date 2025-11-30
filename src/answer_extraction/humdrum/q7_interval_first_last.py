@@ -6,6 +6,7 @@ perfect fourth). Use the absolute value.
 """
 
 from ..registry import register_extractor
+from .utils import get_upper_spine_data, get_interval_first_last
 
 
 @register_extractor(7, "humdrum")
@@ -17,7 +18,13 @@ def extract(file_path: str) -> str:
         file_path: Path to the Humdrum (.krn) passage file
     
     Returns:
-        The interval in semitones as a string
+        The interval in semitones as a string (absolute value)
     """
-    # TODO: Implement Humdrum parsing for upper staff interval
-    raise NotImplementedError("Humdrum Q7 extractor not yet implemented")
+    upper_tokens = get_upper_spine_data(file_path)
+    interval = get_interval_first_last(upper_tokens)
+    
+    if interval is None:
+        return "N/A"
+    
+    # Return absolute value
+    return str(abs(interval))

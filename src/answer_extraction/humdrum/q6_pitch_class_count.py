@@ -6,6 +6,7 @@ pitch class). Respond with a number (e.g., 5).
 """
 
 from ..registry import register_extractor
+from .utils import get_lower_spine_data, get_pitch_classes_in_spine
 
 
 @register_extractor(6, "humdrum")
@@ -19,5 +20,6 @@ def extract(file_path: str) -> str:
     Returns:
         The count as a string
     """
-    # TODO: Implement Humdrum parsing for lower staff pitch class count
-    raise NotImplementedError("Humdrum Q6 extractor not yet implemented")
+    lower_tokens = get_lower_spine_data(file_path)
+    pitch_classes = get_pitch_classes_in_spine(lower_tokens)
+    return str(len(pitch_classes))

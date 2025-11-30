@@ -5,6 +5,7 @@ Include the octave. Denote octave with scientific pitch notation (e.g., C4).
 """
 
 from ..registry import register_extractor
+from .utils import get_lower_spine_data, get_lowest_pitch_in_spine
 
 
 @register_extractor(4, "humdrum")
@@ -18,5 +19,6 @@ def extract(file_path: str) -> str:
     Returns:
         The pitch in scientific notation (e.g., "C4", "F#5")
     """
-    # TODO: Implement Humdrum parsing for lowest lower staff pitch
-    raise NotImplementedError("Humdrum Q4 extractor not yet implemented")
+    lower_tokens = get_lower_spine_data(file_path)
+    lowest = get_lowest_pitch_in_spine(lower_tokens)
+    return lowest if lowest else "N/A"

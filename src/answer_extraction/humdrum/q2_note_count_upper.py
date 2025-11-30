@@ -6,12 +6,13 @@ Respond with a single number.
 """
 
 from ..registry import register_extractor
+from .utils import get_upper_spine_data, count_notes_in_spine
 
 
 @register_extractor(2, "humdrum")
 def extract(file_path: str) -> str:
     """
-    Count notes in the upper staff (rightmost spine) of a Humdrum file.
+    Count notes in the upper staff (rightmost **kern spine) of a Humdrum file.
     
     In Humdrum, spines are ordered left-to-right with the rightmost
     typically being the highest voice (treble/right hand).
@@ -22,5 +23,10 @@ def extract(file_path: str) -> str:
     Returns:
         The count as a string
     """
-    # TODO: Implement Humdrum parsing for upper staff note count
-    raise NotImplementedError("Humdrum Q2 extractor not yet implemented")
+    # Get data tokens from the upper (rightmost) kern spine
+    upper_tokens = get_upper_spine_data(file_path)
+    
+    # Count notes, including grace notes, counting ties only once
+    note_count = count_notes_in_spine(upper_tokens, include_grace=True)
+    
+    return str(note_count)
