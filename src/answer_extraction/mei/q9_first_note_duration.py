@@ -5,6 +5,8 @@ If there are multiple simultaneous notes, respond with the duration of the
 highest note. Respond in the number of quarter notes (e.g., 2 for a half note).
 """
 
+from .utils import parse_mei_file, get_first_note_duration
+from ..core.duration import format_duration
 from ..registry import register_extractor
 
 
@@ -17,7 +19,12 @@ def extract(file_path: str) -> str:
         file_path: Path to the MEI (.mei) passage file
     
     Returns:
-        The duration in quarter notes as a string
+        The duration in quarter notes as a string, or "N/A" if no notes
     """
-    # TODO: Implement MEI parsing for first lower staff note duration
-    raise NotImplementedError("MEI Q9 extractor not yet implemented")
+    root = parse_mei_file(file_path)
+    duration = get_first_note_duration(root, "2")
+    if duration is None:
+        return "N/A"
+    return format_duration(duration)
+
+

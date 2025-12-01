@@ -5,6 +5,7 @@ If there are multiple simultaneous notes, respond with the highest pitch.
 Denote octave with scientific pitch notation (e.g., C4).
 """
 
+from .utils import parse_mei_file, get_first_note_pitch
 from ..registry import register_extractor
 
 
@@ -20,7 +21,11 @@ def extract(file_path: str) -> str:
         file_path: Path to the MEI (.mei) passage file
     
     Returns:
-        The pitch in scientific notation (e.g., "C4", "F#5")
+        The pitch in scientific notation (e.g., "C4", "F#5"), or "N/A" if no notes
     """
-    # TODO: Implement MEI parsing for first upper staff pitch
-    raise NotImplementedError("MEI Q3 extractor not yet implemented")
+    root = parse_mei_file(file_path)
+    pitch = get_first_note_pitch(root, "1")
+    if pitch is None:
+        return "N/A"
+    return pitch
+

@@ -5,16 +5,20 @@ Include grace notes and ornaments. Count tied notes only once.
 Respond with a single number.
 """
 
+from .utils import count_upper_staff_notes
 from ..registry import register_extractor
 
 
 @register_extractor(2, "mei")
 def extract(file_path: str) -> str:
     """
-    Count notes in the upper staff of an MEI file.
+    Count notes in the upper staff (staff 1) of an MEI file.
     
     In MEI, staves are numbered with staff@n attribute.
     Staff 1 is typically the upper staff.
+    
+    Includes grace notes. Tied notes are counted only once 
+    (the continuation notes are excluded).
     
     Args:
         file_path: Path to the MEI (.mei) passage file
@@ -22,5 +26,6 @@ def extract(file_path: str) -> str:
     Returns:
         The count as a string
     """
-    # TODO: Implement MEI parsing for upper staff note count
-    raise NotImplementedError("MEI Q2 extractor not yet implemented")
+    count = count_upper_staff_notes(file_path)
+    return str(count)
+
