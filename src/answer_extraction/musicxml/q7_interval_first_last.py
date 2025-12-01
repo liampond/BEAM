@@ -5,6 +5,7 @@ Respond with the number of semitones as a positive integer (e.g., 5 for a
 perfect fourth). Use the absolute value.
 """
 
+from .utils import parse_musicxml_file, get_interval_first_last, UPPER_STAFF
 from ..registry import register_extractor
 
 
@@ -14,10 +15,13 @@ def extract(file_path: str) -> str:
     Calculate interval between first and last notes in upper staff (staff 1).
     
     Args:
-        file_path: Path to the MusicXML (.musicxml) passage file
+        file_path: Path to the MusicXML (.xml) passage file
     
     Returns:
-        The interval in semitones as a string
+        The interval in semitones as a string, or "N/A" if not enough notes
     """
-    # TODO: Implement MusicXML parsing for upper staff interval
-    raise NotImplementedError("MusicXML Q7 extractor not yet implemented")
+    root = parse_musicxml_file(file_path)
+    interval = get_interval_first_last(root, UPPER_STAFF)
+    if interval is None:
+        return "N/A"
+    return str(interval)
