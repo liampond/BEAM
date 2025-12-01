@@ -273,11 +273,107 @@ def get_upper_spine_data(file_path: str) -> List[str]:
     return upper_tokens
 
 
+def get_upper_spine_data_by_row(file_path: str) -> List[List[str]]:
+    """
+    Extract data tokens from the upper staff, grouped by row (time position).
+    
+    This preserves simultaneity information - tokens in the same inner list
+    occur at the same time position (same row in the original file).
+    This is essential for correctly handling spine splits where simultaneous
+    notes appear in different columns.
+    
+    Returns:
+        List of rows, where each row is a list of tokens occurring at that time
+    """
+    with open(file_path, 'r') as f:
+        lines = f.read().split('\n')
+    
+    rows = []
+    
+    # First, find the initial **kern spine positions
+    kern_indices = []
+    initial_spine_count = 0
+    
+    for line in lines:
+        if line.startswith('**'):
+            spines = line.split('\t')
+            initial_spine_count = len(spines)
+            for i, spine in enumerate(spines):
+                if spine == '**kern':
+                    kern_indices.append(i)
+            break
+    
+    if len(kern_indices) < 1:
+        return []
+    
+    # Determine upper staff index (rightmost kern spine)
+    upper_original_idx = kern_indices[-1] if len(kern_indices) >= 2 else kern_indices[0]
+    
+    # Track active spine mappings
+    spine_map = {}
+    for i in range(initial_spine_count):
+        if i in kern_indices:
+            spine_map[i] = i
+        else:
+            spine_map[i] = -1
+    
+    # Process file line by line
+    for line in lines:
+        line = line.rstrip()
+        
+        if not line or line.startswith('!!') or (line.startswith('!') and not line.startswith('!!')):
+            continue
+        
+        # Handle spine path interpretations
+        if line.startswith('*'):
+            tokens = line.split('\t')
+            has_path_op = any(t in ('*^', '*v', '*-', '*x') or t.startswith('*+') 
+                             for t in tokens)
+            if has_path_op:
+                spine_map = _update_spine_map(tokens, spine_map, kern_indices[0], upper_original_idx)
+            continue
+        
+        # Skip barlines
+        if line.startswith('='):
+            continue
+        
+        # Data line - collect all upper staff tokens from this row
+        tokens = line.split('\t')
+        row_tokens = []
+        
+        for col_idx, token in enumerate(tokens):
+            if col_idx not in spine_map:
+                continue
+            original_idx = spine_map[col_idx]
+            if original_idx != upper_original_idx:
+                continue
+            token = token.strip()
+            if not token or token == '.':
+                continue
+            row_tokens.append(token)
+        
+        if row_tokens:
+            rows.append(row_tokens)
+    
+    return rows
+
+
 def is_rest(token: str) -> bool:
     """Check if a token is a rest."""
     # Remove any beam/articulation markers first
     cleaned = re.sub(r'[LJKk]', '', token)
     return 'r' in cleaned and not any(c in cleaned for c in 'abcdefgABCDEFG')
+
+
+def is_invisible_rest(token: str) -> bool:
+    """
+    Check if a token is an invisible rest.
+    
+    In Humdrum, 'yy' suffix makes an element invisible/non-printing.
+    Per the system prompt: "Only respond based on elements that will be 
+    visually rendered in the score."
+    """
+    return is_rest(token) and 'yy' in token
 
 
 def is_grace_note(token: str) -> bool:
@@ -399,6 +495,10 @@ def parse_kern_duration(token: str) -> float:
     - Number represents reciprocal of whole note: 1=whole, 2=half, 4=quarter, 8=eighth
     - Dots add half the value: 4. = dotted quarter = 1.5 beats
     - Special: 0 = breve (double whole), 00 = longa
+    - Triplets: 12 = triplet eighth (1/3 quarter), 6 = triplet quarter, 3 = triplet half
+    
+    Note: Tokens may have articulation/slur markers like ( ) at the start,
+    so we use re.search instead of re.match.
     
     Returns:
         Duration in quarter note beats (1.0 = quarter note)
@@ -406,8 +506,8 @@ def parse_kern_duration(token: str) -> float:
     if not token:
         return 0.0
     
-    # Extract duration number
-    dur_match = re.match(r'(\d+)', token)
+    # Extract duration number - use search to handle prefixes like ( or )
+    dur_match = re.search(r'(\d+)', token)
     if not dur_match:
         return 1.0  # Default to quarter note
     
@@ -419,6 +519,7 @@ def parse_kern_duration(token: str) -> float:
     else:
         # dur_num is reciprocal of whole note
         # whole = 4 quarter notes, half = 2, quarter = 1, eighth = 0.5
+        # triplets: 12 = 4/12 = 0.333, 6 = 4/6 = 0.667, 3 = 4/3 = 1.333
         base_duration = 4.0 / dur_num
     
     # Count dots
@@ -437,6 +538,9 @@ def count_notes_in_spine(tokens: List[str], include_grace: bool = True) -> int:
     Count notes in a list of spine tokens, handling ties correctly.
     
     Tied notes should only be counted once (at the start of the tie).
+    However, for passages extracted from larger pieces, if a tie started
+    BEFORE the passage (not in our tokens), we should still count the 
+    tie-end/continuation note as a distinct note in this passage.
     
     Args:
         tokens: List of spine data tokens
@@ -447,6 +551,10 @@ def count_notes_in_spine(tokens: List[str], include_grace: bool = True) -> int:
     """
     count = 0
     
+    # Track pitches that have active ties (started with [)
+    # Key: pitch string, Value: True if tie is active
+    active_ties = set()
+    
     for token in tokens:
         notes = extract_notes_from_token(token)
         
@@ -455,28 +563,124 @@ def count_notes_in_spine(tokens: List[str], include_grace: bool = True) -> int:
             if not include_grace and is_grace_note(note):
                 continue
             
-            # Skip tie continuations and endings (already counted at tie start)
-            # Tie end: contains ]
-            # Tie continuation: contains _
-            if ']' in note and '[' not in note:
-                continue
-            if '_' in note:
-                continue
+            pitch = parse_kern_pitch(note)
             
-            count += 1
+            # Check tie markers
+            has_tie_start = '[' in note
+            has_tie_end = ']' in note
+            has_tie_cont = '_' in note
+            
+            if has_tie_start:
+                # Note starts a tie - count it and mark tie as active
+                active_ties.add(pitch)
+                count += 1
+            elif has_tie_end or has_tie_cont:
+                # Tie end or continuation
+                if pitch in active_ties:
+                    # This tie started within our passage - don't count again
+                    if has_tie_end:
+                        active_ties.discard(pitch)
+                    # Don't count - already counted at tie start
+                else:
+                    # This tie started BEFORE our passage - count it as a note
+                    # (it's a note that sounds in this passage)
+                    count += 1
+                    if has_tie_end:
+                        pass  # Tie ends, nothing to track
+                    else:
+                        # Continuation - might have more continuations
+                        active_ties.add(pitch)
+            else:
+                # Regular note, no tie markers
+                count += 1
     
     return count
 
 
+def get_note_durations_with_ties(tokens: List[str], include_grace: bool = False) -> List[float]:
+    """
+    Get all note durations from spine tokens, summing tied notes into single durations.
+    
+    For tied notes, tracks each pitch's tie chain and returns the TOTAL duration
+    when the tie ends. This ensures that a half note tied to a quarter (2.0 + 1.0)
+    is returned as a single 3.0 duration.
+    
+    For ties that start before the passage (tie-end/continuation without a prior
+    tie-start in our tokens), we still sum their visible portions.
+    
+    Args:
+        tokens: List of spine data tokens
+        include_grace: Whether to include grace notes (default: False, they're durationless)
+    
+    Returns:
+        List of note durations in quarter notes, with tied notes summed
+    """
+    durations = []
+    
+    # Track active ties: pitch -> accumulated duration so far
+    active_ties: Dict[str, float] = {}
+    
+    for token in tokens:
+        notes = extract_notes_from_token(token)
+        
+        for note in notes:
+            # Skip grace notes if not including them
+            if not include_grace and is_grace_note(note):
+                continue
+            
+            pitch = parse_kern_pitch(note)
+            dur = parse_kern_duration(note)
+            
+            # Check tie markers
+            has_tie_start = '[' in note
+            has_tie_end = ']' in note
+            has_tie_cont = '_' in note
+            
+            if has_tie_start:
+                # Starting a new tie - begin accumulating duration
+                active_ties[pitch] = dur
+                # Don't add to durations yet - wait for tie end
+            elif has_tie_end:
+                # End of a tie - add accumulated duration + this note's duration
+                if pitch in active_ties:
+                    total_dur = active_ties[pitch] + dur
+                    durations.append(total_dur)
+                    del active_ties[pitch]
+                else:
+                    # Tie started before passage - just count this portion
+                    durations.append(dur)
+            elif has_tie_cont:
+                # Tie continuation - accumulate duration
+                if pitch in active_ties:
+                    active_ties[pitch] += dur
+                else:
+                    # Tie started before passage - start accumulating
+                    active_ties[pitch] = dur
+            else:
+                # Regular note, no tie markers - add directly
+                durations.append(dur)
+    
+    # If there are still active ties at end of passage (tie continues beyond),
+    # we should include their accumulated duration as they represent notes
+    # in this passage
+    for pitch, dur in active_ties.items():
+        durations.append(dur)
+    
+    return durations
+
+
 def count_rests_in_spine(tokens: List[str]) -> int:
     """
-    Count rests in a list of spine tokens.
+    Count visible rests in a list of spine tokens.
+    
+    Invisible rests (with 'yy' suffix) are excluded per the system prompt:
+    "Only respond based on elements that will be visually rendered in the score."
     
     Args:
         tokens: List of spine data tokens
     
     Returns:
-        Number of rests
+        Number of visible rests
     """
     count = 0
     
@@ -484,7 +688,8 @@ def count_rests_in_spine(tokens: List[str]) -> int:
         # Each part of the token (split by space) could be a rest
         parts = token.split()
         for part in parts:
-            if is_rest(part):
+            # Skip invisible rests (ryy)
+            if is_rest(part) and not is_invisible_rest(part):
                 count += 1
     
     return count
@@ -562,21 +767,25 @@ def get_first_note_pitch(tokens: List[str], return_highest_in_chord: bool = True
     return None
 
 
-def get_first_note_duration(tokens: List[str]) -> Optional[str]:
+def get_first_note_duration(tokens: List[str], include_grace: bool = True) -> Optional[str]:
     """
     Get the first note's duration as a formatted string.
     
+    Per system prompt: "Always consider grace notes and ornaments to be the 
+    same as normal notes."
+    
     Args:
         tokens: List of spine data tokens
+        include_grace: Whether to include grace notes (default True per system prompt)
     
     Returns:
-        Duration string like "quarter", "eighth", etc.
+        Formatted duration string (e.g., "0.5", "0.13")
     """
     for token in tokens:
         notes = extract_notes_from_token(token)
         for note in notes:
-            # Skip grace notes
-            if is_grace_note(note):
+            # Skip grace notes only if explicitly told to
+            if not include_grace and is_grace_note(note):
                 continue
             
             duration = parse_kern_duration(note)
@@ -661,30 +870,113 @@ def get_pitch_classes_in_spine(tokens: List[str]) -> Set[str]:
     return pitch_classes
 
 
-def get_interval_first_last(tokens: List[str]) -> Optional[int]:
+def get_interval_first_last(tokens: List[str], include_grace: bool = True) -> Optional[int]:
     """
-    Calculate the interval in semitones between first and last non-grace notes.
+    Calculate the interval in semitones between first and last notes.
+    
+    For multiple simultaneous notes (chords), picks the highest pitch.
+    If there's only one note event (or first and last are the same event),
+    returns 0 (unison).
+    
+    NOTE: This function treats each token as a separate event. For files with
+    spine splits where simultaneous notes are in different tokens, use
+    get_interval_first_last_by_rows() instead.
     
     Args:
         tokens: List of spine data tokens
+        include_grace: Whether to include grace notes (default True per system prompt)
     
     Returns:
-        Interval in semitones (positive = ascending, negative = descending)
+        Interval in semitones (absolute value - always positive or zero),
+        or None if no notes at all
     """
-    non_grace_notes = []
+    # Collect notes grouped by token (simultaneous notes)
+    # Each element is a list of pitches from that token
+    note_events = []
     
     for token in tokens:
         notes = extract_notes_from_token(token)
+        event_pitches = []
         for note in notes:
-            if not is_grace_note(note):
-                pitch = parse_kern_pitch(note)
-                if pitch:
-                    non_grace_notes.append(pitch)
+            # Skip grace notes only if explicitly told to
+            if not include_grace and is_grace_note(note):
+                continue
+            pitch = parse_kern_pitch(note)
+            if pitch:
+                event_pitches.append(pitch)
+        if event_pitches:
+            note_events.append(event_pitches)
     
-    if len(non_grace_notes) < 2:
+    if not note_events:
         return None
     
-    first_pitch = non_grace_notes[0]
-    last_pitch = non_grace_notes[-1]
+    if len(note_events) == 1:
+        # Only one note event - first and last are the same, interval is 0
+        return 0
+    
+    # Get first event's highest pitch
+    first_pitches = note_events[0]
+    first_pitch = max(first_pitches, key=lambda p: pitch_to_midi(p))
+    
+    # Get last event's highest pitch
+    last_pitches = note_events[-1]
+    last_pitch = max(last_pitches, key=lambda p: pitch_to_midi(p))
+    
+    return calculate_interval_semitones(first_pitch, last_pitch)
+
+
+def get_interval_first_last_by_rows(rows: List[List[str]], include_grace: bool = True) -> Optional[int]:
+    """
+    Calculate the interval in semitones between first and last notes using row-grouped data.
+    
+    This correctly handles spine splits where simultaneous notes appear in
+    different tokens but at the same time position (same row).
+    
+    For multiple simultaneous notes, picks the highest pitch.
+    If there's only one note event (or first and last are the same event),
+    returns 0 (unison).
+    
+    Args:
+        rows: List of rows, where each row is a list of tokens at that time position
+        include_grace: Whether to include grace notes (default True per system prompt)
+    
+    Returns:
+        Interval in semitones (absolute value - always positive or zero),
+        or None if no notes at all
+    """
+    # Collect notes grouped by row (all tokens in a row are simultaneous)
+    note_events = []
+    
+    for row in rows:
+        event_pitches = []
+        for token in row:
+            notes = extract_notes_from_token(token)
+            for note in notes:
+                # Skip grace notes only if explicitly told to
+                if not include_grace and is_grace_note(note):
+                    continue
+                # Skip rests
+                if is_rest(note):
+                    continue
+                pitch = parse_kern_pitch(note)
+                if pitch:
+                    event_pitches.append(pitch)
+        if event_pitches:
+            note_events.append(event_pitches)
+    
+    if not note_events:
+        return None
+    
+    if len(note_events) == 1:
+        # Only one note event - first and last are the same, interval is 0
+        return 0
+    
+    # Get first event's highest pitch
+    first_pitches = note_events[0]
+    first_pitch = max(first_pitches, key=lambda p: pitch_to_midi(p))
+    
+    # Get last event's highest pitch  
+    last_pitches = note_events[-1]
+    last_pitch = max(last_pitches, key=lambda p: pitch_to_midi(p))
     
     return calculate_interval_semitones(first_pitch, last_pitch)

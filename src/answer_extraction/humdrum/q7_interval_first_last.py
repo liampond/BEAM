@@ -6,7 +6,7 @@ perfect fourth). Use the absolute value.
 """
 
 from ..registry import register_extractor
-from .utils import get_upper_spine_data, get_interval_first_last
+from .utils import get_upper_spine_data_by_row, get_interval_first_last_by_rows
 
 
 @register_extractor(7, "humdrum")
@@ -14,14 +14,17 @@ def extract(file_path: str) -> str:
     """
     Calculate interval between first and last notes in upper staff.
     
+    Uses row-grouped data to correctly handle spine splits where
+    simultaneous notes appear in different columns.
+    
     Args:
         file_path: Path to the Humdrum (.krn) passage file
     
     Returns:
         The interval in semitones as a string (absolute value)
     """
-    upper_tokens = get_upper_spine_data(file_path)
-    interval = get_interval_first_last(upper_tokens)
+    upper_rows = get_upper_spine_data_by_row(file_path)
+    interval = get_interval_first_last_by_rows(upper_rows)
     
     if interval is None:
         return "N/A"
