@@ -84,7 +84,7 @@ def get_passage_path(passage_id: str, format_name: str) -> Path:
         'abc': '.abc',
         'humdrum': '.krn',
         'mei': '.mei',
-        'musicxml': '.musicxml'
+        'musicxml': '.xml'
     }
     ext = extensions.get(format_name, f'.{format_name}')
     

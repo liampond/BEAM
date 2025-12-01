@@ -183,22 +183,23 @@ def is_chord_note(note: ET.Element) -> bool:
     return note.find("chord") is not None
 
 
-def get_note_staff(note: ET.Element) -> str:
+def get_note_staff(note: ET.Element) -> Optional[str]:
     """
-    Get the staff number for a note.
+    Get the staff number for a note if explicitly specified.
     
-    If not specified, defaults to "1" (upper staff).
+    Returns None if no <staff> element is present, allowing the caller
+    to determine the default based on context (e.g., which part the note is in).
     
     Args:
         note: A <note> element
         
     Returns:
-        Staff number as string ("1" or "2")
+        Staff number as string ("1" or "2"), or None if not specified
     """
     staff_elem = note.find("staff")
     if staff_elem is not None and staff_elem.text:
         return staff_elem.text.strip()
-    return UPPER_STAFF  # Default to upper staff
+    return None  # Let caller determine default
 
 
 def get_note_voice(note: ET.Element) -> str:
