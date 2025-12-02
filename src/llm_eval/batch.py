@@ -360,6 +360,223 @@ class AnthropicBatchAPI:
             return False
 
 
+class GoogleBatchAPI:
+    """
+    Google Gemini Batch API implementation.
+    
+    Uses the google-genai SDK to submit batch requests.
+    Batch API provides 50% cost savings and higher rate limits.
+    
+    Workflow:
+        1. Create batch with inline requests or JSONL file
+        2. Poll for completion (target: 24h, usually faster)
+        3. Retrieve results from inline responses or output file
+    """
+    
+    def __init__(self, model_name: str, max_tokens: int = 1024, temperature: float = 0.0):
+        from google import genai
+        import os
+        
+        # Get API key from environment
+        api_key = os.getenv('GOOGLE_API_KEY') or os.getenv('GEMINI_API_KEY')
+        if not api_key:
+            raise ValueError("GOOGLE_API_KEY or GEMINI_API_KEY must be set for Google batch API")
+        
+        self.client = genai.Client(api_key=api_key)
+        self.model_name = model_name
+        self.max_tokens = max_tokens
+        self.temperature = temperature
+    
+    def submit_batch(
+        self,
+        requests: List[BatchRequest],
+        json_mode: bool = True,
+    ) -> str:
+        """
+        Submit batch of requests using inline requests.
+        
+        For small batches (<20MB), inline requests are simpler.
+        For larger batches, we'd use file upload.
+        
+        Returns:
+            batch_id for tracking
+        """
+        inline_requests = []
+        
+        for req in requests:
+            # Build contents for the request
+            contents = [{
+                'parts': [{'text': req.prompt}],
+                'role': 'user'
+            }]
+            
+            request_config = {
+                'contents': contents,
+            }
+            
+            # Add system instruction if provided
+            if req.system_prompt:
+                system_text = req.system_prompt
+                if json_mode:
+                    system_text += "\n\nIMPORTANT: You MUST respond with ONLY a valid JSON object."
+                request_config['config'] = {
+                    'system_instruction': {'parts': [{'text': system_text}]},
+                    'temperature': self.temperature,
+                    'max_output_tokens': self.max_tokens,
+                }
+                if json_mode:
+                    request_config['config']['response_mime_type'] = 'application/json'
+            else:
+                request_config['config'] = {
+                    'temperature': self.temperature,
+                    'max_output_tokens': self.max_tokens,
+                }
+            
+            inline_requests.append(request_config)
+        
+        # Submit batch with inline requests
+        # Note: For inline requests, we can't use custom_id directly.
+        # We'll store the mapping and match by order.
+        self._request_ids = [req.custom_id for req in requests]
+        
+        batch_job = self.client.batches.create(
+            model=f"models/{self.model_name}",
+            src=inline_requests,
+            config={
+                'display_name': f"benchmark-batch-{len(requests)}-requests",
+            },
+        )
+        
+        return batch_job.name
+    
+    def get_status(self, batch_id: str) -> BatchStatus:
+        """Get current status of a batch."""
+        batch = self.client.batches.get(name=batch_id)
+        
+        # Map Google batch states to our status
+        state_map = {
+            'JOB_STATE_PENDING': 'pending',
+            'JOB_STATE_RUNNING': 'processing',
+            'JOB_STATE_SUCCEEDED': 'completed',
+            'JOB_STATE_FAILED': 'failed',
+            'JOB_STATE_CANCELLED': 'cancelled',
+            'JOB_STATE_EXPIRED': 'failed',
+        }
+        
+        # Google batch doesn't provide individual request counts during processing
+        # We'll estimate based on state
+        state_name = batch.state.name if hasattr(batch.state, 'name') else str(batch.state)
+        status = state_map.get(state_name, 'processing')
+        
+        total = len(self._request_ids) if hasattr(self, '_request_ids') else 0
+        completed = total if status == 'completed' else 0
+        failed = total if status == 'failed' else 0
+        
+        return BatchStatus(
+            batch_id=batch_id,
+            provider="google",
+            status=status,
+            total_requests=total,
+            completed_requests=completed,
+            failed_requests=failed,
+            created_at=None,  # Not readily available
+            completed_at=None,
+        )
+    
+    def get_results(self, batch_id: str) -> List[BatchResult]:
+        """Retrieve results from completed batch."""
+        batch = self.client.batches.get(name=batch_id)
+        
+        results = []
+        
+        # Check for inline responses
+        if batch.dest and batch.dest.inlined_responses:
+            for i, inline_response in enumerate(batch.dest.inlined_responses):
+                custom_id = self._request_ids[i] if i < len(self._request_ids) else f"request-{i}"
+                
+                if inline_response.response:
+                    try:
+                        text = inline_response.response.text
+                        results.append(BatchResult(
+                            custom_id=custom_id,
+                            response_text=text,
+                            success=True,
+                            metadata={
+                                "model": self.model_name,
+                            }
+                        ))
+                    except AttributeError:
+                        # Fallback if .text isn't available
+                        results.append(BatchResult(
+                            custom_id=custom_id,
+                            response_text=str(inline_response.response),
+                            success=True,
+                            metadata={"model": self.model_name}
+                        ))
+                elif inline_response.error:
+                    results.append(BatchResult(
+                        custom_id=custom_id,
+                        response_text="",
+                        success=False,
+                        error=str(inline_response.error),
+                    ))
+                else:
+                    results.append(BatchResult(
+                        custom_id=custom_id,
+                        response_text="",
+                        success=False,
+                        error="No response or error in inline_response",
+                    ))
+        
+        # Check for file-based results
+        elif batch.dest and batch.dest.file_name:
+            file_content = self.client.files.download(file=batch.dest.file_name)
+            content = file_content.decode('utf-8')
+            
+            for i, line in enumerate(content.strip().split('\n')):
+                if not line:
+                    continue
+                
+                data = json.loads(line)
+                custom_id = data.get('key', self._request_ids[i] if i < len(self._request_ids) else f"request-{i}")
+                
+                if 'response' in data and data['response']:
+                    try:
+                        text = data['response']['candidates'][0]['content']['parts'][0]['text']
+                        results.append(BatchResult(
+                            custom_id=custom_id,
+                            response_text=text,
+                            success=True,
+                            metadata={"model": self.model_name}
+                        ))
+                    except (KeyError, IndexError) as e:
+                        results.append(BatchResult(
+                            custom_id=custom_id,
+                            response_text="",
+                            success=False,
+                            error=f"Failed to parse response: {e}",
+                        ))
+                elif 'error' in data:
+                    results.append(BatchResult(
+                        custom_id=custom_id,
+                        response_text="",
+                        success=False,
+                        error=str(data['error']),
+                    ))
+        else:
+            raise ValueError("No results found (neither file nor inline)")
+        
+        return results
+    
+    def cancel_batch(self, batch_id: str) -> bool:
+        """Cancel a batch."""
+        try:
+            self.client.batches.cancel(name=batch_id)
+            return True
+        except Exception:
+            return False
+
+
 class BatchRunner:
     """
     High-level batch runner that handles submission, polling, and result collection.
@@ -384,6 +601,8 @@ class BatchRunner:
             self.api = OpenAIBatchAPI(model_name, max_tokens, temperature)
         elif provider == "anthropic":
             self.api = AnthropicBatchAPI(model_name, max_tokens, temperature)
+        elif provider == "google":
+            self.api = GoogleBatchAPI(model_name, max_tokens, temperature)
         else:
             raise ValueError(f"Batch API not supported for provider: {provider}")
     

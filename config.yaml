@@ -50,24 +50,25 @@ models:
   # OpenAI
   - provider: openai
     name: gpt-5.1-2025-11-13
-    enabled: true
+    enabled: false
     use_batch_api: true  # Set to true for 50% cost savings
   
   # Anthropic Claude
   - provider: anthropic
     name: claude-sonnet-4-5
-    enabled: true
+    enabled: false
     use_batch_api: true # Set to true for 50% cost savings
   
   # Google Gemini
   - provider: google
     name: gemini-3-pro-preview
-    enabled: true
+    enabled: true  # Retrying failed tests
+    use_batch_api: true  # 50% cost savings, higher rate limits
   
   # Alibaba Qwen
   - provider: alibaba
     name: qwen3-max
-    enabled: true
+    enabled: false
 
   # Local models (HuggingFace Transformers)
   # Requires: pip install transformers torch accelerate
@@ -88,12 +89,12 @@ api_settings:
 # ============================================================================
 # BATCH API SETTINGS
 # Only applies to models with use_batch_api: true
-# OpenAI and Anthropic support batch APIs (50% cost savings, higher rate limits)
+# OpenAI, Anthropic, and Google support batch APIs (50% cost savings, higher rate limits)
 # ============================================================================
 batch_settings:
   batch_size: 100         # Requests per batch
   check_interval: 60     # Seconds between status checks
-  max_wait_time: 3600    # Maximum wait time (1 hour)
+  max_wait_time: 86400   # Maximum wait time (24 hours for Gemini batch)
   save_batch_ids: true   # Save batch IDs for resumption
 
 # ============================================================================
@@ -105,7 +106,7 @@ output:
   
   # Resumption settings
   # Set resume_run_id to continue a previous run (e.g., "20251127_145448")
-  resume_run_id: null    # Run ID to resume (null = start fresh)
+  resume_run_id: 20251127_145448    # Run ID to resume (null = start fresh)
   retry_failed: true     # Retry tests that previously failed (success: false)
   
   # What to save
