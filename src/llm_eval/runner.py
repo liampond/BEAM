@@ -139,7 +139,7 @@ class BenchmarkRunner:
                 # Batch API is enabled per-model via use_batch_api flag
                 use_batch = (
                     model_config.use_batch_api and
-                    model_config.provider in ("openai", "anthropic", "google")
+                    model_config.provider in ("openai", "anthropic", "google", "alibaba")
                 )
                 
                 if use_batch:

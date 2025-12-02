@@ -577,6 +577,183 @@ class GoogleBatchAPI:
             return False
 
 
+class AlibabaBatchAPI:
+    """
+    Alibaba Cloud / DashScope Batch API implementation.
+    
+    Uses the OpenAI-compatible batch API with DashScope endpoints.
+    Singapore region: https://dashscope-intl.aliyuncs.com/compatible-mode/v1
+    
+    Workflow is identical to OpenAI:
+        1. Create JSONL file with requests
+        2. Upload file to DashScope
+        3. Create batch with file ID
+        4. Poll for completion
+        5. Download and parse results
+    
+    Provides 50% cost savings compared to real-time inference.
+    """
+    
+    def __init__(self, model_name: str, max_tokens: int = 1024, temperature: float = 0.0):
+        import openai
+        import os
+        
+        api_key = os.getenv('DASHSCOPE_API_KEY')
+        if not api_key:
+            raise ValueError("DASHSCOPE_API_KEY environment variable not set")
+        
+        # Use OpenAI client with DashScope Singapore endpoint
+        self.client = openai.OpenAI(
+            api_key=api_key,
+            base_url="https://dashscope-intl.aliyuncs.com/compatible-mode/v1"
+        )
+        self.model_name = model_name
+        self.max_tokens = max_tokens
+        self.temperature = temperature
+    
+    def submit_batch(
+        self,
+        requests: List[BatchRequest],
+        json_mode: bool = True,
+    ) -> str:
+        """
+        Submit batch of requests.
+        
+        Returns:
+            batch_id for tracking
+        """
+        # Create JSONL content (same format as OpenAI)
+        lines = []
+        for req in requests:
+            messages = []
+            if req.system_prompt:
+                messages.append({"role": "system", "content": req.system_prompt})
+            messages.append({"role": "user", "content": req.prompt})
+            
+            body = {
+                "model": self.model_name,
+                "messages": messages,
+                "temperature": self.temperature,
+                "max_tokens": self.max_tokens,
+            }
+            
+            if json_mode:
+                body["response_format"] = {"type": "json_object"}
+            
+            line = {
+                "custom_id": req.custom_id,
+                "method": "POST",
+                "url": "/v1/chat/completions",
+                "body": body,
+            }
+            lines.append(json.dumps(line))
+        
+        jsonl_content = "\n".join(lines)
+        
+        # Write to temp file and upload
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.jsonl', delete=False) as f:
+            f.write(jsonl_content)
+            temp_path = f.name
+        
+        try:
+            # Upload file
+            with open(temp_path, 'rb') as f:
+                file_response = self.client.files.create(
+                    file=f,
+                    purpose="batch"
+                )
+            
+            # Create batch
+            batch = self.client.batches.create(
+                input_file_id=file_response.id,
+                endpoint="/v1/chat/completions",
+                completion_window="24h",
+            )
+            
+            return batch.id
+            
+        finally:
+            os.unlink(temp_path)
+    
+    def get_status(self, batch_id: str) -> BatchStatus:
+        """Get current status of a batch."""
+        batch = self.client.batches.retrieve(batch_id)
+        
+        return BatchStatus(
+            batch_id=batch_id,
+            provider="alibaba",
+            status=batch.status,
+            total_requests=batch.request_counts.total if batch.request_counts else 0,
+            completed_requests=batch.request_counts.completed if batch.request_counts else 0,
+            failed_requests=batch.request_counts.failed if batch.request_counts else 0,
+            created_at=str(batch.created_at) if batch.created_at else None,
+            completed_at=str(batch.completed_at) if batch.completed_at else None,
+        )
+    
+    def get_results(self, batch_id: str) -> List[BatchResult]:
+        """Download and parse results from completed batch."""
+        import time
+        
+        # Sometimes there's a brief delay before output file is available
+        for attempt in range(5):
+            batch = self.client.batches.retrieve(batch_id)
+            
+            if batch.status != "completed":
+                raise ValueError(f"Batch not completed. Status: {batch.status}")
+            
+            if batch.output_file_id:
+                break
+            
+            time.sleep(2)  # Wait a bit and retry
+        else:
+            raise ValueError("No output file available after retries")
+        
+        # Download output file
+        file_response = self.client.files.content(batch.output_file_id)
+        content = file_response.text
+        
+        results = []
+        for line in content.strip().split('\n'):
+            if not line:
+                continue
+            
+            data = json.loads(line)
+            custom_id = data["custom_id"]
+            
+            if data.get("error"):
+                results.append(BatchResult(
+                    custom_id=custom_id,
+                    response_text="",
+                    success=False,
+                    error=str(data["error"]),
+                ))
+            else:
+                response = data["response"]
+                body = response["body"]
+                text = body["choices"][0]["message"]["content"]
+                
+                results.append(BatchResult(
+                    custom_id=custom_id,
+                    response_text=text,
+                    success=True,
+                    metadata={
+                        "model": body.get("model"),
+                        "usage": body.get("usage"),
+                        "finish_reason": body["choices"][0].get("finish_reason"),
+                    }
+                ))
+        
+        return results
+    
+    def cancel_batch(self, batch_id: str) -> bool:
+        """Cancel a pending or in-progress batch."""
+        try:
+            self.client.batches.cancel(batch_id)
+            return True
+        except Exception:
+            return False
+
+
 class BatchRunner:
     """
     High-level batch runner that handles submission, polling, and result collection.
@@ -603,6 +780,8 @@ class BatchRunner:
             self.api = AnthropicBatchAPI(model_name, max_tokens, temperature)
         elif provider == "google":
             self.api = GoogleBatchAPI(model_name, max_tokens, temperature)
+        elif provider == "alibaba":
+            self.api = AlibabaBatchAPI(model_name, max_tokens, temperature)
         else:
             raise ValueError(f"Batch API not supported for provider: {provider}")
     
