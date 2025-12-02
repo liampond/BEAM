@@ -100,8 +100,112 @@ class ResultsManager:
         self.output_dir = config.get_output_dir()
         self.output_dir.mkdir(parents=True, exist_ok=True)
         
-        # Save config snapshot on init
-        self._save_config_snapshot()
+        # Save config snapshot on init (only for new runs)
+        if not config.output.resume_run_id:
+            self._save_config_snapshot()
+    
+    def get_existing_result_status(
+        self, 
+        model_config, 
+        format_name: str, 
+        question_id: str, 
+        run_number: int
+    ) -> Optional[bool]:
+        """
+        Check if a result already exists for this test case.
+        
+        Returns:
+            - True if exists with success=True
+            - False if exists with success=False
+            - None if doesn't exist
+        """
+        from .config import ModelConfig
+        model_config: ModelConfig = model_config
+        
+        model_dir = self.output_dir / model_config.display_name
+        format_dir = model_dir / format_name
+        response_path = format_dir / f"{question_id}_r{run_number}.json"
+        
+        if not response_path.exists():
+            return None
+        
+        try:
+            with open(response_path, 'r') as f:
+                result = json.load(f)
+                return result.get("success", False)
+        except (json.JSONDecodeError, IOError):
+            return None
+    
+    def should_skip_test(
+        self,
+        model_config,
+        format_name: str,
+        question_id: str,
+        run_number: int,
+    ) -> bool:
+        """
+        Determine if a test should be skipped based on existing results.
+        
+        Skip if:
+            - Result exists with success=True
+            - Result exists with success=False AND retry_failed=False
+        """
+        status = self.get_existing_result_status(
+            model_config, format_name, question_id, run_number
+        )
+        
+        if status is None:
+            # No existing result, run the test
+            return False
+        
+        if status is True:
+            # Successful result exists, skip
+            return True
+        
+        # status is False (failed result)
+        # Skip only if we're not retrying failures
+        return not self.config.output.retry_failed
+    
+    def get_skip_stats(
+        self,
+        model_config,
+        test_cases,
+        run_number: int,
+    ) -> dict:
+        """
+        Get statistics about which tests will be skipped.
+        
+        Returns dict with:
+            - skip_count: number to skip
+            - retry_count: number of failed tests to retry
+            - new_count: number of new tests
+            - total: total test cases
+        """
+        skip_count = 0
+        retry_count = 0
+        new_count = 0
+        
+        for test_case in test_cases:
+            status = self.get_existing_result_status(
+                model_config, test_case.format, test_case.question_id, run_number
+            )
+            
+            if status is None:
+                new_count += 1
+            elif status is True:
+                skip_count += 1
+            else:  # status is False
+                if self.config.output.retry_failed:
+                    retry_count += 1
+                else:
+                    skip_count += 1
+        
+        return {
+            "skip_count": skip_count,
+            "retry_count": retry_count,
+            "new_count": new_count,
+            "total": len(test_cases),
+        }
     
     def _save_config_snapshot(self):
         """Save a copy of the config.yaml used for this run."""

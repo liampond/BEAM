@@ -110,6 +110,10 @@ class OutputConfig:
     # run_id is auto-generated timestamp or custom name
     run_id: Optional[str] = None  # None = auto-generate
     
+    # Resumption settings
+    resume_run_id: Optional[str] = None  # Resume from existing run directory
+    retry_failed: bool = True  # Retry tests that previously failed (success: false)
+    
     # What to save
     save_prompts: bool = True
     save_responses: bool = True
@@ -247,6 +251,8 @@ class BenchmarkConfig:
             config.output = OutputConfig(
                 base_dir=o.get("base_dir", "outputs"),
                 run_id=o.get("run_id"),
+                resume_run_id=o.get("resume_run_id"),
+                retry_failed=o.get("retry_failed", True),
                 save_prompts=o.get("save_prompts", True),
                 save_responses=o.get("save_responses", True),
                 save_metadata=o.get("save_metadata", True),
@@ -294,6 +300,9 @@ class BenchmarkConfig:
     def get_output_dir(self) -> Path:
         """Get output directory for this run."""
         from datetime import datetime
+        # If resuming, use the resume_run_id
+        if self.output.resume_run_id:
+            return self.project_root / self.output.base_dir / self.output.resume_run_id
         run_id = self.output.run_id or datetime.now().strftime("%Y%m%d_%H%M%S")
         return self.project_root / self.output.base_dir / run_id
     

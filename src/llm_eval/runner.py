@@ -95,6 +95,14 @@ class BenchmarkRunner:
                 print(f"  - {model.provider}/{model.name}")
             return {"dry_run": True, "test_cases": len(test_cases)}
         
+        # Resumption mode info
+        if self.config.output.resume_run_id:
+            print(f"\n[RESUME MODE] Continuing run: {self.config.output.resume_run_id}")
+            if self.config.output.retry_failed:
+                print("  - Will retry previously failed tests")
+            else:
+                print("  - Will skip previously failed tests")
+        
         # Run tests for each enabled model
         all_results: Dict[str, List[TestResult]] = {}
         enabled_models = self.config.get_enabled_models()
@@ -113,6 +121,19 @@ class BenchmarkRunner:
             for run_num in range(1, runs_per_question + 1):
                 if runs_per_question > 1:
                     print(f"\n--- Run {run_num}/{runs_per_question} ---")
+                
+                # Check resumption stats for this run
+                if self.config.output.resume_run_id:
+                    stats = self.results_manager.get_skip_stats(
+                        model_config, test_cases, run_num
+                    )
+                    print(f"  Resumption: {stats['skip_count']} complete, "
+                          f"{stats['retry_count']} to retry, "
+                          f"{stats['new_count']} new")
+                    
+                    if stats['skip_count'] == stats['total']:
+                        print("  All tests already complete, skipping...")
+                        continue
                 
                 # Decide: batch vs sync
                 # Batch API is enabled per-model via use_batch_api flag
@@ -160,8 +181,18 @@ class BenchmarkRunner:
         
         results = []
         total = len(test_cases)
+        skipped = 0
         
         for i, test_case in enumerate(test_cases, 1):
+            # Check if we should skip this test (resumption logic)
+            if self.results_manager.should_skip_test(
+                model_config, test_case.format, test_case.question_id, run_number
+            ):
+                skipped += 1
+                if self.config.execution.show_progress:
+                    print(f"  [{i}/{total}] {test_case.question_id} ({test_case.format})... SKIP (already complete)")
+                continue
+            
             if self.config.execution.show_progress:
                 print(f"  [{i}/{total}] {test_case.question_id} ({test_case.format})...", end=" ")
             
@@ -202,6 +233,9 @@ class BenchmarkRunner:
             # Rate limiting
             time.sleep(self.config.api_settings.rate_limit_delay)
         
+        if skipped > 0:
+            print(f"  Skipped {skipped} already-complete tests")
+        
         return results
     
     def _run_batch(
@@ -213,11 +247,26 @@ class BenchmarkRunner:
     ) -> List[TestResult]:
         """Run tests using batch API."""
         
-        print(f"  Submitting batch of {len(test_cases)} requests...")
+        # Filter out already-complete tests for resumption
+        tests_to_run = []
+        for test_case in test_cases:
+            if not self.results_manager.should_skip_test(
+                model_config, test_case.format, test_case.question_id, run_number
+            ):
+                tests_to_run.append(test_case)
+        
+        if len(tests_to_run) < len(test_cases):
+            print(f"  Skipping {len(test_cases) - len(tests_to_run)} already-complete tests")
+        
+        if not tests_to_run:
+            print("  All tests already complete, nothing to submit")
+            return []
+        
+        print(f"  Submitting batch of {len(tests_to_run)} requests...")
         
         # Prepare batch requests
         batch_requests = []
-        for test_case in test_cases:
+        for test_case in tests_to_run:
             prompt = build_prompt(
                 test_case,
                 self.system_prompt,
@@ -263,8 +312,8 @@ class BenchmarkRunner:
         
         print(f"  Batch complete: {len(batch_results)} results")
         
-        # Map results back to test cases
-        test_case_map = {tc.custom_id: tc for tc in test_cases}
+        # Map results back to test cases (use tests_to_run, not full test_cases)
+        test_case_map = {tc.custom_id: tc for tc in tests_to_run}
         results = []
         
         for batch_result in batch_results:

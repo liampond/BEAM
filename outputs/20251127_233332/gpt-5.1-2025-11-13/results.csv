@@ -1,2 +1,0 @@
-question_id,passage_id,format,run,expected_answer,extracted_answer,is_correct,success,duration_seconds
-Q-001,P-001,abc,1,16,16,True,True,2.063364267349243

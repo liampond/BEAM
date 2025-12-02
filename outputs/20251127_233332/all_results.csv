@@ -1,2 +1,0 @@
-model,provider,question_id,passage_id,format,run,expected_answer,extracted_answer,is_correct,success,error,duration_seconds,input_tokens,output_tokens
-gpt-5.1-2025-11-13,openai,Q-001,P-001,abc,1,16,16,True,True,,2.063364267349243,634,15

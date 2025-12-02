@@ -103,6 +103,11 @@ output:
   base_dir: outputs      # Base output directory
   run_id: null           # Custom run ID (null = auto-generate timestamp)
   
+  # Resumption settings
+  # Set resume_run_id to continue a previous run (e.g., "20251127_145448")
+  resume_run_id: null    # Run ID to resume (null = start fresh)
+  retry_failed: true     # Retry tests that previously failed (success: false)
+  
   # What to save
   save_prompts: true     # Save full prompts sent to LLM
   save_responses: true   # Save individual response files
