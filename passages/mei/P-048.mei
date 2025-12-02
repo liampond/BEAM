@@ -364,34 +364,193 @@
     </revisionDesc>
   </meiHead>
   <music>
+    <facsimile decls="#digital_image">
+      <surface label="10" xml:id="surface_10">
+        <graphic target="page10.tif"/>
+        <zone data="#m0_k279_003" lrx="476" lry="910" type="measure" ulx="398" uly="106" xml:id="zoneOf_m0_k279_003"/>
+        <zone data="#m1_k279_003" lrx="578" lry="910" type="measure" ulx="476" uly="106" xml:id="zoneOf_m1_k279_003"/>
+        <zone data="#m2_k279_003" lrx="678" lry="910" type="measure" ulx="578" uly="106" xml:id="zoneOf_m2_k279_003"/>
+        <zone data="#m3_k279_003" lrx="810" lry="910" type="measure" ulx="678" uly="106" xml:id="zoneOf_m3_k279_003"/>
+        <zone data="#m4_k279_003" lrx="950" lry="910" type="measure" ulx="810" uly="106" xml:id="zoneOf_m4_k279_003"/>
+        <zone data="#m5_k279_003" lrx="1049" lry="910" type="measure" ulx="950" uly="106" xml:id="zoneOf_m5_k279_003"/>
+        <zone data="#m6_k279_003" lrx="499" lry="1062" type="measure" ulx="363" uly="259" xml:id="zoneOf_m6_k279_003"/>
+        <zone data="#m7_k279_003" lrx="647" lry="1062" type="measure" ulx="499" uly="259" xml:id="zoneOf_m7_k279_003"/>
+        <zone data="#m8_k279_003" lrx="796" lry="1062" type="measure" ulx="647" uly="259" xml:id="zoneOf_m8_k279_003"/>
+        <zone data="#m9_k279_003" lrx="939" lry="1062" type="measure" ulx="796" uly="259" xml:id="zoneOf_m9_k279_003"/>
+        <zone data="#m10_k279_003" lrx="1049" lry="1062" type="measure" ulx="939" uly="259" xml:id="zoneOf_m10_k279_003"/>
+        <zone data="#m11_k279_003" lrx="556" lry="1228" type="measure" ulx="362" uly="424" xml:id="zoneOf_m11_k279_003"/>
+        <zone data="#m12_k279_003" lrx="720" lry="1228" type="measure" ulx="556" uly="424" xml:id="zoneOf_m12_k279_003"/>
+        <zone data="#m13_k279_003" lrx="885" lry="1228" type="measure" ulx="720" uly="424" xml:id="zoneOf_m13_k279_003"/>
+        <zone data="#m14_k279_003" lrx="1049" lry="1228" type="measure" ulx="885" uly="424" xml:id="zoneOf_m14_k279_003"/>
+        <zone data="#m15_k279_003" lrx="558" lry="1371" type="measure" ulx="363" uly="568" xml:id="zoneOf_m15_k279_003"/>
+        <zone data="#m16_k279_003" lrx="716" lry="1371" type="measure" ulx="558" uly="568" xml:id="zoneOf_m16_k279_003"/>
+        <zone data="#m17_k279_003" lrx="881" lry="1371" type="measure" ulx="716" uly="568" xml:id="zoneOf_m17_k279_003"/>
+        <zone data="#m18_k279_003" lrx="1049" lry="1371" type="measure" ulx="881" uly="568" xml:id="zoneOf_m18_k279_003"/>
+        <zone data="#m19_k279_003" lrx="540" lry="1527" type="measure" ulx="363" uly="722" xml:id="zoneOf_m19_k279_003"/>
+        <zone data="#m20_k279_003" lrx="705" lry="1527" type="measure" ulx="540" uly="722" xml:id="zoneOf_m20_k279_003"/>
+        <zone data="#m21_k279_003" lrx="849" lry="1527" type="measure" ulx="705" uly="722" xml:id="zoneOf_m21_k279_003"/>
+        <zone data="#m22_k279_003" lrx="943" lry="1527" type="measure" ulx="849" uly="722" xml:id="zoneOf_m22_k279_003"/>
+        <zone data="#m23_k279_003" lrx="1049" lry="1527" type="measure" ulx="943" uly="722" xml:id="zoneOf_m23_k279_003"/>
+        <zone data="#m24_k279_003" lrx="506" lry="1690" type="measure" ulx="363" uly="887" xml:id="zoneOf_m24_k279_003"/>
+        <zone data="#m25_k279_003" lrx="614" lry="1690" type="measure" ulx="506" uly="887" xml:id="zoneOf_m25_k279_003"/>
+        <zone data="#m26_k279_003" lrx="723" lry="1690" type="measure" ulx="614" uly="887" xml:id="zoneOf_m26_k279_003"/>
+        <zone data="#m27_k279_003" lrx="833" lry="1690" type="measure" ulx="723" uly="887" xml:id="zoneOf_m27_k279_003"/>
+        <zone data="#m28_k279_003" lrx="941" lry="1690" type="measure" ulx="833" uly="887" xml:id="zoneOf_m28_k279_003"/>
+        <zone data="#m29_k279_003" lrx="1049" lry="1690" type="measure" ulx="941" uly="887" xml:id="zoneOf_m29_k279_003"/>
+      </surface>
+      <surface label="11" xml:id="surface_11">
+        <graphic target="page11.tif"/>
+        <zone data="#m30_k279_003" lrx="519" lry="908" type="measure" ulx="362" uly="103" xml:id="zoneOf_m30_k279_003"/>
+        <zone data="#m31_k279_003" lrx="645" lry="908" type="measure" ulx="519" uly="103" xml:id="zoneOf_m31_k279_003"/>
+        <zone data="#m32_k279_003" lrx="771" lry="908" type="measure" ulx="645" uly="103" xml:id="zoneOf_m32_k279_003"/>
+        <zone data="#m33_k279_003" lrx="895" lry="908" type="measure" ulx="771" uly="103" xml:id="zoneOf_m33_k279_003"/>
+        <zone data="#m34_k279_003" lrx="1050" lry="908" type="measure" ulx="895" uly="103" xml:id="zoneOf_m34_k279_003"/>
+        <zone data="#m35_k279_003" lrx="563" lry="1064" type="measure" ulx="362" uly="260" xml:id="zoneOf_m35_k279_003"/>
+        <zone data="#m36_k279_003" lrx="741" lry="1064" type="measure" ulx="563" uly="260" xml:id="zoneOf_m36_k279_003"/>
+        <zone data="#m37_k279_003" lrx="874" lry="1064" type="measure" ulx="741" uly="260" xml:id="zoneOf_m37_k279_003"/>
+        <zone data="#m38_k279_003" lrx="1049" lry="1064" type="measure" ulx="874" uly="260" xml:id="zoneOf_m38_k279_003"/>
+        <zone data="#m39_k279_003" lrx="550" lry="1232" type="measure" ulx="362" uly="428" xml:id="zoneOf_m39_k279_003"/>
+        <zone data="#m40_k279_003" lrx="710" lry="1232" type="measure" ulx="550" uly="428" xml:id="zoneOf_m40_k279_003"/>
+        <zone data="#m41_k279_003" lrx="869" lry="1232" type="measure" ulx="710" uly="428" xml:id="zoneOf_m41_k279_003"/>
+        <zone data="#m42_k279_003" lrx="1049" lry="1232" type="measure" ulx="869" uly="428" xml:id="zoneOf_m42_k279_003"/>
+        <zone data="#m43_k279_003" lrx="562" lry="1393" type="measure" ulx="364" uly="590" xml:id="zoneOf_m43_k279_003"/>
+        <zone data="#m44_k279_003" lrx="730" lry="1393" type="measure" ulx="562" uly="590" xml:id="zoneOf_m44_k279_003"/>
+        <zone data="#m45_k279_003" lrx="888" lry="1393" type="measure" ulx="730" uly="590" xml:id="zoneOf_m45_k279_003"/>
+        <zone data="#m46_k279_003" lrx="1049" lry="1393" type="measure" ulx="888" uly="590" xml:id="zoneOf_m46_k279_003"/>
+        <zone data="#m47_k279_003" lrx="496" lry="1543" type="measure" ulx="363" uly="740" xml:id="zoneOf_m47_k279_003"/>
+        <zone data="#m48_k279_003" lrx="638" lry="1543" type="measure" ulx="496" uly="740" xml:id="zoneOf_m48_k279_003"/>
+        <zone data="#m49_k279_003" lrx="791" lry="1543" type="measure" ulx="638" uly="740" xml:id="zoneOf_m49_k279_003"/>
+        <zone data="#m50_k279_003" lrx="944" lry="1543" type="measure" ulx="791" uly="740" xml:id="zoneOf_m50_k279_003"/>
+        <zone data="#m51_k279_003" lrx="1049" lry="1543" type="measure" ulx="944" uly="740" xml:id="zoneOf_m51_k279_003"/>
+        <zone data="#m52_k279_003" lrx="527" lry="1703" type="measure" ulx="363" uly="900" xml:id="zoneOf_m52_k279_003"/>
+        <zone data="#m53_k279_003" lrx="678" lry="1703" type="measure" ulx="527" uly="900" xml:id="zoneOf_m53_k279_003"/>
+        <zone data="#m54_k279_003" lrx="827" lry="1703" type="measure" ulx="678" uly="900" xml:id="zoneOf_m54_k279_003"/>
+        <zone data="#m55_k279_003" lrx="974" lry="1703" type="measure" ulx="827" uly="900" xml:id="zoneOf_m55_k279_003"/>
+        <zone data="#m56a_k279_003" lrx="1049" lry="1703" type="measure" ulx="974" uly="900" xml:id="zoneOf_m56a_k279_003"/>
+      </surface>
+      <surface label="12" xml:id="surface_12">
+        <graphic target="page12.tif"/>
+        <zone data="#m56b_k279_003" lrx="420" lry="888" type="measure" ulx="396" uly="84" xml:id="zoneOf_m56b_k279_003"/>
+        <zone data="#m57_k279_003" lrx="484" lry="888" type="measure" ulx="420" uly="84" xml:id="zoneOf_m57_k279_003"/>
+        <zone data="#m58_k279_003" lrx="551" lry="888" type="measure" ulx="484" uly="84" xml:id="zoneOf_m58_k279_003"/>
+        <zone data="#m59_k279_003" lrx="615" lry="888" type="measure" ulx="551" uly="84" xml:id="zoneOf_m59_k279_003"/>
+        <zone data="#m60_k279_003" lrx="688" lry="888" type="measure" ulx="615" uly="84" xml:id="zoneOf_m60_k279_003"/>
+        <zone data="#m61_k279_003" lrx="763" lry="888" type="measure" ulx="688" uly="84" xml:id="zoneOf_m61_k279_003"/>
+        <zone data="#m62_k279_003" lrx="836" lry="888" type="measure" ulx="763" uly="84" xml:id="zoneOf_m62_k279_003"/>
+        <zone data="#m63_k279_003" lrx="904" lry="888" type="measure" ulx="836" uly="84" xml:id="zoneOf_m63_k279_003"/>
+        <zone data="#m64_k279_003" lrx="979" lry="888" type="measure" ulx="904" uly="84" xml:id="zoneOf_m64_k279_003"/>
+        <zone data="#m65_k279_003" lrx="1049" lry="888" type="measure" ulx="979" uly="84" xml:id="zoneOf_m65_k279_003"/>
+        <zone data="#m66_k279_003" lrx="476" lry="1022" type="measure" ulx="364" uly="219" xml:id="zoneOf_m66_k279_003"/>
+        <zone data="#m67_k279_003" lrx="560" lry="1022" type="measure" ulx="476" uly="219" xml:id="zoneOf_m67_k279_003"/>
+        <zone data="#m68_k279_003" lrx="656" lry="1022" type="measure" ulx="560" uly="219" xml:id="zoneOf_m68_k279_003"/>
+        <zone data="#m69_k279_003" lrx="750" lry="1022" type="measure" ulx="656" uly="219" xml:id="zoneOf_m69_k279_003"/>
+        <zone data="#m70_k279_003" lrx="841" lry="1022" type="measure" ulx="750" uly="219" xml:id="zoneOf_m70_k279_003"/>
+        <zone data="#m71_k279_003" lrx="931" lry="1022" type="measure" ulx="841" uly="219" xml:id="zoneOf_m71_k279_003"/>
+        <zone data="#m72_k279_003" lrx="1049" lry="1022" type="measure" ulx="931" uly="219" xml:id="zoneOf_m72_k279_003"/>
+        <zone data="#m73_k279_003" lrx="509" lry="1157" type="measure" ulx="364" uly="355" xml:id="zoneOf_m73_k279_003"/>
+        <zone data="#m74_k279_003" lrx="627" lry="1157" type="measure" ulx="509" uly="355" xml:id="zoneOf_m74_k279_003"/>
+        <zone data="#m75_k279_003" lrx="702" lry="1157" type="measure" ulx="627" uly="355" xml:id="zoneOf_m75_k279_003"/>
+        <zone data="#m76_k279_003" lrx="774" lry="1157" type="measure" ulx="702" uly="355" xml:id="zoneOf_m76_k279_003"/>
+        <zone data="#m77_k279_003" lrx="859" lry="1157" type="measure" ulx="774" uly="355" xml:id="zoneOf_m77_k279_003"/>
+        <zone data="#m78_k279_003" lrx="943" lry="1157" type="measure" ulx="859" uly="355" xml:id="zoneOf_m78_k279_003"/>
+        <zone data="#m79_k279_003" lrx="1049" lry="1157" type="measure" ulx="943" uly="355" xml:id="zoneOf_m79_k279_003"/>
+        <zone data="#m80_k279_003" lrx="499" lry="1304" type="measure" ulx="363" uly="501" xml:id="zoneOf_m80_k279_003"/>
+        <zone data="#m81_k279_003" lrx="586" lry="1304" type="measure" ulx="499" uly="501" xml:id="zoneOf_m81_k279_003"/>
+        <zone data="#m82_k279_003" lrx="669" lry="1304" type="measure" ulx="586" uly="501" xml:id="zoneOf_m82_k279_003"/>
+        <zone data="#m83_k279_003" lrx="775" lry="1304" type="measure" ulx="669" uly="501" xml:id="zoneOf_m83_k279_003"/>
+        <zone data="#m84_k279_003" lrx="878" lry="1304" type="measure" ulx="775" uly="501" xml:id="zoneOf_m84_k279_003"/>
+        <zone data="#m85_k279_003" lrx="960" lry="1304" type="measure" ulx="878" uly="501" xml:id="zoneOf_m85_k279_003"/>
+        <zone data="#m86_k279_003" lrx="1049" lry="1304" type="measure" ulx="960" uly="501" xml:id="zoneOf_m86_k279_003"/>
+        <zone data="#m87_k279_003" lrx="478" lry="1434" type="measure" ulx="363" uly="632" xml:id="zoneOf_m87_k279_003"/>
+        <zone data="#m88_k279_003" lrx="557" lry="1434" type="measure" ulx="478" uly="632" xml:id="zoneOf_m88_k279_003"/>
+        <zone data="#m89_k279_003" lrx="661" lry="1434" type="measure" ulx="557" uly="632" xml:id="zoneOf_m89_k279_003"/>
+        <zone data="#m90_k279_003" lrx="774" lry="1434" type="measure" ulx="661" uly="632" xml:id="zoneOf_m90_k279_003"/>
+        <zone data="#m91_k279_003" lrx="853" lry="1434" type="measure" ulx="774" uly="632" xml:id="zoneOf_m91_k279_003"/>
+        <zone data="#m92_k279_003" lrx="933" lry="1434" type="measure" ulx="853" uly="632" xml:id="zoneOf_m92_k279_003"/>
+        <zone data="#m93_k279_003" lrx="1049" lry="1434" type="measure" ulx="933" uly="632" xml:id="zoneOf_m93_k279_003"/>
+        <zone data="#m94_k279_003" lrx="514" lry="1567" type="measure" ulx="363" uly="764" xml:id="zoneOf_m94_k279_003"/>
+        <zone data="#m95_k279_003" lrx="627" lry="1567" type="measure" ulx="514" uly="764" xml:id="zoneOf_m95_k279_003"/>
+        <zone data="#m96_k279_003" lrx="707" lry="1567" type="measure" ulx="627" uly="764" xml:id="zoneOf_m96_k279_003"/>
+        <zone data="#m97_k279_003" lrx="824" lry="1567" type="measure" ulx="707" uly="764" xml:id="zoneOf_m97_k279_003"/>
+        <zone data="#m98_k279_003" lrx="932" lry="1567" type="measure" ulx="824" uly="764" xml:id="zoneOf_m98_k279_003"/>
+        <zone data="#m99_k279_003" lrx="1049" lry="1567" type="measure" ulx="932" uly="764" xml:id="zoneOf_m99_k279_003"/>
+        <zone data="#m100_k279_003" lrx="504" lry="1702" type="measure" ulx="363" uly="899" xml:id="zoneOf_m100_k279_003"/>
+        <zone data="#m101_k279_003" lrx="614" lry="1702" type="measure" ulx="504" uly="899" xml:id="zoneOf_m101_k279_003"/>
+        <zone data="#m102_k279_003" lrx="724" lry="1702" type="measure" ulx="614" uly="899" xml:id="zoneOf_m102_k279_003"/>
+        <zone data="#m103_k279_003" lrx="831" lry="1702" type="measure" ulx="724" uly="899" xml:id="zoneOf_m103_k279_003"/>
+        <zone data="#m104_k279_003" lrx="942" lry="1702" type="measure" ulx="831" uly="899" xml:id="zoneOf_m104_k279_003"/>
+        <zone data="#m105_k279_003" lrx="1049" lry="1702" type="measure" ulx="942" uly="899" xml:id="zoneOf_m105_k279_003"/>
+      </surface>
+      <surface label="13" xml:id="surface_13">
+        <graphic target="page13.tif"/>
+        <zone data="#m106_k279_003" lrx="522" lry="884" type="measure" ulx="364" uly="80" xml:id="zoneOf_m106_k279_003"/>
+        <zone data="#m107_k279_003" lrx="626" lry="884" type="measure" ulx="522" uly="80" xml:id="zoneOf_m107_k279_003"/>
+        <zone data="#m108_k279_003" lrx="689" lry="884" type="measure" ulx="626" uly="80" xml:id="zoneOf_m108_k279_003"/>
+        <zone data="#m109_k279_003" lrx="759" lry="884" type="measure" ulx="689" uly="80" xml:id="zoneOf_m109_k279_003"/>
+        <zone data="#m110_k279_003" lrx="836" lry="884" type="measure" ulx="759" uly="80" xml:id="zoneOf_m110_k279_003"/>
+        <zone data="#m111_k279_003" lrx="906" lry="884" type="measure" ulx="836" uly="80" xml:id="zoneOf_m111_k279_003"/>
+        <zone data="#m112_k279_003" lrx="978" lry="884" type="measure" ulx="906" uly="80" xml:id="zoneOf_m112_k279_003"/>
+        <zone data="#m113_k279_003" lrx="1049" lry="884" type="measure" ulx="978" uly="80" xml:id="zoneOf_m113_k279_003"/>
+        <zone data="#m114_k279_003" lrx="466" lry="1021" type="measure" ulx="364" uly="217" xml:id="zoneOf_m114_k279_003"/>
+        <zone data="#m115_k279_003" lrx="542" lry="1021" type="measure" ulx="466" uly="217" xml:id="zoneOf_m115_k279_003"/>
+        <zone data="#m116_k279_003" lrx="618" lry="1021" type="measure" ulx="542" uly="217" xml:id="zoneOf_m116_k279_003"/>
+        <zone data="#m117_k279_003" lrx="700" lry="1021" type="measure" ulx="618" uly="217" xml:id="zoneOf_m117_k279_003"/>
+        <zone data="#m118_k279_003" lrx="772" lry="1021" type="measure" ulx="700" uly="217" xml:id="zoneOf_m118_k279_003"/>
+        <zone data="#m119_k279_003" lrx="848" lry="1021" type="measure" ulx="772" uly="217" xml:id="zoneOf_m119_k279_003"/>
+        <zone data="#m120_k279_003" lrx="950" lry="1021" type="measure" ulx="848" uly="217" xml:id="zoneOf_m120_k279_003"/>
+        <zone data="#m121_k279_003" lrx="1049" lry="1021" type="measure" ulx="950" uly="217" xml:id="zoneOf_m121_k279_003"/>
+        <zone data="#m122_k279_003" lrx="507" lry="1158" type="measure" ulx="365" uly="356" xml:id="zoneOf_m122_k279_003"/>
+        <zone data="#m123_k279_003" lrx="588" lry="1158" type="measure" ulx="507" uly="356" xml:id="zoneOf_m123_k279_003"/>
+        <zone data="#m124_k279_003" lrx="698" lry="1158" type="measure" ulx="588" uly="356" xml:id="zoneOf_m124_k279_003"/>
+        <zone data="#m125_k279_003" lrx="815" lry="1158" type="measure" ulx="698" uly="356" xml:id="zoneOf_m125_k279_003"/>
+        <zone data="#m126_k279_003" lrx="931" lry="1158" type="measure" ulx="815" uly="356" xml:id="zoneOf_m126_k279_003"/>
+        <zone data="#m127_k279_003" lrx="1050" lry="1158" type="measure" ulx="931" uly="356" xml:id="zoneOf_m127_k279_003"/>
+        <zone data="#m128_k279_003" lrx="508" lry="1299" type="measure" ulx="364" uly="495" xml:id="zoneOf_m128_k279_003"/>
+        <zone data="#m129_k279_003" lrx="622" lry="1299" type="measure" ulx="508" uly="495" xml:id="zoneOf_m129_k279_003"/>
+        <zone data="#m130_k279_003" lrx="728" lry="1299" type="measure" ulx="622" uly="495" xml:id="zoneOf_m130_k279_003"/>
+        <zone data="#m131_k279_003" lrx="825" lry="1299" type="measure" ulx="728" uly="495" xml:id="zoneOf_m131_k279_003"/>
+        <zone data="#m132_k279_003" lrx="901" lry="1299" type="measure" ulx="825" uly="495" xml:id="zoneOf_m132_k279_003"/>
+        <zone data="#m133_k279_003" lrx="981" lry="1299" type="measure" ulx="901" uly="495" xml:id="zoneOf_m133_k279_003"/>
+        <zone data="#m134_k279_003" lrx="1049" lry="1299" type="measure" ulx="981" uly="495" xml:id="zoneOf_m134_k279_003"/>
+        <zone data="#m135_k279_003" lrx="450" lry="1432" type="measure" ulx="364" uly="629" xml:id="zoneOf_m135_k279_003"/>
+        <zone data="#m136_k279_003" lrx="518" lry="1432" type="measure" ulx="450" uly="629" xml:id="zoneOf_m136_k279_003"/>
+        <zone data="#m137_k279_003" lrx="595" lry="1432" type="measure" ulx="518" uly="629" xml:id="zoneOf_m137_k279_003"/>
+        <zone data="#m138_k279_003" lrx="675" lry="1432" type="measure" ulx="595" uly="629" xml:id="zoneOf_m138_k279_003"/>
+        <zone data="#m139_k279_003" lrx="756" lry="1432" type="measure" ulx="675" uly="629" xml:id="zoneOf_m139_k279_003"/>
+        <zone data="#m140_k279_003" lrx="827" lry="1432" type="measure" ulx="756" uly="629" xml:id="zoneOf_m140_k279_003"/>
+        <zone data="#m141_k279_003" lrx="902" lry="1432" type="measure" ulx="827" uly="629" xml:id="zoneOf_m141_k279_003"/>
+        <zone data="#m142_k279_003" lrx="974" lry="1432" type="measure" ulx="902" uly="629" xml:id="zoneOf_m142_k279_003"/>
+        <zone data="#m143_k279_003" lrx="1050" lry="1432" type="measure" ulx="974" uly="629" xml:id="zoneOf_m143_k279_003"/>
+        <zone data="#m144_k279_003" lrx="477" lry="1579" type="measure" ulx="364" uly="774" xml:id="zoneOf_m144_k279_003"/>
+        <zone data="#m145_k279_003" lrx="563" lry="1579" type="measure" ulx="477" uly="774" xml:id="zoneOf_m145_k279_003"/>
+        <zone data="#m146_k279_003" lrx="644" lry="1579" type="measure" ulx="563" uly="774" xml:id="zoneOf_m146_k279_003"/>
+        <zone data="#m147_k279_003" lrx="753" lry="1579" type="measure" ulx="644" uly="774" xml:id="zoneOf_m147_k279_003"/>
+        <zone data="#m148_k279_003" lrx="829" lry="1579" type="measure" ulx="753" uly="774" xml:id="zoneOf_m148_k279_003"/>
+        <zone data="#m149_k279_003" lrx="937" lry="1579" type="measure" ulx="829" uly="774" xml:id="zoneOf_m149_k279_003"/>
+        <zone data="#m150_k279_003" lrx="1050" lry="1579" type="measure" ulx="937" uly="774" xml:id="zoneOf_m150_k279_003"/>
+        <zone data="#m151_k279_003" lrx="489" lry="1722" type="measure" ulx="365" uly="919" xml:id="zoneOf_m151_k279_003"/>
+        <zone data="#m152_k279_003" lrx="562" lry="1722" type="measure" ulx="489" uly="919" xml:id="zoneOf_m152_k279_003"/>
+        <zone data="#m153_k279_003" lrx="649" lry="1722" type="measure" ulx="562" uly="919" xml:id="zoneOf_m153_k279_003"/>
+        <zone data="#m154_k279_003" lrx="746" lry="1722" type="measure" ulx="649" uly="919" xml:id="zoneOf_m154_k279_003"/>
+        <zone data="#m155_k279_003" lrx="841" lry="1722" type="measure" ulx="746" uly="919" xml:id="zoneOf_m155_k279_003"/>
+        <zone data="#m156_k279_003" lrx="936" lry="1722" type="measure" ulx="841" uly="919" xml:id="zoneOf_m156_k279_003"/>
+        <zone data="#m157_k279_003" lrx="993" lry="1722" type="measure" ulx="936" uly="919" xml:id="zoneOf_m157_k279_003"/>
+        <zone data="#m158_k279_003" lrx="1049" lry="1722" type="measure" ulx="993" uly="919" xml:id="zoneOf_m158_k279_003"/>
+      </surface>
+    </facsimile>
     <body>
-      <mdiv>
-        <score>
+      <mdiv n="3" xml:id="mdiv_279003">
+        <score xml:id="score_279003">
           <scoreDef key.mode="major" key.pname="c" keysig="0" meter.count="2" meter.unit="4" optimize="false" xml:id="scoreDef_01">
             <staffGrp bar.thru="true" decls="#instrVoice_1" doxml.id="d27e35" symbol="brace" xml:id="staffGrp_01">
               <staffDef clef.line="2" clef.shape="G" decls="#upper" keysig="0" lines="5" n="1" xml:id="staffDef_P1"/>
               <staffDef clef.line="2" clef.shape="G" decls="#lower" keysig="0" lines="5" n="2" xml:id="staffDef_P2"/>
             </staffGrp>
           </scoreDef>
-          <section>
-            <measure facs="#zoneOf_m25_k279_003" n="25" xml:id="m25_k279_003">
-                <staff decls="#upper" n="1" xml:id="staff_6468">
-                  <layer n="1" xml:id="layer_6474">
-                    <beam xml:id="beam_6480">
-                      <note artic="stacc" doxml.id="d27e761" dur="8" oct="4" pname="b" tstamp="1" xml:id="note_6486"/>
-                      <note artic="stacc" doxml.id="d27e763" dur="8" oct="4" pname="b" tstamp="1.5" xml:id="note_6492"/>
-                      <note artic="stacc" doxml.id="d27e765" dur="8" oct="4" pname="b" tstamp="2" xml:id="note_6498"/>
-                      <note artic="stacc" doxml.id="d27e767" dur="8" oct="4" pname="b" tstamp="2.5" xml:id="note_6504"/>
-                    </beam>
-                  </layer>
-                </staff>
-                <staff decls="#lower" n="2" xml:id="staff_6510">
-                  <layer n="1" xml:id="layer_6516">
-                    <mRest xml:id="mRest_6522"/>
-                  </layer>
-                </staff>
-              </measure>
-            <measure facs="#zoneOf_m26_k279_003" n="26" xml:id="m26_k279_003">
+          <section xml:id="section_allegro">
+            <section xml:id="section_A_m0-56a">
+              <pb facs="#surface_10" n="10" xml:id="pb_3276"/>
+              <measure facs="#zoneOf_m26_k279_003" n="26" xml:id="m26_k279_003">
                 <staff decls="#upper" n="1" xml:id="staff_6534">
                   <layer n="1" xml:id="layer_6540">
                     <note dots="1" doxml.id="d27e775" dur="4" oct="5" pname="e" tstamp="1" xml:id="note_6546"/>
@@ -416,7 +575,7 @@
                 <slur endid="#note_6552" staff="1" startid="#note_6546" xml:id="slur_6624"/>
                 <slur endid="#note_6594" staff="2" startid="#note_6582" xml:id="slur_6630"/>
               </measure>
-            <measure facs="#zoneOf_m27_k279_003" n="27" xml:id="m27_k279_003">
+              <measure facs="#zoneOf_m27_k279_003" n="27" xml:id="m27_k279_003">
                 <staff decls="#upper" n="1" xml:id="staff_6648">
                   <layer n="1" xml:id="layer_6654">
                     <beam xml:id="beam_6660">
@@ -433,7 +592,7 @@
                   </layer>
                 </staff>
               </measure>
-            <measure facs="#zoneOf_m28_k279_003" n="28" xml:id="m28_k279_003">
+              <measure facs="#zoneOf_m28_k279_003" n="28" xml:id="m28_k279_003">
                 <staff decls="#upper" n="1" xml:id="staff_6714">
                   <layer n="1" xml:id="layer_6720">
                     <note doxml.id="d27e811" dur="4" oct="5" pname="c" tstamp="1" xml:id="note_6726"/>
@@ -459,7 +618,7 @@
                 <slur endid="#note_6840" staff="1" startid="#note_6738" xml:id="slur_6810"/>
                 <slur endid="#note_6780" staff="2" startid="#note_6768" xml:id="slur_6816"/>
               </measure>
-            <measure facs="#zoneOf_m29_k279_003" n="29" xml:id="m29_k279_003">
+              <measure facs="#zoneOf_m29_k279_003" n="29" xml:id="m29_k279_003">
                 <staff decls="#upper" n="1" xml:id="staff_6828">
                   <layer n="1" xml:id="layer_6834">
                     <note doxml.id="d27e834" dur="4" oct="5" pname="e" tstamp="1" xml:id="note_6840"/>
@@ -477,7 +636,8 @@
                 <slur endid="#note_6924" staff="1" startid="#note_6852" xml:id="slur_6888"/>
                 <slur endid="#note_6882" staff="2" startid="#note_6876" xml:id="slur_6894"/>
               </measure>
-            <measure facs="#zoneOf_m30_k279_003" n="30" xml:id="m30_k279_003">
+              <pb facs="#surface_11" n="11" xml:id="pb_6900"/>
+              <measure facs="#zoneOf_m30_k279_003" n="30" xml:id="m30_k279_003">
                 <staff decls="#upper" n="1" xml:id="staff_6912">
                   <layer n="1" xml:id="layer_6918">
                     <note accid="s" doxml.id="d27e865" dur="4" oct="4" pname="f" tstamp="1" xml:id="note_6924"/>
@@ -501,7 +661,7 @@
                 <slur curvedir="below" endid="#chord_7032" staff="1" startid="#chord_6936" xml:id="slur_7002"/>
                 <slur endid="#note_6984" staff="2" startid="#note_6978" xml:id="slur_7008"/>
               </measure>
-            <measure facs="#zoneOf_m31_k279_003" n="31" xml:id="m31_k279_003">
+              <measure facs="#zoneOf_m31_k279_003" n="31" xml:id="m31_k279_003">
                 <staff decls="#upper" n="1" xml:id="staff_7020">
                   <layer n="1" xml:id="layer_7026">
                     <chord doxml.id="d27e886" dur="4" tstamp="1" xml:id="chord_7032">
@@ -530,7 +690,7 @@
                 </supplied>
                 <slur endid="#note_7104" staff="2" startid="#note_7098" xml:id="slur_7140"/>
               </measure>
-            <measure facs="#zoneOf_m32_k279_003" n="32" xml:id="m32_k279_003">
+              <measure facs="#zoneOf_m32_k279_003" n="32" xml:id="m32_k279_003">
                 <staff decls="#upper" n="1" xml:id="staff_7152">
                   <layer n="1" xml:id="layer_7158">
                     <chord doxml.id="d27e913" dur="4" tstamp="1" xml:id="chord_7164">
@@ -562,9 +722,41 @@
                 <dynam doxml.id="d27e924" staff="2" startid="#chord_7212" xml:id="dynam_7266">f</dynam>
                 <slur curvedir="below" endid="#chord_7248" staff="2" startid="#chord_7212" xml:id="slur_7278"/>
               </measure>
-          </section>
-        </score>
-      </mdiv>
-    </body>
-  </music>
+              <measure facs="#zoneOf_m33_k279_003" n="33" xml:id="m33_k279_003">
+                <staff decls="#upper" n="1" xml:id="staff_7290">
+                  <layer n="1" xml:id="layer_7296">
+                    <mRest xml:id="mRest_7302"/>
+                    <clef doxml.id="d27e942" line="2" shape="G" xml:id="clef_7308"/>
+                  </layer>
+                </staff>
+                <staff decls="#lower" n="2" xml:id="staff_7314">
+                  <layer n="1" xml:id="layer_7320">
+                    <beam xml:id="beam_7326">
+                      <chord doxml.id="d27e947" dur="8" tstamp="1" xml:id="chord_7332">
+                        <note doxml.id="d27e947" oct="3" pname="g" xml:id="note_7338"/>
+                        <note doxml.id="d27e949" oct="2" pname="g" xml:id="note_7344"/>
+                      </chord>
+                      <chord doxml.id="d27e951" dur="8" tstamp="1.5" xml:id="chord_7350">
+                        <note doxml.id="d27e951" oct="2" pname="b" xml:id="note_7356"/>
+                        <note doxml.id="d27e953" oct="1" pname="b" xml:id="note_7362"/>
+                      </chord>
+                      <chord doxml.id="d27e955" dur="8" tstamp="2" xml:id="chord_7368">
+                        <note doxml.id="d27e955" oct="3" pname="c" xml:id="note_7374"/>
+                        <note doxml.id="d27e957" oct="2" pname="c" xml:id="note_7380"/>
+                      </chord>
+                      <chord doxml.id="d27e959" dur="8" tstamp="2.5" xml:id="chord_7386">
+                        <note accid="n" doxml.id="d27e959" oct="3" pname="d" xml:id="note_7392"/>
+                        <note accid="n" doxml.id="d27e961" oct="2" pname="d" xml:id="note_7398"/>
+                      </chord>
+                    </beam>
+                  </layer>
+                </staff>
+                <slur curvedir="below" endid="#chord_7386" staff="2" startid="#chord_7350" xml:id="slur_7404"/>
+              </measure>
+</section>
+</section>
+</score>
+</mdiv>
+</body>
+</music>
 </mei>

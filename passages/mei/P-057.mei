@@ -311,53 +311,134 @@
     </revisionDesc>
   </meiHead>
   <music>
+    <facsimile decls="#digital_image">
+      <surface label="45" xml:id="surface_45">
+        <graphic target="page45.tif"/>
+        <zone data="#m0_k282_003" lrx="506" lry="884" type="measure" ulx="399" uly="80" xml:id="zoneOf_m0_k282_003"/>
+        <zone data="#m1_k282_003" lrx="586" lry="884" type="measure" ulx="506" uly="80" xml:id="zoneOf_m1_k282_003"/>
+        <zone data="#m2_k282_003" lrx="665" lry="884" type="measure" ulx="586" uly="80" xml:id="zoneOf_m2_k282_003"/>
+        <zone data="#m3_k282_003" lrx="784" lry="884" type="measure" ulx="665" uly="80" xml:id="zoneOf_m3_k282_003"/>
+        <zone data="#m4_k282_003" lrx="888" lry="884" type="measure" ulx="784" uly="80" xml:id="zoneOf_m4_k282_003"/>
+        <zone data="#m5_k282_003" lrx="969" lry="884" type="measure" ulx="888" uly="80" xml:id="zoneOf_m5_k282_003"/>
+        <zone data="#m6_k282_003" lrx="1049" lry="884" type="measure" ulx="969" uly="80" xml:id="zoneOf_m6_k282_003"/>
+        <zone data="#m7_k282_003" lrx="532" lry="1022" type="measure" ulx="364" uly="220" xml:id="zoneOf_m7_k282_003"/>
+        <zone data="#m8_k282_003" lrx="628" lry="1022" type="measure" ulx="532" uly="220" xml:id="zoneOf_m8_k282_003"/>
+        <zone data="#m9_k282_003" lrx="768" lry="1022" type="measure" ulx="628" uly="220" xml:id="zoneOf_m9_k282_003"/>
+        <zone data="#m10_k282_003" lrx="913" lry="1022" type="measure" ulx="768" uly="220" xml:id="zoneOf_m10_k282_003"/>
+        <zone data="#m11_k282_003" lrx="1049" lry="1022" type="measure" ulx="913" uly="220" xml:id="zoneOf_m11_k282_003"/>
+        <zone data="#m12_k282_003" lrx="535" lry="1163" type="measure" ulx="364" uly="361" xml:id="zoneOf_m12_k282_003"/>
+        <zone data="#m13_k282_003" lrx="643" lry="1163" type="measure" ulx="535" uly="361" xml:id="zoneOf_m13_k282_003"/>
+        <zone data="#m14_k282_003" lrx="760" lry="1163" type="measure" ulx="643" uly="361" xml:id="zoneOf_m14_k282_003"/>
+        <zone data="#m15_k282_003" lrx="865" lry="1163" type="measure" ulx="760" uly="361" xml:id="zoneOf_m15_k282_003"/>
+        <zone data="#m16_k282_003" lrx="956" lry="1163" type="measure" ulx="865" uly="361" xml:id="zoneOf_m16_k282_003"/>
+        <zone data="#m17_k282_003" lrx="1049" lry="1163" type="measure" ulx="956" uly="361" xml:id="zoneOf_m17_k282_003"/>
+        <zone data="#m18_k282_003" lrx="504" lry="1308" type="measure" ulx="363" uly="505" xml:id="zoneOf_m18_k282_003"/>
+        <zone data="#m19_k282_003" lrx="601" lry="1308" type="measure" ulx="504" uly="505" xml:id="zoneOf_m19_k282_003"/>
+        <zone data="#m20_k282_003" lrx="711" lry="1308" type="measure" ulx="601" uly="505" xml:id="zoneOf_m20_k282_003"/>
+        <zone data="#m21_k282_003" lrx="823" lry="1308" type="measure" ulx="711" uly="505" xml:id="zoneOf_m21_k282_003"/>
+        <zone data="#m22_k282_003" lrx="945" lry="1308" type="measure" ulx="823" uly="505" xml:id="zoneOf_m22_k282_003"/>
+        <zone data="#m23_k282_003" lrx="1049" lry="1308" type="measure" ulx="945" uly="505" xml:id="zoneOf_m23_k282_003"/>
+        <zone data="#m24_k282_003" lrx="502" lry="1460" type="measure" ulx="363" uly="657" xml:id="zoneOf_m24_k282_003"/>
+        <zone data="#m25_k282_003" lrx="595" lry="1460" type="measure" ulx="502" uly="657" xml:id="zoneOf_m25_k282_003"/>
+        <zone data="#m26_k282_003" lrx="687" lry="1460" type="measure" ulx="595" uly="657" xml:id="zoneOf_m26_k282_003"/>
+        <zone data="#m27_k282_003" lrx="780" lry="1460" type="measure" ulx="687" uly="657" xml:id="zoneOf_m27_k282_003"/>
+        <zone data="#m28_k282_003" lrx="914" lry="1460" type="measure" ulx="780" uly="657" xml:id="zoneOf_m28_k282_003"/>
+        <zone data="#m29_k282_003" lrx="1049" lry="1460" type="measure" ulx="914" uly="657" xml:id="zoneOf_m29_k282_003"/>
+        <zone data="#m30_k282_003" lrx="553" lry="1579" type="measure" ulx="363" uly="776" xml:id="zoneOf_m30_k282_003"/>
+        <zone data="#m31_k282_003" lrx="672" lry="1579" type="measure" ulx="553" uly="776" xml:id="zoneOf_m31_k282_003"/>
+        <zone data="#m32_k282_003" lrx="793" lry="1579" type="measure" ulx="672" uly="776" xml:id="zoneOf_m32_k282_003"/>
+        <zone data="#m33_k282_003" lrx="915" lry="1579" type="measure" ulx="793" uly="776" xml:id="zoneOf_m33_k282_003"/>
+        <zone data="#m34_k282_003" lrx="1049" lry="1579" type="measure" ulx="915" uly="776" xml:id="zoneOf_m34_k282_003"/>
+        <zone data="#m35_k282_003" lrx="549" lry="1711" type="measure" ulx="365" uly="909" xml:id="zoneOf_m35_k282_003"/>
+        <zone data="#m36_k282_003" lrx="687" lry="1711" type="measure" ulx="549" uly="909" xml:id="zoneOf_m36_k282_003"/>
+        <zone data="#m37_k282_003" lrx="820" lry="1711" type="measure" ulx="687" uly="909" xml:id="zoneOf_m37_k282_003"/>
+        <zone data="#m38_k282_003" lrx="955" lry="1711" type="measure" ulx="820" uly="909" xml:id="zoneOf_m38_k282_003"/>
+        <zone data="#m39a_k282_003" lrx="1049" lry="1711" type="measure" ulx="955" uly="909" xml:id="zoneOf_m39a_k282_003"/>
+      </surface>
+      <surface label="46" xml:id="surface_46">
+        <graphic target="page46.tif"/>
+        <zone data="#m39b_k282_003" lrx="459" lry="893" type="measure" ulx="427" uly="90" xml:id="zoneOf_m39b_k282_003"/>
+        <zone data="#m40_k282_003" lrx="556" lry="893" type="measure" ulx="459" uly="90" xml:id="zoneOf_m40_k282_003"/>
+        <zone data="#m41_k282_003" lrx="658" lry="893" type="measure" ulx="556" uly="90" xml:id="zoneOf_m41_k282_003"/>
+        <zone data="#m42_k282_003" lrx="805" lry="893" type="measure" ulx="658" uly="90" xml:id="zoneOf_m42_k282_003"/>
+        <zone data="#m43_k282_003" lrx="945" lry="893" type="measure" ulx="805" uly="90" xml:id="zoneOf_m43_k282_003"/>
+        <zone data="#m44_k282_003" lrx="1049" lry="893" type="measure" ulx="945" uly="90" xml:id="zoneOf_m44_k282_003"/>
+        <zone data="#m45_k282_003" lrx="524" lry="1047" type="measure" ulx="363" uly="244" xml:id="zoneOf_m45_k282_003"/>
+        <zone data="#m46_k282_003" lrx="692" lry="1047" type="measure" ulx="524" uly="244" xml:id="zoneOf_m46_k282_003"/>
+        <zone data="#m47_k282_003" lrx="836" lry="1047" type="measure" ulx="692" uly="244" xml:id="zoneOf_m47_k282_003"/>
+        <zone data="#m48_k282_003" lrx="942" lry="1047" type="measure" ulx="836" uly="244" xml:id="zoneOf_m48_k282_003"/>
+        <zone data="#m49_k282_003" lrx="1049" lry="1047" type="measure" ulx="942" uly="244" xml:id="zoneOf_m49_k282_003"/>
+        <zone data="#m50_k282_003" lrx="518" lry="1212" type="measure" ulx="363" uly="408" xml:id="zoneOf_m50_k282_003"/>
+        <zone data="#m51_k282_003" lrx="619" lry="1212" type="measure" ulx="518" uly="408" xml:id="zoneOf_m51_k282_003"/>
+        <zone data="#m52_k282_003" lrx="725" lry="1212" type="measure" ulx="619" uly="408" xml:id="zoneOf_m52_k282_003"/>
+        <zone data="#m53_k282_003" lrx="830" lry="1212" type="measure" ulx="725" uly="408" xml:id="zoneOf_m53_k282_003"/>
+        <zone data="#m54_k282_003" lrx="931" lry="1212" type="measure" ulx="830" uly="408" xml:id="zoneOf_m54_k282_003"/>
+        <zone data="#m55_k282_003" lrx="1049" lry="1212" type="measure" ulx="931" uly="408" xml:id="zoneOf_m55_k282_003"/>
+        <zone data="#m56_k282_003" lrx="584" lry="1372" type="measure" ulx="363" uly="569" xml:id="zoneOf_m56_k282_003"/>
+        <zone data="#m57_k282_003" lrx="750" lry="1372" type="measure" ulx="584" uly="569" xml:id="zoneOf_m57_k282_003"/>
+        <zone data="#m58_k282_003" lrx="918" lry="1372" type="measure" ulx="750" uly="569" xml:id="zoneOf_m58_k282_003"/>
+        <zone data="#m59_k282_003" lrx="1049" lry="1372" type="measure" ulx="918" uly="569" xml:id="zoneOf_m59_k282_003"/>
+        <zone data="#m60_k282_003" lrx="539" lry="1547" type="measure" ulx="363" uly="745" xml:id="zoneOf_m60_k282_003"/>
+        <zone data="#m61_k282_003" lrx="658" lry="1547" type="measure" ulx="539" uly="745" xml:id="zoneOf_m61_k282_003"/>
+        <zone data="#m62_k282_003" lrx="780" lry="1547" type="measure" ulx="658" uly="745" xml:id="zoneOf_m62_k282_003"/>
+        <zone data="#m63_k282_003" lrx="892" lry="1547" type="measure" ulx="780" uly="745" xml:id="zoneOf_m63_k282_003"/>
+        <zone data="#m64_k282_003" lrx="1049" lry="1547" type="measure" ulx="892" uly="745" xml:id="zoneOf_m64_k282_003"/>
+        <zone data="#m65_k282_003" lrx="561" lry="1702" type="measure" ulx="363" uly="899" xml:id="zoneOf_m65_k282_003"/>
+        <zone data="#m66_k282_003" lrx="672" lry="1702" type="measure" ulx="561" uly="899" xml:id="zoneOf_m66_k282_003"/>
+        <zone data="#m67_k282_003" lrx="780" lry="1702" type="measure" ulx="672" uly="899" xml:id="zoneOf_m67_k282_003"/>
+        <zone data="#m68_k282_003" lrx="918" lry="1702" type="measure" ulx="780" uly="899" xml:id="zoneOf_m68_k282_003"/>
+        <zone data="#m69_k282_003" lrx="1049" lry="1702" type="measure" ulx="918" uly="899" xml:id="zoneOf_m69_k282_003"/>
+      </surface>
+      <surface label="47" xml:id="surface_47">
+        <graphic target="page47.tif"/>
+        <zone data="#m70_k282_003" lrx="548" lry="894" type="measure" ulx="365" uly="90" xml:id="zoneOf_m70_k282_003"/>
+        <zone data="#m71_k282_003" lrx="676" lry="894" type="measure" ulx="548" uly="90" xml:id="zoneOf_m71_k282_003"/>
+        <zone data="#m72_k282_003" lrx="800" lry="894" type="measure" ulx="676" uly="90" xml:id="zoneOf_m72_k282_003"/>
+        <zone data="#m73_k282_003" lrx="924" lry="894" type="measure" ulx="800" uly="90" xml:id="zoneOf_m73_k282_003"/>
+        <zone data="#m74_k282_003" lrx="1050" lry="894" type="measure" ulx="924" uly="90" xml:id="zoneOf_m74_k282_003"/>
+        <zone data="#m75_k282_003" lrx="548" lry="1052" type="measure" ulx="365" uly="250" xml:id="zoneOf_m75_k282_003"/>
+        <zone data="#m76_k282_003" lrx="669" lry="1052" type="measure" ulx="548" uly="250" xml:id="zoneOf_m76_k282_003"/>
+        <zone data="#m77_k282_003" lrx="767" lry="1052" type="measure" ulx="669" uly="250" xml:id="zoneOf_m77_k282_003"/>
+        <zone data="#m78_k282_003" lrx="858" lry="1052" type="measure" ulx="767" uly="250" xml:id="zoneOf_m78_k282_003"/>
+        <zone data="#m79_k282_003" lrx="949" lry="1052" type="measure" ulx="858" uly="250" xml:id="zoneOf_m79_k282_003"/>
+        <zone data="#m80_k282_003" lrx="1050" lry="1052" type="measure" ulx="949" uly="250" xml:id="zoneOf_m80_k282_003"/>
+        <zone data="#m81_k282_003" lrx="536" lry="1211" type="measure" ulx="365" uly="408" xml:id="zoneOf_m81_k282_003"/>
+        <zone data="#m82_k282_003" lrx="651" lry="1211" type="measure" ulx="536" uly="408" xml:id="zoneOf_m82_k282_003"/>
+        <zone data="#m83_k282_003" lrx="774" lry="1211" type="measure" ulx="651" uly="408" xml:id="zoneOf_m83_k282_003"/>
+        <zone data="#m84_k282_003" lrx="883" lry="1211" type="measure" ulx="774" uly="408" xml:id="zoneOf_m84_k282_003"/>
+        <zone data="#m85_k282_003" lrx="964" lry="1211" type="measure" ulx="883" uly="408" xml:id="zoneOf_m85_k282_003"/>
+        <zone data="#m86_k282_003" lrx="1049" lry="1211" type="measure" ulx="964" uly="408" xml:id="zoneOf_m86_k282_003"/>
+        <zone data="#m87_k282_003" lrx="504" lry="1383" type="measure" ulx="365" uly="580" xml:id="zoneOf_m87_k282_003"/>
+        <zone data="#m88_k282_003" lrx="593" lry="1383" type="measure" ulx="504" uly="580" xml:id="zoneOf_m88_k282_003"/>
+        <zone data="#m89_k282_003" lrx="705" lry="1383" type="measure" ulx="593" uly="580" xml:id="zoneOf_m89_k282_003"/>
+        <zone data="#m90_k282_003" lrx="819" lry="1383" type="measure" ulx="705" uly="580" xml:id="zoneOf_m90_k282_003"/>
+        <zone data="#m91_k282_003" lrx="941" lry="1383" type="measure" ulx="819" uly="580" xml:id="zoneOf_m91_k282_003"/>
+        <zone data="#m92_k282_003" lrx="1049" lry="1383" type="measure" ulx="941" uly="580" xml:id="zoneOf_m92_k282_003"/>
+        <zone data="#m93_k282_003" lrx="543" lry="1548" type="measure" ulx="365" uly="744" xml:id="zoneOf_m93_k282_003"/>
+        <zone data="#m94_k282_003" lrx="673" lry="1548" type="measure" ulx="543" uly="744" xml:id="zoneOf_m94_k282_003"/>
+        <zone data="#m95_k282_003" lrx="809" lry="1548" type="measure" ulx="673" uly="744" xml:id="zoneOf_m95_k282_003"/>
+        <zone data="#m96_k282_003" lrx="925" lry="1548" type="measure" ulx="809" uly="744" xml:id="zoneOf_m96_k282_003"/>
+        <zone data="#m97_k282_003" lrx="1049" lry="1548" type="measure" ulx="925" uly="744" xml:id="zoneOf_m97_k282_003"/>
+        <zone data="#m98_k282_003" lrx="555" lry="1722" type="measure" ulx="365" uly="918" xml:id="zoneOf_m98_k282_003"/>
+        <zone data="#m99_k282_003" lrx="700" lry="1722" type="measure" ulx="555" uly="918" xml:id="zoneOf_m99_k282_003"/>
+        <zone data="#m100_k282_003" lrx="839" lry="1722" type="measure" ulx="700" uly="918" xml:id="zoneOf_m100_k282_003"/>
+        <zone data="#m101_k282_003" lrx="976" lry="1722" type="measure" ulx="839" uly="918" xml:id="zoneOf_m101_k282_003"/>
+        <zone data="#m102_k282_003" lrx="1049" lry="1722" type="measure" ulx="976" uly="918" xml:id="zoneOf_m102_k282_003"/>
+      </surface>
+    </facsimile>
     <body>
-      <mdiv>
-        <score>
+      <mdiv n="3" xml:id="mdiv_282003">
+        <score xml:id="score_282003">
           <scoreDef key.accid="f" key.mode="major" key.pname="e" keysig="3f" meter.count="2" meter.unit="4" optimize="false" xml:id="scoreDef_01">
             <staffGrp bar.thru="true" decls="#instrVoice_1" doxml.id="d28e37" symbol="brace" xml:id="staffGrp_01">
               <staffDef clef.line="2" clef.shape="G" decls="#upper" keysig="3f" lines="5" n="1" xml:id="staffDef_P1"/>
               <staffDef clef.line="4" clef.shape="F" decls="#lower" keysig="3f" lines="5" n="2" xml:id="staffDef_P2"/>
             </staffGrp>
           </scoreDef>
-          <section>
-            <measure facs="#zoneOf_m34_k282_003" n="34" xml:id="m34_k282_003">
-                <staff decls="#upper" n="1" xml:id="staff_7140">
-                  <layer n="1" xml:id="layer_7146">
-                    <note doxml.id="d28e1026" dur="16" grace="acc" oct="5" pname="g" stem.dir="up" xml:id="note_7152"/>
-                    <beam xml:id="beam_7158">
-                      <note accid="n" doxml.id="d28e1028" dur="8" oct="5" pname="f" tstamp="1" xml:id="note_7164"/>
-                      <note accid.ges="f" doxml.id="d28e1030" dur="16" oct="5" pname="e" tstamp="1.5" xml:id="note_7170"/>
-                      <note doxml.id="d28e1032" dur="16" oct="5" pname="d" tstamp="1.75" xml:id="note_7176"/>
-                    </beam>
-                    <note doxml.id="d28e1034" dur="16" grace="acc" oct="5" pname="d" stem.dir="up" xml:id="note_7182"/>
-                    <beam xml:id="beam_7188">
-                      <note doxml.id="d28e1037" dur="8" oct="5" pname="c" tstamp="2" xml:id="note_7194"/>
-                      <note accid.ges="f" doxml.id="d28e1039" dur="16" oct="4" pname="b" tstamp="2.5" xml:id="note_7200"/>
-                      <note accid="n" doxml.id="d28e1041" dur="16" oct="4" pname="a" tstamp="2.75" xml:id="note_7206"/>
-                    </beam>
-                  </layer>
-                </staff>
-                <staff decls="#lower" n="2" xml:id="staff_7212">
-                  <layer n="1" xml:id="layer_7218">
-                    <beam xml:id="beam_7224">
-                      <note doxml.id="d28e1045" dur="16" oct="3" pname="f" tstamp="1" xml:id="note_7230"/>
-                      <note doxml.id="d28e1047" dur="16" oct="4" pname="d" tstamp="1.25" xml:id="note_7236"/>
-                      <note accid.ges="f" doxml.id="d28e1049" dur="16" oct="3" pname="b" tstamp="1.5" xml:id="note_7242"/>
-                      <note doxml.id="d28e1051" dur="16" oct="4" pname="d" tstamp="1.75" xml:id="note_7248"/>
-                    </beam>
-                    <beam xml:id="beam_7254">
-                      <note doxml.id="d28e1053" dur="16" oct="3" pname="f" tstamp="2" xml:id="note_7260"/>
-                      <note accid.ges="f" doxml.id="d28e1055" dur="16" oct="4" pname="e" tstamp="2.25" xml:id="note_7266"/>
-                      <note doxml.id="d28e1057" dur="16" oct="4" pname="c" tstamp="2.5" xml:id="note_7272"/>
-                      <note accid.ges="f" doxml.id="d28e1060" dur="16" oct="4" pname="e" tstamp="2.75" xml:id="note_7278"/>
-                    </beam>
-                  </layer>
-                </staff>
-                <slur curvedir="below" endid="#note_7164" staff="1" startid="#note_7152" xml:id="slur_7284"/>
-                <slur curvedir="below" endid="#note_7194" staff="1" startid="#note_7182" xml:id="slur_7290"/>
-              </measure>
-            <measure facs="#zoneOf_m35_k282_003" n="35" xml:id="m35_k282_003">
+          <section xml:id="section_allegro">
+            <section xml:id="section_A_m0-39a">
+              <pb facs="#surface_45" n="45" xml:id="pb_2808"/>
+              <measure facs="#zoneOf_m35_k282_003" n="35" xml:id="m35_k282_003">
                 <staff decls="#upper" n="1" xml:id="staff_7308">
                   <layer n="1" xml:id="layer_7314">
                     <beam xml:id="beam_7320">
@@ -385,7 +466,7 @@
                   </layer>
                 </staff>
               </measure>
-            <measure facs="#zoneOf_m36_k282_003" n="36" xml:id="m36_k282_003">
+              <measure facs="#zoneOf_m36_k282_003" n="36" xml:id="m36_k282_003">
                 <staff decls="#upper" n="1" xml:id="staff_7428">
                   <layer n="1" xml:id="layer_7434">
                     <beam xml:id="beam_7440">
@@ -415,7 +496,7 @@
                 <slur endid="#note_7464" staff="1" startid="#note_7446" xml:id="slur_7542"/>
                 <slur endid="#note_7494" staff="1" startid="#note_7476" xml:id="slur_7548"/>
               </measure>
-            <measure facs="#zoneOf_m37_k282_003" n="37" xml:id="m37_k282_003">
+              <measure facs="#zoneOf_m37_k282_003" n="37" xml:id="m37_k282_003">
                 <staff decls="#upper" n="1" xml:id="staff_7566">
                   <layer n="1" xml:id="layer_7572">
                     <beam xml:id="beam_7578">
@@ -440,7 +521,7 @@
                   </layer>
                 </staff>
               </measure>
-            <measure facs="#zoneOf_m38_k282_003" n="38" xml:id="m38_k282_003">
+              <measure facs="#zoneOf_m38_k282_003" n="38" xml:id="m38_k282_003">
                 <staff decls="#upper" n="1" xml:id="staff_7674">
                   <layer n="1" xml:id="layer_7680">
                     <beam xml:id="beam_7686">
@@ -470,7 +551,7 @@
                 <slur endid="#note_7710" staff="1" startid="#note_7692" xml:id="slur_7788"/>
                 <slur endid="#note_7740" staff="1" startid="#note_7722" xml:id="slur_7794"/>
               </measure>
-            <measure facs="#zoneOf_m39a_k282_003" metcon="false" n="39a" right="rptend" xml:id="m39a_k282_003">
+              <measure facs="#zoneOf_m39a_k282_003" metcon="false" n="39a" right="rptend" xml:id="m39a_k282_003">
                 <staff decls="#upper" n="1" xml:id="staff_7806">
                   <layer n="1" xml:id="layer_7812">
                     <note accid.ges="f" doxml.id="d28e1198" dur="4" oct="4" pname="b" tstamp="1" xml:id="note_7818"/>
@@ -487,7 +568,10 @@
                   </layer>
                 </staff>
               </measure>
-            <measure facs="#zoneOf_m39b_k282_003" left="rptstart" metcon="false" n="39b" xml:id="m39b_k282_003">
+            </section>
+            <section xml:id="section_B_m39b-102">
+              <pb facs="#surface_46" n="46" xml:id="pb_7872"/>
+              <measure facs="#zoneOf_m39b_k282_003" left="rptstart" metcon="false" n="39b" xml:id="m39b_k282_003">
                 <staff decls="#upper" n="1" xml:id="staff_7884">
                   <layer n="1" xml:id="layer_7890">
                     <note accid.ges="f" doxml.id="d28e1241" dur="8" oct="4" pname="b" tstamp="1" xml:id="note_7896">
@@ -504,7 +588,7 @@
                 </staff>
                 <dynam doxml.id="d28e1239" staff="1" startid="#note_7896" xml:id="dynam_7932">p</dynam>
               </measure>
-            <measure facs="#zoneOf_m40_k282_003" n="40" xml:id="m40_k282_003">
+              <measure facs="#zoneOf_m40_k282_003" n="40" xml:id="m40_k282_003">
                 <staff decls="#upper" n="1" xml:id="staff_7950">
                   <layer n="1" xml:id="layer_7956">
                     <note accid.ges="f" dots="1" doxml.id="d28e1250" dur="4" oct="4" pname="b" tstamp="1" xml:id="note_7962">
@@ -534,9 +618,67 @@
                 </staff>
                 <dynam doxml.id="d28e1258" staff="2" startid="#chord_8016" xml:id="dynam_8052">p</dynam>
               </measure>
-          </section>
-        </score>
-      </mdiv>
-    </body>
-  </music>
+              <measure facs="#zoneOf_m41_k282_003" n="41" xml:id="m41_k282_003">
+                <staff decls="#upper" n="1" xml:id="staff_8070">
+                  <layer n="1" xml:id="layer_8076">
+                    <note accid.ges="f" dots="1" doxml.id="d28e1271" dur="4" oct="5" pname="b" tstamp="1" xml:id="note_8082">
+                      <supplied resp="#NMA-editors" xml:id="supplied_8088">
+                        <artic artic="spicc" xml:id="artic_8094"/>
+                      </supplied>
+                    </note>
+                    <note doxml.id="d28e1275" dur="8" oct="5" pname="c" tstamp="2.5" xml:id="note_8100"/>
+                  </layer>
+                </staff>
+                <staff decls="#lower" n="2" xml:id="staff_8106">
+                  <layer n="1" xml:id="layer_8112">
+                    <rest doxml.id="d28e1279" dur="8" tstamp="1" xml:id="rest_8118"/>
+                    <chord doxml.id="d28e1281" dur="8" tstamp="1.5" xml:id="chord_8124">
+                      <note doxml.id="d28e1281" oct="4" pname="c" xml:id="note_8130"/>
+                      <note accid="n" doxml.id="d28e1283" oct="3" pname="e" xml:id="note_8136"/>
+                    </chord>
+                    <chord doxml.id="d28e1285" dur="4" tstamp="2" xml:id="chord_8142">
+                      <note doxml.id="d28e1285" oct="4" pname="c" xml:id="note_8148"/>
+                      <note accid.ges="n" doxml.id="d28e1287" oct="3" pname="e" xml:id="note_8154"/>
+                    </chord>
+                    <clef line="2" shape="G" xml:id="clef_8160"/>
+                  </layer>
+                </staff>
+                <dynam doxml.id="d28e1273" staff="1" startid="#note_8100" xml:id="dynam_8166">f</dynam>
+              </measure>
+              <measure facs="#zoneOf_m42_k282_003" n="42" xml:id="m42_k282_003">
+                <staff decls="#upper" n="1" xml:id="staff_8184">
+                  <layer n="1" xml:id="layer_8190">
+                    <beam xml:id="beam_8196">
+                      <note accid="f" doxml.id="d28e1294" dur="16" oct="5" pname="d" tstamp="1" xml:id="note_8202"/>
+                      <note doxml.id="d28e1296" dur="16" oct="5" pname="c" tstamp="1.25" xml:id="note_8208"/>
+                      <note accid="n" doxml.id="d28e1298" dur="16" oct="5" pname="d" tstamp="1.5" xml:id="note_8214"/>
+                      <note doxml.id="d28e1300" dur="16" oct="5" pname="c" tstamp="1.75" xml:id="note_8220"/>
+                    </beam>
+                    <beam xml:id="beam_8226">
+                      <note accid.ges="f" doxml.id="d28e1302" dur="16" oct="5" pname="e" tstamp="2" xml:id="note_8232"/>
+                      <note doxml.id="d28e1304" dur="16" oct="5" pname="c" tstamp="2.25" xml:id="note_8238"/>
+                      <note accid="n" doxml.id="d28e1306" dur="16" oct="5" pname="e" tstamp="2.5" xml:id="note_8244"/>
+                      <note doxml.id="d28e1308" dur="16" oct="5" pname="c" tstamp="2.75" xml:id="note_8250"/>
+                    </beam>
+                  </layer>
+                </staff>
+                <staff decls="#lower" n="2" xml:id="staff_8256">
+                  <layer n="1" xml:id="layer_8262">
+                    <rest doxml.id="d28e1313" dur="8" tstamp="1" xml:id="rest_8268"/>
+                    <beam xml:id="beam_8274">
+                      <note doxml.id="d28e1317" dur="8" oct="4" pname="f" tstamp="1.5" xml:id="note_8280"/>
+                      <note doxml.id="d28e1319" dur="8" oct="4" pname="g" tstamp="2" xml:id="note_8286"/>
+                      <note accid.ges="f" doxml.id="d28e1321" dur="8" oct="4" pname="b" tstamp="2.5" xml:id="note_8292"/>
+                    </beam>
+                  </layer>
+                </staff>
+                <dynam doxml.id="d28e1315" staff="2" startid="#note_8280" xml:id="dynam_8298">f</dynam>
+                <slur endid="#note_8250" staff="1" startid="#note_8202" xml:id="slur_8310"/>
+              </measure>
+</section>
+</section>
+</score>
+</mdiv>
+</body>
+</music>
 </mei>
