@@ -155,7 +155,7 @@ class TestCaseQuery:
             "abc": "abc",
             "humdrum": "krn",
             "mei": "mei",
-            "musicxml": "musicxml",
+            "musicxml": "xml",  # MusicXML files use .xml extension
         }
         
         ext = extension_map.get(format_name, format_name)
