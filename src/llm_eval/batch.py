@@ -122,7 +122,22 @@ class OpenAIBatchAPI:
                 body["max_tokens"] = self.max_tokens
             
             if json_mode:
-                body["response_format"] = {"type": "json_object"}
+                # Use JSON schema for strict structured output
+                body["response_format"] = {
+                    "type": "json_schema",
+                    "json_schema": {
+                        "name": "answer_response",
+                        "strict": True,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "answer": {"type": "string"}
+                            },
+                            "required": ["answer"],
+                            "additionalProperties": False
+                        }
+                    }
+                }
             
             line = {
                 "custom_id": req.custom_id,
@@ -451,11 +466,28 @@ class GoogleBatchAPI:
                 }
                 if json_mode:
                     request_config['config']['response_mime_type'] = 'application/json'
+                    request_config['config']['response_schema'] = {
+                        "type": "object",
+                        "properties": {
+                            "answer": {"type": "string"}
+                        },
+                        "required": ["answer"]
+                    }
             else:
-                request_config['config'] = {
+                config = {
                     'temperature': self.temperature,
                     'max_output_tokens': self.max_tokens,
                 }
+                if json_mode:
+                    config['response_mime_type'] = 'application/json'
+                    config['response_schema'] = {
+                        "type": "object",
+                        "properties": {
+                            "answer": {"type": "string"}
+                        },
+                        "required": ["answer"]
+                    }
+                request_config['config'] = config
             
             inline_requests.append(request_config)
         
@@ -663,7 +695,22 @@ class AlibabaBatchAPI:
             }
             
             if json_mode:
-                body["response_format"] = {"type": "json_object"}
+                # Use JSON schema for strict structured output
+                body["response_format"] = {
+                    "type": "json_schema",
+                    "json_schema": {
+                        "name": "answer_response",
+                        "strict": True,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "answer": {"type": "string"}
+                            },
+                            "required": ["answer"],
+                            "additionalProperties": False
+                        }
+                    }
+                }
             
             line = {
                 "custom_id": req.custom_id,

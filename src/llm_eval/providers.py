@@ -255,7 +255,22 @@ class OpenAIProvider(BaseLLMProvider):
         
         # JSON mode enforcement
         if json_mode:
-            call_params["response_format"] = {"type": "json_object"}
+            # Use JSON schema for strict structured output
+            call_params["response_format"] = {
+                "type": "json_schema",
+                "json_schema": {
+                    "name": "answer_response",
+                    "strict": True,
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "answer": {"type": "string"}
+                        },
+                        "required": ["answer"],
+                        "additionalProperties": False
+                    }
+                }
+            }
         
         response = self.client.chat.completions.create(**call_params)
         
@@ -409,9 +424,16 @@ class GoogleProvider(BaseLLMProvider):
             "max_output_tokens": kwargs.get("max_tokens", self.max_tokens),
         }
         
-        # JSON mode enforcement
+        # JSON mode enforcement with schema
         if json_mode:
             generation_config["response_mime_type"] = "application/json"
+            generation_config["response_schema"] = {
+                "type": "object",
+                "properties": {
+                    "answer": {"type": "string"}
+                },
+                "required": ["answer"]
+            }
         
         response = self.model.generate_content(
             full_prompt,
@@ -497,7 +519,22 @@ class AlibabaProvider(BaseLLMProvider):
         }
         
         if json_mode:
-            payload['response_format'] = {"type": "json_object"}
+            # Use JSON schema for strict structured output
+            payload['response_format'] = {
+                "type": "json_schema",
+                "json_schema": {
+                    "name": "answer_response",
+                    "strict": True,
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "answer": {"type": "string"}
+                        },
+                        "required": ["answer"],
+                        "additionalProperties": False
+                    }
+                }
+            }
         
         if self.seed is not None:
             payload['seed'] = self.seed
