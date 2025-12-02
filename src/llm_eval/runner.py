@@ -170,10 +170,12 @@ class BenchmarkRunner:
         """Run tests synchronously (one at a time)."""
         
         # Get provider
+        # Use 'is not None' to allow explicit 0.0 temperature overrides
+        temperature = model_config.temperature if model_config.temperature is not None else self.config.api_settings.temperature
         provider = get_provider(
             provider=model_config.provider,
             model_name=model_config.name,
-            temperature=model_config.temperature or self.config.api_settings.temperature,
+            temperature=temperature,
             max_tokens=model_config.max_tokens or self.config.api_settings.max_tokens,
             timeout=model_config.timeout or self.config.api_settings.timeout,
             seed=self.config.api_settings.seed,
@@ -281,11 +283,13 @@ class BenchmarkRunner:
             ))
         
         # Create batch runner
+        # Use 'is not None' to allow explicit 0.0 temperature overrides
+        temperature = model_config.temperature if model_config.temperature is not None else self.config.api_settings.temperature
         batch_runner = BatchRunner(
             provider=model_config.provider,
             model_name=model_config.name,
             max_tokens=model_config.max_tokens or self.config.api_settings.max_tokens,
-            temperature=model_config.temperature or self.config.api_settings.temperature,
+            temperature=temperature,
         )
         
         # Submit batch

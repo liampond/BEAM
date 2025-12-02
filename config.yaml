@@ -64,6 +64,7 @@ models:
     name: gemini-3-pro-preview
     enabled: true  # Retrying failed tests
     use_batch_api: true  # 50% cost savings, higher rate limits
+    temperature: 1.0  # Gemini 3 performs best with temperature 1.0
   
   # Alibaba Qwen
   - provider: alibaba
