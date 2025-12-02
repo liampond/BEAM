@@ -246,11 +246,16 @@ class AnthropicBatchAPI:
         1. Create batch with array of requests
         2. Poll for completion
         3. Retrieve results
+    
+    Uses structured outputs beta for guaranteed JSON responses.
     """
     
     def __init__(self, model_name: str, max_tokens: int = 1024, temperature: float = 0.0):
         import anthropic
-        self.client = anthropic.Anthropic()
+        # Use beta header for structured outputs
+        self.client = anthropic.Anthropic(
+            default_headers={"anthropic-beta": "structured-outputs-2025-11-13"}
+        )
         self.model_name = model_name
         self.max_tokens = max_tokens
         self.temperature = temperature
@@ -268,11 +273,20 @@ class AnthropicBatchAPI:
         """
         batch_requests = []
         
+        # JSON schema for structured output
+        json_schema = {
+            "type": "object",
+            "properties": {
+                "answer": {
+                    "type": "string",
+                    "description": "The answer to the question"
+                }
+            },
+            "required": ["answer"]
+        }
+        
         for req in requests:
-            # For Anthropic, enhance system prompt for JSON mode
             system = req.system_prompt or ""
-            if json_mode and system:
-                system = system + "\n\nIMPORTANT: You MUST respond with ONLY a valid JSON object."
             
             params = {
                 "model": self.model_name,
@@ -283,6 +297,17 @@ class AnthropicBatchAPI:
             
             if system:
                 params["system"] = system
+            
+            # Use structured output for JSON mode
+            if json_mode:
+                params["response_format"] = {
+                    "type": "json_schema",
+                    "json_schema": {
+                        "name": "answer_response",
+                        "strict": True,
+                        "schema": json_schema
+                    }
+                }
             
             batch_requests.append({
                 "custom_id": req.custom_id,
@@ -796,6 +821,10 @@ class BatchRunner:
     def get_status(self, batch_id: str) -> BatchStatus:
         """Get current batch status."""
         return self.api.get_status(batch_id)
+    
+    def get_results(self, batch_id: str) -> List[BatchResult]:
+        """Get batch results (for completed batches)."""
+        return self.api.get_results(batch_id)
     
     def wait_for_completion(
         self,

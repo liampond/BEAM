@@ -280,15 +280,17 @@ class AnthropicProvider(BaseLLMProvider):
     """
     Anthropic Claude provider.
     
-    JSON Mode: Prompt-based (Claude doesn't have API-level JSON mode,
-               but follows instructions very well)
+    JSON Mode: Uses structured outputs beta (response_format with json_schema)
     Batch API: Supported via Message Batches API
     """
     
     def __init__(self, model_name: str = "claude-sonnet-4-20250514", **kwargs):
         super().__init__(model_name, **kwargs)
         import anthropic
-        self.client = anthropic.Anthropic()
+        # Use beta header for structured outputs
+        self.client = anthropic.Anthropic(
+            default_headers={"anthropic-beta": "structured-outputs-2025-11-13"}
+        )
     
     @property
     def provider_name(self) -> str:
@@ -296,8 +298,7 @@ class AnthropicProvider(BaseLLMProvider):
     
     @property
     def supports_json_mode(self) -> bool:
-        # Claude follows JSON instructions very reliably via prompt
-        # We'll enhance the system prompt when json_mode=True
+        # Now uses native structured outputs
         return True
     
     @property
@@ -311,12 +312,6 @@ class AnthropicProvider(BaseLLMProvider):
         json_mode: bool = False,
         **kwargs
     ) -> Tuple[str, Dict[str, Any]]:
-        # For Claude, we enhance system prompt for JSON mode
-        effective_system = system_prompt or ""
-        if json_mode and effective_system:
-            # Add JSON enforcement to system prompt
-            effective_system = effective_system + "\n\nIMPORTANT: You MUST respond with ONLY a valid JSON object. No other text."
-        
         call_params = {
             "model": self.model_name,
             "max_tokens": kwargs.get("max_tokens", self.max_tokens),
@@ -324,8 +319,30 @@ class AnthropicProvider(BaseLLMProvider):
             "messages": [{"role": "user", "content": prompt}],
         }
         
-        if effective_system:
-            call_params["system"] = effective_system
+        if system_prompt:
+            call_params["system"] = system_prompt
+        
+        # Use structured outputs for JSON mode (via extra_body for beta feature)
+        if json_mode:
+            call_params["extra_body"] = {
+                "response_format": {
+                    "type": "json_schema",
+                    "json_schema": {
+                        "name": "answer_response",
+                        "strict": True,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "answer": {
+                                    "type": "string",
+                                    "description": "The answer to the question"
+                                }
+                            },
+                            "required": ["answer"]
+                        }
+                    }
+                }
+            }
         
         response = self.client.messages.create(**call_params)
         
