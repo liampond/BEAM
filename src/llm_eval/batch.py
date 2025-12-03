@@ -297,7 +297,8 @@ class AnthropicBatchAPI:
                     "description": "The answer to the question"
                 }
             },
-            "required": ["answer"]
+            "required": ["answer"],
+            "additionalProperties": False
         }
         
         for req in requests:
@@ -314,14 +315,11 @@ class AnthropicBatchAPI:
                 params["system"] = system
             
             # Use structured output for JSON mode
+            # Note: Anthropic uses "output_format" (not "response_format")
             if json_mode:
-                params["response_format"] = {
+                params["output_format"] = {
                     "type": "json_schema",
-                    "json_schema": {
-                        "name": "answer_response",
-                        "strict": True,
-                        "schema": json_schema
-                    }
+                    "schema": json_schema
                 }
             
             batch_requests.append({

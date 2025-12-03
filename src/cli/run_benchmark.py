@@ -44,9 +44,7 @@ from dotenv import load_dotenv
 
 from core import extract_passage
 from core.db_utils import get_connection
-from llm import runner as llm_runner
-from llm import evaluator
-from llm.integration.base import get_llm_provider
+from llm_eval.providers import get_provider as get_llm_provider
 
 
 def load_config(config_path: str = "config.yaml") -> Dict[str, Any]:
@@ -170,6 +168,22 @@ def extract_answer_from_response(response_text: str, question_type: Optional[str
     return answer.strip()
 
 
+def evaluate_response(expected: str, extracted: str, question_type: Optional[str] = None) -> tuple:
+    """Simple evaluation: compare expected and extracted answers.
+    
+    Returns:
+        (is_correct, score) tuple
+    """
+    # Normalize both answers
+    expected_norm = str(expected).strip().lower()
+    extracted_norm = str(extracted).strip().lower()
+    
+    is_correct = expected_norm == extracted_norm
+    score = 1.0 if is_correct else 0.0
+    
+    return is_correct, score
+
+
 def save_response(response_data: Dict[str, Any], config: Dict[str, Any]):
     """Save response to file system."""
     output_config = config['output']
@@ -281,7 +295,7 @@ def run_single_test(test_case: Dict[str, Any],
     
     # Evaluate
     expected_answer = test_case['correct_answer']
-    is_correct, score = evaluator.evaluate_response(
+    is_correct, score = evaluate_response(
         expected_answer, 
         extracted_answer,
         question_type=test_case['question_type']

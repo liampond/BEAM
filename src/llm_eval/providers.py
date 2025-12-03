@@ -337,29 +337,26 @@ class AnthropicProvider(BaseLLMProvider):
         if system_prompt:
             call_params["system"] = system_prompt
         
-        # Use structured outputs for JSON mode (via extra_body for beta feature)
+        # Use structured outputs for JSON mode via beta client
         if json_mode:
-            call_params["extra_body"] = {
-                "response_format": {
-                    "type": "json_schema",
-                    "json_schema": {
-                        "name": "answer_response",
-                        "strict": True,
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "answer": {
-                                    "type": "string",
-                                    "description": "The answer to the question"
-                                }
-                            },
-                            "required": ["answer"]
+            call_params["betas"] = ["structured-outputs-2025-11-13"]
+            call_params["output_format"] = {
+                "type": "json_schema",
+                "schema": {
+                    "type": "object",
+                    "properties": {
+                        "answer": {
+                            "type": "string",
+                            "description": "The answer to the question"
                         }
-                    }
+                    },
+                    "required": ["answer"],
+                    "additionalProperties": False
                 }
             }
-        
-        response = self.client.messages.create(**call_params)
+            response = self.client.beta.messages.create(**call_params)
+        else:
+            response = self.client.messages.create(**call_params)
         
         text = ""
         if response.content:
