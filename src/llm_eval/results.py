@@ -238,38 +238,23 @@ class ResultsManager:
             self._save_single_to_database(result)
     
     def _save_single_to_database(self, result: TestResult):
-        """Save a single result to database."""
+        """Save a single result to the llm_responses table."""
         db_path = self.config.project_root / "benchmark.db"
         conn = sqlite3.connect(db_path)
         cursor = conn.cursor()
         
-        run_id = self.output_dir.name
-        
+        # Use INSERT OR REPLACE to handle duplicates (same question/passage/format/model)
         cursor.execute("""
-            INSERT INTO llm_responses 
-            (question_id, passage_id, format, llm_model, llm_provider,
-             expected_answer, extracted_answer, raw_response, is_correct,
-             success, error, response_time, input_tokens, output_tokens,
-             prompt, run_id, run_number, timestamp)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            INSERT OR REPLACE INTO llm_responses 
+            (question_id, passage_id, format, model, extracted_answer, is_correct, timestamp)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
         """, (
             result.question_id,
             result.passage_id,
             result.format,
             result.model_name,
-            result.provider,
-            result.expected_answer,
             result.extracted_answer,
-            result.raw_response,
             result.is_correct,
-            result.success,
-            result.error,
-            result.duration_seconds,
-            result.input_tokens,
-            result.output_tokens,
-            result.prompt,
-            run_id,
-            result.run_number,
             result.timestamp,
         ))
         

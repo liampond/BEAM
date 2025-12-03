@@ -15,14 +15,14 @@ filters:
   # Encoding formats to test
   # Options: abc, humdrum, mei, musicxml
   formats:
-    - abc
+    - mei
   
   # Only run verified questions
   verified_only: false
   
   # Filter by passage length (number of measures)
   # Options: [1] for 1-bar, [8] for 8-bar, [1, 8] for both, null for all
-  num_measures: null
+  num_measures: [1]  # 1-bar passages only
   
   # Filter by specific passages
   # Example: ["P-001", "P-002", "P-003"], null for all
@@ -50,7 +50,7 @@ models:
   # OpenAI
   - provider: openai
     name: gpt-5.1-2025-11-13
-    enabled: false
+    enabled: true
     use_batch_api: true  # Set to true for 50% cost savings
   
   # Anthropic Claude
@@ -62,7 +62,7 @@ models:
   # Google Gemini
   - provider: google
     name: gemini-3-pro-preview
-    enabled: true  # Retrying failed tests
+    enabled: false
     use_batch_api: true  # 50% cost savings, higher rate limits
     temperature: 1.0  # Gemini 3 performs best with temperature 1.0
   
@@ -70,6 +70,7 @@ models:
   - provider: alibaba
     name: qwen3-max
     enabled: false
+    use_batch_api: false  # Run synchronously (batch API doesn't support qwen3-max)
 
   # Local models (HuggingFace Transformers)
   # Requires: pip install transformers torch accelerate
@@ -107,8 +108,8 @@ output:
   
   # Resumption settings
   # Set resume_run_id to continue a previous run (e.g., "20251127_145448")
-  resume_run_id: 20251127_145448    # Run ID to resume (null = start fresh)
-  retry_failed: true     # Retry tests that previously failed (success: false)
+  resume_run_id: null    # Start fresh run for Gemini with temperature 1.0
+  retry_failed: false    # Not resuming, starting fresh
   
   # What to save
   save_prompts: true     # Save full prompts sent to LLM
@@ -132,7 +133,7 @@ prompt:
 # EXECUTION SETTINGS
 # ============================================================================
 execution:
-  runs_per_question: 3   # Number of times to run each question (for consistency)
+  runs_per_question: 1   # Number of times to run each question (for consistency)
   concurrency: 0         # 0 = sequential
   retry_on_failure: true
   max_retries: 3
