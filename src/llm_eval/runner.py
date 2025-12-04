@@ -292,10 +292,24 @@ class BenchmarkRunner:
             temperature=temperature,
         )
         
+        # Build batch metadata from config for tracking
+        batch_metadata = {
+            "format": self.config.filters.formats[0] if self.config.filters.formats else "unknown",
+            "num_measures": self.config.filters.num_measures[0] if self.config.filters.num_measures else "all",
+        }
+        # Add question range from config if specified
+        if self.config.filters.question_ids:
+            q_ids = sorted(self.config.filters.question_ids)
+            if len(q_ids) == 1:
+                batch_metadata["question_range"] = q_ids[0]
+            else:
+                batch_metadata["question_range"] = f"{q_ids[0]}-to-{q_ids[-1]}"
+        
         # Submit batch
         batch_id = batch_runner.submit(
             batch_requests,
             json_mode=self.config.prompt.enforce_json,
+            batch_metadata=batch_metadata,
         )
         print(f"  Batch submitted: {batch_id}")
         

@@ -90,13 +90,69 @@ class OpenAIBatchAPI:
         self.max_tokens = max_tokens
         self.temperature = temperature
     
+    def _build_batch_description(
+        self,
+        requests: List[BatchRequest],
+        batch_metadata: Optional[Dict[str, Any]] = None,
+    ) -> str:
+        """
+        Build a descriptive string for the batch.
+        
+        Uses batch_metadata if provided, otherwise parses custom_ids as fallback.
+        Custom IDs are formatted as "Q-XXX_format_Nbar" (e.g., "Q-001_abc_1-bar")
+        
+        Returns description like: "abc_1bar_Q-001-to-Q-100"
+        """
+        # Use passed metadata if available
+        if batch_metadata:
+            format_name = batch_metadata.get("format", "unknown")
+            num_measures = batch_metadata.get("num_measures", "?")
+            passage_len = f"{num_measures}bar"
+            
+            # Get question range from metadata or fall through to compute
+            question_range = batch_metadata.get("question_range")
+            if question_range:
+                return f"{format_name}_{passage_len}_{question_range}"
+        else:
+            # Fallback: Parse custom_ids
+            if not requests:
+                return "empty-batch"
+            
+            first_id = requests[0].custom_id
+            parts = first_id.split('_')
+            format_name = parts[1] if len(parts) > 1 else "unknown"
+            passage_len = parts[2] if len(parts) > 2 else "unknown"
+            passage_len = passage_len.replace('-', '')
+        
+        # Compute question range from requests
+        question_ids = []
+        for req in requests:
+            req_parts = req.custom_id.split('_')
+            if req_parts:
+                question_ids.append(req_parts[0])
+        
+        question_ids_sorted = sorted(question_ids)
+        first_q = question_ids_sorted[0] if question_ids_sorted else "Q-???"
+        last_q = question_ids_sorted[-1] if question_ids_sorted else "Q-???"
+        
+        if first_q == last_q:
+            return f"{format_name}_{passage_len}_{first_q}"
+        else:
+            return f"{format_name}_{passage_len}_{first_q}-to-{last_q}"
+    
     def submit_batch(
         self,
         requests: List[BatchRequest],
         json_mode: bool = True,
+        batch_metadata: Optional[Dict[str, Any]] = None,
     ) -> str:
         """
         Submit batch of requests.
+        
+        Args:
+            requests: List of BatchRequest objects
+            json_mode: Whether to request JSON output
+            batch_metadata: Optional metadata (format, num_measures, question_range)
         
         Returns:
             batch_id for tracking
@@ -162,11 +218,15 @@ class OpenAIBatchAPI:
                     purpose="batch"
                 )
             
-            # Create batch
+            # Build descriptive metadata
+            batch_desc = self._build_batch_description(requests, batch_metadata)
+
+            # Create batch with metadata for tracking
             batch = self.client.batches.create(
                 input_file_id=file_response.id,
                 endpoint="/v1/chat/completions",
                 completion_window="24h",
+                metadata={"description": batch_desc},
             )
             
             return batch.id
@@ -279,9 +339,15 @@ class AnthropicBatchAPI:
         self,
         requests: List[BatchRequest],
         json_mode: bool = True,
+        batch_metadata: Optional[Dict[str, Any]] = None,
     ) -> str:
         """
         Submit batch of requests.
+        
+        Args:
+            requests: List of BatchRequest objects
+            json_mode: Whether to request JSON output
+            batch_metadata: Optional metadata (not used by Anthropic, but kept for API consistency)
         
         Returns:
             batch_id for tracking
@@ -425,13 +491,71 @@ class GoogleBatchAPI:
         self.max_tokens = max_tokens
         self.temperature = temperature
     
+    def _build_display_name(
+        self,
+        requests: List[BatchRequest],
+        batch_metadata: Optional[Dict[str, Any]] = None,
+    ) -> str:
+        """
+        Build a descriptive display_name for the batch.
+        
+        Uses batch_metadata if provided, otherwise parses custom_ids as fallback.
+        Custom IDs are formatted as "Q-XXX_format_Nbar" (e.g., "Q-001_abc_1-bar")
+        
+        Returns display_name like: "abc_1bar_Q-001-to-Q-100"
+        """
+        # Use passed metadata if available
+        if batch_metadata:
+            format_name = batch_metadata.get("format", "unknown")
+            num_measures = batch_metadata.get("num_measures", "?")
+            passage_len = f"{num_measures}bar"
+            
+            # Get question range from metadata or fall through to compute
+            question_range = batch_metadata.get("question_range")
+            if question_range:
+                return f"{format_name}_{passage_len}_{question_range}"
+        else:
+            # Fallback: Parse custom_ids
+            if not requests:
+                return "empty-batch"
+            
+            first_id = requests[0].custom_id
+            parts = first_id.split('_')
+            format_name = parts[1] if len(parts) > 1 else "unknown"
+            passage_len = parts[2] if len(parts) > 2 else "unknown"
+            passage_len = passage_len.replace('-', '')  # "1-bar" -> "1bar"
+        
+        # Extract question IDs to determine range
+        question_ids = []
+        for req in requests:
+            req_parts = req.custom_id.split('_')
+            if req_parts:
+                question_ids.append(req_parts[0])  # e.g., "Q-001"
+        
+        # Sort to get first and last
+        question_ids_sorted = sorted(question_ids)
+        first_q = question_ids_sorted[0] if question_ids_sorted else "Q-???"
+        last_q = question_ids_sorted[-1] if question_ids_sorted else "Q-???"
+        
+        # Build display name
+        if first_q == last_q:
+            return f"{format_name}_{passage_len}_{first_q}"
+        else:
+            return f"{format_name}_{passage_len}_{first_q}-to-{last_q}"
+    
     def submit_batch(
         self,
         requests: List[BatchRequest],
         json_mode: bool = True,
+        batch_metadata: Optional[Dict[str, Any]] = None,
     ) -> str:
         """
         Submit batch of requests using inline requests.
+        
+        Args:
+            requests: List of BatchRequest objects
+            json_mode: Whether to request JSON output
+            batch_metadata: Optional metadata (format, num_measures, question_range)
         
         For small batches (<20MB), inline requests are simpler.
         For larger batches, we'd use file upload.
@@ -494,11 +618,14 @@ class GoogleBatchAPI:
         # We'll store the mapping and match by order.
         self._request_ids = [req.custom_id for req in requests]
         
+        # Build descriptive display_name
+        display_name = self._build_display_name(requests, batch_metadata)
+        
         batch_job = self.client.batches.create(
             model=f"models/{self.model_name}",
             src=inline_requests,
             config={
-                'display_name': f"benchmark-batch-{len(requests)}-requests",
+                'display_name': display_name,
             },
         )
         
@@ -670,9 +797,15 @@ class AlibabaBatchAPI:
         self,
         requests: List[BatchRequest],
         json_mode: bool = True,
+        batch_metadata: Optional[Dict[str, Any]] = None,
     ) -> str:
         """
         Submit batch of requests.
+        
+        Args:
+            requests: List of BatchRequest objects
+            json_mode: Whether to request JSON output
+            batch_metadata: Optional metadata (not fully used by Alibaba, but kept for API consistency)
         
         Returns:
             batch_id for tracking
@@ -859,9 +992,19 @@ class BatchRunner:
         self,
         requests: List[BatchRequest],
         json_mode: bool = True,
+        batch_metadata: Optional[Dict[str, Any]] = None,
     ) -> str:
-        """Submit batch and return batch ID."""
-        return self.api.submit_batch(requests, json_mode=json_mode)
+        """Submit batch and return batch ID.
+        
+        Args:
+            requests: List of BatchRequest objects to submit
+            json_mode: Whether to request JSON output format
+            batch_metadata: Optional metadata about the batch, e.g.:
+                - format: "abc", "humdrum", "mei", "musicxml"
+                - num_measures: 1 or 8
+                - question_range: "Q-001 to Q-100"
+        """
+        return self.api.submit_batch(requests, json_mode=json_mode, batch_metadata=batch_metadata)
     
     def get_status(self, batch_id: str) -> BatchStatus:
         """Get current batch status."""
