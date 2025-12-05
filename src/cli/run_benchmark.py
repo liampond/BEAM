@@ -59,10 +59,10 @@ def load_api_keys():
     load_dotenv()
     
     keys = {
-        'ANTHROPIC_API_KEY': os.getenv('CLAUDE_API_KEY'),      # .env uses CLAUDE_API_KEY
+        'ANTHROPIC_API_KEY': os.getenv('ANTHROPIC_API_KEY'),
         'OPENAI_API_KEY': os.getenv('OPENAI_API_KEY'),
-        'GOOGLE_API_KEY': os.getenv('GEMINI_API_KEY'),         # .env uses GEMINI_API_KEY
-        'DASHSCOPE_API_KEY': os.getenv('DASHSCOPE_API_KEY'),   # Alibaba Cloud / Qwen
+        'GOOGLE_API_KEY': os.getenv('GOOGLE_API_KEY'),
+        'DASHSCOPE_API_KEY': os.getenv('DASHSCOPE_API_KEY'),
     }
     
     # Set them in environment for the libraries to use
@@ -378,7 +378,7 @@ def main():
     print("\nFetching test cases from database...")
     test_cases = fetch_test_cases(
         question_ids=question_ids,
-        formats=config['execution']['formats']
+        formats=config['filters']['formats']
     )
     print(f"Found {len(test_cases)} test cases")
     

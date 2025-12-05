@@ -311,9 +311,9 @@ class BenchmarkConfig:
         load_dotenv(self.project_root / ".env")
         
         keys = {
-            'ANTHROPIC_API_KEY': os.getenv('ANTHROPIC_API_KEY') or os.getenv('CLAUDE_API_KEY'),
+            'ANTHROPIC_API_KEY': os.getenv('ANTHROPIC_API_KEY'),
             'OPENAI_API_KEY': os.getenv('OPENAI_API_KEY'),
-            'GOOGLE_API_KEY': os.getenv('GOOGLE_API_KEY') or os.getenv('GEMINI_API_KEY'),
+            'GOOGLE_API_KEY': os.getenv('GOOGLE_API_KEY'),
             'DASHSCOPE_API_KEY': os.getenv('DASHSCOPE_API_KEY'),
         }
         

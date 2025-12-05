@@ -12,9 +12,11 @@ submission because:
 Usage:
     python scripts/submit_all_batches.py
     python scripts/submit_all_batches.py --run-id 20251202_141834
+    python scripts/submit_all_batches.py --log-prompts  # Save prompts before submission
 """
 
 import argparse
+import hashlib
 import json
 import os
 import sys
@@ -30,11 +32,95 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 from src.llm_eval.config import BenchmarkConfig, ModelConfig
 from src.llm_eval.query import TestCaseQuery, TestCase, build_prompt
 from src.llm_eval.batch import BatchRunner, BatchRequest, BatchStatus, BatchResult
+from src.llm_eval.batch_storage import BatchRequestStorage
 from src.llm_eval.results import ResultsManager, TestResult
 from src.llm_eval.providers import LLMResponse
 
 
 import re
+
+
+def compute_content_fingerprint(content: str) -> dict:
+    """Compute fingerprint of passage content for verification."""
+    note_count = content.count('<note')
+    rest_count = content.count('<rest')
+    measure_matches = re.findall(r'<measure number="(\d+)"', content)
+    measures = f"{measure_matches[0]}-{measure_matches[-1]}" if measure_matches else "unknown"
+    content_hash = hashlib.md5(content.encode()).hexdigest()[:12]
+    
+    return {
+        'notes': note_count,
+        'rests': rest_count,
+        'measures': measures,
+        'hash': content_hash,
+        'length': len(content),
+    }
+
+
+def log_batch_prompts(
+    batch_requests: List[BatchRequest],
+    test_cases: List[TestCase],
+    output_dir: Path,
+    batch_name: str,
+) -> Path:
+    """
+    Log all prompts being submitted for verification and debugging.
+    
+    Returns path to the log file.
+    """
+    log_path = output_dir / f"prompts_{batch_name}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+    
+    # Build test case lookup by custom_id
+    tc_map = {tc.custom_id: tc for tc in test_cases}
+    
+    prompt_log = {
+        'timestamp': datetime.now().isoformat(),
+        'batch_name': batch_name,
+        'total_requests': len(batch_requests),
+        'requests': [],
+    }
+    
+    for i, req in enumerate(batch_requests):
+        tc = tc_map.get(req.custom_id)
+        
+        entry = {
+            'index': i,
+            'custom_id': req.custom_id,
+            'question_id': tc.question_id if tc else 'unknown',
+            'passage_id': tc.passage_id if tc else 'unknown',
+            'question_type_id': tc.question_type_id if tc else 0,
+            'expected_answer': tc.expected_answer if tc else 'unknown',
+            'prompt_length': len(req.prompt),
+        }
+        
+        # Add content fingerprint for verification
+        if tc and tc.passage_content:
+            entry['content_fingerprint'] = compute_content_fingerprint(tc.passage_content)
+        
+        # Add prompt preview (first 300 chars after passage content)
+        # Find where the passage ends and question begins
+        prompt_preview = req.prompt[-500:] if len(req.prompt) > 500 else req.prompt
+        entry['prompt_tail'] = prompt_preview
+        
+        prompt_log['requests'].append(entry)
+    
+    # Verify alignment - check that passage IDs are in expected order
+    passage_order = []
+    for entry in prompt_log['requests']:
+        if entry['question_type_id'] == 1:  # Q1 marks new passage
+            passage_order.append(entry['passage_id'])
+    
+    prompt_log['passage_order'] = passage_order
+    prompt_log['unique_passages'] = len(set(passage_order))
+    
+    # Save log
+    with open(log_path, 'w') as f:
+        json.dump(prompt_log, f, indent=2)
+    
+    print(f"  📝 Logged {len(batch_requests)} prompts to {log_path.name}")
+    print(f"     Passages: {passage_order[0]} to {passage_order[-1]} ({len(passage_order)} total)")
+    
+    return log_path
 
 
 def extract_answer(response_text: str) -> str:
@@ -101,12 +187,14 @@ def submit_single_batch(
     config: BenchmarkConfig,
     results_manager: ResultsManager,
     run_number: int = 1,
-) -> Tuple[str, str, str, int]:
+    batch_metadata: Optional[Dict[str, Any]] = None,
+) -> Tuple[str, str, str, int, Optional[List[str]]]:
     """
     Submit a single batch for a model.
     
     Returns:
-        Tuple of (model_name, batch_id, provider, run_number)
+        Tuple of (model_name, batch_id, provider, run_number, request_ids)
+        request_ids is only populated for Google batches
     """
     # Use model-specific temperature or fallback to config default
     temperature = model_config.temperature if model_config.temperature is not None else config.api_settings.temperature
@@ -121,13 +209,30 @@ def submit_single_batch(
     batch_id = batch_runner.submit(
         batch_requests,
         json_mode=config.prompt.enforce_json,
+        batch_metadata=batch_metadata,
     )
     
-    # Save batch ID with run number
-    batch_key = f"{model_config.name}_run{run_number}"
-    save_batch_id_extended(results_manager, model_config, batch_id, run_number)
+    # For Google batches, get the request_ids for alignment
+    request_ids = None
+    if model_config.provider == "google":
+        request_ids = batch_runner.get_submitted_request_ids(batch_id)
+        
+        # Save to BatchRequestStorage for persistent cross-session access
+        storage = BatchRequestStorage(results_manager.output_dir)
+        storage.save(
+            batch_id=batch_id,
+            request_ids=request_ids,
+            provider=model_config.provider,
+            model=model_config.name,
+            format=batch_metadata.get("format") if batch_metadata else None,
+            num_measures=batch_metadata.get("num_measures") if batch_metadata else None,
+            question_range=batch_metadata.get("question_range") if batch_metadata else None,
+        )
     
-    return (model_config.name, batch_id, model_config.provider, run_number)
+    # Also save to batch_ids.json for backward compatibility
+    save_batch_id_extended(results_manager, model_config, batch_id, run_number, request_ids)
+    
+    return (model_config.name, batch_id, model_config.provider, run_number, request_ids)
 
 
 def save_batch_id_extended(
@@ -135,8 +240,12 @@ def save_batch_id_extended(
     model_config: ModelConfig,
     batch_id: str,
     run_number: int,
+    request_ids: Optional[List[str]] = None,
 ):
-    """Save batch ID with run number for resumption."""
+    """Save batch ID with run number for resumption.
+    
+    For Google batches, also saves request_ids to enable response alignment.
+    """
     batch_ids_path = results_manager.output_dir / "batch_ids.json"
     
     # Load existing
@@ -155,6 +264,10 @@ def save_batch_id_extended(
         "run_number": run_number,
         "timestamp": datetime.now().isoformat(),
     }
+    
+    # For Google batches, save request_ids for alignment
+    if request_ids is not None:
+        batch_ids[key]["request_ids"] = request_ids
     
     # Save
     with open(batch_ids_path, 'w') as f:
@@ -193,9 +306,21 @@ def retrieve_batch_results(
     model_name: str,
     temperature: float,
     max_tokens: int,
+    output_dir: Optional[Path] = None,
+    request_ids: Optional[List[str]] = None,
 ) -> Tuple[str, List[BatchResult]]:
     """
     Retrieve results for a completed batch.
+    
+    Args:
+        key: Batch key for tracking
+        batch_id: The batch ID
+        provider: API provider
+        model_name: Model name
+        temperature: Temperature setting
+        max_tokens: Max tokens setting
+        output_dir: Output directory to search for request_ids (for Google)
+        request_ids: Pre-loaded request_ids (for Google), if available
     
     Returns:
         Tuple of (key, results)
@@ -207,7 +332,22 @@ def retrieve_batch_results(
         temperature=temperature,
     )
     
-    results = batch_runner.get_results(batch_id)
+    # For Google batches, we need request_ids for alignment
+    if provider == "google" and request_ids is None and output_dir is not None:
+        storage = BatchRequestStorage(output_dir)
+        request_ids = storage.get_request_ids(batch_id)
+        if request_ids is None:
+            # Try searching across all output directories
+            from src.llm_eval.batch_storage import find_request_ids_for_batch
+            request_ids = find_request_ids_for_batch(batch_id)
+        
+        if request_ids is None:
+            raise ValueError(
+                f"Cannot retrieve Google batch {batch_id} results: request_ids not found. "
+                "The batch may have been submitted before request_ids tracking was implemented."
+            )
+    
+    results = batch_runner.get_results(batch_id, request_ids=request_ids)
     return (key, results)
 
 
@@ -220,8 +360,28 @@ def process_batch_results(
     config: BenchmarkConfig,
     results_manager: ResultsManager,
 ) -> List[TestResult]:
-    """Process batch results into TestResults and save them."""
+    """Process batch results into TestResults and save them.
+    
+    Includes alignment validation to detect misaligned responses before saving.
+    """
     results = []
+    
+    # Alignment validation: check that custom_ids match test cases
+    matched_count = 0
+    unmatched_ids = []
+    for batch_result in batch_results:
+        if batch_result.custom_id in test_case_map:
+            matched_count += 1
+        else:
+            unmatched_ids.append(batch_result.custom_id)
+    
+    match_rate = matched_count / len(batch_results) if batch_results else 0
+    
+    if match_rate < 0.95:  # Alert if less than 95% match
+        print(f"\n⚠️  ALIGNMENT WARNING for {model_config.name}:")
+        print(f"    Only {matched_count}/{len(batch_results)} ({match_rate:.1%}) responses matched test cases")
+        print(f"    First unmatched IDs: {unmatched_ids[:5]}")
+        print(f"    This may indicate request_ids misalignment!")
     
     for batch_result in batch_results:
         test_case = test_case_map.get(batch_result.custom_id)
@@ -373,6 +533,12 @@ def main():
             ))
         print(f"Prepared {len(batch_requests)} requests per batch")
         
+        # Log prompts for verification (always do this now)
+        format_name = config.filters.formats[0] if config.filters.formats else 'unknown'
+        num_measures = config.filters.num_measures[0] if config.filters.num_measures else 'unknown'
+        batch_name = f"{format_name}_{num_measures}bar"
+        log_batch_prompts(batch_requests, test_cases, output_dir, batch_name)
+        
         # Figure out which batches to submit (model + run_number combinations)
         batches_to_submit = []
         for model in enabled_models:
@@ -406,15 +572,19 @@ def main():
                 for future in as_completed(futures):
                     model, run_num = futures[future]
                     try:
-                        model_name, batch_id, provider, _ = future.result()
+                        model_name, batch_id, provider, _, request_ids = future.result()
                         key = f"{model_name}_run{run_num}"
                         print(f"  ✓ {key}: {batch_id[:30]}...")
-                        existing_batches[key] = {
+                        batch_entry = {
                             "batch_id": batch_id,
                             "provider": provider,
                             "model_name": model_name,
                             "run_number": run_num,
                         }
+                        # Store request_ids for Google batches
+                        if request_ids:
+                            batch_entry["request_ids"] = request_ids
+                        existing_batches[key] = batch_entry
                     except Exception as e:
                         print(f"  ✗ {model.name}_run{run_num}: {e}")
     
@@ -479,6 +649,9 @@ def main():
                             model_config = next(m for m in enabled_models if m.name == model_name)
                             temperature = model_config.temperature if model_config.temperature is not None else config.api_settings.temperature
                             
+                            # For Google batches, try to get request_ids from storage
+                            stored_request_ids = batch_info.get("request_ids")
+                            
                             _, batch_results = retrieve_batch_results(
                                 key,
                                 batch_info["batch_id"],
@@ -486,6 +659,8 @@ def main():
                                 model_name,
                                 temperature,
                                 model_config.max_tokens or config.api_settings.max_tokens,
+                                output_dir=results_manager.output_dir,
+                                request_ids=stored_request_ids,
                             )
                             
                             # Process and save results

@@ -1,143 +1,270 @@
-# Music Encoding Benchmark Configuration
-#
-# This file controls what tests are run and how.
-# Modify the filters section to run different subsets of tests.
-#
-# FILTER LOGIC: All filters are AND'd together. For example, if you set
-# formats: [abc] AND passages: [P-001, P-002] AND question_types: [1, 2],
-# you'll get ABC questions of types 1 and 2 for passages P-001 and P-002.
-# If filters conflict (e.g., no questions match), you'll get 0 test cases.
-
-# ============================================================================
-# FILTERS - Control which test cases to run
-# ============================================================================
 filters:
-  # Encoding formats to test
-  # Options: abc, humdrum, mei, musicxml
   formats:
-    - mei
-  
-  # Only run verified questions
+  - musicxml
   verified_only: false
-  
-  # Filter by passage length (number of measures)
-  # Options: [1] for 1-bar, [8] for 8-bar, [1, 8] for both, null for all
-  num_measures: [1]  # 1-bar passages only
-  
-  # Filter by specific passages
-  # Example: ["P-001", "P-002", "P-003"], null for all
+  num_measures:
+  - 8
   passages: null
-  
-  # Filter by question IDs
-  # Example: ["Q-001", "Q-010", "Q-020"], null for all
-  question_ids: null
-  
-  # Filter by question type (1-9)
-  # 1: Note count (lower), 2: Note count (upper), 3: First pitch (upper)
-  # 4: Lowest pitch (lower), 5: Longest duration, 6: Pitch classes (lower)
-  # 7: Interval (upper), 8: Rest count, 9: First note duration (lower)
-  # Example: [1, 2, 3], null for all
+  question_ids:
+  - Q-415
+  - Q-416
+  - Q-417
+  - Q-418
+  - Q-419
+  - Q-420
+  - Q-421
+  - Q-422
+  - Q-423
+  - Q-424
+  - Q-425
+  - Q-426
+  - Q-427
+  - Q-428
+  - Q-429
+  - Q-430
+  - Q-431
+  - Q-432
+  - Q-433
+  - Q-434
+  - Q-435
+  - Q-436
+  - Q-437
+  - Q-438
+  - Q-439
+  - Q-440
+  - Q-441
+  - Q-442
+  - Q-443
+  - Q-444
+  - Q-445
+  - Q-446
+  - Q-447
+  - Q-448
+  - Q-449
+  - Q-450
+  - Q-451
+  - Q-452
+  - Q-453
+  - Q-454
+  - Q-455
+  - Q-456
+  - Q-457
+  - Q-458
+  - Q-459
+  - Q-460
+  - Q-461
+  - Q-462
+  - Q-463
+  - Q-464
+  - Q-465
+  - Q-466
+  - Q-467
+  - Q-468
+  - Q-469
+  - Q-470
+  - Q-471
+  - Q-472
+  - Q-473
+  - Q-474
+  - Q-475
+  - Q-476
+  - Q-477
+  - Q-478
+  - Q-479
+  - Q-480
+  - Q-481
+  - Q-482
+  - Q-483
+  - Q-484
+  - Q-485
+  - Q-486
+  - Q-487
+  - Q-488
+  - Q-489
+  - Q-490
+  - Q-491
+  - Q-492
+  - Q-493
+  - Q-494
+  - Q-495
+  - Q-496
+  - Q-497
+  - Q-498
+  - Q-499
+  - Q-500
+  - Q-501
+  - Q-502
+  - Q-503
+  - Q-504
+  - Q-505
+  - Q-506
+  - Q-507
+  - Q-508
+  - Q-509
+  - Q-510
+  - Q-511
+  - Q-512
+  - Q-513
+  - Q-514
+  - Q-515
+  - Q-516
+  - Q-517
+  - Q-518
+  - Q-519
+  - Q-520
+  - Q-521
+  - Q-522
+  - Q-523
+  - Q-524
+  - Q-525
+  - Q-526
+  - Q-527
+  - Q-528
+  - Q-529
+  - Q-530
+  - Q-531
+  - Q-532
+  - Q-533
+  - Q-534
+  - Q-535
+  - Q-536
+  - Q-537
+  - Q-538
+  - Q-539
+  - Q-540
+  - Q-541
+  - Q-542
+  - Q-543
+  - Q-544
+  - Q-545
+  - Q-546
+  - Q-547
+  - Q-548
+  - Q-549
+  - Q-550
+  - Q-551
+  - Q-552
+  - Q-553
+  - Q-554
+  - Q-555
+  - Q-556
+  - Q-557
+  - Q-558
+  - Q-559
+  - Q-560
+  - Q-561
+  - Q-562
+  - Q-563
+  - Q-564
+  - Q-565
+  - Q-566
+  - Q-567
+  - Q-568
+  - Q-569
+  - Q-570
+  - Q-571
+  - Q-572
+  - Q-573
+  - Q-574
+  - Q-575
+  - Q-576
+  - Q-577
+  - Q-578
+  - Q-579
+  - Q-580
+  - Q-581
+  - Q-582
+  - Q-583
+  - Q-584
+  - Q-585
+  - Q-586
+  - Q-587
+  - Q-588
+  - Q-589
+  - Q-590
+  - Q-591
+  - Q-592
+  - Q-593
+  - Q-594
+  - Q-595
+  - Q-596
+  - Q-597
+  - Q-598
+  - Q-599
+  - Q-600
+  - Q-601
+  - Q-602
+  - Q-603
+  - Q-604
+  - Q-605
+  - Q-606
+  - Q-607
+  - Q-608
+  - Q-609
+  - Q-610
+  - Q-611
+  - Q-612
+  - Q-613
+  - Q-614
+  - Q-615
+  - Q-616
+  - Q-617
   question_types: null
-  
-  # Limit number of test cases for testing/debugging (e.g., 5)
-  # null for no limit
   limit: null
-
-# ============================================================================
-# MODELS - LLM providers and models to test
-# ============================================================================
 models:
-  # OpenAI
-  - provider: openai
-    name: gpt-5.1-2025-11-13
-    enabled: true
-    use_batch_api: true  # Set to true for 50% cost savings
-  
-  # Anthropic Claude
-  - provider: anthropic
-    name: claude-sonnet-4-5
-    enabled: false
-    use_batch_api: true # Set to true for 50% cost savings
-  
-  # Google Gemini
-  - provider: google
-    name: gemini-3-pro-preview
-    enabled: false
-    use_batch_api: true  # 50% cost savings, higher rate limits
-    temperature: 1.0  # Gemini 3 performs best with temperature 1.0
-  
-  # Alibaba Qwen
-  - provider: alibaba
-    name: qwen3-max
-    enabled: false
-    use_batch_api: false  # Run synchronously (batch API doesn't support qwen3-max)
-
-  # Local models (HuggingFace Transformers)
-  # Requires: pip install transformers torch accelerate
-  - provider: transformers
-    name: microsoft/phi-4
-    enabled: false  # Very slow on CPU (~13 min per test case)
-
-# ============================================================================
-# API SETTINGS - Global defaults (can be overridden per model)
-# ============================================================================
+- provider: openai
+  name: gpt-5.1-2025-11-13
+  enabled: false
+  use_batch_api: true
+- provider: anthropic
+  name: claude-sonnet-4-5
+  enabled: false
+  use_batch_api: true
+- provider: google
+  name: gemini-3-pro-preview
+  enabled: true
+  use_batch_api: true
+  temperature: 1.0
+  max_tokens: 32768
+- provider: alibaba
+  name: qwen3-max
+  enabled: false
+  use_batch_api: false
+- provider: transformers
+  name: microsoft/phi-4
+  enabled: false
 api_settings:
-  temperature: 0.0      # Deterministic outputs
-  seed: 42              # Reproducibility
-  max_tokens: 16384     # Response length (high to avoid truncation)
-  timeout: 300          # 5 minutes per request
-  rate_limit_delay: 1.0 # Seconds between requests
-
-# ============================================================================
-# BATCH API SETTINGS
-# Only applies to models with use_batch_api: true
-# OpenAI, Anthropic, and Google support batch APIs (50% cost savings, higher rate limits)
-# ============================================================================
+  temperature: 0.0
+  seed: 42
+  max_tokens: 256
+  timeout: 300
+  rate_limit_delay: 1.0
 batch_settings:
-  batch_size: 100         # Requests per batch
-  check_interval: 60     # Seconds between status checks
-  max_wait_time: 86400   # Maximum wait time (24 hours for Gemini batch)
-  save_batch_ids: true   # Save batch IDs for resumption
-
-# ============================================================================
-# OUTPUT SETTINGS
-# ============================================================================
+  batch_size: 100
+  check_interval: 60
+  max_wait_time: 86400
+  save_batch_ids: true
 output:
-  base_dir: outputs      # Base output directory
-  run_id: null           # Custom run ID (null = auto-generate timestamp)
-  
-  # Resumption settings
-  # Set resume_run_id to continue a previous run (e.g., "20251127_145448")
-  resume_run_id: null    # Start fresh run for Gemini with temperature 1.0
-  retry_failed: false    # Not resuming, starting fresh
-  
-  # What to save
-  save_prompts: true     # Save full prompts sent to LLM
-  save_responses: true   # Save individual response files
-  save_metadata: true    # Save API metadata (tokens, timing)
-  save_to_database: true # Store results in llm_responses table
-  
-  # Summary formats
+  base_dir: outputs
+  run_id: null
+  resume_run_id: null
+  retry_failed: false
+  save_prompts: true
+  save_responses: true
+  save_metadata: true
+  save_to_database: true
   generate_csv_summary: true
   generate_json_summary: true
-
-# ============================================================================
-# PROMPT SETTINGS
-# ============================================================================
 prompt:
   system_prompt_file: prompts/system_prompt.txt
-  include_format_hint: true  # Add "[This is ABC notation]" hint
-  enforce_json: true         # Use API-level JSON mode where available
-
-# ============================================================================
-# EXECUTION SETTINGS
-# ============================================================================
+  include_format_hint: true
+  enforce_json: true
 execution:
-  runs_per_question: 1   # Number of times to run each question (for consistency)
-  concurrency: 0         # 0 = sequential
+  runs_per_question: 1
+  concurrency: 0
   retry_on_failure: true
   max_retries: 3
   retry_delay: 5.0
   show_progress: true
   verbose: false
-  dry_run: false         # Validate without calling APIs
+  dry_run: false

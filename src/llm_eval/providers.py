@@ -206,7 +206,7 @@ class OpenAIProvider(BaseLLMProvider):
     Batch API: Supported via /v1/batches endpoint
     """
     
-    def __init__(self, model_name: str = "gpt-4o", **kwargs):
+    def __init__(self, model_name: str = "gpt-5.1-2025-11-13", **kwargs):
         super().__init__(model_name, **kwargs)
         import openai
         self.client = openai.OpenAI()
@@ -299,7 +299,7 @@ class AnthropicProvider(BaseLLMProvider):
     Batch API: Supported via Message Batches API
     """
     
-    def __init__(self, model_name: str = "claude-sonnet-4-20250514", **kwargs):
+    def __init__(self, model_name: str = "claude-sonnet-4-5", **kwargs):
         super().__init__(model_name, **kwargs)
         import anthropic
         # Use beta header for structured outputs
@@ -384,7 +384,7 @@ class GoogleProvider(BaseLLMProvider):
     Batch API: Not supported
     """
     
-    def __init__(self, model_name: str = "gemini-2.0-flash", **kwargs):
+    def __init__(self, model_name: str = "gemini-3-pro-preview", **kwargs):
         super().__init__(model_name, **kwargs)
         import google.generativeai as genai
         genai.configure()
@@ -473,7 +473,7 @@ class AlibabaProvider(BaseLLMProvider):
     Batch API: Not supported
     """
     
-    def __init__(self, model_name: str = "qwen-max", **kwargs):
+    def __init__(self, model_name: str = "qwen3-max", **kwargs):
         super().__init__(model_name, **kwargs)
         import os
         self.api_key = os.getenv('DASHSCOPE_API_KEY')

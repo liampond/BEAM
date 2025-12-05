@@ -471,10 +471,15 @@ class GoogleBatchAPI:
     Uses the google-genai SDK to submit batch requests.
     Batch API provides 50% cost savings and higher rate limits.
     
+    IMPORTANT: Google's inline batch API returns responses in order but WITHOUT
+    custom_ids. We must track the submission order to align results with questions.
+    This is handled by storing request_ids in BatchRequestStorage.
+    
     Workflow:
         1. Create batch with inline requests or JSONL file
         2. Poll for completion (target: 24h, usually faster)
         3. Retrieve results from inline responses or output file
+        4. Align results using stored request_ids mapping
     """
     
     def __init__(self, model_name: str, max_tokens: int = 1024, temperature: float = 0.0):
@@ -482,14 +487,18 @@ class GoogleBatchAPI:
         import os
         
         # Get API key from environment
-        api_key = os.getenv('GOOGLE_API_KEY') or os.getenv('GEMINI_API_KEY')
+        api_key = os.getenv('GOOGLE_API_KEY')
         if not api_key:
-            raise ValueError("GOOGLE_API_KEY or GEMINI_API_KEY must be set for Google batch API")
+            raise ValueError("GOOGLE_API_KEY must be set for Google batch API")
         
         self.client = genai.Client(api_key=api_key)
         self.model_name = model_name
         self.max_tokens = max_tokens
         self.temperature = temperature
+        
+        # In-memory cache for request_ids (per-session backup)
+        # Primary storage is BatchRequestStorage on disk
+        self._request_ids_cache: Dict[str, List[str]] = {}
     
     def _build_display_name(
         self,
@@ -613,11 +622,6 @@ class GoogleBatchAPI:
             
             inline_requests.append(request_config)
         
-        # Submit batch with inline requests
-        # Note: For inline requests, we can't use custom_id directly.
-        # We'll store the mapping and match by order.
-        self._request_ids = [req.custom_id for req in requests]
-        
         # Build descriptive display_name
         display_name = self._build_display_name(requests, batch_metadata)
         
@@ -629,7 +633,34 @@ class GoogleBatchAPI:
             },
         )
         
-        return batch_job.name
+        batch_id = batch_job.name
+        
+        # Store request_ids in memory cache (backup for same-session retrieval)
+        request_ids = [req.custom_id for req in requests]
+        self._request_ids_cache[batch_id] = request_ids
+        
+        return batch_id
+    
+    def get_submitted_request_ids(self, batch_id: str) -> List[str]:
+        """
+        Get the request_ids that were submitted with a batch.
+        
+        This is needed for result alignment since Google's API doesn't
+        return custom_ids in responses.
+        
+        Returns:
+            List of custom_ids in submission order
+            
+        Raises:
+            ValueError if batch_id not found in cache
+        """
+        if batch_id not in self._request_ids_cache:
+            raise ValueError(
+                f"No request_ids found in cache for batch {batch_id}. "
+                "This batch may have been submitted in a different session. "
+                "Use BatchRequestStorage to load request_ids from disk."
+            )
+        return self._request_ids_cache[batch_id]
     
     def get_status(self, batch_id: str) -> BatchStatus:
         """Get current status of a batch."""
@@ -650,7 +681,9 @@ class GoogleBatchAPI:
         state_name = batch.state.name if hasattr(batch.state, 'name') else str(batch.state)
         status = state_map.get(state_name, 'processing')
         
-        total = len(self._request_ids) if hasattr(self, '_request_ids') else 0
+        # Use cached request_ids if available
+        request_ids = self._request_ids_cache.get(batch_id, [])
+        total = len(request_ids)
         completed = total if status == 'completed' else 0
         failed = total if status == 'failed' else 0
         
@@ -665,16 +698,40 @@ class GoogleBatchAPI:
             completed_at=None,
         )
     
-    def get_results(self, batch_id: str) -> List[BatchResult]:
-        """Retrieve results from completed batch."""
+    def get_results(self, batch_id: str, request_ids: Optional[List[str]] = None) -> List[BatchResult]:
+        """Retrieve results from completed batch.
+        
+        Args:
+            batch_id: The Google batch ID
+            request_ids: List of custom_ids in submission order. REQUIRED for
+                        alignment since Google's inline responses don't include
+                        custom_ids. For batches submitted in the same session,
+                        pass None to use the in-memory cache. For batches from
+                        previous sessions, load from BatchRequestStorage and pass
+                        explicitly.
+                        
+        Raises:
+            ValueError: If request_ids is None and batch not in cache
+        """
         batch = self.client.batches.get(name=batch_id)
+        
+        # Try passed request_ids first, then fall back to in-memory cache
+        if request_ids is None:
+            request_ids = self._request_ids_cache.get(batch_id, [])
+        
+        if not request_ids:
+            raise ValueError(
+                f"No request_ids found for batch {batch_id}. "
+                "This batch may have been submitted in a different session. "
+                "Load request_ids from batch_ids.json and pass them to get_results()."
+            )
         
         results = []
         
         # Check for inline responses
         if batch.dest and batch.dest.inlined_responses:
             for i, inline_response in enumerate(batch.dest.inlined_responses):
-                custom_id = self._request_ids[i] if i < len(self._request_ids) else f"request-{i}"
+                custom_id = request_ids[i] if i < len(request_ids) else f"request-{i}"
                 
                 if inline_response.response:
                     try:
@@ -720,7 +777,7 @@ class GoogleBatchAPI:
                     continue
                 
                 data = json.loads(line)
-                custom_id = data.get('key', self._request_ids[i] if i < len(self._request_ids) else f"request-{i}")
+                custom_id = data.get('key', request_ids[i] if i < len(request_ids) else f"request-{i}")
                 
                 if 'response' in data and data['response']:
                     try:
@@ -965,6 +1022,14 @@ class BatchRunner:
         runner = BatchRunner(provider="openai", model_name="gpt-4o")
         batch_id = runner.submit(requests)
         results = runner.wait_for_completion(batch_id, check_interval=60)
+        
+    For Google batches, you must save request_ids after submission and pass
+    them when retrieving results:
+        
+        batch_id = runner.submit(requests)
+        request_ids = runner.get_submitted_request_ids(batch_id)  # Save this!
+        # ... later ...
+        results = runner.get_results(batch_id, request_ids=request_ids)
     """
     
     def __init__(
@@ -1003,15 +1068,51 @@ class BatchRunner:
                 - format: "abc", "humdrum", "mei", "musicxml"
                 - num_measures: 1 or 8
                 - question_range: "Q-001 to Q-100"
+                
+        Note: For Google batches, call get_submitted_request_ids() after this
+              and save the result for later retrieval.
         """
         return self.api.submit_batch(requests, json_mode=json_mode, batch_metadata=batch_metadata)
+    
+    def get_submitted_request_ids(self, batch_id: str) -> List[str]:
+        """
+        Get the request_ids that were just submitted with a batch.
+        
+        This is REQUIRED for Google batches and should be called immediately
+        after submit() to save the request order for later result alignment.
+        
+        For other providers, this returns an empty list (not needed).
+        
+        Args:
+            batch_id: The batch ID returned from submit()
+            
+        Returns:
+            List of custom_ids in submission order
+        """
+        if self.provider == "google":
+            return self.api.get_submitted_request_ids(batch_id)
+        return []
     
     def get_status(self, batch_id: str) -> BatchStatus:
         """Get current batch status."""
         return self.api.get_status(batch_id)
     
-    def get_results(self, batch_id: str) -> List[BatchResult]:
-        """Get batch results (for completed batches)."""
+    def get_results(
+        self,
+        batch_id: str,
+        request_ids: Optional[List[str]] = None,
+    ) -> List[BatchResult]:
+        """Get batch results (for completed batches).
+        
+        Args:
+            batch_id: The batch ID
+            request_ids: For Google batches only - the list of custom_ids in
+                        submission order. Required for batches from previous
+                        sessions. Pass None for same-session batches or other
+                        providers.
+        """
+        if self.provider == "google":
+            return self.api.get_results(batch_id, request_ids=request_ids)
         return self.api.get_results(batch_id)
     
     def wait_for_completion(
@@ -1020,6 +1121,7 @@ class BatchRunner:
         check_interval: int = 60,
         max_wait_time: int = 3600,
         progress_callback: Optional[callable] = None,
+        request_ids: Optional[List[str]] = None,
     ) -> List[BatchResult]:
         """
         Wait for batch to complete and return results.
@@ -1029,6 +1131,7 @@ class BatchRunner:
             check_interval: Seconds between status checks
             max_wait_time: Maximum seconds to wait
             progress_callback: Optional callback(status) for progress updates
+            request_ids: For Google batches - the request_ids for alignment
             
         Returns:
             List of BatchResult objects
@@ -1043,7 +1146,7 @@ class BatchRunner:
             
             if status.is_complete:
                 if status.status == "completed":
-                    return self.api.get_results(batch_id)
+                    return self.get_results(batch_id, request_ids=request_ids)
                 else:
                     raise RuntimeError(f"Batch {status.status}: {status.failed_requests} failed")
             
