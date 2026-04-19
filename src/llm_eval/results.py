@@ -37,7 +37,9 @@ class TestResult:
     
     # Evaluation
     is_correct: bool = False
-    
+    numeric_error: Optional[float] = None   # |extracted - expected| for numeric Qs
+    error_category: str = ""                # Classification of the error type
+
     # Metadata
     success: bool = True
     error: Optional[str] = None
@@ -66,6 +68,8 @@ class TestResult:
             self.extracted_answer,
             self.raw_response,
             self.is_correct,
+            self.numeric_error,
+            self.error_category,
             self.success,
             self.error,
             self.duration_seconds,

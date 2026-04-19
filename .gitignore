@@ -3,20 +3,23 @@ __pycache__/
 *.pyc
 *.pyo
 *.pyd
-.Python
+*.py[cod]
+*$py.class
 *.so
 *.egg
 *.egg-info/
 dist/
 build/
-*.py[cod]
-*$py.class
+develop-eggs/
+eggs/
+.eggs/
+sdist/
+wheels/
 
 # Virtual environments
 venv/
 env/
-ENV/
-.venv
+.venv/
 
 # IDEs
 .vscode/
@@ -24,49 +27,40 @@ ENV/
 *.swp
 *.swo
 *~
-.spyderproject
-.spyproject
 
 # OS
 .DS_Store
 Thumbs.db
-.directory
 
-# Project specific
-*.db-journal
-.ipynb_checkpoints/
-data/temp_verify/
-data/question_passages_abc/
-data/question_passages_mei/
-data/question_passages_musicxml/
-data/question_passages_humdrum/
-data/passages/
+# Secrets
 .env
-src/**/*.db
-backups/
-CLEANUP_PLAN.md
+
+# Generated data (reproducible via scripts/rebuild_database.py)
+*.db
+*.db-journal
+*.db-bak
+*.bak
+passages/
+outputs/
+analysis/
+
+# Old/archived data
+data/
+legacy_outputs/
+_archive/
+_backup/
+
+# Paper and review materials
+paper/
+*.pdf
+*.docx
+reviews.txt
+
+# Test artifacts
+.pytest_cache/
 tests/passages_for_verification/
 tests/verification_templates/
-database_exports/
+.ipynb_checkpoints/
 
-# Paper/thesis materials
-paper/
-
-# Jupyter Notebook
-*.ipynb_checkpoints
-
-# Distribution / packaging
-.Python
-develop-eggs/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-database_exports/
-data/passages/
-outputs/
+# Stray CSV/data files at root
+*.csv

@@ -23,6 +23,7 @@ from .providers import get_provider, BaseLLMProvider, LLMResponse
 from .query import TestCaseQuery, TestCase, build_prompt
 from .batch import BatchRunner, BatchRequest, BatchResult
 from .results import ResultsManager, TestResult
+from .evaluation import compute_numeric_error, categorize_error
 
 
 class BenchmarkRunner:
@@ -412,10 +413,16 @@ class BenchmarkRunner:
         
         # Extract answer from response
         extracted = self._extract_answer(response.text)
-        
+
         # Compare with expected
         is_correct = self._compare_answers(extracted, test_case.expected_answer)
-        
+
+        # Enhanced metrics
+        numeric_error = compute_numeric_error(extracted, test_case.expected_answer)
+        error_category = categorize_error(
+            extracted, test_case.expected_answer, test_case.question_type_id,
+        )
+
         return TestResult(
             # Identifiers
             question_id=test_case.question_id,
@@ -424,16 +431,18 @@ class BenchmarkRunner:
             model_name=model_config.name,
             provider=model_config.provider,
             run_number=run_number,
-            
+
             # Question/Answer
             question_text=test_case.question_text,
             expected_answer=test_case.expected_answer,
             extracted_answer=extracted,
             raw_response=response.text,
-            
+
             # Evaluation
             is_correct=is_correct,
-            
+            numeric_error=numeric_error,
+            error_category=error_category,
+
             # Metadata
             success=response.success,
             error=response.error,
@@ -441,7 +450,7 @@ class BenchmarkRunner:
             input_tokens=response.input_tokens,
             output_tokens=response.output_tokens,
             timestamp=datetime.now().isoformat(),
-            
+
             # Optional storage
             prompt=prompt if self.config.output.save_prompts else None,
             system_prompt=self.system_prompt if self.config.output.save_prompts else None,
