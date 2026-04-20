@@ -14,7 +14,17 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 import csv
 import json
+import os
 import sqlite3
+
+
+def _atomic_write_json(path: Path, data: Any) -> None:
+    """Write JSON to a .tmp file then os.replace into place."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp = path.with_suffix(path.suffix + ".tmp")
+    with open(tmp, "w") as f:
+        json.dump(data, f, indent=2)
+    os.replace(tmp, path)
 
 
 @dataclass
@@ -218,28 +228,59 @@ class ResultsManager:
         if config_source.exists():
             shutil.copy(config_source, self.output_dir / "config.yaml")
     
-    def save_single_result(self, model_config, result: TestResult):
+    def _validate_result(self, result: "TestResult", test_case=None) -> Optional[str]:
+        """Return an error message if the result should not be saved, None if OK.
+
+        Checks:
+        - Empty raw_response on a success=True result (provider bug or parse error).
+        - question_id / format / expected_answer mismatch against test_case (alignment bug).
         """
-        Save a single result immediately (incremental saving).
-        
-        This is called after each API response to ensure no data is lost
-        if the process is interrupted.
+        if result.success and not result.raw_response:
+            return "empty raw_response with success=True"
+
+        if test_case is not None:
+            if result.question_id != test_case.question_id:
+                return (
+                    f"question_id mismatch: result has {result.question_id!r}, "
+                    f"test_case has {test_case.question_id!r}"
+                )
+            if result.format != test_case.format:
+                return (
+                    f"format mismatch: result has {result.format!r}, "
+                    f"test_case has {test_case.format!r}"
+                )
+            if result.expected_answer != test_case.expected_answer:
+                return (
+                    f"expected_answer mismatch: result has {result.expected_answer!r}, "
+                    f"test_case has {test_case.expected_answer!r}"
+                )
+
+        return None
+
+    def save_single_result(self, model_config, result: "TestResult", test_case=None) -> Optional[str]:
+        """Atomically save a result. Returns None on success, error string if validation failed.
+
+        Pass ``test_case`` from the submission so alignment (question_id, format,
+        expected_answer) is verified before anything is written. On failure the
+        result is not saved; the caller is responsible for marking it needs_retry.
         """
         from .config import ModelConfig
         model_config: ModelConfig = model_config
-        
+
+        err = self._validate_result(result, test_case)
+        if err is not None:
+            print(f"  [validation] SKIP {result.question_id}: {err}")
+            return err
+
         model_dir = self.output_dir / model_config.display_name
         format_dir = model_dir / result.format
-        format_dir.mkdir(parents=True, exist_ok=True)
-        
-        # Save individual response JSON: Q-001_r1.json
         response_path = format_dir / f"{result.question_id}_r{result.run_number}.json"
-        with open(response_path, 'w') as f:
-            json.dump(result.to_dict(), f, indent=2)
-        
-        # Also save to database immediately if configured
+        _atomic_write_json(response_path, result.to_dict())
+
         if self.config.output.save_to_database:
             self._save_single_to_database(result)
+
+        return None
     
     def _save_single_to_database(self, result: TestResult):
         """Save a single result to the llm_responses table."""
@@ -351,37 +392,10 @@ class ResultsManager:
         # Note: Individual response files are already saved incrementally via save_single_result()
         # Note: Database entries are already saved incrementally via save_single_result()
     
-    def save_batch_id(
-        self,
-        model_config,
-        batch_id: str,
-    ):
-        """Save batch ID for resumption."""
-        batch_ids_path = self.output_dir / "batch_ids.json"
-        
-        # Load existing
-        if batch_ids_path.exists():
-            with open(batch_ids_path) as f:
-                batch_ids = json.load(f)
-        else:
-            batch_ids = {}
-        
-        # Add new
-        batch_ids[model_config.name] = {
-            "batch_id": batch_id,
-            "provider": model_config.provider,
-            "timestamp": datetime.now().isoformat(),
-        }
-        
-        # Save
-        with open(batch_ids_path, 'w') as f:
-            json.dump(batch_ids, f, indent=2)
-    
     def save_summary(self, summary: Dict[str, Any], all_results: Optional[Dict[str, List[TestResult]]] = None):
         """Save overall benchmark summary and combined CSV."""
         summary_path = self.output_dir / "summary.json"
-        with open(summary_path, 'w') as f:
-            json.dump(summary, f, indent=2)
+        _atomic_write_json(summary_path, summary)
         
         # Generate combined all_results.csv
         if all_results and self.config.output.generate_csv_summary:

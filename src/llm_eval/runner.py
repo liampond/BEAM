@@ -22,6 +22,7 @@ from .config import BenchmarkConfig, ModelConfig
 from .providers import get_provider, BaseLLMProvider, LLMResponse
 from .query import TestCaseQuery, TestCase, build_prompt
 from .batch import BatchRunner, BatchRequest, BatchResult
+from .batch_storage import BatchRequestStorage, compute_config_hash, validate_batch_results
 from .results import ResultsManager, TestResult
 from .evaluation import compute_numeric_error, categorize_error
 
@@ -222,8 +223,8 @@ class BenchmarkRunner:
             results.append(result)
             
             # Save immediately (incremental saving)
-            self.results_manager.save_single_result(model_config, result)
-            
+            self.results_manager.save_single_result(model_config, result, test_case)
+
             # Print result
             if self.config.execution.show_progress:
                 if response.success:
@@ -307,28 +308,53 @@ class BenchmarkRunner:
                 batch_metadata["question_range"] = f"{q_ids[0]}-to-{q_ids[-1]}"
         
         # Submit batch
+        submitted_ids = [r.custom_id for r in batch_requests]
         batch_id = batch_runner.submit(
             batch_requests,
             json_mode=self.config.prompt.enforce_json,
             batch_metadata=batch_metadata,
         )
         print(f"  Batch submitted: {batch_id}")
-        
-        # Save batch ID for resumption
-        if self.config.batch_settings.save_batch_ids:
-            self.results_manager.save_batch_id(model_config, batch_id)
+
+        # Persist submission before the batch_id escapes this scope
+        storage = BatchRequestStorage(self.results_manager.output_dir)
+        storage.save(
+            batch_id=batch_id,
+            request_ids=submitted_ids,
+            provider=model_config.provider,
+            model=model_config.name,
+            format=batch_metadata.get("format"),
+            num_measures=batch_metadata.get("num_measures"),
+            question_range=batch_metadata.get("question_range"),
+            config_hash=compute_config_hash(
+                model_config.name,
+                batch_metadata.get("format"),
+                batch_metadata.get("num_measures"),
+                submitted_ids,
+            ),
+            run_number=run_number,
+        )
         
         # Wait for completion
         def batch_progress(status):
             print(f"  Status: {status.status} ({status.progress_pct:.1f}%)")
         
-        batch_results = batch_runner.wait_for_completion(
+        raw_batch_results = batch_runner.wait_for_completion(
             batch_id,
             check_interval=self.config.batch_settings.check_interval,
             max_wait_time=self.config.batch_settings.max_wait_time,
             progress_callback=batch_progress,
         )
-        
+
+        expected_ids = [r.custom_id for r in batch_requests]
+        validated = validate_batch_results(
+            raw_batch_results,
+            expected_ids=expected_ids,
+            diagnostic_dir=self.results_manager.output_dir,
+            batch_id=batch_id,
+        )
+        batch_results = validated.matched
+
         print(f"  Batch complete: {len(batch_results)} results")
         
         # Map results back to test cases (use tests_to_run, not full test_cases)
@@ -336,11 +362,10 @@ class BenchmarkRunner:
         results = []
         
         for batch_result in batch_results:
-            test_case = test_case_map.get(batch_result.custom_id)
-            if not test_case:
+            tc = test_case_map.get(batch_result.custom_id)
+            if not tc:
                 continue
-            
-            # Create LLMResponse from batch result
+
             response = LLMResponse(
                 text=batch_result.response_text,
                 model=model_config.name,
@@ -350,20 +375,21 @@ class BenchmarkRunner:
                 raw_metadata=batch_result.metadata,
             )
             response.extract_json_answer()
-            
-            # Build prompt for result storage
+
             prompt = build_prompt(
-                test_case,
+                tc,
                 self.system_prompt,
                 include_format_hint=self.config.prompt.include_format_hint,
             )
-            
-            result = self._evaluate_response(test_case, model_config, response, prompt, run_number)
+
+            result = self._evaluate_response(tc, model_config, response, prompt, run_number)
             results.append(result)
-            
-            # Save immediately (incremental saving for batch results too)
-            self.results_manager.save_single_result(model_config, result)
-        
+
+            err = self.results_manager.save_single_result(model_config, result, tc)
+            if err:
+                storage.add_needs_retry(batch_id, batch_result.custom_id)
+
+        storage.update_lifecycle(batch_id, "saved")
         return results
     
     def _send_with_retry(

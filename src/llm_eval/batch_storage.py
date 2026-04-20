@@ -1,62 +1,100 @@
 """
-Persistent storage for batch request mappings.
+Persistent storage for batch lifecycle state.
 
-This module handles the storage and retrieval of request_ids for batch API
-submissions, particularly for Google's Gemini API which returns inline responses
-in order but without custom_ids.
+Single source of truth for the batch polling loop. For every submitted batch
+we persist:
+    - the submitted custom_ids (cross-checked against returned keys by
+      validate_batch_results below)
+    - submission metadata (provider, model, format, config_hash, submitted_at)
+    - lifecycle_state (see STATES below)
+    - needs_retry_ids (custom_ids whose saved result failed _validate_result)
 
-The storage ensures that:
-1. Request order is preserved and can be recovered across sessions
-2. Batch metadata is tracked for debugging and verification
-3. The mapping between batch_id and request_ids is always available
-
-Storage format (JSON):
-{
-    "batch_id": {
-        "request_ids": ["Q-001_P-001_musicxml", ...],
-        "provider": "google",
-        "model": "gemini-3-pro-preview",
-        "format": "musicxml",
-        "num_measures": 8,
-        "created_at": "2025-12-05T12:00:00",
-        "question_range": "Q-415 to Q-819",
-        "count": 405
-    }
-}
+All writes go through _atomic_write_json (tmp + os.replace) so a crash
+mid-write cannot leave a truncated file. Raw provider results are persisted
+to a separate JSON per batch (raw_results_<batch_id>.json) so a process
+killed between "downloaded" and "saved" can resume without re-downloading.
 """
 
+import hashlib
 import json
 import os
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List, Optional
-from dataclasses import dataclass, asdict
+from typing import Any, Dict, Iterable, List, Optional
+from dataclasses import dataclass, asdict, field
+
+from .batch import BatchResult
+
+
+# Lifecycle states. A batch is eligible for polling until it reaches "saved".
+STATES = ("submitted", "downloaded", "saved", "failed_stale")
+
+
+def _atomic_write_json(path: Path, data: Any) -> None:
+    """Write JSON to tmp then rename. Never leaves a partial file at ``path``."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp = path.with_suffix(path.suffix + ".tmp")
+    with open(tmp, "w") as f:
+        json.dump(data, f, indent=2)
+    os.replace(tmp, path)
+
+
+def _safe_batch_id(batch_id: str) -> str:
+    return batch_id.replace("/", "_").replace(":", "_")
+
+
+def compute_config_hash(
+    model: str,
+    format: Optional[str],
+    num_measures: Optional[Any],
+    question_ids: Iterable[str],
+) -> str:
+    """Stable hash of the (model, format, num_measures, question_ids) tuple.
+
+    Used by Phase 3 to detect drift between a submitted batch and the
+    current config. Phase 2 just stores it.
+    """
+    payload = json.dumps(
+        {
+            "model": model,
+            "format": format,
+            "num_measures": num_measures,
+            "question_ids": sorted(question_ids),
+        },
+        sort_keys=True,
+    )
+    return hashlib.sha256(payload.encode()).hexdigest()[:16]
 
 
 @dataclass
 class BatchRequestMapping:
-    """Metadata and request_ids for a single batch."""
+    """Metadata and lifecycle state for a single batch."""
     batch_id: str
     request_ids: List[str]
     provider: str
     model: str
     format: Optional[str] = None
-    num_measures: Optional[int] = None
+    num_measures: Optional[Any] = None
     question_range: Optional[str] = None
-    created_at: Optional[str] = None
+    submitted_at: Optional[str] = None
     count: Optional[int] = None
-    
+    config_hash: Optional[str] = None
+    run_number: Optional[int] = None
+    lifecycle_state: str = "submitted"
+    needs_retry_ids: List[str] = field(default_factory=list)
+
     def __post_init__(self):
-        if self.created_at is None:
-            self.created_at = datetime.now().isoformat()
+        if self.submitted_at is None:
+            self.submitted_at = datetime.now().isoformat()
         if self.count is None:
             self.count = len(self.request_ids)
-    
+
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
-    
+
     @classmethod
     def from_dict(cls, batch_id: str, data: Dict[str, Any]) -> "BatchRequestMapping":
+        submitted_at = data.get("submitted_at") or data.get("created_at")
         return cls(
             batch_id=batch_id,
             request_ids=data.get("request_ids", []),
@@ -65,46 +103,27 @@ class BatchRequestMapping:
             format=data.get("format"),
             num_measures=data.get("num_measures"),
             question_range=data.get("question_range"),
-            created_at=data.get("created_at"),
+            submitted_at=submitted_at,
             count=data.get("count"),
+            config_hash=data.get("config_hash"),
+            run_number=data.get("run_number"),
+            lifecycle_state=data.get("lifecycle_state", "submitted"),
+            needs_retry_ids=list(data.get("needs_retry_ids", [])),
         )
 
 
 class BatchRequestStorage:
-    """
-    Persistent storage for batch request mappings.
-    
-    This is critical for Google batch API which doesn't return custom_ids
-    in responses - we must track the submission order to align results.
-    
-    Usage:
-        storage = BatchRequestStorage("/path/to/output_dir")
-        
-        # On submission
-        storage.save(batch_id, request_ids, provider="google", model="gemini-3-pro-preview")
-        
-        # On retrieval
-        mapping = storage.load(batch_id)
-        if mapping:
-            request_ids = mapping.request_ids
-    """
-    
+    """Atomic, file-backed storage of batch lifecycle state."""
+
     FILENAME = "batch_request_mappings.json"
-    
+
     def __init__(self, output_dir: Path):
-        """
-        Initialize storage with output directory.
-        
-        Args:
-            output_dir: Directory where batch_request_mappings.json will be stored
-        """
         self.output_dir = Path(output_dir)
         self.storage_path = self.output_dir / self.FILENAME
         self._cache: Dict[str, BatchRequestMapping] = {}
         self._load_cache()
-    
+
     def _load_cache(self) -> None:
-        """Load existing mappings from disk into cache."""
         if self.storage_path.exists():
             try:
                 with open(self.storage_path) as f:
@@ -114,19 +133,14 @@ class BatchRequestStorage:
             except (json.JSONDecodeError, IOError) as e:
                 print(f"Warning: Could not load batch mappings from {self.storage_path}: {e}")
                 self._cache = {}
-    
+
     def _save_cache(self) -> None:
-        """Persist cache to disk."""
-        self.output_dir.mkdir(parents=True, exist_ok=True)
-        
         data = {
             batch_id: mapping.to_dict()
             for batch_id, mapping in self._cache.items()
         }
-        
-        with open(self.storage_path, 'w') as f:
-            json.dump(data, f, indent=2)
-    
+        _atomic_write_json(self.storage_path, data)
+
     def save(
         self,
         batch_id: str,
@@ -134,24 +148,12 @@ class BatchRequestStorage:
         provider: str,
         model: str,
         format: Optional[str] = None,
-        num_measures: Optional[int] = None,
+        num_measures: Optional[Any] = None,
         question_range: Optional[str] = None,
+        config_hash: Optional[str] = None,
+        run_number: Optional[int] = None,
     ) -> BatchRequestMapping:
-        """
-        Save request_ids mapping for a batch.
-        
-        Args:
-            batch_id: The batch ID from the API
-            request_ids: Ordered list of custom_ids as submitted
-            provider: API provider (e.g., "google")
-            model: Model name (e.g., "gemini-3-pro-preview")
-            format: Music format (abc, humdrum, mei, musicxml)
-            num_measures: Number of measures (1 or 8)
-            question_range: Human-readable range (e.g., "Q-415 to Q-819")
-        
-        Returns:
-            The created BatchRequestMapping
-        """
+        """Record a new submission. lifecycle_state starts at "submitted"."""
         mapping = BatchRequestMapping(
             batch_id=batch_id,
             request_ids=request_ids,
@@ -160,104 +162,176 @@ class BatchRequestStorage:
             format=format,
             num_measures=num_measures,
             question_range=question_range,
+            config_hash=config_hash,
+            run_number=run_number,
+            lifecycle_state="submitted",
         )
-        
         self._cache[batch_id] = mapping
         self._save_cache()
-        
         return mapping
-    
+
     def load(self, batch_id: str) -> Optional[BatchRequestMapping]:
-        """
-        Load request_ids mapping for a batch.
-        
-        Args:
-            batch_id: The batch ID to look up
-            
-        Returns:
-            BatchRequestMapping if found, None otherwise
-        """
         return self._cache.get(batch_id)
-    
+
     def get_request_ids(self, batch_id: str) -> Optional[List[str]]:
-        """
-        Get just the request_ids for a batch.
-        
-        Args:
-            batch_id: The batch ID to look up
-            
-        Returns:
-            List of request_ids if found, None otherwise
-        """
         mapping = self.load(batch_id)
         return mapping.request_ids if mapping else None
-    
+
     def exists(self, batch_id: str) -> bool:
-        """Check if a mapping exists for the given batch_id."""
         return batch_id in self._cache
-    
+
     def list_batches(self) -> List[str]:
-        """List all stored batch IDs."""
         return list(self._cache.keys())
-    
+
     def get_all(self) -> Dict[str, BatchRequestMapping]:
-        """Get all stored mappings."""
         return dict(self._cache)
-    
+
+    def get_resumable(self) -> Dict[str, BatchRequestMapping]:
+        """All batches whose lifecycle_state is not a terminal state."""
+        terminal = {"saved", "failed_stale"}
+        return {bid: m for bid, m in self._cache.items() if m.lifecycle_state not in terminal}
+
+    def update_lifecycle(self, batch_id: str, new_state: str) -> None:
+        if new_state not in STATES:
+            raise ValueError(f"Unknown lifecycle state: {new_state!r}. Valid: {STATES}")
+        if batch_id not in self._cache:
+            raise KeyError(f"Unknown batch_id: {batch_id}")
+        self._cache[batch_id].lifecycle_state = new_state
+        self._save_cache()
+
+    def add_needs_retry(self, batch_id: str, custom_id: str) -> None:
+        if batch_id not in self._cache:
+            raise KeyError(f"Unknown batch_id: {batch_id}")
+        retry = self._cache[batch_id].needs_retry_ids
+        if custom_id not in retry:
+            retry.append(custom_id)
+            self._save_cache()
+
     def delete(self, batch_id: str) -> bool:
-        """
-        Delete a mapping.
-        
-        Returns:
-            True if deleted, False if not found
-        """
         if batch_id in self._cache:
             del self._cache[batch_id]
             self._save_cache()
             return True
         return False
 
+    def _raw_results_path(self, batch_id: str) -> Path:
+        return self.output_dir / f"raw_results_{_safe_batch_id(batch_id)}.json"
+
+    def save_raw_results(self, batch_id: str, raw_results: List[BatchResult]) -> None:
+        """Persist raw provider results so the save step can resume after a crash."""
+        data = [
+            {
+                "custom_id": r.custom_id,
+                "response_text": r.response_text,
+                "success": r.success,
+                "error": r.error,
+                "metadata": r.metadata,
+            }
+            for r in raw_results
+        ]
+        _atomic_write_json(self._raw_results_path(batch_id), data)
+
+    def load_raw_results(self, batch_id: str) -> Optional[List[BatchResult]]:
+        path = self._raw_results_path(batch_id)
+        if not path.exists():
+            return None
+        with open(path) as f:
+            data = json.load(f)
+        return [
+            BatchResult(
+                custom_id=d["custom_id"],
+                response_text=d["response_text"],
+                success=d["success"],
+                error=d.get("error"),
+                metadata=d.get("metadata", {}) or {},
+            )
+            for d in data
+        ]
+
 
 def find_request_ids_for_batch(batch_id: str, search_dirs: Optional[List[Path]] = None) -> Optional[List[str]]:
-    """
-    Search for request_ids across multiple output directories.
-    
-    This is useful when retrieving results for batches submitted in previous
-    sessions where we don't know which output directory was used.
-    
-    Args:
-        batch_id: The batch ID to search for
-        search_dirs: List of directories to search. If None, searches all
-                    directories in ./outputs/
-    
-    Returns:
-        List of request_ids if found, None otherwise
-    """
+    """Search BatchRequestStorage across output directories for a batch_id."""
     if search_dirs is None:
         outputs_dir = Path("outputs")
         if outputs_dir.exists():
             search_dirs = [d for d in outputs_dir.iterdir() if d.is_dir()]
         else:
             search_dirs = []
-    
+
     for dir_path in search_dirs:
         storage = BatchRequestStorage(dir_path)
         request_ids = storage.get_request_ids(batch_id)
         if request_ids:
             return request_ids
-    
-    # Also check legacy batch_ids.json files
-    for dir_path in search_dirs:
-        batch_ids_path = dir_path / "batch_ids.json"
-        if batch_ids_path.exists():
-            try:
-                with open(batch_ids_path) as f:
-                    data = json.load(f)
-                for key, batch_info in data.items():
-                    if batch_info.get("batch_id") == batch_id:
-                        if "request_ids" in batch_info:
-                            return batch_info["request_ids"]
-            except (json.JSONDecodeError, IOError):
-                continue
-    
     return None
+
+
+@dataclass
+class ValidatedBatch:
+    """Outcome of cross-checking batch results against submitted keys."""
+    matched: List[BatchResult] = field(default_factory=list)
+    missing: List[BatchResult] = field(default_factory=list)
+    unexpected: List[str] = field(default_factory=list)
+
+
+def validate_batch_results(
+    results: List[BatchResult],
+    expected_ids: Iterable[str],
+    diagnostic_dir: Optional[Path] = None,
+    batch_id: Optional[str] = None,
+) -> ValidatedBatch:
+    """Cross-check a batch's results against the set of submitted custom_ids.
+
+    - Any expected id with no response becomes a synthetic
+      ``BatchResult(success=False, error="no response from provider")``
+      in both ``matched`` (so downstream save logic sees it) and ``missing``.
+    - Any returned id not in the expected set is a hard error: we dump a
+      diagnostic JSON next to the output dir and raise ``ValueError``.
+
+    Callers MUST invoke this after every ``get_results`` call. It lives
+    outside the API classes so that forgetting to pass ``expected_ids``
+    fails loudly at call sites rather than silently skipping validation.
+    """
+    expected = set(expected_ids)
+    by_id: Dict[str, BatchResult] = {}
+    unexpected: List[str] = []
+
+    for r in results:
+        if r.custom_id in expected:
+            by_id[r.custom_id] = r
+        else:
+            unexpected.append(r.custom_id)
+
+    if unexpected:
+        diag = {
+            "batch_id": batch_id,
+            "unexpected_keys": unexpected,
+            "expected_keys": sorted(expected),
+            "returned_keys": [r.custom_id for r in results],
+        }
+        target_dir = diagnostic_dir or Path.cwd()
+        stamp = datetime.now().strftime("%Y%m%dT%H%M%S")
+        suffix = _safe_batch_id(batch_id) if batch_id else "unknown"
+        diag_path = target_dir / f"batch_validation_error_{suffix}_{stamp}.json"
+        _atomic_write_json(diag_path, diag)
+        raise ValueError(
+            f"Batch returned {len(unexpected)} key(s) not in submitted set; "
+            f"diagnostic written to {diag_path}"
+        )
+
+    matched: List[BatchResult] = []
+    missing: List[BatchResult] = []
+    for expected_id in expected:
+        if expected_id in by_id:
+            matched.append(by_id[expected_id])
+        else:
+            synth = BatchResult(
+                custom_id=expected_id,
+                response_text="",
+                success=False,
+                error="no response from provider",
+            )
+            matched.append(synth)
+            missing.append(synth)
+
+    return ValidatedBatch(matched=matched, missing=missing, unexpected=unexpected)
