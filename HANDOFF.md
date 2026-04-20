@@ -188,28 +188,40 @@ The script prints `PASS test-N -> 'N'` for each of 5 distinct predictable prompt
 
 ---
 
-### Phase 3 — Stale batch detection, error classification
+### Phase 3 — Stale batch detection, error classification (DONE, 2026-04-20)
 
 **Why:** Defense in depth. Avoids indefinitely stuck resumes and unhelpful crash loops.
 
+**Handoff notes (2026-04-20):**
+
+**R3 — Stale batch detection.** On startup, `submit_all_batches.py` probes every `submitted` batch via `get_status` once. Provider-side expiry/not-found maps to `failed_stale`:
+- `status.status == "expired"` → `failed_stale`
+- `is_stale_error(exc)` (catches `openai.NotFoundError`, `anthropic.NotFoundError`, `google.api_core.exceptions.NotFound`) → `failed_stale`
+- Retryable error during stale check → log and continue to polling normally
+- Anything else → re-raise (fatal)
+
+`--retry-stale` flag: deletes all `failed_stale` entries from storage so the normal submission flow re-submits them. Requires non-`--poll-only` mode (batch requests must be built).
+
+`GoogleBatchAPI.get_status` now maps `JOB_STATE_EXPIRED` → `'expired'` (was `'failed'`). `BatchStatus.is_complete` includes `'expired'`. The polling loop also marks `status.status == "expired"` as `failed_stale` (handles expiry that occurs after the startup stale check).
+
+**R4 — Error classification.** `is_retryable(exc)` and `is_stale_error(exc)` are module-level functions in `batch.py` (lazy imports, no forced provider imports at module load):
+- Retryable: `requests.ConnectionError`, `requests.Timeout`, `openai.RateLimitError`, `anthropic.RateLimitError`, `google.api_core.exceptions.ResourceExhausted`
+- Stale: `openai.NotFoundError`, `anthropic.NotFoundError`, `google.api_core.exceptions.NotFound`
+- Everything else is fatal and bubbles
+
+All four `cancel_batch` methods now use `is_stale_error` instead of bare `except Exception: return False`.
+
+Polling loop: retryable → exponential backoff per batch (`30 * 2^(count-1)`, capped at 3600s), tracked via `batch_next_poll` dict; fatal → re-raise; stale → mark `failed_stale`, add to `completed`. Same pattern applied to download error path.
+
+**Acceptance tests passed (2026-04-20):**
+- Unit: `is_retryable`/`is_stale_error` classify `openai`/`anthropic`/`google` errors correctly; `AuthenticationError` is neither retryable nor stale (fatal).
+- Unit: bogus batch_id marked `failed_stale` → removed from `get_resumable()` → does not block polling loop.
+- Unit: `--retry-stale` deletes stale entry; batch re-enters submission flow.
+- `BatchStatus.is_complete` includes `'expired'`.
+
 **Scope (files):**
-- `src/llm_eval/batch_storage.py` — stale detection logic.
 - `src/llm_eval/batch.py` — error classification helper.
 - `scripts/submit_all_batches.py` — wire both in.
-
-**Changes:**
-
-**R3 — Stale batch detection.** On resume, for each batch in `submitted|polling` state, call the provider's `get_status` once. If provider returns "not found" / "expired" / "deleted", mark the batch `failed_stale` in storage. Require explicit `--retry-stale` flag to re-submit; default behavior is to log and skip.
-
-**R4 — Error classification.** Define two exception sets:
-- `RETRYABLE = (requests.ConnectionError, requests.Timeout, openai.RateLimitError, anthropic.RateLimitError, google.api_core.exceptions.ResourceExhausted, ...)`
-- Everything else is fatal and bubbles.
-
-In the polling loop: retryable → log with exponential backoff and continue to next batch; fatal → bubble up and crash the process. Replace every bare `except Exception` in `cancel_batch` and polling with this pattern.
-
-**Acceptance:**
-- Manually insert a bogus batch_id into storage; re-run; confirm stale detection marks it `failed_stale` and does not block other batches.
-- Inject a fake rate-limit error; confirm it's caught, logged, and the loop continues; inject a fake auth error; confirm the process exits cleanly with a useful error.
 
 ---
 

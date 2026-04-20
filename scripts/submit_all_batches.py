@@ -42,7 +42,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from src.llm_eval.config import BenchmarkConfig, ModelConfig
 from src.llm_eval.query import TestCaseQuery, TestCase, build_prompt
-from src.llm_eval.batch import BatchRunner, BatchRequest, BatchStatus, BatchResult
+from src.llm_eval.batch import BatchRunner, BatchRequest, BatchStatus, BatchResult, is_retryable, is_stale_error
 from src.llm_eval.batch_storage import (
     BatchRequestStorage,
     BatchRequestMapping,
@@ -362,6 +362,7 @@ def main():
     parser.add_argument("--poll-only", action="store_true", help="Skip submission, poll existing batches")
     parser.add_argument("--check-interval", type=int, default=60, help="Seconds between status checks")
     parser.add_argument("--runs", type=int, default=None, help="Number of runs per model (overrides config)")
+    parser.add_argument("--retry-stale", action="store_true", help="Clear failed_stale batches and re-submit them")
     args = parser.parse_args()
 
     config_path = Path(__file__).parent.parent / "config.yaml"
@@ -420,6 +421,14 @@ def main():
         batch_name = f"{format_name}_{num_measures}bar"
         log_batch_prompts(batch_requests, test_cases, output_dir, batch_name)
 
+        if args.retry_stale:
+            stale = [(bid, m) for bid, m in storage.get_all().items() if m.lifecycle_state == "failed_stale"]
+            if stale:
+                print(f"\nClearing {len(stale)} failed_stale batch(es) for re-submission...")
+                for bid, m in stale:
+                    storage.delete(bid)
+                    print(f"  Cleared {bid[:30]} ({m.model})")
+
         batches_to_submit = []
         existing = storage.get_all()
         for model in enabled_models:
@@ -472,6 +481,36 @@ def main():
     model_by_name: Dict[str, ModelConfig] = {m.name: m for m in enabled_models}
 
     resumable = storage.get_resumable()
+
+    # --- Stale detection: probe each submitted batch once on startup ---
+    stale_found: List[str] = []
+    for batch_id, mapping in list(resumable.items()):
+        if mapping.lifecycle_state != "submitted":
+            continue
+        model_config = model_by_name.get(mapping.model)
+        if not model_config:
+            continue
+        kw = _model_runner_kwargs(model_config, config)
+        try:
+            batch_runner = BatchRunner(mapping.provider, mapping.model, **kw)
+            status = batch_runner.get_status(batch_id)
+            if status.status == "expired":
+                storage.update_lifecycle(batch_id, "failed_stale")
+                stale_found.append(batch_id)
+                print(f"  {batch_id[:30]}: expired on provider, marked failed_stale")
+        except Exception as e:
+            if is_stale_error(e):
+                storage.update_lifecycle(batch_id, "failed_stale")
+                stale_found.append(batch_id)
+                print(f"  {batch_id[:30]}: not found on provider, marked failed_stale")
+            elif is_retryable(e):
+                print(f"  {batch_id[:30]}: could not check stale status ({type(e).__name__}), will poll normally")
+            else:
+                raise
+    if stale_found:
+        print(f"  Marked {len(stale_found)} batch(es) failed_stale. Use --retry-stale to re-submit.")
+
+    resumable = storage.get_resumable()
     if not resumable:
         print("\nNo batches to poll")
         return
@@ -481,6 +520,8 @@ def main():
 
     completed: set = set()
     all_results: Dict[str, List[TestResult]] = {}
+    batch_retry_counts: Dict[str, int] = {}
+    batch_next_poll: Dict[str, float] = {}
 
     while len(completed) < len(resumable):
         # Reload resumable state in case storage was updated externally
@@ -515,9 +556,12 @@ def main():
             print(f"    -> saved {len(results)} results ({success} correct)")
 
         # --- Poll batches still in "submitted" state ---
+        now = time.time()
         to_poll = {
             bid: m for bid, m in pending.items()
-            if bid not in completed and m.lifecycle_state == "submitted"
+            if bid not in completed
+            and m.lifecycle_state == "submitted"
+            and now >= batch_next_poll.get(bid, 0)
         }
         if not to_poll:
             if len(completed) < len(resumable):
@@ -556,13 +600,30 @@ def main():
                 try:
                     _, status = future.result()
                 except Exception as e:
-                    print(f"  {batch_id[:30]}: poll error — {e}")
+                    if is_stale_error(e):
+                        print(f"  {batch_id[:30]}: not found on provider, marking failed_stale")
+                        storage.update_lifecycle(batch_id, "failed_stale")
+                        completed.add(batch_id)
+                    elif is_retryable(e):
+                        count = batch_retry_counts.get(batch_id, 0) + 1
+                        batch_retry_counts[batch_id] = count
+                        backoff = min(3600, 30 * (2 ** (count - 1)))
+                        batch_next_poll[batch_id] = time.time() + backoff
+                        print(f"  {batch_id[:30]}: retryable error ({type(e).__name__}), retry in {backoff}s")
+                    else:
+                        raise
                     continue
 
                 status_str = f"{status.status} ({status.progress_pct:.1f}%)"
 
                 if not status.is_complete:
                     print(f"  {batch_id[:30]}: {status_str}")
+                    continue
+
+                if status.status == "expired":
+                    print(f"  {batch_id[:30]}: expired, marking failed_stale")
+                    storage.update_lifecycle(batch_id, "failed_stale")
+                    completed.add(batch_id)
                     continue
 
                 if status.status != "completed":
@@ -577,7 +638,18 @@ def main():
                         kw["temperature"], kw["max_tokens"],
                     )
                 except Exception as e:
-                    print(f"  {batch_id[:30]}: download error — {e}")
+                    if is_stale_error(e):
+                        print(f"  {batch_id[:30]}: not found during download, marking failed_stale")
+                        storage.update_lifecycle(batch_id, "failed_stale")
+                        completed.add(batch_id)
+                    elif is_retryable(e):
+                        count = batch_retry_counts.get(batch_id, 0) + 1
+                        batch_retry_counts[batch_id] = count
+                        backoff = min(3600, 30 * (2 ** (count - 1)))
+                        batch_next_poll[batch_id] = time.time() + backoff
+                        print(f"  {batch_id[:30]}: retryable download error ({type(e).__name__}), retry in {backoff}s")
+                    else:
+                        raise
                     continue
 
                 # Persist raw results before state transition

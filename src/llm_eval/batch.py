@@ -29,6 +29,58 @@ import tempfile
 import os
 
 
+def is_retryable(exc: Exception) -> bool:
+    """True if exc is a transient error that warrants retry with backoff."""
+    try:
+        import requests as _req
+        if isinstance(exc, (_req.ConnectionError, _req.Timeout)):
+            return True
+    except ImportError:
+        pass
+    try:
+        import openai as _oai
+        if isinstance(exc, _oai.RateLimitError):
+            return True
+    except ImportError:
+        pass
+    try:
+        import anthropic as _ant
+        if isinstance(exc, _ant.RateLimitError):
+            return True
+    except ImportError:
+        pass
+    try:
+        from google.api_core import exceptions as _gexc
+        if isinstance(exc, _gexc.ResourceExhausted):
+            return True
+    except ImportError:
+        pass
+    return False
+
+
+def is_stale_error(exc: Exception) -> bool:
+    """True if exc indicates the batch no longer exists (expired, deleted, not found)."""
+    try:
+        import openai as _oai
+        if isinstance(exc, _oai.NotFoundError):
+            return True
+    except ImportError:
+        pass
+    try:
+        import anthropic as _ant
+        if isinstance(exc, _ant.NotFoundError):
+            return True
+    except ImportError:
+        pass
+    try:
+        from google.api_core import exceptions as _gexc
+        if isinstance(exc, _gexc.NotFound):
+            return True
+    except ImportError:
+        pass
+    return False
+
+
 @dataclass
 class BatchRequest:
     """A single request within a batch."""
@@ -62,7 +114,7 @@ class BatchStatus:
     
     @property
     def is_complete(self) -> bool:
-        return self.status in ("completed", "failed", "cancelled")
+        return self.status in ("completed", "failed", "cancelled", "expired")
     
     @property
     def progress_pct(self) -> float:
@@ -309,8 +361,10 @@ class OpenAIBatchAPI:
         try:
             self.client.batches.cancel(batch_id)
             return True
-        except Exception:
-            return False
+        except Exception as e:
+            if is_stale_error(e):
+                return False
+            raise
 
 
 class AnthropicBatchAPI:
@@ -460,45 +514,39 @@ class AnthropicBatchAPI:
         try:
             self.client.messages.batches.cancel(batch_id)
             return True
-        except Exception:
-            return False
+        except Exception as e:
+            if is_stale_error(e):
+                return False
+            raise
 
 
 class GoogleBatchAPI:
     """
     Google Gemini Batch API implementation.
-    
-    Uses the google-genai SDK to submit batch requests.
-    Batch API provides 50% cost savings and higher rate limits.
-    
-    IMPORTANT: Google's inline batch API returns responses in order but WITHOUT
-    custom_ids. We must track the submission order to align results with questions.
-    This is handled by storing request_ids in BatchRequestStorage.
-    
+
+    Uses file-based JSONL submission so each request carries a `key` field that
+    Google echoes back on the response envelope. This is the only Gemini batch
+    mode that supports per-request custom IDs; inline batches do not.
+
     Workflow:
-        1. Create batch with inline requests or JSONL file
-        2. Poll for completion (target: 24h, usually faster)
-        3. Retrieve results from inline responses or output file
-        4. Align results using stored request_ids mapping
+        1. Write requests to a JSONL file, upload via the Files API
+        2. Create a batch job pointing at the uploaded file
+        3. Poll for completion
+        4. Download the result file and parse by `key`
     """
-    
+
     def __init__(self, model_name: str, max_tokens: int = 1024, temperature: float = 0.0):
         from google import genai
         import os
-        
-        # Get API key from environment
+
         api_key = os.getenv('GOOGLE_API_KEY')
         if not api_key:
             raise ValueError("GOOGLE_API_KEY must be set for Google batch API")
-        
+
         self.client = genai.Client(api_key=api_key)
         self.model_name = model_name
         self.max_tokens = max_tokens
         self.temperature = temperature
-        
-        # In-memory cache for request_ids (per-session backup)
-        # Primary storage is BatchRequestStorage on disk
-        self._request_ids_cache: Dict[str, List[str]] = {}
     
     def _build_display_name(
         self,
@@ -552,116 +600,87 @@ class GoogleBatchAPI:
         else:
             return f"{format_name}_{passage_len}_{first_q}-to-{last_q}"
     
+    def _build_request_config(self, req: BatchRequest, json_mode: bool) -> Dict[str, Any]:
+        # File-based Gemini batch JSONL uses the raw REST API shape (camelCase),
+        # not the google-genai SDK's snake_case `config` wrapper.
+        contents = [{
+            'parts': [{'text': req.prompt}],
+            'role': 'user',
+        }]
+
+        generation_config: Dict[str, Any] = {
+            'temperature': self.temperature,
+            'maxOutputTokens': self.max_tokens,
+        }
+
+        request: Dict[str, Any] = {'contents': contents}
+
+        if req.system_prompt:
+            system_text = req.system_prompt
+            if json_mode:
+                system_text += "\n\nIMPORTANT: You MUST respond with ONLY a valid JSON object."
+            request['systemInstruction'] = {'parts': [{'text': system_text}]}
+
+        if json_mode:
+            generation_config['responseMimeType'] = 'application/json'
+            generation_config['responseSchema'] = {
+                "type": "OBJECT",
+                "properties": {"answer": {"type": "STRING"}},
+                "required": ["answer"],
+            }
+
+        request['generationConfig'] = generation_config
+        return request
+
     def submit_batch(
         self,
         requests: List[BatchRequest],
         json_mode: bool = True,
         batch_metadata: Optional[Dict[str, Any]] = None,
     ) -> str:
+        """Submit a batch using the file-based JSONL path.
+
+        Each JSONL line has shape ``{"key": custom_id, "request": {...}}``.
+        Google echoes the key back on the response envelope, giving us
+        alignment without any client-side index bookkeeping.
         """
-        Submit batch of requests using inline requests.
-        
-        Args:
-            requests: List of BatchRequest objects
-            json_mode: Whether to request JSON output
-            batch_metadata: Optional metadata (format, num_measures, question_range)
-        
-        For small batches (<20MB), inline requests are simpler.
-        For larger batches, we'd use file upload.
-        
-        Returns:
-            batch_id for tracking
-        """
-        inline_requests = []
-        
+        seen_keys = set()
         for req in requests:
-            # Build contents for the request
-            contents = [{
-                'parts': [{'text': req.prompt}],
-                'role': 'user'
-            }]
-            
-            request_config = {
-                'contents': contents,
-            }
-            
-            # Add system instruction if provided
-            if req.system_prompt:
-                system_text = req.system_prompt
-                if json_mode:
-                    system_text += "\n\nIMPORTANT: You MUST respond with ONLY a valid JSON object."
-                request_config['config'] = {
-                    'system_instruction': {'parts': [{'text': system_text}]},
-                    'temperature': self.temperature,
-                    'max_output_tokens': self.max_tokens,
-                }
-                if json_mode:
-                    request_config['config']['response_mime_type'] = 'application/json'
-                    request_config['config']['response_schema'] = {
-                        "type": "object",
-                        "properties": {
-                            "answer": {"type": "string"}
-                        },
-                        "required": ["answer"]
+            if req.custom_id in seen_keys:
+                raise ValueError(f"Duplicate custom_id in batch: {req.custom_id}")
+            seen_keys.add(req.custom_id)
+
+        jsonl_path = None
+        try:
+            with tempfile.NamedTemporaryFile(
+                mode='w', suffix='.jsonl', delete=False, encoding='utf-8'
+            ) as tmp:
+                jsonl_path = tmp.name
+                for req in requests:
+                    line = {
+                        'key': req.custom_id,
+                        'request': self._build_request_config(req, json_mode),
                     }
-            else:
-                config = {
-                    'temperature': self.temperature,
-                    'max_output_tokens': self.max_tokens,
-                }
-                if json_mode:
-                    config['response_mime_type'] = 'application/json'
-                    config['response_schema'] = {
-                        "type": "object",
-                        "properties": {
-                            "answer": {"type": "string"}
-                        },
-                        "required": ["answer"]
-                    }
-                request_config['config'] = config
-            
-            inline_requests.append(request_config)
-        
-        # Build descriptive display_name
+                    tmp.write(json.dumps(line) + '\n')
+
+            uploaded = self.client.files.upload(
+                file=jsonl_path,
+                config={'mime_type': 'jsonl', 'display_name': 'batch-requests'},
+            )
+        finally:
+            if jsonl_path and os.path.exists(jsonl_path):
+                os.unlink(jsonl_path)
+
         display_name = self._build_display_name(requests, batch_metadata)
-        
+
         batch_job = self.client.batches.create(
             model=f"models/{self.model_name}",
-            src=inline_requests,
-            config={
-                'display_name': display_name,
-            },
+            src=uploaded.name,
+            config={'display_name': display_name},
         )
-        
-        batch_id = batch_job.name
-        
-        # Store request_ids in memory cache (backup for same-session retrieval)
-        request_ids = [req.custom_id for req in requests]
-        self._request_ids_cache[batch_id] = request_ids
-        
-        return batch_id
-    
-    def get_submitted_request_ids(self, batch_id: str) -> List[str]:
-        """
-        Get the request_ids that were submitted with a batch.
-        
-        This is needed for result alignment since Google's API doesn't
-        return custom_ids in responses.
-        
-        Returns:
-            List of custom_ids in submission order
-            
-        Raises:
-            ValueError if batch_id not found in cache
-        """
-        if batch_id not in self._request_ids_cache:
-            raise ValueError(
-                f"No request_ids found in cache for batch {batch_id}. "
-                "This batch may have been submitted in a different session. "
-                "Use BatchRequestStorage to load request_ids from disk."
-            )
-        return self._request_ids_cache[batch_id]
-    
+
+        return batch_job.name
+
     def get_status(self, batch_id: str) -> BatchStatus:
         """Get current status of a batch."""
         batch = self.client.batches.get(name=batch_id)
@@ -673,138 +692,89 @@ class GoogleBatchAPI:
             'JOB_STATE_SUCCEEDED': 'completed',
             'JOB_STATE_FAILED': 'failed',
             'JOB_STATE_CANCELLED': 'cancelled',
-            'JOB_STATE_EXPIRED': 'failed',
+            'JOB_STATE_EXPIRED': 'expired',
         }
         
-        # Google batch doesn't provide individual request counts during processing
-        # We'll estimate based on state
         state_name = batch.state.name if hasattr(batch.state, 'name') else str(batch.state)
         status = state_map.get(state_name, 'processing')
-        
-        # Use cached request_ids if available
-        request_ids = self._request_ids_cache.get(batch_id, [])
-        total = len(request_ids)
-        completed = total if status == 'completed' else 0
-        failed = total if status == 'failed' else 0
-        
+
         return BatchStatus(
             batch_id=batch_id,
             provider="google",
             status=status,
-            total_requests=total,
-            completed_requests=completed,
-            failed_requests=failed,
-            created_at=None,  # Not readily available
+            total_requests=0,
+            completed_requests=0,
+            failed_requests=0,
+            created_at=None,
             completed_at=None,
         )
-    
-    def get_results(self, batch_id: str, request_ids: Optional[List[str]] = None) -> List[BatchResult]:
-        """Retrieve results from completed batch.
-        
-        Args:
-            batch_id: The Google batch ID
-            request_ids: List of custom_ids in submission order. REQUIRED for
-                        alignment since Google's inline responses don't include
-                        custom_ids. For batches submitted in the same session,
-                        pass None to use the in-memory cache. For batches from
-                        previous sessions, load from BatchRequestStorage and pass
-                        explicitly.
-                        
-        Raises:
-            ValueError: If request_ids is None and batch not in cache
+
+    def get_results(self, batch_id: str) -> List[BatchResult]:
+        """Fetch and parse results for a completed batch.
+
+        Does not validate against submitted keys — callers must run
+        ``validate_batch_results`` from ``batch_storage`` to catch missing /
+        unexpected keys. Any line missing a ``key`` is returned as a failure
+        with a synthesised id so validation can report it explicitly.
         """
         batch = self.client.batches.get(name=batch_id)
-        
-        # Try passed request_ids first, then fall back to in-memory cache
-        if request_ids is None:
-            request_ids = self._request_ids_cache.get(batch_id, [])
-        
-        if not request_ids:
+
+        if not (batch.dest and batch.dest.file_name):
             raise ValueError(
-                f"No request_ids found for batch {batch_id}. "
-                "This batch may have been submitted in a different session. "
-                "Load request_ids from batch_ids.json and pass them to get_results()."
+                f"Batch {batch_id} has no result file. "
+                "File-based submission is required; inline mode is no longer supported."
             )
-        
-        results = []
-        
-        # Check for inline responses
-        if batch.dest and batch.dest.inlined_responses:
-            for i, inline_response in enumerate(batch.dest.inlined_responses):
-                custom_id = request_ids[i] if i < len(request_ids) else f"request-{i}"
-                
-                if inline_response.response:
-                    try:
-                        text = inline_response.response.text
-                        results.append(BatchResult(
-                            custom_id=custom_id,
-                            response_text=text,
-                            success=True,
-                            metadata={
-                                "model": self.model_name,
-                            }
-                        ))
-                    except AttributeError:
-                        # Fallback if .text isn't available
-                        results.append(BatchResult(
-                            custom_id=custom_id,
-                            response_text=str(inline_response.response),
-                            success=True,
-                            metadata={"model": self.model_name}
-                        ))
-                elif inline_response.error:
+
+        file_content = self.client.files.download(file=batch.dest.file_name)
+        content = file_content.decode('utf-8')
+
+        results: List[BatchResult] = []
+        for line_num, line in enumerate(content.strip().split('\n'), start=1):
+            if not line:
+                continue
+
+            data = json.loads(line)
+            custom_id = data.get('key')
+            if not custom_id:
+                results.append(BatchResult(
+                    custom_id=f"__missing_key_line_{line_num}",
+                    response_text="",
+                    success=False,
+                    error=f"response line {line_num} missing 'key' field",
+                ))
+                continue
+
+            if 'response' in data and data['response']:
+                try:
+                    text = data['response']['candidates'][0]['content']['parts'][0]['text']
+                    results.append(BatchResult(
+                        custom_id=custom_id,
+                        response_text=text,
+                        success=True,
+                        metadata={"model": self.model_name},
+                    ))
+                except (KeyError, IndexError) as e:
                     results.append(BatchResult(
                         custom_id=custom_id,
                         response_text="",
                         success=False,
-                        error=str(inline_response.error),
+                        error=f"Failed to parse response: {e}",
                     ))
-                else:
-                    results.append(BatchResult(
-                        custom_id=custom_id,
-                        response_text="",
-                        success=False,
-                        error="No response or error in inline_response",
-                    ))
-        
-        # Check for file-based results
-        elif batch.dest and batch.dest.file_name:
-            file_content = self.client.files.download(file=batch.dest.file_name)
-            content = file_content.decode('utf-8')
-            
-            for i, line in enumerate(content.strip().split('\n')):
-                if not line:
-                    continue
-                
-                data = json.loads(line)
-                custom_id = data.get('key', request_ids[i] if i < len(request_ids) else f"request-{i}")
-                
-                if 'response' in data and data['response']:
-                    try:
-                        text = data['response']['candidates'][0]['content']['parts'][0]['text']
-                        results.append(BatchResult(
-                            custom_id=custom_id,
-                            response_text=text,
-                            success=True,
-                            metadata={"model": self.model_name}
-                        ))
-                    except (KeyError, IndexError) as e:
-                        results.append(BatchResult(
-                            custom_id=custom_id,
-                            response_text="",
-                            success=False,
-                            error=f"Failed to parse response: {e}",
-                        ))
-                elif 'error' in data:
-                    results.append(BatchResult(
-                        custom_id=custom_id,
-                        response_text="",
-                        success=False,
-                        error=str(data['error']),
-                    ))
-        else:
-            raise ValueError("No results found (neither file nor inline)")
-        
+            elif 'error' in data:
+                results.append(BatchResult(
+                    custom_id=custom_id,
+                    response_text="",
+                    success=False,
+                    error=str(data['error']),
+                ))
+            else:
+                results.append(BatchResult(
+                    custom_id=custom_id,
+                    response_text="",
+                    success=False,
+                    error="response line has neither 'response' nor 'error'",
+                ))
+
         return results
     
     def cancel_batch(self, batch_id: str) -> bool:
@@ -812,8 +782,10 @@ class GoogleBatchAPI:
         try:
             self.client.batches.cancel(name=batch_id)
             return True
-        except Exception:
-            return False
+        except Exception as e:
+            if is_stale_error(e):
+                return False
+            raise
 
 
 class AlibabaBatchAPI:
@@ -1010,26 +982,24 @@ class AlibabaBatchAPI:
         try:
             self.client.batches.cancel(batch_id)
             return True
-        except Exception:
-            return False
+        except Exception as e:
+            if is_stale_error(e):
+                return False
+            raise
 
 
 class BatchRunner:
     """
     High-level batch runner that handles submission, polling, and result collection.
-    
+
     Usage:
         runner = BatchRunner(provider="openai", model_name="gpt-4o")
         batch_id = runner.submit(requests)
         results = runner.wait_for_completion(batch_id, check_interval=60)
-        
-    For Google batches, you must save request_ids after submission and pass
-    them when retrieving results:
-        
-        batch_id = runner.submit(requests)
-        request_ids = runner.get_submitted_request_ids(batch_id)  # Save this!
-        # ... later ...
-        results = runner.get_results(batch_id, request_ids=request_ids)
+
+    Callers must pair ``get_results`` / ``wait_for_completion`` with
+    ``validate_batch_results`` (see ``batch_storage``) to cross-check
+    returned keys against the submitted set.
     """
     
     def __init__(
@@ -1059,101 +1029,48 @@ class BatchRunner:
         json_mode: bool = True,
         batch_metadata: Optional[Dict[str, Any]] = None,
     ) -> str:
-        """Submit batch and return batch ID.
-        
-        Args:
-            requests: List of BatchRequest objects to submit
-            json_mode: Whether to request JSON output format
-            batch_metadata: Optional metadata about the batch, e.g.:
-                - format: "abc", "humdrum", "mei", "musicxml"
-                - num_measures: 1 or 8
-                - question_range: "Q-001 to Q-100"
-                
-        Note: For Google batches, call get_submitted_request_ids() after this
-              and save the result for later retrieval.
-        """
+        """Submit batch and return batch ID."""
         return self.api.submit_batch(requests, json_mode=json_mode, batch_metadata=batch_metadata)
-    
-    def get_submitted_request_ids(self, batch_id: str) -> List[str]:
-        """
-        Get the request_ids that were just submitted with a batch.
-        
-        This is REQUIRED for Google batches and should be called immediately
-        after submit() to save the request order for later result alignment.
-        
-        For other providers, this returns an empty list (not needed).
-        
-        Args:
-            batch_id: The batch ID returned from submit()
-            
-        Returns:
-            List of custom_ids in submission order
-        """
-        if self.provider == "google":
-            return self.api.get_submitted_request_ids(batch_id)
-        return []
-    
+
     def get_status(self, batch_id: str) -> BatchStatus:
         """Get current batch status."""
         return self.api.get_status(batch_id)
-    
-    def get_results(
-        self,
-        batch_id: str,
-        request_ids: Optional[List[str]] = None,
-    ) -> List[BatchResult]:
-        """Get batch results (for completed batches).
-        
-        Args:
-            batch_id: The batch ID
-            request_ids: For Google batches only - the list of custom_ids in
-                        submission order. Required for batches from previous
-                        sessions. Pass None for same-session batches or other
-                        providers.
+
+    def get_results(self, batch_id: str) -> List[BatchResult]:
+        """Fetch and parse completed batch results.
+
+        Callers must pass the returned list through
+        ``batch_storage.validate_batch_results`` to cross-check against the
+        submitted custom_ids.
         """
-        if self.provider == "google":
-            return self.api.get_results(batch_id, request_ids=request_ids)
         return self.api.get_results(batch_id)
-    
+
     def wait_for_completion(
         self,
         batch_id: str,
         check_interval: int = 60,
         max_wait_time: int = 3600,
         progress_callback: Optional[callable] = None,
-        request_ids: Optional[List[str]] = None,
     ) -> List[BatchResult]:
-        """
-        Wait for batch to complete and return results.
-        
-        Args:
-            batch_id: Batch ID to monitor
-            check_interval: Seconds between status checks
-            max_wait_time: Maximum seconds to wait
-            progress_callback: Optional callback(status) for progress updates
-            request_ids: For Google batches - the request_ids for alignment
-            
-        Returns:
-            List of BatchResult objects
-        """
+        """Wait for batch to complete and return raw results (unvalidated)."""
         start_time = time.time()
-        
+
         while True:
             status = self.get_status(batch_id)
-            
+
             if progress_callback:
                 progress_callback(status)
-            
+
             if status.is_complete:
                 if status.status == "completed":
-                    return self.get_results(batch_id, request_ids=request_ids)
+                    return self.get_results(batch_id)
                 else:
                     raise RuntimeError(f"Batch {status.status}: {status.failed_requests} failed")
-            
+
             elapsed = time.time() - start_time
             if elapsed > max_wait_time:
                 raise TimeoutError(f"Batch did not complete within {max_wait_time}s")
-            
+
             time.sleep(check_interval)
     
     def cancel(self, batch_id: str) -> bool:
