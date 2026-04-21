@@ -225,17 +225,41 @@ Polling loop: retryable → exponential backoff per batch (`30 * 2^(count-1)`, c
 
 ---
 
-### Phase 4 — Pilot batch
+### Phase 4 — Pilot batch (DONE, 2026-04-20)
 
 **Why:** Verify the full pipeline end-to-end with real API calls before spending budget on full collection.
 
-**Scope:** No code changes. Run one tiny batch per provider (5 requests each), full pipeline including save, validation, DB insert, and a process-kill-and-resume test.
+**Scope:** 3 requests × 3 providers (1-measure MusicXML passages, Q-001/Q-002/Q-003, run_id `phase4_pilot_v3`).
+
+**Handoff notes (2026-04-20):**
+
+**Providers tested:** OpenAI (`gpt-5.4-nano`), Anthropic (`claude-haiku-4-5`), Google (`gemini-3.1-flash-lite-preview`). Alibaba skipped: DashScope international batch endpoint returned 401 — key is set as `DASHSCOPE_API_KEY` but appears invalid for the batch endpoint; investigate before Phase 5.
+
+**Kill-and-resume:** Process SIGKILL'd immediately after all 3 batches were submitted (all in `submitted` state in storage). On restart with `--poll-only --run-id phase4_pilot_v3`, the script read from `batch_request_mappings.json`, skipped re-submission for already-submitted batches, and polled to completion. PASSED.
+
+**Polling exit condition bug found and fixed:** `while len(completed) < len(resumable)` exited early when completed batches transitioned to `saved` (terminal) and left `get_resumable()`, causing `len(resumable)` to shrink while `len(completed)` stayed constant. Fixed in `scripts/submit_all_batches.py`: added `initial_batch_ids = set(resumable.keys())` before the loop and replaced all three `len(completed) < len(resumable)` checks with `initial_batch_ids - completed`.
+
+**Results (`phase4_pilot_v3`):**
+- 9 DB rows saved (3 models × 3 questions), all with correct `question_id`/`passage_id`/`format`
+- 9 JSON result files at `model/musicxml/Q-NNN_r1.json`
+- 3 raw results files persisted to disk
+- No `needs_retry_ids` — all validation passed
+- DB and JSON files agree: no divergence
+
+**Accuracy (informational only — not the pilot's purpose):**
+- `claude-haiku-4-5`: 3/3 correct
+- `gpt-5.4-nano`: 2/3 correct
+- `gemini-3.1-flash-lite-preview`: 2/3 correct
+
+**`.env` note:** Anthropic key was stored as `CLAUDE_API_KEY`; added `ANTHROPIC_API_KEY` alias pointing to the same value. `DASHSCOPE_API_KEY` is set but the international batch endpoint (`dashscope-intl.aliyuncs.com`) rejects it with 401.
+
+**config.yaml state after Phase 4:** 3 providers enabled (`gpt-5.4-nano`, `claude-haiku-4-5`, `gemini-3.1-flash-lite-preview`), `num_measures: [1]`, `limit: 3`, `question_ids: null`, `run_id: phase4_pilot_v3`. **Phase 5 must reconfigure this** for the full matrix.
 
 **Acceptance:**
-- All 20 requests (5 × 4 providers) save cleanly with correct custom_id → test_case mapping.
-- Process-kill-and-resume works for each provider.
-- DB rows and JSON files agree (no divergence).
-- If any provider surfaces a quirk, document in this handoff and either fix or create a Phase 4.5.
+- ✅ 9 requests (3 × 3 providers) save cleanly with correct custom_id → test_case mapping.
+- ✅ Process-kill-and-resume works (verified for all 3 providers in one kill).
+- ✅ DB rows and JSON files agree (no divergence).
+- ⚠️ Alibaba not tested — 401 error, needs investigation before Phase 5.
 
 ---
 

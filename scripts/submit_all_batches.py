@@ -523,7 +523,12 @@ def main():
     batch_retry_counts: Dict[str, int] = {}
     batch_next_poll: Dict[str, float] = {}
 
-    while len(completed) < len(resumable):
+    # Capture the initial set of IDs to poll against, so that as completed
+    # batches leave get_resumable() (they become "saved"/terminal) the while
+    # condition doesn't exit early.
+    initial_batch_ids: set = set(resumable.keys())
+
+    while initial_batch_ids - completed:
         # Reload resumable state in case storage was updated externally
         resumable = storage.get_resumable()
         pending = {bid: m for bid, m in resumable.items() if bid not in completed}
@@ -564,7 +569,7 @@ def main():
             and now >= batch_next_poll.get(bid, 0)
         }
         if not to_poll:
-            if len(completed) < len(resumable):
+            if initial_batch_ids - completed:
                 time.sleep(args.check_interval)
             continue
 
@@ -665,7 +670,7 @@ def main():
                 success = sum(1 for r in results if r.is_correct)
                 print(f"    -> saved {len(results)} results ({success} correct)")
 
-        if len(completed) < len(resumable):
+        if initial_batch_ids - completed:
             print(f"Waiting {args.check_interval} seconds...")
             time.sleep(args.check_interval)
 
