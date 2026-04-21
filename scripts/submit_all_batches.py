@@ -191,6 +191,7 @@ def submit_single_batch(
         model_name=model_config.name,
         max_tokens=model_config.max_tokens or config.api_settings.max_tokens,
         temperature=temperature,
+        reasoning_effort=model_config.reasoning_effort,
     )
 
     submitted_ids = [r.custom_id for r in batch_requests]

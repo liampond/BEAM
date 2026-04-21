@@ -135,13 +135,14 @@ class OpenAIBatchAPI:
         5. Download and parse results
     """
     
-    def __init__(self, model_name: str, max_tokens: int = 1024, temperature: float = 0.0):
+    def __init__(self, model_name: str, max_tokens: int = 1024, temperature: float = 0.0, reasoning_effort: Optional[str] = None):
         import openai
         self.client = openai.OpenAI()
         self.model_name = model_name
         self.max_tokens = max_tokens
         self.temperature = temperature
-    
+        self.reasoning_effort = reasoning_effort
+
     def _build_batch_description(
         self,
         requests: List[BatchRequest],
@@ -220,9 +221,13 @@ class OpenAIBatchAPI:
             body = {
                 "model": self.model_name,
                 "messages": messages,
-                "temperature": self.temperature,
             }
-            
+
+            if self.reasoning_effort:
+                body["reasoning_effort"] = self.reasoning_effort
+            else:
+                body["temperature"] = self.temperature
+
             # Newer OpenAI models (gpt-4.1+, gpt-5+, o1, o3, etc.) use max_completion_tokens
             if any(x in self.model_name for x in ["gpt-4.1", "gpt-5", "o1", "o3"]):
                 body["max_completion_tokens"] = self.max_tokens
@@ -314,23 +319,40 @@ class OpenAIBatchAPI:
             
             if batch.output_file_id:
                 break
-            
+
             time.sleep(2)  # Wait a bit and retry
         else:
+            # No output file: all requests failed. Parse error file if available.
+            if batch.error_file_id:
+                error_content = self.client.files.content(batch.error_file_id).text
+                results = []
+                for line in error_content.strip().split('\n'):
+                    if not line:
+                        continue
+                    data = json.loads(line)
+                    custom_id = data.get("custom_id", f"unknown_{len(results)}")
+                    err = data.get("error", {})
+                    results.append(BatchResult(
+                        custom_id=custom_id,
+                        response_text="",
+                        success=False,
+                        error=str(err.get("message", "request failed")),
+                    ))
+                return results
             raise ValueError("No output file available after retries")
-        
+
         # Download output file
         file_response = self.client.files.content(batch.output_file_id)
         content = file_response.text
-        
+
         results = []
         for line in content.strip().split('\n'):
             if not line:
                 continue
-            
+
             data = json.loads(line)
             custom_id = data["custom_id"]
-            
+
             if data.get("error"):
                 results.append(BatchResult(
                     custom_id=custom_id,
@@ -342,7 +364,7 @@ class OpenAIBatchAPI:
                 response = data["response"]
                 body = response["body"]
                 text = body["choices"][0]["message"]["content"]
-                
+
                 results.append(BatchResult(
                     custom_id=custom_id,
                     response_text=text,
@@ -353,9 +375,9 @@ class OpenAIBatchAPI:
                         "finish_reason": body["choices"][0].get("finish_reason"),
                     }
                 ))
-        
+
         return results
-    
+
     def cancel_batch(self, batch_id: str) -> bool:
         """Cancel a pending or in-progress batch."""
         try:
@@ -379,7 +401,7 @@ class AnthropicBatchAPI:
     Uses structured outputs beta for guaranteed JSON responses.
     """
     
-    def __init__(self, model_name: str, max_tokens: int = 1024, temperature: float = 0.0):
+    def __init__(self, model_name: str, max_tokens: int = 1024, temperature: float = 0.0, reasoning_effort: Optional[str] = None):
         import anthropic
         # Use beta header for structured outputs
         self.client = anthropic.Anthropic(
@@ -388,6 +410,7 @@ class AnthropicBatchAPI:
         self.model_name = model_name
         self.max_tokens = max_tokens
         self.temperature = temperature
+        self.reasoning_effort = reasoning_effort
     
     def submit_batch(
         self,
@@ -427,10 +450,13 @@ class AnthropicBatchAPI:
             params = {
                 "model": self.model_name,
                 "max_tokens": self.max_tokens,
-                "temperature": self.temperature,
                 "messages": [{"role": "user", "content": req.prompt}],
             }
-            
+
+            # Reasoning models return 400 if temperature is included
+            if not self.reasoning_effort:
+                params["temperature"] = self.temperature
+
             if system:
                 params["system"] = system
             
@@ -935,23 +961,40 @@ class AlibabaBatchAPI:
             
             if batch.output_file_id:
                 break
-            
+
             time.sleep(2)  # Wait a bit and retry
         else:
+            # No output file: all requests failed. Parse error file if available.
+            if batch.error_file_id:
+                error_content = self.client.files.content(batch.error_file_id).text
+                results = []
+                for line in error_content.strip().split('\n'):
+                    if not line:
+                        continue
+                    data = json.loads(line)
+                    custom_id = data.get("custom_id", f"unknown_{len(results)}")
+                    err = data.get("error", {})
+                    results.append(BatchResult(
+                        custom_id=custom_id,
+                        response_text="",
+                        success=False,
+                        error=str(err.get("message", "request failed")),
+                    ))
+                return results
             raise ValueError("No output file available after retries")
-        
+
         # Download output file
         file_response = self.client.files.content(batch.output_file_id)
         content = file_response.text
-        
+
         results = []
         for line in content.strip().split('\n'):
             if not line:
                 continue
-            
+
             data = json.loads(line)
             custom_id = data["custom_id"]
-            
+
             if data.get("error"):
                 results.append(BatchResult(
                     custom_id=custom_id,
@@ -963,7 +1006,7 @@ class AlibabaBatchAPI:
                 response = data["response"]
                 body = response["body"]
                 text = body["choices"][0]["message"]["content"]
-                
+
                 results.append(BatchResult(
                     custom_id=custom_id,
                     response_text=text,
@@ -974,9 +1017,9 @@ class AlibabaBatchAPI:
                         "finish_reason": body["choices"][0].get("finish_reason"),
                     }
                 ))
-        
+
         return results
-    
+
     def cancel_batch(self, batch_id: str) -> bool:
         """Cancel a pending or in-progress batch."""
         try:
@@ -1008,14 +1051,15 @@ class BatchRunner:
         model_name: str,
         max_tokens: int = 1024,
         temperature: float = 0.0,
+        reasoning_effort: Optional[str] = None,
     ):
         self.provider = provider
         self.model_name = model_name
-        
+
         if provider == "openai":
-            self.api = OpenAIBatchAPI(model_name, max_tokens, temperature)
+            self.api = OpenAIBatchAPI(model_name, max_tokens, temperature, reasoning_effort)
         elif provider == "anthropic":
-            self.api = AnthropicBatchAPI(model_name, max_tokens, temperature)
+            self.api = AnthropicBatchAPI(model_name, max_tokens, temperature, reasoning_effort)
         elif provider == "google":
             self.api = GoogleBatchAPI(model_name, max_tokens, temperature)
         elif provider == "alibaba":
