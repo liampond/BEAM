@@ -67,7 +67,12 @@ class ModelConfig:
     
     # Batch API settings
     use_batch_api: bool = False  # Use batch API if available
-    
+
+    # Reasoning / effort control (provider-specific)
+    # OpenAI: maps to reasoning={"effort": ...} via Responses API
+    # Anthropic: maps to output_config={"effort": ...}
+    reasoning_effort: Optional[str] = None  # "low", "medium", "high", "xhigh", "max"
+
     # Additional model-specific params
     extra_params: Dict[str, Any] = field(default_factory=dict)
     
@@ -101,10 +106,11 @@ class BatchSettings:
     save_batch_ids: bool = True  # Save batch IDs for resumption
 
 
-@dataclass 
+@dataclass
 class OutputConfig:
     """Output and storage configuration."""
     base_dir: str = "outputs"
+    database: str = "benchmark.db"
     
     # Structure: {base_dir}/{run_id}/{model}/{format}/
     # run_id is auto-generated timestamp or custom name
@@ -221,6 +227,7 @@ class BenchmarkConfig:
                     max_tokens=m.get("max_tokens"),
                     timeout=m.get("timeout"),
                     use_batch_api=m.get("use_batch_api", False),
+                    reasoning_effort=m.get("reasoning_effort"),
                     extra_params=m.get("extra_params", {}),
                 ))
         
@@ -250,6 +257,7 @@ class BenchmarkConfig:
             o = data["output"]
             config.output = OutputConfig(
                 base_dir=o.get("base_dir", "outputs"),
+                database=o.get("database", "benchmark.db"),
                 run_id=o.get("run_id"),
                 resume_run_id=o.get("resume_run_id"),
                 retry_failed=o.get("retry_failed", True),

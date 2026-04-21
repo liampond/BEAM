@@ -181,6 +181,7 @@ class BenchmarkRunner:
             max_tokens=model_config.max_tokens or self.config.api_settings.max_tokens,
             timeout=model_config.timeout or self.config.api_settings.timeout,
             seed=self.config.api_settings.seed,
+            reasoning_effort=model_config.reasoning_effort,
         )
         
         results = []

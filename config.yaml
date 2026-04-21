@@ -7,20 +7,24 @@ filters:
   passages: null
   question_ids: null
   question_types: null
-  limit: 3
+  limit: null
 models:
 - provider: openai
-  name: gpt-5.4-nano
+  name: gpt-5.4
   enabled: true
-  use_batch_api: true
+  use_batch_api: false
+  reasoning_effort: high
+  max_tokens: 131072
 - provider: anthropic
-  name: claude-haiku-4-5
+  name: claude-opus-4-7
   enabled: true
-  use_batch_api: true
+  use_batch_api: false
+  reasoning_effort: high
+  max_tokens: 128000
 - provider: google
-  name: gemini-3.1-flash-lite-preview
+  name: gemini-3.1-pro-preview
   enabled: true
-  use_batch_api: true
+  use_batch_api: false
   temperature: 1.0
   max_tokens: 32768
 - provider: alibaba
@@ -43,7 +47,8 @@ batch_settings:
   save_batch_ids: true
 output:
   base_dir: outputs
-  run_id: phase4_pilot_v3
+  database: benchmark_v2.db
+  run_id: phase5_1bar
   resume_run_id: null
   retry_failed: false
   save_prompts: true

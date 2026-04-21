@@ -70,7 +70,7 @@ class TestCaseQuery:
     
     def __init__(self, config: BenchmarkConfig):
         self.config = config
-        self.db_path = config.project_root / "benchmark.db"
+        self.db_path = config.project_root / config.output.database
         self.passages_dir = config.project_root / "passages"
     
     def _get_connection(self) -> sqlite3.Connection:

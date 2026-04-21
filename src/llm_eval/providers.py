@@ -88,6 +88,7 @@ class BaseLLMProvider(ABC):
         max_tokens: int = 1024,
         timeout: int = 300,
         seed: Optional[int] = None,
+        reasoning_effort: Optional[str] = None,
         **kwargs
     ):
         self.model_name = model_name
@@ -95,6 +96,7 @@ class BaseLLMProvider(ABC):
         self.max_tokens = max_tokens
         self.timeout = timeout
         self.seed = seed
+        self.reasoning_effort = reasoning_effort
         self.extra_params = kwargs
     
     @property
@@ -230,17 +232,77 @@ class OpenAIProvider(BaseLLMProvider):
         json_mode: bool = False,
         **kwargs
     ) -> Tuple[str, Dict[str, Any]]:
+        if self.reasoning_effort:
+            return self._call_responses_api(prompt, system_prompt, json_mode, **kwargs)
+        return self._call_chat_completions(prompt, system_prompt, json_mode, **kwargs)
+
+    def _call_responses_api(
+        self,
+        prompt: str,
+        system_prompt: Optional[str] = None,
+        json_mode: bool = False,
+        **kwargs
+    ) -> Tuple[str, Dict[str, Any]]:
+        """Use OpenAI Responses API for reasoning models (gpt-5.4, o-series, etc.)."""
+        input_messages = []
+        if system_prompt:
+            input_messages.append({"role": "system", "content": system_prompt})
+        input_messages.append({"role": "user", "content": prompt})
+
+        call_params = {
+            "model": self.model_name,
+            "reasoning": {"effort": self.reasoning_effort},
+            "input": input_messages,
+            "max_output_tokens": kwargs.get("max_tokens", self.max_tokens),
+        }
+
+        if json_mode:
+            call_params["text"] = {
+                "format": {
+                    "type": "json_schema",
+                    "name": "answer_response",
+                    "strict": True,
+                    "schema": {
+                        "type": "object",
+                        "properties": {"answer": {"type": "string"}},
+                        "required": ["answer"],
+                        "additionalProperties": False,
+                    },
+                }
+            }
+
+        response = self.client.responses.create(**call_params)
+        text = getattr(response, "output_text", None) or ""
+
+        usage = getattr(response, "usage", None)
+        metadata = {
+            "finish_reason": None,
+            "model": self.model_name,
+            "input_tokens": getattr(usage, "input_tokens", None) if usage else None,
+            "output_tokens": getattr(usage, "output_tokens", None) if usage else None,
+            "total_tokens": getattr(usage, "total_tokens", None) if usage else None,
+        }
+        return text, metadata
+
+    def _call_chat_completions(
+        self,
+        prompt: str,
+        system_prompt: Optional[str] = None,
+        json_mode: bool = False,
+        **kwargs
+    ) -> Tuple[str, Dict[str, Any]]:
+        """Use OpenAI Chat Completions API (standard non-reasoning path)."""
         messages = []
         if system_prompt:
             messages.append({"role": "system", "content": system_prompt})
         messages.append({"role": "user", "content": prompt})
-        
+
         call_params = {
             "model": self.model_name,
             "messages": messages,
             "temperature": kwargs.get("temperature", self.temperature),
         }
-        
+
         # Newer OpenAI models (gpt-4.1+, gpt-5+, o1, o3, etc.) use max_completion_tokens
         # Older models use max_tokens
         max_tok = kwargs.get("max_tokens", self.max_tokens)
@@ -248,14 +310,11 @@ class OpenAIProvider(BaseLLMProvider):
             call_params["max_completion_tokens"] = max_tok
         else:
             call_params["max_tokens"] = max_tok
-        
-        # Add seed for reproducibility (if model supports it)
+
         if self.seed is not None:
             call_params["seed"] = self.seed
-        
-        # JSON mode enforcement
+
         if json_mode:
-            # Use JSON schema for strict structured output
             call_params["response_format"] = {
                 "type": "json_schema",
                 "json_schema": {
@@ -263,19 +322,16 @@ class OpenAIProvider(BaseLLMProvider):
                     "strict": True,
                     "schema": {
                         "type": "object",
-                        "properties": {
-                            "answer": {"type": "string"}
-                        },
+                        "properties": {"answer": {"type": "string"}},
                         "required": ["answer"],
-                        "additionalProperties": False
-                    }
-                }
+                        "additionalProperties": False,
+                    },
+                },
             }
-        
+
         response = self.client.chat.completions.create(**call_params)
-        
         text = response.choices[0].message.content or ""
-        
+
         metadata = {
             "finish_reason": response.choices[0].finish_reason,
             "model": response.model,
@@ -283,7 +339,6 @@ class OpenAIProvider(BaseLLMProvider):
             "output_tokens": response.usage.completion_tokens if response.usage else None,
             "total_tokens": response.usage.total_tokens if response.usage else None,
         }
-        
         return text, metadata
 
 
@@ -330,17 +385,24 @@ class AnthropicProvider(BaseLLMProvider):
         call_params = {
             "model": self.model_name,
             "max_tokens": kwargs.get("max_tokens", self.max_tokens),
-            "temperature": kwargs.get("temperature", self.temperature),
             "messages": [{"role": "user", "content": prompt}],
         }
-        
+        # temperature is deprecated on reasoning models (effort controls sampling)
+        if not self.reasoning_effort:
+            call_params["temperature"] = kwargs.get("temperature", self.temperature)
+
         if system_prompt:
             call_params["system"] = system_prompt
-        
-        # Use structured outputs for JSON mode via beta client
+
+        # output_config and output_format go via extra_body — not yet in SDK type stubs,
+        # and beta.messages.stream() wraps output_format in TypeAdapter (breaks with dicts).
+        extra_body = {}
+
+        if self.reasoning_effort:
+            extra_body["output_config"] = {"effort": self.reasoning_effort}
+
         if json_mode:
-            call_params["betas"] = ["structured-outputs-2025-11-13"]
-            call_params["output_format"] = {
+            extra_body["output_format"] = {
                 "type": "json_schema",
                 "schema": {
                     "type": "object",
@@ -354,21 +416,24 @@ class AnthropicProvider(BaseLLMProvider):
                     "additionalProperties": False
                 }
             }
-            response = self.client.beta.messages.create(**call_params)
-        else:
-            response = self.client.messages.create(**call_params)
-        
+
+        if extra_body:
+            call_params["extra_body"] = extra_body
+
+        with self.client.messages.stream(**call_params) as stream:
+            response = stream.get_final_message()
+
         text = ""
         if response.content:
             text = response.content[0].text
-        
+
         metadata = {
             "finish_reason": response.stop_reason,
             "model": response.model,
             "input_tokens": response.usage.input_tokens if response.usage else None,
             "output_tokens": response.usage.output_tokens if response.usage else None,
         }
-        
+
         return text, metadata
 
 

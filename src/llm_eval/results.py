@@ -284,7 +284,7 @@ class ResultsManager:
     
     def _save_single_to_database(self, result: TestResult):
         """Save a single result to the llm_responses table."""
-        db_path = self.config.project_root / "benchmark.db"
+        db_path = self.config.project_root / self.config.output.database
         conn = sqlite3.connect(db_path)
         cursor = conn.cursor()
         
