@@ -39,7 +39,7 @@ def is_retryable(exc: Exception) -> bool:
         pass
     try:
         import openai as _oai
-        if isinstance(exc, _oai.RateLimitError):
+        if isinstance(exc, (_oai.RateLimitError, _oai.APIConnectionError)):
             return True
     except ImportError:
         pass

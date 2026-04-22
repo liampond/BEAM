@@ -263,7 +263,7 @@ Polling loop: retryable → exponential backoff per batch (`30 * 2^(count-1)`, c
 
 ---
 
-### Phase 5 — Full data collection (IN PROGRESS, 2026-04-21)
+### Phase 5 — Full data collection (DONE, 2026-04-21)
 
 **Why:** The whole point.
 
@@ -276,26 +276,19 @@ Polling loop: retryable → exponential backoff per batch (`30 * 2^(count-1)`, c
 - `config.yaml`: all model `max_tokens` set to 65536 (was 131072 for gpt-5.4; the batch API cap is 128000 but 65536 is sufficient and avoids edge cases).
 - `scripts/run_gpt54_sequential.py`: one-off sequential fallback script, unused in final approach.
 
-**Results so far (2026-04-21):**
-- **Anthropic (claude-opus-4-7):** ✅ 405/405 saved, **371 correct (91.6%)**. Completed at ~02:40.
-- **Gemini (gemini-3.1-pro-preview):** ✅ 405/405 saved, **389 correct (96.1%)**. Completed at ~09:45.
-- **OpenAI (gpt-5.4):** First batch failed — all 405 requests returned `invalid_request_error: max_tokens is too large: 131072, max is 128000`. Marked `failed_stale`, re-submitted with 65536 max_tokens as `batch_69e77f69bbcc8190a2dfa8cda9a0ba7b`. Currently `in_progress`. Polling process running as PID 89476, log at `outputs/phase5_1bar_batch2.log`.
+**Final results (2026-04-21):**
+- **Anthropic (claude-opus-4-7):** ✅ 371/405 correct **(91.6%)**
+- **Gemini (gemini-3.1-pro-preview):** ✅ 389/405 correct **(96.1%)**
+- **OpenAI (gpt-5.4):** ✅ 375/405 correct **(92.6%)**
 
-**To resume if polling process dies:**
-```bash
-python3 scripts/submit_all_batches.py --poll-only >> outputs/phase5_1bar_batch2.log 2>&1
-```
-
-**After gpt-5.4 completes:**
-- Check `outputs/phase5_1bar_batch2.log` for results summary.
-- Check DB: `SELECT model, COUNT(*), SUM(is_correct) FROM llm_responses GROUP BY model`
-- Check for any `needs_retry_ids` in `outputs/phase5_1bar/batch_request_mappings.json`.
-- Proceed to Phase 6 (evaluation / extraction audit).
+All 1215 results saved to `benchmark_v2.db` and `outputs/phase5_1bar/`.
 
 **Notes:**
-- `scripts/run_gpt54_sequential.py` exists as a fallback if the batch approach fails again.
+- First gpt-5.4 batch failed (max_tokens 131072 > batch API cap of 128000). Fixed by capping all models at 65536. Re-submitted and succeeded.
+- `openai.APIConnectionError` added to `is_retryable` — transient network errors during polling no longer crash the process.
+- `scripts/run_gpt54_sequential.py` exists as a sequential fallback (unused).
 - Alibaba skipped — DashScope international batch endpoint returns 401.
-- The pilot results (P-001 × 3 models) from `phase5_pilot_p001` are already in `benchmark_v2.db`; the full run adds the remaining 44 passages. P-001 results are duplicated for Anthropic and Gemini (both the pilot and the batch run saved them).
+- P-001 results are duplicated in `benchmark_v2.db` (pilot + full run). Minor; dedup if needed.
 
 ---
 
