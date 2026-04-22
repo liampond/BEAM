@@ -3,7 +3,7 @@ filters:
   - musicxml
   verified_only: false
   num_measures:
-  - 1
+  - 8
   passages: null
   question_ids: null
   question_types: null
@@ -48,7 +48,7 @@ batch_settings:
 output:
   base_dir: outputs
   database: benchmark_v2.db
-  run_id: phase5_1bar
+  run_id: phase5_8bar
   resume_run_id: null
   retry_failed: false
   save_prompts: true

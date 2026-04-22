@@ -263,7 +263,7 @@ Polling loop: retryable → exponential backoff per batch (`30 * 2^(count-1)`, c
 
 ---
 
-### Phase 5 — Full data collection (DONE, 2026-04-21)
+### Phase 5 — Full data collection (1-bar DONE, 8-bar partial, 2026-04-21)
 
 **Why:** The whole point.
 
@@ -283,8 +283,18 @@ Polling loop: retryable → exponential backoff per batch (`30 * 2^(count-1)`, c
 
 All 1215 results saved to `benchmark_v2.db` and `outputs/phase5_1bar/`.
 
+**8-bar run (run_id: `phase5_8bar`) — partial:**
+- **Anthropic (claude-opus-4-7):** ✅ 212/405 (52.3%) — completed immediately.
+- **gpt-5.4:** ❌ Daily token quota exhausted (~1.35M/day; 1-bar run consumed it). Marked `failed_stale` in `outputs/phase5_8bar/batch_request_mappings.json`.
+- **Gemini:** ❌ 429 RESOURCE_EXHAUSTED. No storage entry.
+
+**To finish 8-bar (run after midnight Pacific when quotas reset):**
+```bash
+python3 -u scripts/submit_all_batches.py --retry-stale >> outputs/phase5_8bar_batch2.log 2>&1
+```
+
 **Notes:**
-- First gpt-5.4 batch failed (max_tokens 131072 > batch API cap of 128000). Fixed by capping all models at 65536. Re-submitted and succeeded.
+- First 1-bar gpt-5.4 batch failed (max_tokens 131072 > batch API cap of 128000). Fixed by capping all models at 65536.
 - `openai.APIConnectionError` added to `is_retryable` — transient network errors during polling no longer crash the process.
 - `scripts/run_gpt54_sequential.py` exists as a sequential fallback (unused).
 - Alibaba skipped — DashScope international batch endpoint returns 401.
