@@ -175,17 +175,25 @@ def extract_voice_content(content: str, voice_num: str) -> str:
 def remove_non_note_elements(content: str) -> str:
     """
     Remove elements that should not be counted as notes.
-    
+
     Removes:
     - Inline field markers like [K:clef=bass]
     - Annotations and text
+    - Named decorations like !arpeggio!, !mordent!, !fermata!, !sfz!
+      (these contain letters A-G / 'z' that would otherwise leak into
+      pitch / rest extraction)
     """
     # Remove inline field markers [X:...]
     content = re.sub(r'\[[A-Za-z]:[^\]]*\]', '', content)
-    
+
     # Remove text annotations "..."
     content = re.sub(r'"[^"]*"', '', content)
-    
+
+    # Remove !named! decorations (e.g. !arpeggio!, !fermata!, !sfz!).
+    # Note: a bare '!' for "end of line" and single-char shorthands like '.' are
+    # still handled downstream as articulation characters.
+    content = re.sub(r'![A-Za-z]+!', '', content)
+
     return content
 
 
