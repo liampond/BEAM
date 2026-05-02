@@ -359,10 +359,16 @@ def get_upper_spine_data_by_row(file_path: str) -> List[List[str]]:
 
 
 def is_rest(token: str) -> bool:
-    """Check if a token is a rest."""
-    # Remove any beam/articulation markers first
-    cleaned = re.sub(r'[LJKk]', '', token)
-    return 'r' in cleaned and not any(c in cleaned for c in 'abcdefgABCDEFG')
+    """Check if a token is a rest.
+
+    In **kern, the letter ``r`` exclusively encodes a rest. A pitch letter
+    after the ``r`` (e.g. ``8rBB`` or ``8rc``) is a *rest positioning hint*
+    — it tells the renderer which staff line to draw the rest on, not a
+    pitch. The hint MUST NOT be parsed as a note.
+    """
+    if not token or token == '.':
+        return False
+    return 'r' in token
 
 
 def is_invisible_rest(token: str) -> bool:
@@ -764,6 +770,43 @@ def get_first_note_pitch(tokens: List[str], return_highest_in_chord: bool = True
             pitch = parse_kern_pitch(candidate_notes[0])
             if pitch:
                 return pitch
+    return None
+
+
+def get_first_note_pitch_by_rows(rows: List[List[str]], return_highest_in_chord: bool = True, include_grace: bool = True) -> Optional[str]:
+    """
+    Get the first note's pitch using row-grouped data.
+
+    Row-grouping preserves simultaneity across spine splits (``*^``). When
+    multiple kern sub-spines descended from the same staff carry notes at
+    the same time position, they appear as separate tokens in the same row;
+    the highest among them is the answer when the question asks for the
+    highest of simultaneous notes.
+
+    Args:
+        rows: List of rows, where each row is a list of tokens at that time
+        return_highest_in_chord: If True, pick highest pitch among all
+            simultaneous notes in the first event row (across tokens *and*
+            within chord tokens)
+        include_grace: If True, grace notes count
+
+    Returns:
+        Pitch in "C4" format, or None if no notes
+    """
+    for row in rows:
+        candidate_pitches = []
+        for token in row:
+            for note in extract_notes_from_token(token):
+                if not include_grace and is_grace_note(note):
+                    continue
+                pitch = parse_kern_pitch(note)
+                if pitch:
+                    candidate_pitches.append(pitch)
+        if not candidate_pitches:
+            continue
+        if return_highest_in_chord and len(candidate_pitches) > 1:
+            return max(candidate_pitches, key=lambda p: pitch_to_midi(p))
+        return candidate_pitches[0]
     return None
 
 
