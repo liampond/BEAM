@@ -417,7 +417,16 @@ class BenchmarkRunner:
             last_error = response.error
             
             if attempt < self.config.execution.max_retries and self.config.execution.retry_on_failure:
-                time.sleep(self.config.execution.retry_delay)
+                error_lower = (last_error or "").lower()
+                is_rate_limit = any(s in error_lower for s in [
+                    "429", "resource_exhausted", "quota", "rate limit", "too many requests"
+                ])
+                if is_rate_limit:
+                    wait_time = 60 * (2 ** attempt)  # 60s, 120s, 240s
+                    print(f"\n  Rate limit hit, waiting {wait_time}s (attempt {attempt + 1}/{self.config.execution.max_retries})...")
+                else:
+                    wait_time = self.config.execution.retry_delay
+                time.sleep(wait_time)
         
         # Return last failed response
         return LLMResponse(

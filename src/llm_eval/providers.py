@@ -444,29 +444,29 @@ class AnthropicProvider(BaseLLMProvider):
 class GoogleProvider(BaseLLMProvider):
     """
     Google Gemini provider with JSON mode support.
-    
+
     JSON Mode: Uses response_mime_type="application/json"
     Batch API: Not supported
     """
-    
-    def __init__(self, model_name: str = "gemini-3-pro-preview", **kwargs):
+
+    def __init__(self, model_name: str = "gemini-3.1-pro-preview", **kwargs):
         super().__init__(model_name, **kwargs)
-        import google.generativeai as genai
-        genai.configure()
-        self.model = genai.GenerativeModel(model_name)
-    
+        import os
+        from google import genai
+        self.client = genai.Client(api_key=os.environ["GOOGLE_API_KEY"])
+
     @property
     def provider_name(self) -> str:
         return "google"
-    
+
     @property
     def supports_json_mode(self) -> bool:
         return True
-    
+
     @property
     def supports_batch_api(self) -> bool:
         return False
-    
+
     def _call_api(
         self,
         prompt: str,
@@ -474,55 +474,51 @@ class GoogleProvider(BaseLLMProvider):
         json_mode: bool = False,
         **kwargs
     ) -> Tuple[str, Dict[str, Any]]:
-        import google.generativeai as genai
-        
-        # Combine system prompt with user prompt
+        from google.genai import types
+
         full_prompt = prompt
         if system_prompt:
             full_prompt = f"{system_prompt}\n\n{prompt}"
-        
-        generation_config = {
+
+        config_params = {
             "temperature": kwargs.get("temperature", self.temperature),
             "max_output_tokens": kwargs.get("max_tokens", self.max_tokens),
         }
-        
-        # JSON mode enforcement with schema
+
         if json_mode:
-            generation_config["response_mime_type"] = "application/json"
-            generation_config["response_schema"] = {
+            config_params["response_mime_type"] = "application/json"
+            config_params["response_schema"] = {
                 "type": "object",
-                "properties": {
-                    "answer": {"type": "string"}
-                },
-                "required": ["answer"]
+                "properties": {"answer": {"type": "string"}},
+                "required": ["answer"],
             }
-        
-        response = self.model.generate_content(
-            full_prompt,
-            generation_config=generation_config
+
+        response = self.client.models.generate_content(
+            model=self.model_name,
+            contents=full_prompt,
+            config=types.GenerateContentConfig(**config_params),
         )
-        
-        # Extract text with safety handling
+
         text = ""
         finish_reason = None
-        
+
         try:
+            text = response.text or ""
             if response.candidates:
                 candidate = response.candidates[0]
-                finish_reason = candidate.finish_reason.name if hasattr(candidate, 'finish_reason') else None
-                
-                if hasattr(response, 'text'):
-                    text = response.text
-                elif hasattr(candidate.content, 'parts') and candidate.content.parts:
-                    text = candidate.content.parts[0].text
+                finish_reason = (
+                    candidate.finish_reason.name
+                    if hasattr(candidate.finish_reason, "name")
+                    else str(candidate.finish_reason)
+                )
         except Exception:
             text = str(response)
-        
+
         metadata = {
             "finish_reason": finish_reason,
             "model": self.model_name,
         }
-        
+
         return text, metadata
 
 
