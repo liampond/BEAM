@@ -40,6 +40,8 @@ Thumbs.db
 *.db-journal
 *.db-bak
 *.bak
+*.db.pre-*
+*.merged-into-v1
 passages/
 outputs/
 analysis/

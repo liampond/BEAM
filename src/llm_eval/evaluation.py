@@ -35,6 +35,32 @@ CATEGORIES = (
 
 
 # ---------------------------------------------------------------------------
+# Binary correctness
+# ---------------------------------------------------------------------------
+
+def compare_answers(extracted: str, expected: str) -> bool:
+    """
+    Decide whether an extracted answer matches the ground truth.
+
+    Normalises both sides, then checks string equality and (failing that)
+    numeric equality with a small floating-point tolerance.
+    """
+    if not extracted or not expected:
+        return False
+
+    e_norm = _normalize(extracted)
+    x_norm = _normalize(expected)
+
+    if e_norm == x_norm:
+        return True
+
+    try:
+        return abs(float(e_norm) - float(x_norm)) < 0.01
+    except ValueError:
+        return False
+
+
+# ---------------------------------------------------------------------------
 # Numeric error
 # ---------------------------------------------------------------------------
 

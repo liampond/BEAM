@@ -24,7 +24,7 @@ from .query import TestCaseQuery, TestCase, build_prompt
 from .batch import BatchRunner, BatchRequest, BatchResult
 from .batch_storage import BatchRequestStorage, compute_config_hash, validate_batch_results
 from .results import ResultsManager, TestResult
-from .evaluation import compute_numeric_error, categorize_error
+from .evaluation import compute_numeric_error, categorize_error, compare_answers
 
 
 class BenchmarkRunner:
@@ -517,36 +517,7 @@ class BenchmarkRunner:
         return text.strip()
     
     def _compare_answers(self, extracted: str, expected: str) -> bool:
-        """Compare extracted answer to expected answer."""
-        if not extracted or not expected:
-            return False
-        
-        # Normalize both
-        def normalize(s: str) -> str:
-            s = s.strip().lower()
-            # Remove common punctuation
-            s = re.sub(r'[.,;:\'"!?]', '', s)
-            # Collapse whitespace
-            s = re.sub(r'\s+', ' ', s)
-            return s
-        
-        e_norm = normalize(extracted)
-        x_norm = normalize(expected)
-        
-        # Exact match
-        if e_norm == x_norm:
-            return True
-        
-        # Numeric comparison
-        try:
-            e_num = float(e_norm)
-            x_num = float(x_norm)
-            # Allow small tolerance for floating point
-            return abs(e_num - x_num) < 0.01
-        except ValueError:
-            pass
-        
-        return False
+        return compare_answers(extracted, expected)
     
     def _generate_summary(self, all_results: Dict[str, List["TestResult"]]) -> Dict[str, Any]:
         """Generate summary statistics."""
