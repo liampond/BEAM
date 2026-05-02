@@ -88,14 +88,28 @@ DURATION_MAP = {
 def get_xml_id(element: ET.Element) -> Optional[str]:
     """
     Get the xml:id of an element.
-    
+
     Args:
         element: The XML element
-        
+
     Returns:
         The xml:id value, or None if not present
     """
     return element.get(f"{{{XML_NS}}}id")
+
+
+def _get_rdg_descendant_ids(root: ET.Element) -> Set[int]:
+    """Return id()s of every element that is a descendant of any <rdg>.
+
+    MEI <app> apparatus entries contain a <lem> (preferred reading) and one or
+    more <rdg> (variant readings). Only <lem> should be extracted; notes and
+    rests inside <rdg> are editorial alternatives and would double-count.
+    """
+    excluded: Set[int] = set()
+    for rdg in root.iter(f"{{{MEI_NS}}}rdg"):
+        for elem in rdg.iter():
+            excluded.add(id(elem))
+    return excluded
 
 
 def is_visible(element: ET.Element) -> bool:
@@ -262,9 +276,12 @@ def _get_tied_end_note_ids(root: ET.Element) -> Set[str]:
         Set of xml:id values for notes that are tie endpoints
     """
     tied_ends = set()
-    
+    rdg_ids = _get_rdg_descendant_ids(root)
+
     # Find all <tie> elements
     for tie in root.iter(f"{{{MEI_NS}}}tie"):
+        if id(tie) in rdg_ids:
+            continue
         if not is_visible(tie):
             continue
         endid = tie.get("endid")
@@ -273,7 +290,7 @@ def _get_tied_end_note_ids(root: ET.Element) -> Set[str]:
             if endid.startswith("#"):
                 endid = endid[1:]
             tied_ends.add(endid)
-    
+
     return tied_ends
 
 
@@ -288,8 +305,11 @@ def _get_tied_note_pairs(root: ET.Element) -> List[Tuple[str, str]]:
         List of (start_id, end_id) tuples
     """
     pairs = []
-    
+    rdg_ids = _get_rdg_descendant_ids(root)
+
     for tie in root.iter(f"{{{MEI_NS}}}tie"):
+        if id(tie) in rdg_ids:
+            continue
         if not is_visible(tie):
             continue
         startid = tie.get("startid")
@@ -301,7 +321,7 @@ def _get_tied_note_pairs(root: ET.Element) -> List[Tuple[str, str]]:
             if endid.startswith("#"):
                 endid = endid[1:]
             pairs.append((startid, endid))
-    
+
     return pairs
 
 
@@ -321,31 +341,30 @@ def get_notes_in_staff(root: ET.Element, staff_n: str,
         List of note elements
     """
     tied_ends = _get_tied_end_note_ids(root) if exclude_tied_ends else set()
+    rdg_ids = _get_rdg_descendant_ids(root)
     notes = []
-    
-    # Find all staff elements with the specified n attribute
+
+    # Note on @staff: MEI's @staff attribute is a visual override, not an
+    # analytical reassignment (per MEI 4.0 guidelines). Counting uses the
+    # encoding-parent <staff> element, so that @staff notes stay in the staff
+    # where they are encoded. This also matches music21's conversion behavior
+    # for most of the corpus.
     for staff in root.iter(f"{{{MEI_NS}}}staff"):
         if staff.get("n") != staff_n:
             continue
-        
-        # Get all notes within this staff
         for note in staff.iter(f"{{{MEI_NS}}}note"):
-            # Skip invisible notes
+            if id(note) in rdg_ids:
+                continue
             if not is_visible(note):
                 continue
-            
-            # Skip grace notes if requested
             if not include_grace and is_grace_note(note):
                 continue
-            
-            # Skip tied continuations if requested
             if exclude_tied_ends:
                 note_id = get_xml_id(note)
                 if note_id and note_id in tied_ends:
                     continue
-            
             notes.append(note)
-    
+
     return notes
 
 
@@ -363,23 +382,28 @@ def get_rests_in_staff(root: ET.Element, staff_n: str,
         List of rest elements (both <rest> and <mRest> if included)
     """
     rests = []
-    
+    rdg_ids = _get_rdg_descendant_ids(root)
+
     # Find all staff elements with the specified n attribute
     for staff in root.iter(f"{{{MEI_NS}}}staff"):
         if staff.get("n") != staff_n:
             continue
-        
+
         # Get all rests within this staff
         for rest in staff.iter(f"{{{MEI_NS}}}rest"):
+            if id(rest) in rdg_ids:
+                continue
             if is_visible(rest):
                 rests.append(rest)
-        
+
         # Get measure rests if requested
         if include_measure_rests:
             for mrest in staff.iter(f"{{{MEI_NS}}}mRest"):
+                if id(mrest) in rdg_ids:
+                    continue
                 if is_visible(mrest):
                     rests.append(mrest)
-    
+
     return rests
 
 
@@ -533,53 +557,58 @@ def _collect_notes_with_timing(root: ET.Element, staff_n: str,
     # First pass: collect all notes with their raw timing info
     # Format: (measure_idx, doc_order_in_measure, tstamp_or_none, note, parent_chord)
     raw_notes: List[Tuple[int, int, Optional[float], ET.Element, Optional[ET.Element]]] = []
-    
+    rdg_ids = _get_rdg_descendant_ids(root)
+
     measure_idx = 0
     for measure in root.iter(f"{{{MEI_NS}}}measure"):
         doc_order = 0
-        
+
         for staff in measure.iter(f"{{{MEI_NS}}}staff"):
             staff_num = staff.get("n")
             if staff_num != staff_n:
                 continue
-            
+
             # Also check for cross-staff notes (notes with staff="X" attribute)
             # that might belong to this staff
-            
+
             for layer in staff.iter(f"{{{MEI_NS}}}layer"):
                 # Track notes we've seen in chords to avoid double-counting
                 notes_in_chords: Set[str] = set()
-                
+
                 # First, identify all notes that are inside chords
                 for chord in layer.iter(f"{{{MEI_NS}}}chord"):
+                    if id(chord) in rdg_ids:
+                        continue
                     for note in chord.iter(f"{{{MEI_NS}}}note"):
                         note_id = get_xml_id(note)
                         if note_id:
                             notes_in_chords.add(note_id)
-                
+
                 # Now iterate through all elements in document order
                 for elem in layer.iter():
+                    if id(elem) in rdg_ids:
+                        continue
                     if not is_visible(elem):
                         continue
-                    
+
                     if elem.tag == f"{{{MEI_NS}}}chord":
                         tstamp_str = elem.get("tstamp")
                         tstamp = float(tstamp_str) if tstamp_str else None
-                        
-                        chord_notes = [n for n in elem.iter(f"{{{MEI_NS}}}note") 
-                                      if is_visible(n)]
+
+                        chord_notes = [n for n in elem.iter(f"{{{MEI_NS}}}note")
+                                      if is_visible(n) and id(n) not in rdg_ids]
                         if not chord_notes:
                             doc_order += 1
                             continue
-                        
+
                         # Filter out grace notes if needed
                         if not include_grace:
                             chord_notes = [n for n in chord_notes if not is_grace_note(n)]
-                        
+
                         if not chord_notes:
                             doc_order += 1
                             continue
-                        
+
                         if return_highest_in_chord:
                             # Find highest pitched note in chord
                             highest = None
@@ -596,40 +625,42 @@ def _collect_notes_with_timing(root: ET.Element, staff_n: str,
                         else:
                             # Use first visible note in chord
                             raw_notes.append((measure_idx, doc_order, tstamp, chord_notes[0], elem))
-                        
+
                         doc_order += 1
-                    
+
                     elif elem.tag == f"{{{MEI_NS}}}note":
                         # Skip notes that are inside chords (handled above)
                         note_id = get_xml_id(elem)
                         if note_id and note_id in notes_in_chords:
                             continue
-                        
+
                         # Skip grace notes if not including them
                         if not include_grace and is_grace_note(elem):
                             doc_order += 1
                             continue
-                        
+
                         tstamp_str = elem.get("tstamp")
                         tstamp = float(tstamp_str) if tstamp_str else None
-                        
+
                         raw_notes.append((measure_idx, doc_order, tstamp, elem, None))
                         doc_order += 1
-        
+
         measure_idx += 1
-    
+
     # Check for cross-staff notes: notes in other staff elements with staff="N" attribute
     measure_idx = 0
     for measure in root.iter(f"{{{MEI_NS}}}measure"):
         doc_order_offset = CROSS_STAFF_DOC_ORDER_OFFSET
-        
+
         for staff in measure.iter(f"{{{MEI_NS}}}staff"):
             staff_elem_n = staff.get("n")
             if staff_elem_n == staff_n:
                 continue  # Skip our target staff (already processed)
-            
+
             for layer in staff.iter(f"{{{MEI_NS}}}layer"):
                 for elem in layer.iter():
+                    if id(elem) in rdg_ids:
+                        continue
                     if elem.tag == f"{{{MEI_NS}}}note":
                         # Check if this note has staff attribute pointing to our target
                         note_staff = elem.get("staff")
@@ -637,12 +668,12 @@ def _collect_notes_with_timing(root: ET.Element, staff_n: str,
                             if not include_grace and is_grace_note(elem):
                                 doc_order_offset += 1
                                 continue
-                            
+
                             tstamp_str = elem.get("tstamp")
                             tstamp = float(tstamp_str) if tstamp_str else None
                             raw_notes.append((measure_idx, doc_order_offset, tstamp, elem, None))
                             doc_order_offset += 1
-        
+
         measure_idx += 1
     
     if not raw_notes:
@@ -909,34 +940,44 @@ def get_all_note_durations_in_staff(root: ET.Element, staff_n: str,
     durations = []
     tied_ends = _get_tied_end_note_ids(root) if sum_ties else set()
     tie_pairs = _get_tied_note_pairs(root) if sum_ties else []
-    
-    # Build a map of tie starts to their accumulated durations
-    # This handles chains of ties (a -> b -> c)
+    rdg_ids = _get_rdg_descendant_ids(root)
+    tie_start_set = {s for s, _ in tie_pairs}
+    # Map end_id -> start_id for O(1) lookup (tie_pairs is small, but this is cleaner)
+    end_to_start = {e: s for s, e in tie_pairs}
+
+    # tie_accumulator is keyed by the *current running start* of the chain — i.e.
+    # whichever note currently carries the accumulated duration. When a middle
+    # note (both tie end AND tie start) is encountered, we transfer the key so
+    # the next tie in the chain finds it.
     tie_accumulator: Dict[str, float] = {}
-    
+
     # Track notes we've already processed (as part of chords)
     processed_note_ids: Set[str] = set()
-    
+
     # Process all staves with the target number
     for staff in root.iter(f"{{{MEI_NS}}}staff"):
         if staff.get("n") != staff_n:
             continue
-        
+
         # Process notes and chords in document order
         for elem in staff.iter():
+            if id(elem) in rdg_ids:
+                continue
             if not is_visible(elem):
                 continue
-            
+
             notes_to_process = []
             chord_dur = None
             chord_dots = 0
-            
+
             if elem.tag == f"{{{MEI_NS}}}chord":
                 # Get chord's duration and dots to pass to child notes
                 chord_dur = elem.get("dur")
                 chord_dots_str = elem.get("dots")
                 chord_dots = int(chord_dots_str) if chord_dots_str else 0
                 for n in elem.iter(f"{{{MEI_NS}}}note"):
+                    if id(n) in rdg_ids:
+                        continue
                     if is_visible(n):
                         notes_to_process.append((n, chord_dur, chord_dots))
                         # Mark these notes as processed
@@ -951,55 +992,49 @@ def get_all_note_durations_in_staff(root: ET.Element, staff_n: str,
                 notes_to_process = [(elem, None, 0)]
             else:
                 continue
-            
+
             for note, parent_dur, parent_dots in notes_to_process:
                 # Skip grace notes if not including them
                 if not include_grace and is_grace_note(note):
                     continue
-                
+
                 note_id = get_xml_id(note)
                 tuplet_ratio = _get_element_tuplet_ratio(note, root)
                 dur = parse_mei_duration(note, tuplet_ratio, parent_dur, parent_dots)
-                
+
                 if sum_ties and note_id:
-                    # Check if this note is a tie end
                     if note_id in tied_ends:
-                        # Find the start of this tie
-                        for start_id, end_id in tie_pairs:
-                            if end_id == note_id:
-                                # Add to accumulator
-                                if start_id in tie_accumulator:
-                                    tie_accumulator[start_id] += dur
-                                else:
-                                    # Tie started before our passage
-                                    tie_accumulator[note_id] = dur
-                                
-                                # Check if this is also a tie start (chain)
-                                is_also_start = any(s == note_id for s, e in tie_pairs)
-                                if not is_also_start:
-                                    # This is the end of a tie chain - emit the total
-                                    total = tie_accumulator.get(start_id, dur)
-                                    durations.append(total)
-                                    if start_id in tie_accumulator:
-                                        del tie_accumulator[start_id]
-                                break
-                    else:
-                        # Check if this is a tie start
-                        is_tie_start = any(s == note_id for s, e in tie_pairs)
-                        if is_tie_start:
-                            # Start accumulating
-                            tie_accumulator[note_id] = dur
+                        start_id = end_to_start.get(note_id)
+                        if start_id is not None and start_id in tie_accumulator:
+                            running_key = start_id
+                            tie_accumulator[running_key] += dur
                         else:
-                            # Regular note
-                            durations.append(dur)
+                            # Tie started before our passage — seed a new chain.
+                            running_key = note_id
+                            tie_accumulator[running_key] = dur
+
+                        if note_id in tie_start_set:
+                            # Middle of a chain: transfer the accumulator to
+                            # this note's id so the next tie-end finds it.
+                            if running_key != note_id:
+                                tie_accumulator[note_id] = tie_accumulator.pop(running_key)
+                        else:
+                            # End of chain: emit total and clear.
+                            durations.append(tie_accumulator.pop(running_key))
+                    elif note_id in tie_start_set:
+                        # Start of a fresh chain.
+                        tie_accumulator[note_id] = dur
+                    else:
+                        # Regular note.
+                        durations.append(dur)
                 else:
                     # Not summing ties
                     durations.append(dur)
-    
+
     # Handle any remaining ties (ties that extend beyond the passage)
     for start_id, dur in tie_accumulator.items():
         durations.append(dur)
-    
+
     return durations
 
 
