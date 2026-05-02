@@ -712,30 +712,26 @@ def _build_tie_duration_map(root: ET.Element, staff_n: str, divisions: int) -> D
     
     for (pitch, voice), notes in by_pitch_voice.items():
         notes.sort()  # Sort by (measure, position)
-        
+
         chain_start = None
         chain_duration = 0.0
-        
+
         for measure, pos, dur, is_start, is_stop in notes:
             if is_stop and chain_start is not None:
-                # End of chain - add duration
+                # Accumulate this note into the chain.
                 chain_duration += dur
-                # Store total duration for the chain start
-                tie_durations[(chain_start[0], chain_start[1], pitch)] = chain_duration
-                
                 if is_start:
-                    # This note is also a start (middle of longer chain continues)
-                    chain_start = (measure, pos)
-                    chain_duration = dur
-                else:
-                    # Chain ends here
-                    chain_start = None
-                    chain_duration = 0.0
+                    # Middle of a longer chain — keep accumulating, don't record yet.
+                    continue
+                # Pure stop: chain ends here. Record total against the first start.
+                tie_durations[(chain_start[0], chain_start[1], pitch)] = chain_duration
+                chain_start = None
+                chain_duration = 0.0
             elif is_start:
-                # Start of a new chain
+                # Start of a new chain.
                 chain_start = (measure, pos)
                 chain_duration = dur
-    
+
     return tie_durations
 
 

@@ -1,8 +1,9 @@
 """
 Q6: How many different pitch classes are used in the lower staff?
 
-Consider pitch classes without regard to octave (i.e., all Cs are the same 
-pitch class). Respond with a number (e.g., 5).
+Consider pitch classes without regard to octave (i.e., all Cs are the same
+pitch class). Treat enharmonic spellings as distinct pitch classes — F# and
+Gb count separately, even though they sound identical. Respond with a number.
 """
 
 from .utils import parse_musicxml_file, get_pitch_classes_in_staff, count_notes_in_staff, LOWER_STAFF

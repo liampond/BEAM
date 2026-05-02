@@ -43,7 +43,7 @@ QUESTION_TYPES = [
     'What is the pitch of the first note in the upper staff? If there are multiple simultaneous notes, respond with the highest pitch. Denote octave with scientific pitch notation (e.g., C4).',
     'What is the pitch of the lowest note in the lower staff? Include the octave. Denote octave with scientific pitch notation (e.g., C4).',
     'What is the duration of the longest note in this passage? Respond in the number of quarter notes (e.g., 2 for a half note).',
-    'How many different pitch classes are used in the lower staff? Consider pitch classes without regard to octave (i.e., all Cs are the same pitch class). Respond with a number (e.g., 5).',
+    'How many different pitch classes are used in the lower staff? Consider pitch classes without regard to octave (i.e., all Cs are the same pitch class). Treat enharmonic spellings as distinct pitch classes (e.g., F# and Gb count separately). Respond with a number (e.g., 5).',
     'What is the interval between the first and last notes in the upper staff? Respond with the number of semitones as a positive integer (e.g., 5 for a perfect fourth). Use the absolute value.',
     'How many rests are in this passage? Respond with a number (e.g., 3).',
     'What is the duration of the first note in the lower staff? If there are multiple simultaneous notes, respond with the duration of the highest note. Respond in the number of quarter notes (e.g., 2 for a half note).',
