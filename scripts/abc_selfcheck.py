@@ -14,7 +14,7 @@ sys.path.insert(0, str(ROOT))
 from src.answer_extraction.registry import get_extractor
 import src.answer_extraction.abc  # registers extractors
 
-DB = ROOT / "benchmark_v2.db"
+DB = ROOT / "benchmark.db"
 PASSAGE_DIR = ROOT / "passages" / "abc"
 
 conn = sqlite3.connect(DB)
