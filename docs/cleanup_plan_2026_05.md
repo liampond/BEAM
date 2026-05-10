@@ -148,9 +148,11 @@ ls _archive/db_backups_2026_05/ | wc -l           # 11
 du -sh _archive/legacy_outputs                    # ~52M
 ls _archive/_backup/                              # 2 scripts
 ls _archive/phase_scripts_throwaway/ | wc -l      # 8
-ls scripts/phase*.py                              # only 7 tracked: phase7_apply, phase7_abc_selfcheck,
-                                                  #   phase8_apply, phase8_mei_selfcheck,
-                                                  #   phase9_apply, phase9_humdrum_selfcheck, phase10_merge
+ls scripts/phase*.py                              # only 5 tracked apply/migration scripts:
+                                                  #   phase7_apply, phase8_apply, phase9_apply,
+                                                  #   phase10_merge, phase13c_apply
+ls scripts/*_selfcheck.py                         # abc_selfcheck, mei_selfcheck, humdrum_selfcheck
+                                                  # (renamed from phase{7,8,9}_*_selfcheck in May 2026)
 git status                                        # untracked list shrunk to: CLAUDE.md, docs/presentation_plan_2026_05.md,
                                                   #   scripts/submit_chunked.py (and benchmark.db.pre-cleanup-snapshot)
 ```
