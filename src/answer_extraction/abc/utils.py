@@ -145,31 +145,74 @@ def get_lower_staff_voices(content: str) -> List[str]:
 def extract_voice_content(content: str, voice_num: str) -> str:
     """
     Extract the musical content for a specific voice.
-    
+
     Handles:
     - [V:n] inline voice markers
     - Multiple voices on same staff separated by &
-    - Content continues until next [V:] marker or end of line
-    
+    - Multiple measures on a single [V:n] line (barlines preserved)
+    - Multiple [V:m] switches on the same line (capture stops at the next switch)
+
     Args:
         content: Full ABC file content
         voice_num: The voice number to extract (as string)
-    
+
     Returns:
-        The musical content for that voice
+        The musical content for that voice, with barlines (|) preserved so
+        downstream measure-aware processing (e.g. layer reassembly across
+        measures, accidental reset) sees the measure structure.
     """
     lines = content.split('\n')
     voice_content = []
-    
+
     for line in lines:
-        # Look for [V:n] markers
-        if f'[V:{voice_num}]' in line:
-            # Extract content after [V:n] marker up to barline or end
-            match = re.search(rf'\[V:{voice_num}\]\s*(.*?)(?:\||$)', line)
-            if match:
-                voice_content.append(match.group(1))
-    
+        if f'[V:{voice_num}]' not in line:
+            continue
+        # Capture from [V:N] until the next [V:M] switch on the same line,
+        # or end of line. Barlines `|` inside the capture are preserved.
+        for match in re.finditer(rf'\[V:{voice_num}\]\s*(.*?)(?=\[V:\d|$)', line):
+            voice_content.append(match.group(1))
+
     return ' '.join(voice_content)
+
+
+def split_into_layered_measures(content: str, units_per_measure: Optional[int] = None) -> List[str]:
+    """Group `&`-separated layers across measures (`|`).
+
+    For ``cde & CDE | fga & FGA`` returns ``["cde |  fga ", " CDE |  FGA"]``
+    — layer 0 is all measures' first layer joined with `|`, layer 1 is all
+    measures' second layer joined with `|`. Cross-measure ties on a layer
+    survive because the layer's content stays contiguous; in-measure
+    accidental reset still works because barlines remain in each layer.
+
+    For content with no `&`, returns a single-element list with the content
+    unchanged.
+
+    When `units_per_measure` is given, measure slots that have no content
+    for a given layer are filled with `x{units_per_measure}` (a measure-long
+    rest in the unit-note-length). This is needed by timing-aware walkers so
+    a layer that only appears in later measures starts at the correct
+    absolute time — e.g. for ``a & b | c | d & e`` with `units_per_measure=6`,
+    layer 1 becomes ``b | x6 |  e`` so the `e` is offset by one measure.
+
+    Without `units_per_measure`, missing slots become empty strings (the
+    surrounding `|` boundaries are kept so downstream walkers still reset
+    accidentals there). Callers that don't care about timing (e.g. note
+    counters) can omit it.
+    """
+    if "&" not in content:
+        return [content]
+
+    measures = content.split("|")
+    layered = [m.split("&") for m in measures]
+    max_layers = max(len(m) for m in layered)
+
+    pad = f"x{units_per_measure}" if units_per_measure else ""
+
+    result = []
+    for layer_idx in range(max_layers):
+        parts = [m[layer_idx] if layer_idx < len(m) else pad for m in layered]
+        result.append("|".join(parts))
+    return result
 
 
 def remove_non_note_elements(content: str) -> str:
@@ -185,6 +228,11 @@ def remove_non_note_elements(content: str) -> str:
     """
     # Remove inline field markers [X:...]
     content = re.sub(r'\[[A-Za-z]:[^\]]*\]', '', content)
+
+    # Remove ABC alternate-ending markers like `[1`, `[2`, `[1,3`. These start
+    # with `[` followed by digits/commas and are NOT chord openers — leaving
+    # them in confuses the chord walker (it looks for the matching `]`).
+    content = re.sub(r'\[\d[\d,]*', '', content)
 
     # Remove text annotations "..."
     content = re.sub(r'"[^"]*"', '', content)
@@ -460,14 +508,15 @@ def count_notes_in_content(content: str) -> int:
     """
     # Remove non-note elements first
     content = remove_non_note_elements(content)
-    
-    # Handle multiple voices on same staff (separated by &)
-    voice_sections = content.split('&')
-    
+
+    # Handle multiple layers on same staff (separated by &), measure-aware
+    # so cross-measure layer continuity is preserved.
+    voice_sections = split_into_layered_measures(content)
+
     total_count = 0
     for section in voice_sections:
         total_count += count_notes_in_single_voice(section)
-    
+
     return total_count
 
 
@@ -692,20 +741,20 @@ def extract_first_pitch_from_content(content: str, key_signature: Dict[str, str]
     """
     # Remove non-note elements
     content = remove_non_note_elements(content)
-    
-    # Handle multiple voices on same staff (separated by &)
-    voice_sections = content.split('&')
-    
+
+    # Handle multiple layers on same staff (separated by &), measure-aware.
+    voice_sections = split_into_layered_measures(content)
+
     # Get first pitch from each voice section
     first_pitches = []
     for section in voice_sections:
         pitch = _extract_first_pitch_single_voice(section, key_signature)
         if pitch:
             first_pitches.append(pitch)
-    
+
     if not first_pitches:
         return None
-    
+
     # Return highest pitch
     first_pitches.sort(key=lambda p: pitch_to_midi(p), reverse=True)
     return first_pitches[0]
@@ -850,39 +899,57 @@ def _extract_first_pitch_single_voice(content: str, key_signature: Dict[str, str
 def get_first_pitch_for_voices(content: str, voice_nums: List[str]) -> Optional[str]:
     """
     Get the first pitch across multiple voices.
-    
-    Since all voices start at the same time, if there are notes in multiple
-    voices at the start, we return the highest pitch.
-    
-    Args:
-        content: Full ABC file content
-        voice_nums: List of voice numbers to check
-    
+
+    A "first pitch" is from a voice/layer that actually has a note at the
+    earliest absolute time. Layers that only appear in later measures (e.g.
+    a measure with `... & ...` after several solo measures) start at the
+    correct offset thanks to measure-rest padding in
+    `split_into_layered_measures`, so their first note isn't mistakenly
+    considered simultaneous with the passage's true opening note.
+
+    Within each layer, the first emitted note is taken as that layer's
+    "first" (the existing `_extract_first_pitch_single_voice` is used so
+    grace-before-chord and chord-highest behavior is preserved). Across
+    layers whose first notes share the earliest start time, the highest
+    pitch wins.
+
     Returns:
-        Scientific pitch notation of highest first pitch, or None
+        Scientific pitch notation of the first pitch, or None.
     """
     key_signature = parse_key_signature(content)
-    
-    first_pitches = []
+    unit_length = parse_unit_note_length(content)
+    upm = parse_units_per_measure(content)
+
+    candidates: List[Tuple[float, str]] = []  # (start_time, pitch)
     for voice_num in voice_nums:
         voice_content = extract_voice_content(content, voice_num)
-        pitch = extract_first_pitch_from_content(voice_content, key_signature)
-        if pitch:
-            first_pitches.append(pitch)
-    
-    if not first_pitches:
+        cleaned = remove_non_note_elements(voice_content)
+        layers = split_into_layered_measures(cleaned, units_per_measure=upm)
+        for layer in layers:
+            timing_notes = _extract_notes_with_timing(layer, key_signature, unit_length)
+            if not timing_notes:
+                continue
+            start = timing_notes[0].start_time
+            pitch = _extract_first_pitch_single_voice(layer, key_signature)
+            if pitch:
+                candidates.append((start, pitch))
+
+    if not candidates:
         return None
-    
-    # Return highest pitch
-    first_pitches.sort(key=lambda p: pitch_to_midi(p), reverse=True)
-    return first_pitches[0]
+
+    min_start = min(s for s, _ in candidates)
+    tol = 0.001
+    active = [p for s, p in candidates if abs(s - min_start) < tol]
+    active.sort(key=lambda p: pitch_to_midi(p), reverse=True)
+    return active[0]
 
 
 class NoteWithTiming:
-    """Represents a note with its pitch and end time."""
-    def __init__(self, pitch: str, end_time: float):
+    """Represents a note with its pitch, start time, and end time."""
+    def __init__(self, pitch: str, end_time: float, start_time: float = 0.0):
         self.pitch = pitch  # Scientific pitch notation
         self.end_time = end_time  # End time in quarter notes from start
+        self.start_time = start_time  # Start time in quarter notes from start
 
 
 def _extract_notes_with_timing(content: str, key_signature: Dict[str, str], 
@@ -1015,14 +1082,15 @@ def _extract_notes_with_timing(content: str, key_signature: Dict[str, str],
             
             # Calculate duration
             duration = unit_length * dur_mult * tuplet_ratio * broken_mult
+            start_time = current_time
             end_time = current_time + duration
-            
+
             # Extract pitches from chord
             chord_pitches = extract_pitches_from_chord(chord_content)
             for abc_pitch in chord_pitches:
                 sci_pitch = abc_pitch_to_scientific(abc_pitch, key_signature, active_accidentals)
                 if sci_pitch:
-                    notes.append(NoteWithTiming(sci_pitch, end_time))
+                    notes.append(NoteWithTiming(sci_pitch, end_time, start_time))
                     # Update active accidentals
                     accidental = get_accidental_from_abc(abc_pitch)
                     if accidental is not None:
@@ -1120,14 +1188,15 @@ def _extract_notes_with_timing(content: str, key_signature: Dict[str, str],
             
             # Calculate duration
             duration = unit_length * dur_mult * tuplet_ratio * broken_mult
+            start_time = current_time
             end_time = current_time + duration
-            
+
             # Convert to scientific pitch
             abc_pitch = accidental_prefix + note_char + octave_markers
             sci_pitch = abc_pitch_to_scientific(abc_pitch, key_signature, active_accidentals)
-            
+
             if sci_pitch:
-                notes.append(NoteWithTiming(sci_pitch, end_time))
+                notes.append(NoteWithTiming(sci_pitch, end_time, start_time))
                 
                 # Update active accidentals
                 accidental = get_accidental_from_abc(abc_pitch)
@@ -1192,10 +1261,11 @@ def _extract_pitches_with_timing_from_segment(content: str, key_signature: Dict[
             
             abc_pitch = accidental_prefix + note_char + octave_markers
             sci_pitch = abc_pitch_to_scientific(abc_pitch, key_signature, active_accidentals)
-            
+
             if sci_pitch:
-                notes.append(NoteWithTiming(sci_pitch, current_time))
-            
+                # Grace notes occupy no time: start == end == current_time.
+                notes.append(NoteWithTiming(sci_pitch, current_time, current_time))
+
             continue
         
         i += 1
@@ -1226,20 +1296,24 @@ def get_last_pitch_for_voices(content: str, voice_nums: List[str]) -> Optional[s
     """
     key_signature = parse_key_signature(content)
     unit_length = parse_unit_note_length(content)
-    
+    upm = parse_units_per_measure(content)
+
     all_notes: List[NoteWithTiming] = []
-    
+
     for voice_num in voice_nums:
         voice_content = extract_voice_content(content, voice_num)
-        
-        # Handle multiple layers (separated by &)
-        voice_sections = voice_content.split('&')
-        
+
+        # Handle multiple layers (separated by &), measure-aware so
+        # cross-measure layer continuity (and ties) are preserved and so
+        # layers that only appear in later measures get correct absolute
+        # timing via measure-rest padding.
+        voice_sections = split_into_layered_measures(voice_content, units_per_measure=upm)
+
         for section in voice_sections:
             section = section.strip()
             if not section:
                 continue
-            
+
             layer_notes = _extract_notes_with_timing(section, key_signature, unit_length)
             all_notes.extend(layer_notes)
     
@@ -1274,15 +1348,15 @@ def extract_all_pitches_from_content(content: str, key_signature: Dict[str, str]
     """
     # Remove non-note elements
     content = remove_non_note_elements(content)
-    
-    # Handle multiple voices on same staff (separated by &)
-    voice_sections = content.split('&')
-    
+
+    # Handle multiple layers on same staff (separated by &), measure-aware.
+    voice_sections = split_into_layered_measures(content)
+
     all_pitches = []
     for section in voice_sections:
         pitches = _extract_all_pitches_single_voice(section, key_signature)
         all_pitches.extend(pitches)
-    
+
     return all_pitches
 
 
@@ -1577,10 +1651,10 @@ def get_lowest_pitch_for_voices(content: str, voice_nums: List[str]) -> Optional
 def parse_unit_note_length(content: str) -> float:
     """
     Parse the L: field to get the default note length in quarter notes.
-    
+
     Args:
         content: Full ABC file content
-    
+
     Returns:
         Default note length in quarter notes (e.g., 0.25 for L:1/16, 0.5 for L:1/8)
     """
@@ -1592,6 +1666,22 @@ def parse_unit_note_length(content: str) -> float:
         return (numerator / denominator) * 4
     # Default to 1/8 if not specified
     return 0.5
+
+
+def parse_units_per_measure(content: str) -> int:
+    """Compute the number of unit-note-lengths (L) that fit in one measure (M).
+
+    For M:3/4 with L:1/8, one measure is 6 eighth notes -> 6.
+    For M:2/4 with L:1/16, one measure is 8 sixteenths -> 8.
+    Used to pad empty layer slots in `split_into_layered_measures` so multi-layer
+    measure timing stays aligned across an entire voice.
+    """
+    m = re.search(r'^M:\s*(\d+)/(\d+)', content, re.MULTILINE)
+    if m:
+        measure_quarters = int(m.group(1)) * 4 / int(m.group(2))
+    else:
+        measure_quarters = 4.0
+    return int(round(measure_quarters / parse_unit_note_length(content)))
 
 
 def parse_duration_suffix(content: str, start_idx: int) -> Tuple[float, int]:
@@ -1705,15 +1795,16 @@ def extract_all_durations_from_content(content: str, unit_length: float) -> List
     """
     # Remove non-note elements but keep barlines for accidental tracking
     content = remove_non_note_elements(content)
-    
-    # Handle multiple voices on same staff (separated by &)
-    voice_sections = content.split('&')
-    
+
+    # Handle multiple layers on same staff (separated by &), measure-aware
+    # so cross-measure ties on a layer survive (Phase 7 documented bug).
+    voice_sections = split_into_layered_measures(content)
+
     all_durations = []
     for section in voice_sections:
         durations = _extract_durations_single_voice(section, unit_length)
         all_durations.extend(durations)
-    
+
     return all_durations
 
 
@@ -1832,6 +1923,15 @@ def _extract_durations_single_voice(content: str, unit_length: float) -> List[fl
             i += 1
             # Parse duration
             dur_mult, i = parse_duration_suffix(content, i)
+            # Consume any broken-rhythm marker attached to this rest. Broken
+            # rhythm is a note-to-note relation; a `>` adjacent to a rest must
+            # not leak to a later note as a phantom modifier.
+            while i < len(content) and content[i] in '><':
+                i += 1
+            pending_broken_rhythm = None
+            # Rests also break note adjacency for the broken-rhythm state, so
+            # a previously-seen note can no longer pair with a later note.
+            last_note_duration_idx = None
             # Rests don't count as notes for "longest note"
             # But we still need to track tuplet
             if tuplet_notes_remaining > 0:
