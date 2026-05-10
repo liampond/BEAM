@@ -1872,7 +1872,16 @@ def _extract_durations_single_voice(content: str, unit_length: float) -> List[fl
             
             # Get pitches from chord for tie tracking
             chord_pitches = extract_pitches_from_chord(chord_content)
-            
+
+            # ABC ties bind only to the immediately-adjacent same-pitch event.
+            # Any active tie whose pitch is absent here has lost its binding
+            # window — drain it now so it cannot chain with a later same-pitch
+            # note arbitrarily far downstream.
+            current_pitch_set = {normalize_pitch(p) for p in chord_pitches}
+            for stale in [p for p in active_ties if p not in current_pitch_set]:
+                durations.append(active_ties[stale])
+                del active_ties[stale]
+
             # Handle ties for each note in chord
             for pitch in chord_pitches:
                 normalized = normalize_pitch(pitch)
@@ -1955,10 +1964,17 @@ def _extract_durations_single_voice(content: str, unit_length: float) -> List[fl
             # Build pitch key for tie tracking
             pitch_key = note_char + octave_markers
             normalized = normalize_pitch(pitch_key)
-            
+
+            # ABC ties bind only to the immediately-adjacent same-pitch event.
+            # Any active tie on a different pitch has lost its binding window;
+            # drain it now so it cannot chain with a later same-pitch note.
+            for stale in [p for p in active_ties if p != normalized]:
+                durations.append(active_ties[stale])
+                del active_ties[stale]
+
             # Calculate duration
             base_duration = unit_length * dur_mult * tuplet_ratio
-            
+
             if normalized in active_ties:
                 # Continue tie
                 active_ties[normalized] += base_duration
