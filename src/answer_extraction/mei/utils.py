@@ -207,39 +207,55 @@ def parse_mei_duration(element: ET.Element, tuplet_ratio: float = 1.0,
     return duration
 
 
+def _iter_descendants_skipping_rdg(element: ET.Element, target_tag: str):
+    """Yield descendants of element with the given tag in document order,
+    pruning any subtree rooted at <rdg> (variant readings)."""
+    rdg_tag = f"{{{MEI_NS}}}rdg"
+    for child in element:
+        if child.tag == rdg_tag:
+            continue
+        if child.tag == target_tag:
+            yield child
+        yield from _iter_descendants_skipping_rdg(child, target_tag)
+
+
 def parse_mei_pitch(element: ET.Element) -> Optional[str]:
     """
     Parse the pitch of a note element to scientific notation.
-    
+
     Uses @pname for pitch letter, @oct for octave, and accidentals from:
     - @accid/@accid.ges attributes on the note element
     - Child <accid> element with @accid/@accid.ges attributes (at any nesting level)
     - Nested <app>/<lem>/<accid> structure (editorial apparatus)
     - <supplied><accid></supplied> structure (editorial additions)
-    
+
+    <accid> elements inside <rdg> (variant readings) are skipped — only the
+    primary reading (<lem> or unwrapped) contributes the accidental.
+
     Args:
         element: A note element
-        
+
     Returns:
         Pitch in scientific notation (e.g., "C4", "F#5", "Bb3")
     """
     pname = element.get("pname")
     oct_attr = element.get("oct")
-    
+
     if not pname or not oct_attr:
         return None
-    
+
     # Build pitch name
     pitch = pname.upper()
-    
+
     # Check for accidentals (explicit first, then gestural)
     # First check note element attributes
     accid = element.get("accid") or element.get("accid.ges")
-    
+
     # If not found, search for any <accid> element anywhere inside the note
     # This handles <accid>, <supplied><accid>, <app><lem><accid>, etc.
     if not accid:
-        for accid_elem in element.iter(f"{{{MEI_NS}}}accid"):
+        for accid_elem in _iter_descendants_skipping_rdg(
+                element, f"{{{MEI_NS}}}accid"):
             accid = accid_elem.get("accid") or accid_elem.get("accid.ges")
             if accid:
                 break
@@ -262,16 +278,65 @@ def parse_mei_pitch(element: ET.Element) -> Optional[str]:
     return f"{pitch}{oct_attr}"
 
 
+def _get_attribute_tie_info(
+    root: ET.Element, rdg_ids: Set[int]
+) -> Tuple[Set[str], List[Tuple[str, str]]]:
+    """Collect tied-end ids and tie pairs from @tie="i"/"m"/"t" attributes.
+
+    MEI permits ties to be encoded as a @tie attribute on the <note> itself,
+    in addition to <tie startid endid>. Values: 'i' (initial), 'm' (medial,
+    both end and start), 't' (terminal). The corpus (Mozart sonatas exported
+    via music21) uses <tie> elements exclusively, so this path is dormant —
+    but a different MEI source could populate it.
+
+    Pairs are formed per-staff in document order, FIFO-matched on pitch
+    (pname+oct+accid). A medial note closes the most recent matching open
+    chain on its staff and starts a new one.
+    """
+    tied_ends: Set[str] = set()
+    pairs: List[Tuple[str, str]] = []
+    id_attr = f"{{{XML_NS}}}id"
+
+    for staff in root.iter(f"{{{MEI_NS}}}staff"):
+        if id(staff) in rdg_ids:
+            continue
+        open_starts: List[Tuple[str, Tuple]] = []  # FIFO per staff
+        for note in staff.iter(f"{{{MEI_NS}}}note"):
+            if id(note) in rdg_ids:
+                continue
+            tie_attr = note.get("tie")
+            if not tie_attr:
+                continue
+            note_id = note.get(id_attr)
+            if not note_id:
+                continue
+            pitch_key = (note.get("pname"), note.get("oct"),
+                         note.get("accid") or note.get("accid.ges"))
+
+            if tie_attr in ("t", "m"):
+                tied_ends.add(note_id)
+                for i in range(len(open_starts) - 1, -1, -1):
+                    open_id, open_key = open_starts[i]
+                    if open_key == pitch_key:
+                        pairs.append((open_id, note_id))
+                        del open_starts[i]
+                        break
+            if tie_attr in ("i", "m"):
+                open_starts.append((note_id, pitch_key))
+
+    return tied_ends, pairs
+
+
 def _get_tied_end_note_ids(root: ET.Element) -> Set[str]:
     """
     Find all note IDs that are the end of a tie.
-    
+
     These notes should not be counted separately since they are
     continuations of a tied note.
-    
+
     Args:
         root: The MEI document root element
-        
+
     Returns:
         Set of xml:id values for notes that are tie endpoints
     """
@@ -291,16 +356,19 @@ def _get_tied_end_note_ids(root: ET.Element) -> Set[str]:
                 endid = endid[1:]
             tied_ends.add(endid)
 
+    attr_ends, _ = _get_attribute_tie_info(root, rdg_ids)
+    tied_ends.update(attr_ends)
+
     return tied_ends
 
 
 def _get_tied_note_pairs(root: ET.Element) -> List[Tuple[str, str]]:
     """
     Get all tie start/end pairs for duration calculations.
-    
+
     Args:
         root: The MEI document root element
-        
+
     Returns:
         List of (start_id, end_id) tuples
     """
@@ -321,6 +389,9 @@ def _get_tied_note_pairs(root: ET.Element) -> List[Tuple[str, str]]:
             if endid.startswith("#"):
                 endid = endid[1:]
             pairs.append((startid, endid))
+
+    _, attr_pairs = _get_attribute_tie_info(root, rdg_ids)
+    pairs.extend(attr_pairs)
 
     return pairs
 
@@ -487,9 +558,10 @@ def get_pitch_classes_in_staff(root: ET.Element, staff_n: str,
     pitch_classes = set()
     
     for pitch in pitches:
-        # Extract pitch class (everything except the octave number)
+        # Extract pitch class (everything except the octave number).
+        # Allow up to two accidentals to keep double sharps/flats distinct.
         import re
-        match = re.match(r'([A-G][#b]?)', pitch)
+        match = re.match(r'([A-G][#b]{0,2})', pitch)
         if match:
             pitch_classes.add(match.group(1))
     

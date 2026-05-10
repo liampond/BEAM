@@ -358,6 +358,85 @@ def get_upper_spine_data_by_row(file_path: str) -> List[List[str]]:
     return rows
 
 
+def get_lower_spine_data_by_row(file_path: str) -> List[List[str]]:
+    """
+    Extract data tokens from the lower staff, grouped by row (time position).
+
+    Mirrors ``get_upper_spine_data_by_row`` but targets the *leftmost* kern
+    spine (lower staff). Preserves simultaneity across spine splits (``*^``)
+    so callers that need "highest of simultaneous notes" can see all
+    sub-spine columns at the same time position.
+
+    Returns:
+        List of rows, where each row is a list of tokens occurring at that time
+    """
+    with open(file_path, 'r') as f:
+        lines = f.read().split('\n')
+
+    rows = []
+
+    kern_indices = []
+    initial_spine_count = 0
+
+    for line in lines:
+        if line.startswith('**'):
+            spines = line.split('\t')
+            initial_spine_count = len(spines)
+            for i, spine in enumerate(spines):
+                if spine == '**kern':
+                    kern_indices.append(i)
+            break
+
+    if len(kern_indices) < 1:
+        return []
+
+    # Lower staff is the leftmost kern spine.
+    lower_original_idx = kern_indices[0]
+
+    spine_map = {}
+    for i in range(initial_spine_count):
+        if i in kern_indices:
+            spine_map[i] = i
+        else:
+            spine_map[i] = -1
+
+    for line in lines:
+        line = line.rstrip()
+
+        if not line or line.startswith('!!') or (line.startswith('!') and not line.startswith('!!')):
+            continue
+
+        if line.startswith('*'):
+            tokens = line.split('\t')
+            has_path_op = any(t in ('*^', '*v', '*-', '*x') or t.startswith('*+')
+                             for t in tokens)
+            if has_path_op:
+                spine_map = _update_spine_map(tokens, spine_map, lower_original_idx, kern_indices[-1])
+            continue
+
+        if line.startswith('='):
+            continue
+
+        tokens = line.split('\t')
+        row_tokens = []
+
+        for col_idx, token in enumerate(tokens):
+            if col_idx not in spine_map:
+                continue
+            original_idx = spine_map[col_idx]
+            if original_idx != lower_original_idx:
+                continue
+            token = token.strip()
+            if not token or token == '.':
+                continue
+            row_tokens.append(token)
+
+        if row_tokens:
+            rows.append(row_tokens)
+
+    return rows
+
+
 def is_rest(token: str) -> bool:
     """Check if a token is a rest.
 
@@ -728,51 +807,6 @@ def get_all_pitches_in_spine(tokens: List[str], include_grace: bool = True) -> L
     return pitches
 
 
-def get_first_note_pitch(tokens: List[str], return_highest_in_chord: bool = True, include_grace: bool = True) -> Optional[str]:
-    """
-    Get the first note's pitch in the spine.
-    
-    Args:
-        tokens: List of spine data tokens
-        return_highest_in_chord: If True and first note is a chord, return highest pitch
-        include_grace: If True, grace notes count as notes (default True per question wording)
-    
-    Returns:
-        Pitch in "C4" format, or None if no notes found
-    """
-    for token in tokens:
-        notes = extract_notes_from_token(token)
-        
-        # Filter based on include_grace setting
-        if include_grace:
-            candidate_notes = notes
-        else:
-            candidate_notes = [n for n in notes if not is_grace_note(n)]
-        
-        if not candidate_notes:
-            continue
-            
-        if return_highest_in_chord and len(candidate_notes) > 1:
-            # Find the highest pitch in the chord
-            highest_midi = -1
-            highest_pitch = None
-            for note in candidate_notes:
-                pitch = parse_kern_pitch(note)
-                if pitch:
-                    midi = pitch_to_midi(pitch)
-                    if midi is not None and midi > highest_midi:
-                        highest_midi = midi
-                        highest_pitch = pitch
-            if highest_pitch:
-                return highest_pitch
-        else:
-            # Single note or just return first
-            pitch = parse_kern_pitch(candidate_notes[0])
-            if pitch:
-                return pitch
-    return None
-
-
 def get_first_note_pitch_by_rows(rows: List[List[str]], return_highest_in_chord: bool = True, include_grace: bool = True) -> Optional[str]:
     """
     Get the first note's pitch using row-grouped data.
@@ -813,14 +847,14 @@ def get_first_note_pitch_by_rows(rows: List[List[str]], return_highest_in_chord:
 def get_first_note_duration(tokens: List[str], include_grace: bool = True) -> Optional[str]:
     """
     Get the first note's duration as a formatted string.
-    
-    Per system prompt: "Always consider grace notes and ornaments to be the 
+
+    Per system prompt: "Always consider grace notes and ornaments to be the
     same as normal notes."
-    
+
     Args:
         tokens: List of spine data tokens
         include_grace: Whether to include grace notes (default True per system prompt)
-    
+
     Returns:
         Formatted duration string (e.g., "0.5", "0.13")
     """
@@ -830,10 +864,49 @@ def get_first_note_duration(tokens: List[str], include_grace: bool = True) -> Op
             # Skip grace notes only if explicitly told to
             if not include_grace and is_grace_note(note):
                 continue
-            
+
             duration = parse_kern_duration(note)
             if duration > 0:
                 return format_duration(duration)
+    return None
+
+
+def get_first_note_duration_by_rows(rows: List[List[str]],
+                                    include_grace: bool = True) -> Optional[str]:
+    """
+    Get the duration of the first note using row-grouped data.
+
+    Mirrors ``get_first_note_pitch_by_rows``: when sub-spines descend from
+    the same staff (after ``*^`` splits) carry simultaneous notes at the
+    same time position, the question's semantics ("duration of the highest
+    note among simultaneous notes") require looking across sub-spine columns
+    rather than only the leftmost. Picks the highest-pitched note among the
+    first event row, returns its duration.
+
+    Args:
+        rows: List of rows, where each row is a list of tokens at that time
+        include_grace: If True, grace notes count
+
+    Returns:
+        Formatted duration string, or None if no notes
+    """
+    for row in rows:
+        candidates: List[Tuple[int, float]] = []  # (midi, duration)
+        for token in row:
+            for note in extract_notes_from_token(token):
+                if not include_grace and is_grace_note(note):
+                    continue
+                duration = parse_kern_duration(note)
+                if duration <= 0:
+                    continue
+                pitch = parse_kern_pitch(note)
+                midi = pitch_to_midi(pitch) if pitch else -1
+                candidates.append((midi, duration))
+        if not candidates:
+            continue
+        # Highest pitch among simultaneous notes; ties broken by first-seen.
+        _, duration = max(candidates, key=lambda c: c[0])
+        return format_duration(duration)
     return None
 
 

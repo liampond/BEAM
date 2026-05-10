@@ -209,11 +209,7 @@ def _parse_pitch(s: str) -> tuple[Optional[str], Optional[int]]:
     s = s.strip()
     m = _PITCH_RE.match(s)
     if not m:
-        # Try reversed format: accidental before letter (e.g., "Bb4").
-        m2 = re.match(r'^([A-Ga-g])([#b♯♭]*)(\d+)?$', s)
-        if not m2:
-            return None, None
-        m = m2
+        return None, None
 
     letter = m.group(1)
     accidental = m.group(2) or ""

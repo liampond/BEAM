@@ -43,8 +43,8 @@ def pitch_to_midi(scientific_pitch: str) -> int:
     """
     match = re.match(r'([A-G])(#|##|b|bb)?(\d+)', scientific_pitch)
     if not match:
-        return 0
-    
+        raise ValueError(f"Cannot parse pitch: {scientific_pitch!r}")
+
     note_letter = match.group(1)
     accidental = match.group(2) or ''
     octave = int(match.group(3))
