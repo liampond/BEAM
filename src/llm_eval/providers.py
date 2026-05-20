@@ -31,7 +31,8 @@ class LLMResponse:
     parsed_answer: Optional[str] = None  # Extracted answer if JSON parsed
     
     # Metadata
-    model: str = ""
+    model: str = ""           # requested model name (what we asked for)
+    model_version: Optional[str] = None  # actual checkpoint that responded, when provider reports it
     provider: str = ""
     finish_reason: Optional[str] = None
     
@@ -170,6 +171,7 @@ class BaseLLMProvider(ABC):
             response = LLMResponse(
                 text=text,
                 model=self.model_name,
+                model_version=metadata.get('model_version'),
                 provider=self.provider_name,
                 finish_reason=metadata.get('finish_reason'),
                 input_tokens=metadata.get('input_tokens'),
@@ -514,9 +516,12 @@ class GoogleProvider(BaseLLMProvider):
         except Exception:
             text = str(response)
 
+        # response.model_version is the actual checkpoint that responded;
+        # for gemini-3-pro-preview this exposes the v3.1 silent-aliasing.
         metadata = {
             "finish_reason": finish_reason,
             "model": self.model_name,
+            "model_version": getattr(response, "model_version", None),
         }
 
         return text, metadata

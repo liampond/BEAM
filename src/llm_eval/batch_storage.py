@@ -7,7 +7,6 @@ we persist:
       validate_batch_results below)
     - submission metadata (provider, model, format, config_hash, submitted_at)
     - lifecycle_state (see STATES below)
-    - needs_retry_ids (custom_ids whose saved result failed _validate_result)
 
 All writes go through _atomic_write_json (tmp + os.replace) so a crash
 mid-write cannot leave a truncated file. Raw provider results are persisted
@@ -81,7 +80,6 @@ class BatchRequestMapping:
     config_hash: Optional[str] = None
     run_number: Optional[int] = None
     lifecycle_state: str = "submitted"
-    needs_retry_ids: List[str] = field(default_factory=list)
 
     def __post_init__(self):
         if self.submitted_at is None:
@@ -108,7 +106,6 @@ class BatchRequestMapping:
             config_hash=data.get("config_hash"),
             run_number=data.get("run_number"),
             lifecycle_state=data.get("lifecycle_state", "submitted"),
-            needs_retry_ids=list(data.get("needs_retry_ids", [])),
         )
 
 
@@ -198,14 +195,6 @@ class BatchRequestStorage:
             raise KeyError(f"Unknown batch_id: {batch_id}")
         self._cache[batch_id].lifecycle_state = new_state
         self._save_cache()
-
-    def add_needs_retry(self, batch_id: str, custom_id: str) -> None:
-        if batch_id not in self._cache:
-            raise KeyError(f"Unknown batch_id: {batch_id}")
-        retry = self._cache[batch_id].needs_retry_ids
-        if custom_id not in retry:
-            retry.append(custom_id)
-            self._save_cache()
 
     def delete(self, batch_id: str) -> bool:
         if batch_id in self._cache:

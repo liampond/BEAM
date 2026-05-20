@@ -773,11 +773,16 @@ class GoogleBatchAPI:
             if 'response' in data and data['response']:
                 try:
                     text = data['response']['candidates'][0]['content']['parts'][0]['text']
+                    # modelVersion is the actual checkpoint that responded; for
+                    # gemini-3-pro-preview this exposes the v3.1 silent-aliasing.
                     results.append(BatchResult(
                         custom_id=custom_id,
                         response_text=text,
                         success=True,
-                        metadata={"model": self.model_name},
+                        metadata={
+                            "model": self.model_name,
+                            "model_version": data['response'].get('modelVersion'),
+                        },
                     ))
                 except (KeyError, IndexError) as e:
                     results.append(BatchResult(

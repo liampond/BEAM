@@ -347,6 +347,12 @@ class BenchmarkRunner:
             progress_callback=batch_progress,
         )
 
+        # Symmetric with submit_all_batches.py: archive raw provider results
+        # before flipping lifecycle to "downloaded", so a crash between here
+        # and the save loop is recoverable via the polling-loop's resume path.
+        storage.save_raw_results(batch_id, raw_batch_results)
+        storage.update_lifecycle(batch_id, "downloaded")
+
         expected_ids = [r.custom_id for r in batch_requests]
         validated = validate_batch_results(
             raw_batch_results,
@@ -370,6 +376,7 @@ class BenchmarkRunner:
             response = LLMResponse(
                 text=batch_result.response_text,
                 model=model_config.name,
+                model_version=(batch_result.metadata or {}).get("model_version"),
                 provider=model_config.provider,
                 success=batch_result.success,
                 error=batch_result.error,
@@ -386,9 +393,7 @@ class BenchmarkRunner:
             result = self._evaluate_response(tc, model_config, response, prompt, run_number)
             results.append(result)
 
-            err = self.results_manager.save_single_result(model_config, result, tc)
-            if err:
-                storage.add_needs_retry(batch_id, batch_result.custom_id)
+            self.results_manager.save_single_result(model_config, result, tc)
 
         storage.update_lifecycle(batch_id, "saved")
         return results
@@ -486,6 +491,7 @@ class BenchmarkRunner:
             input_tokens=response.input_tokens,
             output_tokens=response.output_tokens,
             timestamp=datetime.now().isoformat(),
+            model_version=response.model_version,
 
             # Optional storage
             prompt=prompt if self.config.output.save_prompts else None,

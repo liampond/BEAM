@@ -27,6 +27,19 @@ def _atomic_write_json(path: Path, data: Any) -> None:
     os.replace(tmp, path)
 
 
+class ResultValidationError(Exception):
+    """Raised by ResultsManager.save_single_result when a result fails
+    pre-save validation (empty raw_response on success, qid/format/expected
+    mismatch). Aborts the save loop so the operator can intervene rather
+    than silently dropping the row."""
+
+    def __init__(self, question_id: str, format: str, reason: str):
+        self.question_id = question_id
+        self.format = format
+        self.reason = reason
+        super().__init__(f"{question_id} ({format}): {reason}")
+
+
 @dataclass
 class TestResult:
     """Result of a single test case evaluation."""
@@ -57,6 +70,9 @@ class TestResult:
     input_tokens: Optional[int] = None
     output_tokens: Optional[int] = None
     timestamp: str = ""
+    # Actual checkpoint that responded (e.g. for gemini-3-pro-preview vs. -3.1-).
+    # None when the provider doesn't surface it.
+    model_version: Optional[str] = None
     
     # Optional (may be large)
     prompt: Optional[str] = None
@@ -257,20 +273,26 @@ class ResultsManager:
 
         return None
 
-    def save_single_result(self, model_config, result: "TestResult", test_case=None) -> Optional[str]:
-        """Atomically save a result. Returns None on success, error string if validation failed.
+    def save_single_result(self, model_config, result: "TestResult", test_case=None) -> None:
+        """Atomically save a result. Raises ResultValidationError if validation fails.
 
         Pass ``test_case`` from the submission so alignment (question_id, format,
-        expected_answer) is verified before anything is written. On failure the
-        result is not saved; the caller is responsible for marking it needs_retry.
+        expected_answer) is verified before anything is written. On validation
+        failure the result is not saved and the exception propagates — callers
+        should let it abort the save loop so the operator can intervene
+        (lifecycle stays at ``downloaded``, ``raw_results_*.json`` on disk,
+        resume re-runs the loop).
         """
         from .config import ModelConfig
         model_config: ModelConfig = model_config
 
         err = self._validate_result(result, test_case)
         if err is not None:
-            print(f"  [validation] SKIP {result.question_id}: {err}")
-            return err
+            raise ResultValidationError(
+                question_id=result.question_id,
+                format=result.format,
+                reason=err,
+            )
 
         model_dir = self.output_dir / model_config.display_name
         format_dir = model_dir / result.format
@@ -279,8 +301,6 @@ class ResultsManager:
 
         if self.config.output.save_to_database:
             self._save_single_to_database(result)
-
-        return None
     
     def _save_single_to_database(self, result: TestResult):
         """Save a single result to the llm_responses table."""

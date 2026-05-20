@@ -298,6 +298,7 @@ def process_and_save_batch(
         response = LLMResponse(
             text=batch_result.response_text,
             model=model_config.name,
+            model_version=(batch_result.metadata or {}).get("model_version"),
             provider=model_config.provider,
             success=batch_result.success,
             error=batch_result.error,
@@ -329,13 +330,12 @@ def process_and_save_batch(
             success=response.success,
             error=response.error,
             timestamp=datetime.now().isoformat(),
+            model_version=response.model_version,
             prompt=prompt,
         )
         results.append(result)
 
-        err = results_manager.save_single_result(model_config, result, test_case)
-        if err:
-            storage.add_needs_retry(batch_id, batch_result.custom_id)
+        results_manager.save_single_result(model_config, result, test_case)
 
     storage.update_lifecycle(batch_id, "saved")
     return results
