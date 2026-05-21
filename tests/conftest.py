@@ -12,7 +12,7 @@ from typing import List, Tuple, Optional
 PROJECT_ROOT = Path(__file__).parent.parent
 
 # Database path
-DB_PATH = PROJECT_ROOT / "benchmark.db"
+DB_PATH = PROJECT_ROOT / "beam.db"
 
 # Passages directory
 PASSAGES_DIR = PROJECT_ROOT / "passages"
@@ -44,28 +44,26 @@ def get_verified_answers(
     """
     conn = sqlite3.connect(str(DB_PATH))
     cursor = conn.cursor()
-    
-    answer_col = f"answer_{format_name}"
-    verified_col = f"verified_{format_name}"
-    
-    query = f"""
-        SELECT passage_id, {answer_col}
-        FROM questions
-        WHERE question_type_id = ?
-        AND {verified_col} = 1
-        AND {answer_col} IS NOT NULL
+
+    query = """
+        SELECT passage_id, answer
+        FROM ground_truth
+        WHERE qtype = ?
+        AND format = ?
+        AND verified = 1
+        AND answer IS NOT NULL
     """
-    
+    params: list = [question_type_id, format_name]
+
     if passages:
         placeholders = ','.join('?' * len(passages))
         query += f" AND passage_id IN ({placeholders})"
-        cursor.execute(query, [question_type_id] + passages)
-    else:
-        cursor.execute(query, [question_type_id])
-    
+        params.extend(passages)
+
+    cursor.execute(query, params)
     results = cursor.fetchall()
     conn.close()
-    
+
     return results
 
 

@@ -1,9 +1,9 @@
 """Kwarg-friendly wrapper over ResultsManager.save_single_result.
 
-Retry CLIs (e.g. scripts/retry_missing.py) call this with raw provider data
-instead of constructing a TestResult + BenchmarkConfig + ModelConfig themselves.
-No validation of its own: save_single_result is the audited helper and any
-ResultValidationError it raises propagates unchanged.
+Retry CLIs call this with raw provider data instead of constructing a
+TestResult + BenchmarkConfig + ModelConfig themselves. No validation of its
+own: save_single_result is the audited helper and any ResultValidationError
+it raises propagates unchanged.
 """
 
 from __future__ import annotations

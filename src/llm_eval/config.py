@@ -110,7 +110,7 @@ class BatchSettings:
 class OutputConfig:
     """Output and storage configuration."""
     base_dir: str = "outputs"
-    database: str = "benchmark.db"
+    database: str = "beam.db"
     
     # Structure: {base_dir}/{run_id}/{model}/{format}/
     # run_id is auto-generated timestamp or custom name
@@ -257,7 +257,7 @@ class BenchmarkConfig:
             o = data["output"]
             config.output = OutputConfig(
                 base_dir=o.get("base_dir", "outputs"),
-                database=o.get("database", "benchmark.db"),
+                database=o.get("database", "beam.db"),
                 run_id=o.get("run_id"),
                 resume_run_id=o.get("resume_run_id"),
                 retry_failed=o.get("retry_failed", True),

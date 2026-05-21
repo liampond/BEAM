@@ -10,7 +10,7 @@ from pathlib import Path
 from typing import List, Tuple, Optional
 
 # Path from src/core/db_utils.py up to project root
-DB_PATH = Path(__file__).parent.parent.parent / "benchmark.db"
+DB_PATH = Path(__file__).parent.parent.parent / "beam.db"
 
 
 def get_connection():
