@@ -1,0 +1,15 @@
+{
+  "batch_id": "msgbatch_018mbkw5VjRyb49HqcspQfYf",
+  "expected_answer": "60",
+  "extracted_answer": "60",
+  "format": "musicxml",
+  "is_correct": true,
+  "model": "gemini-3.1-pro-preview",
+  "num_measures": 8,
+  "passage_id": "P-050",
+  "qtype": 2,
+  "question_text": "How many notes are in the upper staff in this passage? Include grace notes and ornaments. Count tied notes only once. Respond with a single number.",
+  "raw_response": "{\n  \"answer\": \"60\"\n}",
+  "source_log": "outputs/phase5_8bar/gemini-3.1-pro-preview/musicxml/Q-452_r1.json",
+  "timestamp": "2026-04-22T23:20:04.555913"
+}

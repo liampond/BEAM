@@ -1,0 +1,15 @@
+{
+  "batch_id": "msgbatch_01DfYa3HFdRit9bPQWPrcsor",
+  "expected_answer": "1",
+  "extracted_answer": "1",
+  "format": "mei",
+  "is_correct": true,
+  "model": "gpt-5.4",
+  "num_measures": 1,
+  "passage_id": "P-003",
+  "qtype": 2,
+  "question_text": "How many notes are in the upper staff in this passage? Include grace notes and ornaments. Count tied notes only once. Respond with a single number.",
+  "raw_response": "{\"answer\":\"1\"}",
+  "source_log": "outputs/presentation_run1_gpt54_mei_1bar_chunk01/gpt-5.4/mei/Q-020_r1.json",
+  "timestamp": "2026-05-06T11:24:03.464403"
+}

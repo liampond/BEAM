@@ -1,0 +1,15 @@
+{
+  "batch_id": "batches/uek1de0n7nqplm5syj1037l568lp8l3ovgv3",
+  "expected_answer": "Eb5",
+  "extracted_answer": "Eb5",
+  "format": "mei",
+  "is_correct": true,
+  "model": "gpt-5.4",
+  "num_measures": 8,
+  "passage_id": "P-053",
+  "qtype": 3,
+  "question_text": "What is the pitch of the first note in the upper staff? Include grace notes and ornaments. If there are multiple simultaneous notes, respond with the highest pitch. Respond in scientific pitch notation. Use 'b' to indicate flats and '#' to indicate sharps (e.g., Bb4).",
+  "raw_response": "{\"answer\":\"Eb5\"}",
+  "source_log": "outputs/presentation_run2_gpt54_mei_8bar_chunk04/gpt-5.4/mei/Q-480_r1.json",
+  "timestamp": "2026-05-08T00:07:43.576815"
+}

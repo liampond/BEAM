@@ -1,0 +1,15 @@
+{
+  "batch_id": "msgbatch_01NqRgQ9qxMthnBAFEUvgGtm",
+  "expected_answer": "7",
+  "extracted_answer": "7",
+  "format": "mei",
+  "is_correct": true,
+  "model": "gpt-5.4",
+  "num_measures": 8,
+  "passage_id": "P-068",
+  "qtype": 8,
+  "question_text": "How many rests are in this passage? Respond with a number (e.g., 3).",
+  "raw_response": "{\"answer\":\"7\"}",
+  "source_log": "outputs/presentation_run2_gpt54_mei_8bar_chunk12/gpt-5.4/mei/Q-620_r1.json",
+  "timestamp": "2026-05-08T17:54:33.710545"
+}

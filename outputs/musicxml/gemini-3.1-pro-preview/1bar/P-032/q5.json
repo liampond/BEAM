@@ -1,0 +1,15 @@
+{
+  "batch_id": "msgbatch_01RLrQfQq7H9oPP3ePQtmLNs",
+  "expected_answer": "1.25",
+  "extracted_answer": "",
+  "format": "musicxml",
+  "is_correct": false,
+  "model": "gemini-3.1-pro-preview",
+  "num_measures": 1,
+  "passage_id": "P-032",
+  "qtype": 5,
+  "question_text": "What is the duration of the longest note in this passage? Respond in the number of quarter notes. Do not use unnecessary decimals. Round to the nearest hundredth if necessary (e.g., 2 for a half note, 0.33 for a triplet eighth note). Count tied notes as one note (e.g., if you see a dotted quarter note tied to an eighth note, return 2).",
+  "raw_response": "",
+  "source_log": "outputs/phase5_1bar/gemini-3.1-pro-preview/musicxml/Q-284_r1.json",
+  "timestamp": "2026-04-21T09:45:16.678662"
+}

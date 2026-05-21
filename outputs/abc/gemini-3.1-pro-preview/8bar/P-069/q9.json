@@ -1,0 +1,16 @@
+{
+  "model": "gemini-3.1-pro-preview",
+  "format": "abc",
+  "passage_id": "P-069",
+  "qtype": 9,
+  "num_measures": 8,
+  "question_text": "What is the duration of the first note in the lower staff? If there are multiple simultaneous notes, respond with the duration of the highest note. Respond in the number of quarter notes. Do not use unnecessary decimals. Round to the nearest hundredth if necessary (e.g., 2 for a half note, 0.33 for a triplet eighth note). Count tied notes as one note (e.g., if you see a dotted quarter note tied to an eighth note, return 2).",
+  "expected_answer": "0.5",
+  "extracted_answer": "0.5",
+  "raw_response": "{\n  \"answer\": \"0.5\"\n}",
+  "is_correct": true,
+  "timestamp": "2026-05-20T20:56:05.460480",
+  "source_log": "outputs/abc/gemini-3.1-pro-preview/8bar/P-069/q9.json",
+  "model_version": "gemini-3.1-pro-preview",
+  "batch_id": "batches/3bhylc9rmf6zayh5t7w5m8f3pmrquylbiczn"
+}

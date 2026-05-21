@@ -1,0 +1,16 @@
+{
+  "model": "gemini-3.1-pro-preview",
+  "format": "abc",
+  "passage_id": "P-063",
+  "qtype": 1,
+  "num_measures": 8,
+  "question_text": "How many notes are in the lower staff in this passage? Include grace notes and ornaments. Count tied notes only once. Respond with a single number.",
+  "expected_answer": "116",
+  "extracted_answer": "116",
+  "raw_response": "{\"answer\": \"116\"}",
+  "is_correct": true,
+  "timestamp": "2026-05-20T22:08:23.242299",
+  "source_log": "outputs/abc/gemini-3.1-pro-preview/8bar/P-063/q1.json",
+  "model_version": "gemini-3.1-pro-preview",
+  "batch_id": "batches/9um728y6mnp6jk88jfg56l7b8kgze8ys563g"
+}

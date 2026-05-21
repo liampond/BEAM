@@ -1,0 +1,15 @@
+{
+  "batch_id": "msgbatch_01NqRgQ9qxMthnBAFEUvgGtm",
+  "expected_answer": "C5",
+  "extracted_answer": "C5",
+  "format": "mei",
+  "is_correct": true,
+  "model": "claude-opus-4-7",
+  "num_measures": 8,
+  "passage_id": "P-078",
+  "qtype": 3,
+  "question_text": "What is the pitch of the first note in the upper staff? Include grace notes and ornaments. If there are multiple simultaneous notes, respond with the highest pitch. Respond in scientific pitch notation. Use 'b' to indicate flats and '#' to indicate sharps (e.g., Bb4).",
+  "raw_response": "{\"answer\":\"C5\"}",
+  "source_log": "outputs/presentation_run2_claude_8bar/claude-opus-4-7/mei/Q-705_r1.json",
+  "timestamp": "2026-05-07T09:19:26.594143"
+}

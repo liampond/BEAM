@@ -1,0 +1,16 @@
+{
+  "model": "gemini-3.1-pro-preview",
+  "format": "humdrum",
+  "passage_id": "P-050",
+  "qtype": 6,
+  "num_measures": 8,
+  "question_text": "How many different pitch classes are used in the lower staff? Consider pitch classes without regard to octave (i.e., all Cs are the same pitch class). Respond with a number (e.g., 5).",
+  "expected_answer": "13",
+  "extracted_answer": "11",
+  "raw_response": "{\"answer\": \"11\"}",
+  "is_correct": false,
+  "timestamp": "2026-05-20T22:08:22.844153",
+  "source_log": "outputs/humdrum/gemini-3.1-pro-preview/8bar/P-050/q6.json",
+  "model_version": "gemini-3.1-pro-preview",
+  "batch_id": "batches/fz9jttjbss5ax9mq4i5ttpr23vg3rud91g8k"
+}

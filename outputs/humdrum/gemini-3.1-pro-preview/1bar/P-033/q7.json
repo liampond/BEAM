@@ -1,0 +1,15 @@
+{
+  "batch_id": "msgbatch_01VWpJihdreJuAX4nFLxYzV4",
+  "expected_answer": "3",
+  "extracted_answer": "3",
+  "format": "humdrum",
+  "is_correct": true,
+  "model": "gemini-3.1-pro-preview",
+  "num_measures": 1,
+  "passage_id": "P-033",
+  "qtype": 7,
+  "question_text": "What is the interval between the first and last notes in the upper staff? If there are multiple simultaneous first or last notes, choose the note with the highest pitch. Respond with the number of semitones as a positive integer (e.g., 5 for a perfect fourth). Use the absolute value.",
+  "raw_response": "{\n  \"answer\": \"3\"\n}",
+  "source_log": "outputs/phase6_1bar_humdrum/gemini-3.1-pro-preview/humdrum/Q-295_r1.json",
+  "timestamp": "2026-04-24T10:43:49.237071"
+}

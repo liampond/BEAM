@@ -1,0 +1,15 @@
+{
+  "batch_id": "batch_69fd48218f9c819096f71b1f2e144794",
+  "expected_answer": "6",
+  "extracted_answer": "7",
+  "format": "abc",
+  "is_correct": false,
+  "model": "claude-opus-4-7",
+  "num_measures": 8,
+  "passage_id": "P-082",
+  "qtype": 8,
+  "question_text": "How many rests are in this passage? Respond with a number (e.g., 3).",
+  "raw_response": "{\"answer\":\"7\"}",
+  "source_log": "outputs/presentation_run2_claude_8bar/claude-opus-4-7/abc/Q-746_r1.json",
+  "timestamp": "2026-05-07T09:19:26.392002"
+}

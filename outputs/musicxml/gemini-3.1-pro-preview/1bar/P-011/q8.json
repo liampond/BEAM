@@ -1,0 +1,15 @@
+{
+  "batch_id": "msgbatch_01RLrQfQq7H9oPP3ePQtmLNs",
+  "expected_answer": "2",
+  "extracted_answer": "2",
+  "format": "musicxml",
+  "is_correct": true,
+  "model": "gemini-3.1-pro-preview",
+  "num_measures": 1,
+  "passage_id": "P-011",
+  "qtype": 8,
+  "question_text": "How many rests are in this passage? Respond with a number (e.g., 3).",
+  "raw_response": "{\n  \"answer\": \"2\"\n}",
+  "source_log": "outputs/phase5_1bar/gemini-3.1-pro-preview/musicxml/Q-098_r1.json",
+  "timestamp": "2026-04-21T09:45:16.421587"
+}

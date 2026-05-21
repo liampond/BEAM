@@ -1,0 +1,15 @@
+{
+  "batch_id": "batch_69fd44ab6ba48190a4dd734e62f10609",
+  "expected_answer": "55",
+  "extracted_answer": "60",
+  "format": "humdrum",
+  "is_correct": false,
+  "model": "claude-opus-4-7",
+  "num_measures": 8,
+  "passage_id": "P-077",
+  "qtype": 2,
+  "question_text": "How many notes are in the upper staff in this passage? Include grace notes and ornaments. Count tied notes only once. Respond with a single number.",
+  "raw_response": "{\"answer\": \"60\"}",
+  "source_log": "outputs/presentation_run2_claude_8bar/claude-opus-4-7/humdrum/Q-695_r1.json",
+  "timestamp": "2026-05-07T09:19:26.173747"
+}

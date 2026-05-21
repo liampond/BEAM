@@ -1,0 +1,15 @@
+{
+  "batch_id": "msgbatch_01AqQsXpP1SUd6f9jzj12Jiw",
+  "expected_answer": "0.33",
+  "extracted_answer": "0.33",
+  "format": "abc",
+  "is_correct": true,
+  "model": "gpt-5.4",
+  "num_measures": 1,
+  "passage_id": "P-009",
+  "qtype": 9,
+  "question_text": "What is the duration of the first note in the lower staff? If there are multiple simultaneous notes, respond with the duration of the highest note. Respond in the number of quarter notes. Do not use unnecessary decimals. Round to the nearest hundredth if necessary (e.g., 2 for a half note, 0.33 for a triplet eighth note). Count tied notes as one note (e.g., if you see a dotted quarter note tied to an eighth note, return 2).",
+  "raw_response": "{\"answer\":\"0.33\"}",
+  "source_log": "outputs/phase6_1bar_abc/gpt-5.4/abc/Q-081_r1.json",
+  "timestamp": "2026-04-24T02:53:50.233791"
+}

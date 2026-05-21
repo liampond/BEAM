@@ -1,0 +1,15 @@
+{
+  "batch_id": "batch_69fd44ab6ba48190a4dd734e62f10609",
+  "expected_answer": "D2",
+  "extracted_answer": "D2",
+  "format": "abc",
+  "is_correct": true,
+  "model": "gpt-5.4",
+  "num_measures": 8,
+  "passage_id": "P-076",
+  "qtype": 4,
+  "question_text": "What is the pitch of the lowest note in the lower staff? Respond in scientific pitch notation. Use 'b' to indicate flats and '#' to indicate sharps (e.g., Bb4).",
+  "raw_response": "{\"answer\":\"D2\"}",
+  "source_log": "outputs/presentation_run2_gpt54_abc_humdrum_8bar_chunk07/gpt-5.4/abc/Q-688_r1.json",
+  "timestamp": "2026-05-07T22:19:06.718678"
+}

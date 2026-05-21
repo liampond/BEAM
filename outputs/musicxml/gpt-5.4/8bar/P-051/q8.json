@@ -1,0 +1,15 @@
+{
+  "batch_id": "msgbatch_018mbkw5VjRyb49HqcspQfYf",
+  "expected_answer": "17",
+  "extracted_answer": "17",
+  "format": "musicxml",
+  "is_correct": true,
+  "model": "gpt-5.4",
+  "num_measures": 8,
+  "passage_id": "P-051",
+  "qtype": 8,
+  "question_text": "How many rests are in this passage? Respond with a number (e.g., 3).",
+  "raw_response": "{\"answer\":\"17\"}",
+  "source_log": "outputs/phase5_8bar/gpt-5.4/musicxml/Q-467_r1.json",
+  "timestamp": "2026-04-22T09:03:27.541440"
+}

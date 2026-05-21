@@ -43,8 +43,11 @@ Thumbs.db
 *.db.pre-*
 *.merged-into-v1
 passages/
-outputs/
 analysis/
+
+# outputs/ — format run dirs are tracked; everything else is ignored
+outputs/gemini_multikey*/
+outputs/*.csv
 
 # Old/archived data
 data/

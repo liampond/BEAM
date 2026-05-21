@@ -1,0 +1,15 @@
+{
+  "batch_id": "msgbatch_018mbkw5VjRyb49HqcspQfYf",
+  "expected_answer": "6",
+  "extracted_answer": "6",
+  "format": "musicxml",
+  "is_correct": true,
+  "model": "claude-opus-4-7",
+  "num_measures": 8,
+  "passage_id": "P-062",
+  "qtype": 8,
+  "question_text": "How many rests are in this passage? Respond with a number (e.g., 3).",
+  "raw_response": "{\"answer\":\"6\"}",
+  "source_log": "outputs/phase5_8bar/claude-opus-4-7/musicxml/Q-566_r1.json",
+  "timestamp": "2026-04-21T22:04:59.488036"
+}

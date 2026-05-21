@@ -1,0 +1,15 @@
+{
+  "batch_id": "msgbatch_01NqRgQ9qxMthnBAFEUvgGtm",
+  "expected_answer": "52",
+  "extracted_answer": "54",
+  "format": "mei",
+  "is_correct": false,
+  "model": "claude-opus-4-7",
+  "num_measures": 8,
+  "passage_id": "P-090",
+  "qtype": 1,
+  "question_text": "How many notes are in the lower staff in this passage? Include grace notes and ornaments. Count tied notes only once. Respond with a single number.",
+  "raw_response": "{\"answer\":\"54\"}",
+  "source_log": "outputs/presentation_run2_claude_8bar/claude-opus-4-7/mei/Q-811_r1.json",
+  "timestamp": "2026-05-07T09:19:26.915043"
+}

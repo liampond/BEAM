@@ -1,0 +1,16 @@
+{
+  "model": "gemini-3.1-pro-preview",
+  "format": "mei",
+  "passage_id": "P-058",
+  "qtype": 4,
+  "num_measures": 8,
+  "question_text": "What is the pitch of the lowest note in the lower staff? Respond in scientific pitch notation. Use 'b' to indicate flats and '#' to indicate sharps (e.g., Bb4).",
+  "expected_answer": "D2",
+  "extracted_answer": "D2",
+  "raw_response": "{\n  \"answer\": \"D2\"\n}",
+  "is_correct": true,
+  "timestamp": "2026-05-20T22:08:23.312158",
+  "source_log": "outputs/mei/gemini-3.1-pro-preview/8bar/P-058/q4.json",
+  "model_version": "gemini-3.1-pro-preview",
+  "batch_id": "batches/9um728y6mnp6jk88jfg56l7b8kgze8ys563g"
+}

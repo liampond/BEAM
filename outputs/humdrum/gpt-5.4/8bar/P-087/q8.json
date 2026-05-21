@@ -1,0 +1,15 @@
+{
+  "batch_id": "batch_69fd4bb035d0819082804059bd498b1d",
+  "expected_answer": "8",
+  "extracted_answer": "8",
+  "format": "humdrum",
+  "is_correct": true,
+  "model": "gpt-5.4",
+  "num_measures": 8,
+  "passage_id": "P-087",
+  "qtype": 8,
+  "question_text": "How many rests are in this passage? Respond with a number (e.g., 3).",
+  "raw_response": "{\"answer\":\"8\"}",
+  "source_log": "outputs/presentation_run2_gpt54_abc_humdrum_8bar_chunk09/gpt-5.4/humdrum/Q-791_r1.json",
+  "timestamp": "2026-05-07T22:49:18.690308"
+}

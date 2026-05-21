@@ -1,0 +1,15 @@
+{
+  "batch_id": "batch_69fd44ab6ba48190a4dd734e62f10609",
+  "expected_answer": "32",
+  "extracted_answer": "32",
+  "format": "abc",
+  "is_correct": true,
+  "model": "gpt-5.4",
+  "num_measures": 8,
+  "passage_id": "P-079",
+  "qtype": 1,
+  "question_text": "How many notes are in the lower staff in this passage? Include grace notes and ornaments. Count tied notes only once. Respond with a single number.",
+  "raw_response": "{\"answer\":\"32\"}",
+  "source_log": "outputs/presentation_run2_gpt54_abc_humdrum_8bar_chunk07/gpt-5.4/abc/Q-712_r1.json",
+  "timestamp": "2026-05-07T22:19:06.787944"
+}

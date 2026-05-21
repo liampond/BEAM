@@ -1,0 +1,15 @@
+{
+  "batch_id": "batches/uek1de0n7nqplm5syj1037l568lp8l3ovgv3",
+  "expected_answer": "Bb2",
+  "extracted_answer": "B1",
+  "format": "abc",
+  "is_correct": false,
+  "model": "claude-opus-4-7",
+  "num_measures": 8,
+  "passage_id": "P-047",
+  "qtype": 4,
+  "question_text": "What is the pitch of the lowest note in the lower staff? Respond in scientific pitch notation. Use 'b' to indicate flats and '#' to indicate sharps (e.g., Bb4).",
+  "raw_response": "{\"answer\":\"B1\"}",
+  "source_log": "outputs/presentation_run2_claude_8bar/claude-opus-4-7/abc/Q-427_r1.json",
+  "timestamp": "2026-05-07T09:19:25.794118"
+}

@@ -1,0 +1,15 @@
+{
+  "batch_id": "msgbatch_01DfYa3HFdRit9bPQWPrcsor",
+  "expected_answer": "0",
+  "extracted_answer": "0",
+  "format": "mei",
+  "is_correct": true,
+  "model": "gemini-3.1-pro-preview",
+  "num_measures": 1,
+  "passage_id": "P-017",
+  "qtype": 8,
+  "question_text": "How many rests are in this passage? Respond with a number (e.g., 3).",
+  "raw_response": "{\n  \"answer\": \"0\"\n}",
+  "source_log": "outputs/phase6_1bar_mei/gemini-3.1-pro-preview/mei/Q-152_r1.json",
+  "timestamp": "2026-04-24T17:37:38.121570"
+}

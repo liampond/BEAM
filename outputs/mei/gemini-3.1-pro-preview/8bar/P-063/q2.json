@@ -1,0 +1,16 @@
+{
+  "model": "gemini-3.1-pro-preview",
+  "format": "mei",
+  "passage_id": "P-063",
+  "qtype": 2,
+  "num_measures": 8,
+  "question_text": "How many notes are in the upper staff in this passage? Include grace notes and ornaments. Count tied notes only once. Respond with a single number.",
+  "expected_answer": "72",
+  "extracted_answer": "72",
+  "raw_response": "{\n  \"answer\": \"72\"\n}",
+  "is_correct": true,
+  "timestamp": "2026-05-20T22:08:23.419577",
+  "source_log": "outputs/mei/gemini-3.1-pro-preview/8bar/P-063/q2.json",
+  "model_version": "gemini-3.1-pro-preview",
+  "batch_id": "batches/9um728y6mnp6jk88jfg56l7b8kgze8ys563g"
+}

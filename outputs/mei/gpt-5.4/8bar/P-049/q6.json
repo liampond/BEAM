@@ -1,0 +1,15 @@
+{
+  "batch_id": "batches/uek1de0n7nqplm5syj1037l568lp8l3ovgv3",
+  "expected_answer": "10",
+  "extracted_answer": "10",
+  "format": "mei",
+  "is_correct": true,
+  "model": "gpt-5.4",
+  "num_measures": 8,
+  "passage_id": "P-049",
+  "qtype": 6,
+  "question_text": "How many different pitch classes are used in the lower staff? Consider pitch classes without regard to octave (i.e., all Cs are the same pitch class). Respond with a number (e.g., 5).",
+  "raw_response": "{\"answer\":\"10\"}",
+  "source_log": "outputs/presentation_run2_gpt54_mei_8bar_chunk02/gpt-5.4/mei/Q-447_r1.json",
+  "timestamp": "2026-05-07T22:55:36.144993"
+}

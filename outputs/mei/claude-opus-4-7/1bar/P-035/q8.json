@@ -1,0 +1,15 @@
+{
+  "batch_id": "msgbatch_01DfYa3HFdRit9bPQWPrcsor",
+  "expected_answer": "2",
+  "extracted_answer": "2",
+  "format": "mei",
+  "is_correct": true,
+  "model": "claude-opus-4-7",
+  "num_measures": 1,
+  "passage_id": "P-035",
+  "qtype": 8,
+  "question_text": "How many rests are in this passage? Respond with a number (e.g., 3).",
+  "raw_response": "{\"answer\":\"2\"}",
+  "source_log": "outputs/phase6_1bar_mei/claude-opus-4-7/mei/Q-314_r1.json",
+  "timestamp": "2026-04-24T14:18:09.434163"
+}
