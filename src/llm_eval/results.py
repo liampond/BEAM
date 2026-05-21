@@ -273,18 +273,42 @@ class ResultsManager:
 
         return None
 
-    def save_single_result(self, model_config, result: "TestResult", test_case=None) -> None:
+    def save_single_result(
+        self,
+        model_config,
+        result: "TestResult",
+        test_case=None,
+        batch_id: Optional[str] = None,
+    ) -> None:
         """Atomically save a result. Raises ResultValidationError if validation fails.
 
-        Pass ``test_case`` from the submission so alignment (question_id, format,
-        expected_answer) is verified before anything is written. On validation
-        failure the result is not saved and the exception propagates — callers
-        should let it abort the save loop so the operator can intervene
-        (lifecycle stays at ``downloaded``, ``raw_results_*.json`` on disk,
-        resume re-runs the loop).
+        Writes the per-question JSON to the publication tree
+        (``outputs/<format>/<model>/<num_measures>bar/<passage_id>/q<qtype>.json``)
+        and upserts the row in ``beam.db``. ``test_case`` is required so we can
+        resolve ``qtype`` and ``num_measures`` from the submission record rather
+        than re-querying the DB. ``batch_id`` round-trips into both the JSON and
+        the DB row so audits can trace every saved answer back to its batch.
+
+        Validation failure (alignment mismatch, empty raw_response on success)
+        aborts the save with no file or row written — callers should let the
+        exception propagate so the operator can intervene (lifecycle stays at
+        ``downloaded``, raw_results_*.json on disk, resume re-runs the loop).
         """
         from .config import ModelConfig
         model_config: ModelConfig = model_config
+
+        if test_case is None:
+            raise ResultValidationError(
+                question_id=result.question_id,
+                format=result.format,
+                reason="test_case is required to resolve qtype/num_measures",
+            )
+        if result.run_number != 1:
+            raise ResultValidationError(
+                question_id=result.question_id,
+                format=result.format,
+                reason=f"publication path collapses run_number; got run_number={result.run_number}",
+            )
 
         err = self._validate_result(result, test_case)
         if err is not None:
@@ -294,37 +318,73 @@ class ResultsManager:
                 reason=err,
             )
 
-        model_dir = self.output_dir / model_config.display_name
-        format_dir = model_dir / result.format
-        response_path = format_dir / f"{result.question_id}_r{result.run_number}.json"
-        _atomic_write_json(response_path, result.to_dict())
+        qtype = test_case.question_type_id
+        num_measures = test_case.num_measures
+        response_path = (
+            self.config.project_root / self.config.output.base_dir
+            / result.format / model_config.name / f"{num_measures}bar"
+            / result.passage_id / f"q{qtype}.json"
+        )
+        rel_source_log = str(response_path.relative_to(self.config.project_root))
+
+        data: Dict[str, Any] = {
+            "model": result.model_name,
+            "format": result.format,
+            "passage_id": result.passage_id,
+            "qtype": qtype,
+            "num_measures": num_measures,
+            "question_text": result.question_text,
+            "expected_answer": result.expected_answer,
+            "extracted_answer": result.extracted_answer,
+            "raw_response": result.raw_response,
+            "is_correct": result.is_correct,
+            "timestamp": result.timestamp,
+            "source_log": rel_source_log,
+        }
+        if result.model_version is not None:
+            data["model_version"] = result.model_version
+        if batch_id is not None:
+            data["batch_id"] = batch_id
+
+        _atomic_write_json(response_path, data)
 
         if self.config.output.save_to_database:
-            self._save_single_to_database(result)
-    
-    def _save_single_to_database(self, result: TestResult):
-        """Save a single result to the llm_responses table."""
-        db_path = self.config.project_root / self.config.output.database
-        conn = sqlite3.connect(db_path)
-        cursor = conn.cursor()
-        
-        # Use INSERT OR REPLACE to handle duplicates (same question/passage/format/model)
-        cursor.execute("""
-            INSERT OR REPLACE INTO llm_responses 
-            (question_id, passage_id, format, model, extracted_answer, is_correct, timestamp)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
-        """, (
-            result.question_id,
-            result.passage_id,
-            result.format,
-            result.model_name,
-            result.extracted_answer,
-            result.is_correct,
-            result.timestamp,
-        ))
-        
-        conn.commit()
-        conn.close()
+            self._save_single_to_database(result, qtype, rel_source_log, batch_id)
+
+    def _save_single_to_database(
+        self,
+        result: TestResult,
+        qtype: int,
+        source_log: str,
+        batch_id: Optional[str],
+    ) -> None:
+        """Upsert one row into beam.db.llm_responses.
+
+        beam.db lives at the repo root regardless of ``config.output.database``
+        (which still names the legacy template DB used for test-case queries).
+        Schema PK is (model, format, passage_id, qtype); INSERT OR REPLACE keeps
+        retries idempotent.
+        """
+        db_path = self.config.project_root / "beam.db"
+        with sqlite3.connect(db_path) as conn:
+            conn.execute(
+                "INSERT OR REPLACE INTO llm_responses "
+                "(model, format, passage_id, qtype, raw_response, extracted_answer, "
+                "is_correct, timestamp, source_log, batch_id) "
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                (
+                    result.model_name,
+                    result.format,
+                    result.passage_id,
+                    qtype,
+                    result.raw_response,
+                    result.extracted_answer,
+                    1 if result.is_correct else 0,
+                    result.timestamp,
+                    source_log,
+                    batch_id,
+                ),
+            )
     
     def save_model_results(
         self,

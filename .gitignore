@@ -51,12 +51,15 @@ data/
 legacy_outputs/
 _archive/
 _backup/
+db_backups/
+outputs_archive/
 
 # Paper and review materials
 paper/
 *.pdf
 *.docx
 reviews.txt
+*.pptx
 
 # Test artifacts
 .pytest_cache/
@@ -66,3 +69,7 @@ tests/verification_templates/
 
 # Stray CSV/data files at root
 *.csv
+
+# Local-only working dirs (handoffs, throwaway scripts, per-run tooling)
+docs/
+scripts/

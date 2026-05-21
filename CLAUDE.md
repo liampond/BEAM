@@ -2,7 +2,7 @@
 
 BEAM is the Music Encoding Benchmark: it scores LLMs on 9 questions × 45 passages × 4 encoding formats (ABC, Humdrum, MEI, MusicXML) over Mozart's piano sonatas. Conference camera-ready was submitted 2026-04-24 (v1 models); current work is the late-May 2026 presentation update extending coverage to v2/reasoning models.
 
-For deeper context read [README.md](README.md) (project overview) and [HANDOFF.md](HANDOFF.md) (running log of in-flight work and decisions). Update HANDOFF.md periodically as work progresses so the next session can pick up cold — its exact structure changes over time, so match whatever shape it has when you read it.
+For deeper context read [README.md](README.md) (project overview) and [docs/batch_resilience_handoff.md](docs/batch_resilience_handoff.md) (current active handoff — batch infrastructure resilience work for the late-May 2026 presentation). Historical narrative for Phases 0-13 lives in [docs/phase_history.md](docs/phase_history.md). Update the active handoff doc as work progresses so the next session can pick up cold — its exact structure changes over time, so match whatever shape it has when you read it.
 
 ## Active database
 
