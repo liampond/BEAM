@@ -6,8 +6,9 @@ For deeper context read [README.md](README.md) (project overview) and [docs/batc
 
 ## Active database
 
-- **`benchmark.db`** is the single unified DB (post-2026-05-02 merge) containing all 7 models. Use this one.
-- `benchmark_v2.db` and any `*.db.pre-*` / `*.merged-into-v1` files in the repo root are backups or stale; do not write to them. They are gitignored.
+- **`beam.db`** is the active DB for the late-May 2026 presentation and camera-ready resubmit. It contains the 3 reasoning models only (claude-opus-4-7, gpt-5.4, gemini-3.1-pro-preview) with 9-qtype IDs and fully auditable on-disk sources. Use this one for all new work.
+- `benchmark.db` stays read-only as the v1-paper reference (7 models, 810 Q-XXX IDs). Do not write to it.
+- `benchmark_v2.db` and any `*.db.pre-*` / `*.merged-into-v1` files in the repo root are stale backups; do not write to them. They are gitignored.
 - Ground truth lives in `questions.answer_{format}` columns. LLM responses go in `llm_responses`.
 
 ## Common commands
@@ -65,7 +66,6 @@ The `.env` file (gitignored) must use these exact names — the code does not fa
 - `OPENAI_API_KEY`
 - `ANTHROPIC_API_KEY` (not `CLAUDE_API_KEY`)
 - `GOOGLE_API_KEY` (not `GEMINI_API_KEY` — the fallback was removed deliberately)
-- `DASHSCOPE_API_KEY` (Alibaba/Qwen, OpenAI-compatible endpoint)
 
 ## Reasoning-model gotchas
 

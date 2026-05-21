@@ -48,16 +48,17 @@ def compare_answers(extracted: str, expected: str) -> bool:
     if not extracted or not expected:
         return False
 
+    # Numeric comparison must come first: _normalize strips decimal points,
+    # which corrupts floats ("0.125" -> "0125" = 125, "0.13" -> "013" = 13).
+    try:
+        if abs(float(extracted.strip()) - float(expected.strip())) < 0.01:
+            return True
+    except ValueError:
+        pass
+
     e_norm = _normalize(extracted)
     x_norm = _normalize(expected)
-
-    if e_norm == x_norm:
-        return True
-
-    try:
-        return abs(float(e_norm) - float(x_norm)) < 0.01
-    except ValueError:
-        return False
+    return e_norm == x_norm
 
 
 # ---------------------------------------------------------------------------

@@ -1,5 +1,8 @@
 filters:
   formats:
+  - abc
+  - humdrum
+  - mei
   - musicxml
   verified_only: false
   num_measures:
@@ -11,29 +14,22 @@ filters:
 models:
 - provider: openai
   name: gpt-5.4
-  enabled: true
-  use_batch_api: false
+  enabled: false
+  use_batch_api: true
   reasoning_effort: high
   max_tokens: 65536
 - provider: anthropic
   name: claude-opus-4-7
-  enabled: true
-  use_batch_api: false
+  enabled: false
+  use_batch_api: true
   reasoning_effort: high
   max_tokens: 65536
 - provider: google
   name: gemini-3.1-pro-preview
-  enabled: true
-  use_batch_api: false
+  enabled: false
+  use_batch_api: true
   temperature: 1.0
   max_tokens: 65536
-- provider: alibaba
-  name: qwen3-max
-  enabled: false
-  use_batch_api: false
-- provider: transformers
-  name: microsoft/phi-4
-  enabled: false
 api_settings:
   temperature: 0.0
   seed: 42
@@ -47,8 +43,8 @@ batch_settings:
   save_batch_ids: true
 output:
   base_dir: outputs
-  database: benchmark_v2.db
-  run_id: phase5_8bar
+  database: beam.db
+  run_id: null
   resume_run_id: null
   retry_failed: false
   save_prompts: true
