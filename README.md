@@ -1,231 +1,148 @@
-# Music Encoding Benchmark
+# BEAM — the Benchmark for Encoding Assessment in Music
 
-This repository contains Mozart's piano sonatas encoded in multiple formats (ABC, MEI, MusicXML, Humdrum) for benchmarking Large Language Model understanding of music notation systems.
+The repository contains the dataset, the deterministic answer extractors that
+produced the ground truth, the LLM responses, and the SQLite database
+(`beam.db`) that binds them together.
 
-## Project Overview
+## Contents
 
-This benchmark tests which music encoding formats are best understood by LLMs through objective questions about musical content at different granularities (bar, phrase, section, movement).
+- [What's in the benchmark](#whats-in-the-benchmark)
+- [Repository layout](#repository-layout)
+- [`beam.db` schema](#beamdb-schema)
+- [Output tree](#output-tree)
+- [Reproducing the ground truth](#reproducing-the-ground-truth)
+- [Models evaluated](#models-evaluated)
+- [Caveats and known issues](#caveats-and-known-issues)
+- [Status](#status)
 
-## Quick Start
+## What's in the benchmark
 
-### Installation
+- **90 passages** from 16 Mozart piano sonatas (45 movements). From each
+  movement one 1-bar and one 8-bar passage was randomly selected, giving
+  45 + 45 = 90 passages total. The same musical content is provided in four
+  formats.
+- **4 encoding formats**, each sourced from a separate pre-existing dataset:
+  - ABC notation (`.abc`)
+  - Humdrum **kern (`.krn`)
+  - MEI (`.mei`)
+  - MusicXML (`.xml`)
+- **9 question types**, each a short numeric or pitch-name probe ("how many
+  rests are in this passage?", "what is the pitch of the first note in the
+  upper staff?", etc.). The full text of each question lives in the
+  `question_types` table; see also [`prompts/system_prompt.txt`](prompts/system_prompt.txt)
+  for the system prompt shown to every model.
+- **Ground truth** for every (passage × format × question) cell, computed by
+  format-specific extractors under [`src/answer_extraction/`](src/answer_extraction/)
+  and verified against the rendered score. 90 passages × 4 formats × 9
+  questions = **3,240 ground-truth cells**.
+- **LLM responses** from three reasoning-class models evaluated once each in a
+  zero-shot setting: 3 models × 3,240 cells = **9,720 queries**, all stored in
+  `beam.db` and mirrored to [`outputs/`](outputs/).
 
-```bash
-# Clone the repository
-git clone https://github.com/liampond/MusicEncodingBenchmark.git
-cd MusicEncodingBenchmark
-
-# Create virtual environment
-python3 -m venv .venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Copy environment template and add your API keys
-cp .env.example .env
-# Edit .env and add your API keys
-```
-
-### Initialize Database
-
-```bash
-# Create the benchmark database
-python src/scripts/database/init_database.py
-
-# Export to CSV for review
-python src/scripts/database/export_database.py
-```
-
-### Running the Benchmark
-
-```bash
-# Run with default settings (uses config.yaml)
-python src/cli/run_benchmark.py
-
-# Run specific questions
-python src/cli/run_benchmark.py --questions 22 23 24
-
-# Run all questions
-python src/cli/run_benchmark.py --all
-
-# Use custom config
-python src/cli/run_benchmark.py --config my_config.yaml
-```
-
-Configuration is managed through `config.yaml`. See the file for all available options.
-
-## Database Structure
-
-The benchmark uses a clean 4-table SQLite database (`benchmark.db`):
-
-- **question_types**: 9 question templates
-- **passages**: 45 passages with verified measure ranges per format  
-- **questions**: 405 question instances (9 types × 45 passages)
-- **llm_responses**: LLM evaluation results (populated during testing)
-
-### Key Features
-
-- ✅ **Clean Database Schema**: Normalized 4-table structure
-- ✅ **Verified Answers**: 88 manually verified answers per format (ABC, Humdrum, MEI, MusicXML)
-- ✅ **Multi-Format Support**: 4 encoding formats tested simultaneously
-- ✅ **Export Capability**: CSV export with statistics via `export_database.py`
-- ✅ **Interactive CLI**: Easy question creation with `add_question.py`
-
-## Collection Overview
-
-| Format | Files | Coverage | Variations |
-|--------|-------|----------|------------|
-| **ABC Notation** | 66 | Sonatas 1-14, 16, 18 | Letter suffixes (06-3a-m, 11-1a-g) |
-| **MEI** | 53 | All 18 sonatas | No variations, Sonata 15 incomplete |
-| **MusicXML** | 53 | All 18 sonatas | No variations, Sonata 15 incomplete |
-| **Humdrum** | 66 | Sonatas 1-14, 16, 18 | Letter suffixes (06-3a-m, 11-1a-g) |
-| **LilyPond** | 14 | Partial (11, 14, 16) | Letter suffixes (11-1a-f) |
-
-**Missing from all sources**: Sonata 15 movement 3 (revised K. 494), Sonata 17 (K. 570) from ABC/Humdrum
-
-## Repository Structure
+## Repository layout
 
 ```
-MusicEncodingBenchmark/
-├── README.md               # This file
-├── config.yaml             # Benchmark configuration
-├── requirements.txt        # Python dependencies
-├── setup.py                # Package installation
-├── benchmark.db            # SQLite database
-│
-├── data/                   # Encoded music files
-│   ├── abc/                # ABC Notation (66 files)
-│   ├── humdrum/            # Humdrum format (66 files)
-│   ├── mei/                # MEI format (53 files)
-│   ├── musicxml/           # MusicXML format (53 files)
-│   └── lilypond/           # LilyPond format (14 files)
-│
-├── src/                    # Main source code
-│   ├── cli/                # Command-line interfaces
-│   │   ├── run_benchmark.py  # Main benchmark runner
-│   │   └── add_question.py   # Add questions to database
-│   ├── core/               # Core business logic
-│   │   ├── db_utils.py       # Database utilities
-│   │   └── extract_passage.py # Passage extraction
-│   ├── llm/                # LLM integration
-│   │   ├── evaluator.py      # Response evaluation
-│   │   ├── runner.py         # LLM interaction
-│   │   └── integration/      # Provider implementations
-│   └── scripts/            # Utility scripts
-│       ├── database/         # Database management
-│       │   ├── init_database.py  # Database initialization
-│       │   └── export_database.py # CSV export
-│       └── data_import/      # Data import scripts
-│
-├── docs/                   # Documentation
-│   ├── hard_question_ideas.md
-│   └── future_questions.md
-│
-├── prompts/                # Prompt templates
-│   └── system_prompt.txt   # System prompt for LLMs
-│
-└── outputs/                # Benchmark outputs (gitignored)
-    ├── {model}/            # Per-model results
-    └── summary_*.json      # Run summaries
+.
+├── beam.db                  SQLite — single source of truth
+├── config.yaml              filter + provider config used by submission code
+├── prompts/system_prompt.txt
+├── data/                    raw Mozart sources (ABC, **kern, MEI, MusicXML, LilyPond)
+├── passages/                per-passage excerpts in each format (P-001 … P-090)
+├── outputs/                 publication tree: format/model/{1,8}bar/passage/q{qtype}.json
+├── src/
+│   ├── answer_extraction/   deterministic extractors, one per (format, qtype)
+│   ├── core/extract_passage.py   slice a piece into a measure range
+│   └── llm_eval/            provider clients, batch API, beam.db writers
+├── tests/                   pytest suite (extractors vs. verified GT in beam.db)
 ```
 
-## Naming Convention
+`scripts/` and `docs/` exist locally but are gitignored — they hold one-off
+submission drivers and handoff notes that aren't part of the published
+artifact.
 
-Files use standard sonata numbering: `<sonata_number>-<movement>[letter_suffix].<extension>`
+## `beam.db` schema
 
-Examples:
-- `01-1.mei` - Sonata No. 1, Movement 1 (MEI format)
-- `11-1a.krn` - Sonata No. 11, Movement 1, Variation A (Humdrum format)
-- `06-3b.krn` - Sonata No. 6, Movement 3, Variation B (Humdrum format)
+`beam.db` flattens all benchmark state into four tables, keyed by
+`(passage_id, qtype, format)` for ground truth and
+`(model, format, passage_id, qtype)` for responses.
 
-## Standard Sonata Numbering
+```sql
+question_types(qtype INTEGER PK, question_text TEXT)
 
-| No. | Key | KV | Composition Date |
-|-----|-----|-----|------------------|
-| 01 | C major | 279/189d | Munich, Autumn 1774 |
-| 02 | F major | 280/189e | Munich, Autumn 1774 |
-| 03 | B-flat major | 281/189f | Munich, Autumn 1774 |
-| 04 | E-flat major | 282/189g | Munich, Autumn 1774 |
-| 05 | G major | 283/189h | Munich, Autumn 1774 |
-| 06 | D major | 284/205b | Munich, February–March 1775 |
-| 07 | C major | 309/284b | Mannheim, Nov. 8 1777 |
-| 08 | A minor | 310/300d | Paris, Summer 1778 |
-| 09 | D major | 311/284c | Mannheim, November–December 1777 |
-| 10 | C major | 330/300h | Vienna or Salzburg, 1783 |
-| 11 | A major | 331/300i | Vienna or Salzburg, 1783 |
-| 12 | F major | 332/300k | Vienna or Salzburg, 1783 |
-| 13 | B-flat major | 333/315c | Linz, 1783 |
-| 14 | C minor | 457 | Vienna, Oct. 14, 1784 |
-| 15 | F major | 533/494 | Vienna, Jan. 3, 1788 |
-| 16 | C major | 545 | Vienna, Jun. 26, 1788 ("facile") |
-| 17 | B-flat major | 570 | Vienna, February, 1789 |
-| 18 | D major | 576 | Vienna, July 1789 |
+passages(
+    passage_id TEXT PK,                 -- 'P-001' … 'P-090'
+    num_measures INTEGER,               -- 1 or 8
+    sonata_number INTEGER, kv_number INTEGER, movement INTEGER,
+    start_measure_abc, end_measure_abc,
+    start_measure_humdrum, end_measure_humdrum,
+    start_measure_mei, end_measure_mei,
+    start_measure_musicxml, end_measure_musicxml
+)
 
-## Sources
+ground_truth(
+    passage_id TEXT, qtype INTEGER, format TEXT,
+    answer TEXT, verified INTEGER,
+    PRIMARY KEY (passage_id, qtype, format)
+)
 
-### MEI (Music Encoding Initiative)
-- **Source**: https://dme.mozarteum.at/musik/edition/
-- **Provider**: Digital Mozart Edition (DME), Digital-interactive Mozart-Edition (DIME)
-- **License**: CC BY-NC-SA 4.0 International
-- **Download**: Automated scraper (`scrape_mei.py`)
-- **Files**: 53 files (all 18 sonatas, but Sonata 15 missing movement 3)
+llm_responses(
+    model TEXT, format TEXT, passage_id TEXT, qtype INTEGER,
+    raw_response TEXT,                  -- full model output as JSON string
+    extracted_answer TEXT,              -- value pulled from {"answer": ...}
+    is_correct INTEGER,                 -- compared against ground_truth.answer
+    timestamp TEXT,
+    source_log TEXT,                    -- path under outputs/
+    batch_id TEXT,
+    PRIMARY KEY (model, format, passage_id, qtype)
+)
+```
 
-### MusicXML
-- **Source**: https://github.com/DCMLab/schema_annotation_data/tree/master/data/mozart_sonatas/musicxml
-- **Provider**: DCMLab schema annotation data repository
-- **Download**: Automated scraper (`download_musicxml.py`)
-- **Files**: 53 files (all 18 sonatas, but Sonata 15 missing movement 3)
-- **Special Feature**: Includes harmonic analysis annotations (Roman numeral chord symbols)
+Per-format measure offsets in `passages` exist because Humdrum and MEI
+sometimes label the first measure differently from MusicXML (anacrusis
+handling); the `start_measure_<format>` / `end_measure_<format>` columns make
+the offset explicit so excerpt boundaries line up across encodings.
 
-### ABC Notation
-- **Source**: https://ifdo.ca/~seymour/kern2abc/mozart_sonatas.abc
-- **Provider**: Converted from Humdrum by Craig Stuart Sapp using hum2abc
-- **Download**: Downloaded and split using `split_abc.py`
-- **Files**: 66 files (same coverage as Humdrum)
-  - Includes variations as separate files with letter suffixes
-  - Sonata 06 (K. 284) movement 3: 13 variation files (3a-3m)
-  - Sonata 11 (K. 331) movement 1: 7 variation files (1a-1g)
-- **Missing**: Sonatas 15 (K. 533) and 17 (K. 570) not available
+## Output tree
 
-### Humdrum
-- **Source**: https://github.com/humdrum-tools/humdrum-data.git
-- **Files**: 66 files
-  - Includes variations as separate files with letter suffixes
-  - Sonata 06 (K. 284) movement 3: 13 variation files (3a-3m)
-  - Sonata 11 (K. 331) movement 1: 7 variation files (1a-1g)
-- **Missing**: Sonatas 15 (K. 533) and 17 (K. 570) not available in this repository
+Every LLM response in `beam.db` is also written to a flat per-question JSON
+file:
 
-### LilyPond
-- **Source**: https://www.mutopiaproject.org/cgibin/make-table.cgi?Composer=MozartWA
-- **Files**: 14 files (partial collection)
-- **Note**: Pieces that contained multiple .ly files were merged using Claude Sonnet 4.5 and manually visually verified using Frescobaldi
+```
+outputs/{format}/{model}/{N}bar/{passage_id}/q{qtype}.json
+```
 
-## Important Notes
+Each file is self-describing:
 
-### K. 533/494 (Sonata No. 15, Movement 3)
+```json
+{
+  "batch_id": "msgbatch_…",
+  "expected_answer": "16",
+  "extracted_answer": "16",
+  "format": "abc",
+  "is_correct": true,
+  "model": "claude-opus-4-7",
+  "num_measures": 1,
+  "passage_id": "P-001",
+  "qtype": 1,
+  "question_text": "How many notes are in the lower staff …",
+  "raw_response": "{\"answer\":\"16\"}",
+  "source_log": "outputs/phase6_1bar_abc/claude-opus-4-7/abc/Q-001_r1.json",
+  "timestamp": "2026-04-24T00:57:19.730207"
+}
+```
 
-Piano Sonata No. 15 has a unique history:
-- **Movements 1-2** (K. 533): Composed in 1788
-- **Movement 3**: Originally K. 494 (Rondo in F), composed separately in 1786
+## Models evaluated
 
-Mozart later revised and lengthened K. 494 to serve as the finale of K. 533 in 1788, creating "K. 533/494". However:
-- The **standalone original K. 494** (1786 version) is not available in digital encoding formats in our sources
-- The **revised/lengthened version** used in K. 533/494 is also not available separately
-- Currently, **only movements 1-2** of Sonata No. 15 are included (files `15-1` and `15-2`)
+Three reasoning-class models, called via each provider's official SDK. The
+provider client code in [`src/llm_eval/`](src/llm_eval/) is the reference for
+exactly how each model was called (reasoning effort, JSON mode, batching).
 
-### Spurious Works Removed
+| Provider  | Model                       | Reasoning effort | Notes |
+|-----------|-----------------------------|------------------|-------|
+| OpenAI    | `gpt-5.4`                   | `high`           | Responses API, batch mode |
+| Anthropic | `claude-opus-4-7`           | `high`           | Streaming required for ≥128k output; batch mode |
+| Google    | `gemini-3.1-pro-preview`    | (default)        | Batch mode |
 
-**K. Anh. 136** (formerly "Sonata No. 16 in B-flat major" in some older numberings) has been removed from this collection. This work was once attributed to Mozart but is now known to be composed by August Eberhard Müller (1767-1817). It appears in the Köchel catalog appendix (Anhang) for spurious works.
-
-### Format Consistency
-
-All directories contain the same set of authentic Mozart sonatas where available, with consistent numbering across formats. The Humdrum collection is missing Sonatas 15 and 17, while LilyPond is a partial collection.
-
-## License
-
-[Add your license here]
-
-## Acknowledgments
-
-Mozart piano sonata encodings sourced from various public repositories and encoding projects.
+Every cell was submitted at most once per model. Empty responses (timeouts,
+content-policy refusals, batch-side dropouts) are stored verbatim with an
+empty `extracted_answer` rather than retried.
