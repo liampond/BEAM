@@ -1,18 +1,20 @@
-"""
-LLM Evaluation Module
+"""LLM evaluation infrastructure (collection frozen).
 
-Infrastructure for evaluating LLM performance on music encoding comprehension tasks.
+The submission CLI / runner that produced beam.db has been archived under
+_archive/dead_src/llm_eval/. The modules kept here are the ones still
+imported by the answer-extraction tests and by analysis code that reads
+beam.db.
 
-Architecture:
-    - config.py: Configuration management with YAML support
-    - providers.py: LLM provider implementations with JSON mode support
-    - runner.py: Main evaluation runner (sync and batch modes)
-    - query.py: Database query builder for flexible test case selection
-    - results.py: Results storage, aggregation, and reporting
-    - batch.py: Batch API support for OpenAI and Anthropic
+    - config.py        YAML-backed BenchmarkConfig dataclasses
+    - providers.py     per-provider clients (sync send_prompt)
+    - batch.py         batch API submit / poll / fetch
+    - batch_storage.py crash-safe on-disk record of submitted batch IDs
+    - query.py         TestCaseQuery; reads the legacy template DB
+    - results.py       ResultsManager; writes the publication tree + beam.db
+    - evaluation.py    answer comparison + error categorisation
+    - save_response_pair.py  kwarg wrapper over ResultsManager.save_single_result
 """
 
 from .config import BenchmarkConfig
-from .runner import BenchmarkRunner
 
-__all__ = ["BenchmarkConfig", "BenchmarkRunner"]
+__all__ = ["BenchmarkConfig"]
