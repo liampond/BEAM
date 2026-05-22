@@ -142,7 +142,3 @@ exactly how each model was called (reasoning effort, JSON mode, batching).
 | OpenAI    | `gpt-5.4`                   | `high`           | Responses API, batch mode |
 | Anthropic | `claude-opus-4-7`           | `high`           | Streaming required for ≥128k output; batch mode |
 | Google    | `gemini-3.1-pro-preview`    | (default)        | Batch mode |
-
-Every cell was submitted at most once per model. Empty responses (timeouts,
-content-policy refusals, batch-side dropouts) are stored verbatim with an
-empty `extracted_answer` rather than retried.
